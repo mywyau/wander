@@ -85,9 +85,7 @@ export default function BusinessSignup() {
           onChange={(e) => setRole(e.target.value)}
           className="w-full p-3 border rounded"
         >
-          <option value="user">User</option>
           <option value="business">Business</option>
-          <option value="admin">Admin</option>
         </select>
 
         {/* Display error message if any */}
