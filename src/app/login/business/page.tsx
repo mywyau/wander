@@ -72,7 +72,7 @@ export default function BusinessLogin() {
       </form>
       <p className="mt-4">
         Don't have a business account?{" "}
-        <a href="/signup/business" className="text-green-500 hover:underline">
+        <a href="/business/signup" className="text-green-500 hover:underline">
           Sign up here
         </a>
       </p>
