@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SearchPage() {
+  
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 

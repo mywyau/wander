@@ -1,68 +1,60 @@
 // pages/api/auth/[...nextauth].ts
+
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import FacebookProvider from "next-auth/providers/facebook";
 import TwitterProvider from "next-auth/providers/twitter";
-import { UserRole } from "../../../../../next-auth";
-import { PrismaClient } from "@prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from "@prisma/client";
+import { compare } from "bcryptjs"; // Ensure bcryptjs is installed
+import { UserRole } from "../../../../../next-auth";
 
+// Initialize Prisma Client
 const prisma = new PrismaClient();
 
-// Define and export `authOptions`
 export const authOptions: NextAuthOptions = {
   providers: [
+    // Credentials Provider for Local Authentication
     CredentialsProvider({
-      name: "Credentials",
+      name: "Email and Password",
       credentials: {
         email: { label: "Email", type: "text", placeholder: "jsmith@example.com" },
         password: { label: "Password", type: "password" },
       },
-      
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        // Find user in your database
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
+        const user = await prisma.user.findUnique({ where: { email: credentials.email } });
+        if (!user) throw new Error("No user found with the entered email.");
 
-        if (!user) {
-          throw new Error("No user found with the entered email.");
-        }
-
-        // Compare provided password with stored hashed password
         const isPasswordValid = await compare(credentials.password, user.password);
-        if (!isPasswordValid) {
-          throw new Error("Incorrect password.");
-        }
+        if (!isPasswordValid) throw new Error("Incorrect password.");
 
-        // Return user data if authentication is successful
         return { id: user.id, name: user.name, email: user.email };
       },
     }),
+    // Credentials Provider for External Scala Backend Authentication
     CredentialsProvider({
-      name: "Credentials",
+      name: "Username and Password",
       credentials: {
         username: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch("http://localhost:8080/cashew/login", {  //TODO: Scala BE
+        const response = await fetch("http://localhost:8080/cashew/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(credentials),
         });
-        const user = await res.json();
 
-        if (res.ok && user) {
-          return user; // Return user data if successful
-        } else {
-          throw new Error("Invalid credentials");
-        }
+        const user = await response.json();
+        if (response.ok && user) return user;
+
+        throw new Error("Invalid credentials");
       },
     }),
+    // Social Providers
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
@@ -81,11 +73,13 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    // Attach user ID and role to session
     async session({ session, token }) {
       session.user.id = token.id as string;
       session.user.role = token.role as UserRole;
       return session;
     },
+    // Attach user ID and role to token for JWT-based sessions
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -99,5 +93,4 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-// Use `authOptions` with `NextAuth` and export as default
 export default NextAuth(authOptions);

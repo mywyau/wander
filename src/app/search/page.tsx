@@ -10,9 +10,11 @@ export default function SearchPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const trimmedQuery = searchQuery.trim();
+
     // Redirect to the results page with the search query as a URL parameter
-    if (searchQuery.trim()) {
-      router.push(`/results?location=${encodeURIComponent(searchQuery)}`);
+    if (trimmedQuery) {
+      router.push(`/results?location=${encodeURIComponent(trimmedQuery)}`);
     }
   };
 

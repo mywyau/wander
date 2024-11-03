@@ -1,7 +1,6 @@
-// packages/tests/src/__tests__/Button.test.tsx
+// src/tests/__tests__/Button.test.tsx
 import Button from "@/components/Button";
 import { render, screen, fireEvent } from "@testing-library/react";
-
 
 describe("Button component", () => {
   it("renders with the correct label", () => {

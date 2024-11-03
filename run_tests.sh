@@ -6,6 +6,14 @@
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR" || exit
 
-# Run Jest specifically targeting the src/tests/__tests__ directory
-echo "Running tests in src/tests/__tests__..."
-npx jest src/tests/__tests__ --config jest.config.js --passWithNoTests "$@"
+# Determine if a specific test file was passed as an argument
+if [ -n "$1" ]; then
+  TEST_FILE="$1"
+  echo "Running a single test: $TEST_FILE"
+else
+  TEST_FILE="src/tests/__tests__"
+  echo "Running all tests in src/tests/__tests__..."
+fi
+
+# Run Jest with the target file or directory and pass any additional arguments
+npx jest "$TEST_FILE" --config jest.config.js --passWithNoTests "${@:2}"
