@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function BusinessSignup() {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -22,7 +23,7 @@ export default function BusinessSignup() {
     }
 
     // try {
-      
+
     //   // Call an API route to handle the signup logic
     //   const res = await fetch("/api/business/signup", {
     //     method: "POST",
@@ -78,8 +79,6 @@ export default function BusinessSignup() {
           className="w-full p-3 border rounded"
           required
         />
-        
-        {/* Role selection */}
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
@@ -88,7 +87,6 @@ export default function BusinessSignup() {
           <option value="user">Wanderer</option>
         </select>
 
-        {/* Display error message if any */}
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
