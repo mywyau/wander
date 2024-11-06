@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/login/wanderer", // Customize login page if necessary
+    signIn: "/wanderer/login", // Customize login page if necessary
   },
 };
 

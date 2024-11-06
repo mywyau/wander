@@ -12,11 +12,11 @@ export default function LoginSelectionPage() {
             <p className="text-lg mb-4">Please select your login type:</p>
 
             <div className="space-y-4">
-                <Link className="block w-48 text-center py-3 px-6 rounded bg-blue-500 text-white hover:bg-blue-600" href="/login/wanderer">
+                <Link className="block w-48 text-center py-3 px-6 rounded bg-blue-500 text-white hover:bg-blue-600" href="/wanderer/login">
                     User Login
                 </Link>
 
-                <Link className="block w-48 text-center py-3 px-6 rounded bg-green-500 text-white hover:bg-green-600" href="/login/business">
+                <Link className="block w-48 text-center py-3 px-6 rounded bg-green-500 text-white hover:bg-green-600" href="/business/login">
                     Business Login
                 </Link>
             </div>
