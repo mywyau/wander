@@ -1,57 +1,17 @@
 // Import required libraries and initialize Prisma client for DB operations
+import { PrismaClient } from "@prisma/client";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import { PrismaClient } from "@prisma/client";
-import { compare } from "bcryptjs";
+import GoogleProvider from "next-auth/providers/google";
 
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    // 1. Local Database Authentication using Email/Password with Prisma
-    // CredentialsProvider({
-    //   name: "Email and Password",
-    //   credentials: {
-    //     email: { label: "Email", type: "text", placeholder: "jsmith@example.com" },
-    //     password: { label: "Password", type: "password" },
-    //   },
-    //   async authorize(credentials) {
-    //     console.log("Received credentials for local authentication:", credentials);
-
-    //     if (!credentials?.email || !credentials?.password) {
-    //       console.error("Email or password is missing.");
-    //       return null;
-    //     }
-
-    //     try {
-    //       // Fetch the user from the database
-    //       const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-    //       if (!user) {
-    //         console.error("No user found with the entered email.");
-    //         throw new Error("No user found with the entered email.");
-    //       }
-
-    //       // Compare password hashes
-    //       const isPasswordValid = await compare(credentials.password, user.password);
-    //       if (!isPasswordValid) {
-    //         console.error("Incorrect password provided.");
-    //         throw new Error("Incorrect password.");
-    //       }
-
-    //       console.log("User authenticated successfully:", user);
-    //       return { id: user.id, name: user.name, email: user.email };
-
-    //     } catch (error) {
-    //       console.error("Error during local authentication:", error);
-    //       throw error;
-    //     }
-    //   },
-    // }),
-
-    // 2. Custom Authentication to Your Scala Backend
+    // Custom Authentication to Your Scala Backend
     CredentialsProvider({
+      id: "scala-backend-credentials",
       name: "Username and Password",
       credentials: {
         username: { label: "Username", type: "text" },
@@ -66,7 +26,6 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          // Send credentials to your Scala backend for verification
           const response = await fetch("http://localhost:8080/cashew/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -76,7 +35,6 @@ export const authOptions: NextAuthOptions = {
             }),
           });
 
-          // Log response status
           console.log("Scala backend response status:", response.status);
 
           if (!response.ok) {
@@ -84,11 +42,15 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Invalid credentials");
           }
 
-          // Parse the response and return the user object
           const user = await response.json();
           console.log("User authenticated successfully from Scala backend:", user);
 
-          return user || null;
+          return {
+            userId: user.userId,           // Ensure field names match your JWT callback usage
+            username: user.username,
+            email: user.email,
+            role: user.role,
+          };
 
         } catch (error) {
           console.error("Error during Scala backend authentication:", error);
@@ -97,7 +59,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
 
-    // 3. OAuth Providers (e.g., Google, GitHub)
+    // OAuth Providers (e.g., Google, GitHub)
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
@@ -107,12 +69,21 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
     }),
   ],
-
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",  // Use JWT sessions if not using database sessions
+    maxAge: 24 * 60 * 60, // 24 hours in seconds
+  },
+  jwt: {
+    maxAge: 24 * 60 * 60, // 24 hours in seconds
+  },
   callbacks: {
     // Callback when session is fetched; adds user info to the session
     async session({ session, token }) {
       console.log("Session callback called with token:", token);
-      session.user.id = token.id as string;
+      session.user.userId = token.id as string;
+      session.user.username = token.username;
+      session.user.email = token.email;
       session.user.role = token.role;
       console.log("Updated session:", session);
       return session;
@@ -121,8 +92,11 @@ export const authOptions: NextAuthOptions = {
     // Callback when JWT is created/updated
     async jwt({ token, user }) {
       console.log("JWT callback called. Token:", token, "User:", user);
+
       if (user) {
-        token.id = user.id;
+        token.id = user.userId;               // Ensure `userId` matches token.id
+        token.username = user.username;
+        token.email = user.email;
         token.role = user.role;
         console.log("Updated JWT token:", token);
       }

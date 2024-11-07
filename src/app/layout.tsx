@@ -2,6 +2,8 @@ import Navbar from "@/components/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
+import AuthProvider from "@/components/AuthProvider";
 
 // Load local fonts with correct formats and variable usage
 const geistSans = localFont({
@@ -66,6 +68,7 @@ export default function RootLayout({
             </a>
           </nav> */}
         </header>
+        <AuthProvider>
         <Navbar /> {/* Add the Navbar here */}
         <main className="container mx-auto min-h-screen">
           {children} {/* Page content */}
@@ -73,6 +76,7 @@ export default function RootLayout({
         <footer className="container mx-auto py-4">
           <p>&copy; {new Date().getFullYear()} Wander. All rights reserved.</p>
         </footer>
+        </AuthProvider>
       </body>
     </html>
   );

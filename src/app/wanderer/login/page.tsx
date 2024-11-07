@@ -25,7 +25,7 @@ export default function Login() {
 
     try {
       console.log("Sending signIn request with credentials...");
-      const result = await signIn("credentials", {
+      const result = await signIn("scala-backend-credentials", {
         redirect: false,
         username, // Using "username" here for Scala backend
         password,
