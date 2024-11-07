@@ -5,31 +5,40 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-
     e.preventDefault();
 
-    if (!email || !password) {
-      setError("Please enter both email and password.");
+    console.log("Attempting to submit login form...");
+
+    if (!username || !password) {
+      console.log("Validation failed: Missing username or password.");
+      setError("Please enter both username and password.");
       return;
     }
 
+    console.log("Form data:", { username, password });
+
     try {
+      console.log("Sending signIn request with credentials...");
       const result = await signIn("credentials", {
         redirect: false,
-        email,
+        username, // Using "username" here for Scala backend
         password,
       });
 
+      console.log("SignIn result:", result);
+
       if (result && !result.error) {
-        router.push("/dashboard");
+        console.log("Sign-in successful, redirecting to /wanderer/home...");
+        router.push("/wanderer/home");
       } else {
-        setError("Invalid email or password");
+        console.warn("Sign-in failed:", result?.error);
+        setError("Invalid username or password");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -38,8 +47,11 @@ export default function Login() {
   };
 
   const handleProviderSignIn = async (provider: string) => {
+    console.log(`Attempting to sign in with ${provider}...`);
+
     try {
-      await signIn(provider, { callbackUrl: "/dashboard" });
+      await signIn(provider, { callbackUrl: "/" });
+      console.log(`${provider} sign-in successful.`);
     } catch (error) {
       console.error(`Sign-in error with ${provider}:`, error);
       setError(`An error occurred with ${provider} sign-in. Please try again.`);
@@ -51,10 +63,10 @@ export default function Login() {
       <h1 className="text-3xl font-bold mb-6">Login</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="w-full p-3 border rounded"
           required
         />
@@ -77,7 +89,7 @@ export default function Login() {
         </button>
       </form>
 
-      {/* Sign in with Providers */}
+      {/* Sign in with Social Providers */}
       <div className="mt-6 w-full max-w-md space-y-4">
         <button
           onClick={() => handleProviderSignIn("google")}

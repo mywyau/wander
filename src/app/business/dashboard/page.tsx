@@ -4,7 +4,7 @@ import AddWorkspaceForm from "@/components/BusinessDashboardAddWorkspaceForm";
 import { hasPermission } from "@/lib.js/roles";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import { authOptions } from "../../api/auth/[...nextauth]/routes"; // Adjust the path to your NextAuth options
+import { authOptions } from "../../api/auth/[...nextauth]/[...nextauth]"; // Adjust the path to your NextAuth options
 
 export const dynamic = "force-dynamic";
 
