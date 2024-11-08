@@ -98,13 +98,7 @@ export default function Login() {
         >
           Sign in with Google
         </button>
-        <button
-          onClick={() => handleProviderSignIn("github")}
-          className="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-900 transition-colors"
-        >
-          Sign in with GitHub
-        </button>
-        <button
+        {/* <button
           onClick={() => handleProviderSignIn("facebook")}
           className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition-colors"
         >
@@ -115,13 +109,19 @@ export default function Login() {
           className="w-full bg-blue-400 text-white py-3 rounded hover:bg-blue-500 transition-colors"
         >
           Sign in with Twitter
-        </button>
+        </button> */}
       </div>
 
       <p className="mt-4">
         Don't have an account?{" "}
         <a href="/wanderer/signup" className="text-blue-500 hover:underline">
           Sign up here
+        </a>
+      </p>
+      <p className="mt-4">
+        Want to register as a Business?{" "}
+        <a href="/business/signup" className="text-blue-500 hover:underline">
+          Register  here
         </a>
       </p>
     </div>

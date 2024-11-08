@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function BusinessSignup() {
   const [email, setEmail] = useState("");
@@ -66,7 +65,7 @@ export default function BusinessSignup() {
         // } else {
         //   router.push("/wanderer/home"); // Redirect to login page if sign-in fails
         // }
-        
+
         router.push("/wanderer/home"); // Redirect to dashboard after successful login
       } else {
         // Capture and log error message from the server

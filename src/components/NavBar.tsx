@@ -2,8 +2,8 @@
 
 "use client";
 
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   const { data: session } = useSession(); // Access session data from next-auth
@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <nav className="bg-gray-50 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        
+
         {/* Logo or App Name */}
         <div className="text-2xl font-semibold">
           <Link href="/">Wander</Link>
@@ -32,11 +32,6 @@ export default function Navbar() {
           <li>
             <Link href="/contact" className="text-gray-700 hover:text-indigo-600">
               Contact
-            </Link>
-          </li>
-          <li>
-            <Link href="/user/access" className="text-gray-700 hover:text-indigo-600">
-              Register/Login
             </Link>
           </li>
           <li>
@@ -66,9 +61,23 @@ export default function Navbar() {
               </button>
             </>
           ) : (
-            <Link href="/user/access" className="text-blue-600 hover:text-blue-800">
-              Login
-            </Link>
+            <ul className="flex space-x-6">
+              <li>
+                <Link href="/login" className="text-blue-600 hover:text-blue-800">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link href="/wanderer/signup" className="text-blue-600 hover:text-blue-800">
+                  User Sign up
+                </Link>
+              </li>
+              <li>
+                <Link href="/business/signup" className="text-blue-600 hover:text-blue-800">
+                  Business Sign up
+                </Link>
+              </li>
+            </ul>
           )}
         </div>
       </div>
