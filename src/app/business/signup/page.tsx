@@ -1,53 +1,85 @@
 "use client";
 
-import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function BusinessSignup() {
-  const [email, setEmail] = useState("");
+
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("user"); // default to user role
-  const [error, setError] = useState(null);
+  const [email, setEmail] = useState(""); // default to empty email
+  const [role, setRole] = useState("Business"); // Default user role
+  const [error, setError] = useState<String>("");  // default error to empty string message
   const router = useRouter();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
-    if (!email || !password || !name) {
+    if (!email || !password || !username) {
       setError("Please fill in all required fields.");
       return;
     }
 
-    // try {
-      
-    //   // Call an API route to handle the signup logic
-    //   const res = await fetch("/api/business/signup", {
-    //     method: "POST",
-    //     body: JSON.stringify({ email, password, name, role }), // Include role
-    //     headers: { "Content-Type": "application/json" },
-    //   });
+    const user_id = username.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now(); // Example userId based on name and timestamp
+    const created_at = new Date().toISOString().slice(0, 19); // Generates ISO 8601 format without milliseconds
 
-    //   if (res.ok) {
-    //     // Automatically log in the user after signup
-    //     const signInResult = await signIn("credentials", { redirect: false, email, password });
+    // Log request details
+    console.log("Submitting signup request to backend:");
+    console.log("Endpoint:", "http://localhost:8080/cashew/register");
+    console.log("Payload:", {
+      user_id,
+      username: username,
+      password,
+      email,
+      role,
+      created_at,
+    });
 
-    //     if (signInResult && !signInResult.error) {
-    //       router.push("/dashboard"); // Redirect to dashboard after successful login
-    //     } else {
-    //       router.push("/api/auth/signin"); // Redirect to login page if sign-in fails
-    //     }
-    //   } else {
-    //     // Capture error message from the server
-    //     const errorData = await res.json();
-    //     setError(errorData.message || "Signup failed");
-    //   }
-    // } catch (error) {
-    //   console.error("Signup error:", error);
-    //   setError("An error occurred during signup. Please try again.");
-    // }
+    try {
+      // Call the backend API to handle signup
+      const res = await fetch("http://localhost:8080/cashew/register", {
+        method: "POST",
+        body: JSON.stringify({
+          user_id,
+          username: username,
+          password,
+          email,
+          role,
+          created_at,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      // Log the response status
+      console.log("Response Status:", res.status);
+
+      if (res.ok) {
+        // Log success message
+        console.log("User successfully created. Logging in...");
+
+        // // Automatically log in the user after signup
+        // const signInResult = await signIn("credentials", { redirect: false, email, password });
+
+        // if (signInResult && !signInResult.error) {
+        //   router.push("/wanderer/home"); // Redirect to dashboard after successful login
+        // } else {
+        //   router.push("/wanderer/home"); // Redirect to login page if sign-in fails
+        // }
+        
+        router.push("/business/dashboard"); // Redirect to dashboard after successful login
+      } else {
+        // Capture and log error message from the server
+        const errorData = await res.json();
+        console.error("Signup failed:", errorData);
+        setError(errorData.message || "Signup failed");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError("An error occurred during signup. Please try again.");
+    }
   };
 
   return (
@@ -56,9 +88,9 @@ export default function BusinessSignup() {
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
         <input
           type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="w-full p-3 border rounded"
           required
         />
@@ -78,22 +110,13 @@ export default function BusinessSignup() {
           className="w-full p-3 border rounded"
           required
         />
-        
-        {/* Role selection */}
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="w-full p-3 border rounded"
-        >
-          <option value="business">Business</option>
-        </select>
 
         {/* Display error message if any */}
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition-colors"
+          className="w-full bg-green-500 text-white py-3 rounded hover:bg-green-600 transition-colors"
         >
           Sign Up
         </button>

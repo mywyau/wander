@@ -7,21 +7,21 @@ import { useRouter } from "next/navigation";
 export default function BusinessSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [role, setRole] = useState("Wanderer"); // Default user role
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<String>("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
-    if (!email || !password || !name) {
+    if (!email || !password || !username) {
       setError("Please fill in all required fields.");
       return;
     }
 
-    const user_id = name.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now(); // Example userId based on name and timestamp
+    const user_id = username.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now(); // Example userId based on name and timestamp
     const created_at = new Date().toISOString().slice(0, 19); // Generates ISO 8601 format without milliseconds
 
     // Log request details
@@ -29,7 +29,7 @@ export default function BusinessSignup() {
     console.log("Endpoint:", "http://localhost:8080/cashew/register");
     console.log("Payload:", {
       user_id,
-      username: name,
+      username: username,
       password,
       email,
       role,
@@ -42,7 +42,7 @@ export default function BusinessSignup() {
         method: "POST",
         body: JSON.stringify({
           user_id,
-          username: name,
+          username: username,
           password,
           email,
           role,
@@ -86,9 +86,9 @@ export default function BusinessSignup() {
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
         <input
           type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="w-full p-3 border rounded"
           required
         />
