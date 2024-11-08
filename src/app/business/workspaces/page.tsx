@@ -28,10 +28,10 @@ export default async function BusinessDashboard() {
   return (
     <div className="min-h-screen p-6">
       <h1 className="text-3xl font-bold">
-        Welcome, 
+        Welcome 
         {/* {session.user?.name} */}
       </h1>
-      <p>This is your business dashboard. Here you can manage your workspaces.</p>
+      <p>Here you can add your workspaces.</p>
       <AddWorkspaceForm />
     </div>
   );

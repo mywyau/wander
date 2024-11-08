@@ -25,13 +25,13 @@ export default function DeveloperDashboard() {
             </Link>
           </li>
           <li>
-            <Link className="text-blue-500 hover:underline" href="/user/profile">
+            <Link className="text-blue-500 hover:underline" href="/wanderer/account/profile">
               Wanderer Profile
             </Link>
           </li>
           <li>
-            <Link className="text-blue-500 hover:underline" href="/business/dashboard">
-              Business Dashboard
+            <Link className="text-blue-500 hover:underline" href="/business/account/profile">
+              Business Profile
             </Link>
           </li>
           <li>

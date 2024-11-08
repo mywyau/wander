@@ -35,8 +35,8 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/business/dashboard" className="text-gray-700 hover:text-indigo-600">
-              Business Dashboard
+            <Link href="/business/workspaces" className="text-gray-700 hover:text-indigo-600">
+              Add a workspace
             </Link>
           </li>
           <li>
@@ -53,6 +53,15 @@ export default function Navbar() {
               <span className="text-gray-700">
                 Welcome, <strong>{session.user.username || session.user.email}</strong>
               </span>
+              <ul className="flex space-x-6">
+
+              <li>
+                <Link href="/wanderer/account/profile" className="text-blue-600 hover:text-blue-800">
+                  User profile
+                </Link>
+              </li>
+              </ul>
+
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
                 className="text-red-600 hover:text-red-800"
@@ -62,6 +71,11 @@ export default function Navbar() {
             </>
           ) : (
             <ul className="flex space-x-6">
+              <li>
+                <Link href="/wanderer/account/profile" className="text-blue-600 hover:text-blue-800">
+                  User profile
+                </Link>
+              </li>
               <li>
                 <Link href="/login" className="text-blue-600 hover:text-blue-800">
                   Login
