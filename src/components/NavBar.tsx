@@ -5,27 +5,21 @@ import { useState } from "react";
 
 export default function NavbarSidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
-  const [isCollapsed, setIsCollapsed] = useState(false); // State for collapsing sidebar content
 
   // Toggle sidebar visibility
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // Toggle sidebar collapse (to show/hide text)
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
   return (
     <>
       {/* Navbar */}
       <nav className="bg-white border-gray-200 dark:bg-gray-900 sticky top-0 z-50 w-full shadow-md">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Wander</span>
-          </a>
+        <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+          {/* Logo moved to the far left */}
+          <Link href="/" className="text-2xl font-semibold whitespace-nowrap dark:text-white">
+            Wander
+          </Link>
 
           {/* Hamburger Icon for Mobile */}
           <button
@@ -36,31 +30,76 @@ export default function NavbarSidebar() {
             aria-expanded={isSidebarOpen ? "true" : "false"}
           >
             <span className="sr-only">Open main menu</span>
-            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
             </svg>
           </button>
 
           {/* Links for Desktop */}
-          <div className={`w-full md:block md:w-auto ${isSidebarOpen ? 'block' : 'hidden'}`} id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <div
+            className={`w-full md:block md:w-auto ${isSidebarOpen ? "block" : "hidden"}`}
+            id="navbar-default"
+          >
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white hover:text-blue-700">Home</a>
+                <Link
+                  href="/"
+                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white hover:text-blue-700"
+                >
+                  Home
+                </Link>
               </li>
               <li>
-                <a href="/about" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white">About</a>
+                <Link
+                  href="/about"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  About
+                </Link>
               </li>
               <li>
-                <a href="/services" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white">Services</a>
+                <Link
+                  href="/services"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  Services
+                </Link>
               </li>
               <li>
-                <a href="/pricing" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white">Pricing</a>
+                <Link
+                  href="/pricing"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  Pricing
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white">Contact</a>
+                <Link
+                  href="/contact"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  Contact
+                </Link>
               </li>
               <li>
-                <a href="/login" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white">Login</a>
+                <Link
+                  href="/login"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  Login
+                </Link>
               </li>
             </ul>
           </div>
