@@ -97,7 +97,7 @@ export default function ProfilePage() {
               <ProfileSection title="Profile Picture">
                 <div className="flex items-center justify-center">
                   <img
-                    src="/path/to/profile-picture.jpg"
+                    src="../../../images/pepe_house.jpg"
                     alt="Profile Picture"
                     className="w-24 h-24 rounded-full border-2 border-blue-500 mr-4"
                   />

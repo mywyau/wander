@@ -1,9 +1,5 @@
-import Navbar from "@/components/NavBar";
-import Sidebar from "@/components/Sidebar";
-import { SessionProvider } from "next-auth/react";
-import AuthProvider from "@/components/AuthProvider";
-import localFont from "next/font/local";
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 
 // Load fonts
@@ -37,29 +33,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* You can include any meta tags or links that should apply globally */}
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
-      >
-        <AuthProvider>
-          {/* Overall Wrapper */}
-          <div className="flex flex-col min-h-screen">
-            {/* Navbar */}
-            <Navbar />
-            
-            <div className="flex flex-1">
-              {/* Sidebar */}
-              <Sidebar isOpen={true} />
-              
-              {/* Main content section */}
-              <main className="flex-1 container mx-auto p-4 mt-4">
-                {children} {/* Page content */}
-              </main>
-            </div>
-          </div>
-        </AuthProvider>
-      </body>
+      <body>{children}</body>
+      {/* <main className="flex-1 container mx-auto p-4 mt-4"> */}
+      {/* {children} Page content */}
+      {/* </main> */}
     </html>
   );
 }
