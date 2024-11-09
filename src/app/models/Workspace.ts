@@ -2,7 +2,11 @@
 
 export interface Workspace {
     name: string;
-    location: string;
+    street: string;
+    city: string;
+    state: string;
+    postcode: string;
+    priceModel:string
     hourPrice: number;
     dayPrice: number;
     weekPrice: number;

@@ -1,24 +1,24 @@
 import Navbar from "@/components/NavBar";
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
+import Sidebar from "@/components/Sidebar";
 import { SessionProvider } from "next-auth/react";
 import AuthProvider from "@/components/AuthProvider";
+import localFont from "next/font/local";
+import type { Metadata } from "next";
+import "./globals.css";
 
-// Load local fonts with correct formats and variable usage
+// Load fonts
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",  // Use woff2 for better performance
+  src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff", // Use woff2 for better performance
+  src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
 
-// Metadata for SEO and accessibility
 export const metadata: Metadata = {
   title: "Desk Booking App",
   description: "Easily book desks and workspaces with our intuitive platform.",
@@ -27,55 +27,37 @@ export const metadata: Metadata = {
     description: "Easily book desks and workspaces with our intuitive platform.",
     url: "https://your-app-url.com",
     siteName: "Desk Booking App",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Desk Booking App",
-      },
-    ],
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "Desk Booking App" }],
     locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Desk Booking App",
-    description: "Easily book desks and workspaces with our intuitive platform.",
-    images: ["/images/twitter-card.png"],
-  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Other meta tags for SEO, accessibility */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
       >
-        <header>
-          {/* Example: Global Navigation Bar
-          <nav className="container mx-auto py-4">
-            <a href="/" className="text-2xl font-bold">
-              Wander
-            </a>
-          </nav> */}
-        </header>
         <AuthProvider>
-        <Navbar /> {/* Add the Navbar here */}
-        <main className="container mx-auto min-h-screen">
-          {children} {/* Page content */}
-        </main>
-        <footer className="container mx-auto py-4">
-          <p>&copy; {new Date().getFullYear()} Wander. All rights reserved.</p>
-        </footer>
+          {/* Overall Wrapper */}
+          <div className="flex flex-col min-h-screen">
+            {/* Navbar */}
+            <Navbar />
+            
+            <div className="flex flex-1">
+              {/* Sidebar */}
+              <Sidebar isOpen={true} />
+              
+              {/* Main content section */}
+              <main className="flex-1 container mx-auto p-4 mt-4">
+                {children} {/* Page content */}
+              </main>
+            </div>
+          </div>
         </AuthProvider>
       </body>
     </html>
