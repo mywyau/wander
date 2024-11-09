@@ -36,9 +36,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* You can include any meta tags or links that should apply globally */}
       </head>
       <body>{children}</body>
-      {/* <main className="flex-1 container mx-auto p-4 mt-4"> */}
-      {/* {children} Page content */}
-      {/* </main> */}
     </html>
   );
 }

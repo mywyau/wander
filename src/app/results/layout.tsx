@@ -1,8 +1,9 @@
-// app/profile/layout.tsx
+// app/SearchResults/layout.tsx
 import React from 'react';
 
 import AuthProvider from "@/components/AuthProvider";
 import Navbar from "@/components/NavBar";
+import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
@@ -35,32 +36,27 @@ export const metadata: Metadata = {
 };
 
 
-interface ProfileLayoutProps {
+interface SearchResultsLayoutProps {
   children: React.ReactNode;
 }
 
-const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
-  return (
-    <div>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
-      >
+const SearchResultsLayout: React.FC<SearchResultsLayoutProps> = ({ children }) => {
+    return (
+      <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
         <AuthProvider>
-          {/* Overall Wrapper */}
           <div className="flex flex-col min-h-screen">
             <Navbar />
-
-            <main className="flex-1 container mx-auto p-4 mt-4">
-              {children} {/* Page content */}
-            </main>
+            <div className="flex flex-1">
+              <Sidebar isOpen={true} />
+              <main className="flex-1 container mx-auto p-4 mt-4">
+                {children} {/* Page content */}
+              </main>
+            </div>
           </div>
         </AuthProvider>
-      </body>
-    </div>
-  );
-};
+      </div>
+    );
+  };
+  
 
-export default ProfileLayout;
+export default SearchResultsLayout;
