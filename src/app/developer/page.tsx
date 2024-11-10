@@ -20,31 +20,6 @@ export default function DeveloperDashboard() {
 
         <ul className="space-y-4">
           <li>
-            <Link className="text-blue-500 hover:underline" href="/wanderer/home">
-              Wanderer Home Page
-            </Link>
-          </li>
-          <li>
-            <Link className="text-blue-500 hover:underline" href="/wanderer/account/profile">
-              Wanderer Profile
-            </Link>
-          </li>
-          <li>
-            <Link className="text-blue-500 hover:underline" href="/business/account/profile">
-              Business Profile
-            </Link>
-          </li>
-          <li>
-            <Link className="text-blue-500 hover:underline" href="/admin/dashboard">
-              Admin Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link className="text-blue-500 hover:underline" href="/time-selection">
-              Time slot selection
-            </Link>
-          </li>
-          <li>
             <Link className="text-blue-500 hover:underline" href="/debug">
               Debug Page
             </Link>
@@ -62,11 +37,6 @@ export default function DeveloperDashboard() {
       <section className="mb-8">
         <h2 className="text-xl font-semibold">Utility Links</h2>
         <ul className="space-y-4">
-          <li>
-            <Link className="text-blue-500 hover:underline" href="/api/auth/signin">
-              Login
-            </Link>
-          </li>
           <li>
             <Link className="text-blue-500 hover:underline" href="/api/auth/signout">
               Logout
