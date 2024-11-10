@@ -12,13 +12,15 @@ interface User {
   address: {
     street: string;
     city: string;
-    state: string;
+    country: string;
+    county: string;
     postcode: string;
   };
-  createdAt: string;
   lastLogin: string;
   lastAddressUpdate: string;
   lastPasswordChange: string;
+  createdAt: string;
+
 }
 
 const mockUserData: User = {
@@ -31,7 +33,8 @@ const mockUserData: User = {
   address: {
     street: '123 Main St',
     city: 'Anytown',
-    state: 'CA',
+    country: 'United Kingdom',
+    county: 'south glamorgan',
     postcode: '12345',
   },
   createdAt: "2022-01-01T10:00:00Z",
@@ -221,11 +224,23 @@ export default function ProfilePage() {
                 />
               </div>
               <div>
-                <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">Country</label>
                 <input
                   type="text"
-                  id="state"
-                  value={userData.address.state}
+                  id="country"
+                  value={userData.address.country}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                  required
+                  disabled={!isEditing}
+                />
+              </div>
+              <div>
+                <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">County</label>
+                <input
+                  type="text"
+                  id="county"
+                  value={userData.address.county}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md"
                   required
