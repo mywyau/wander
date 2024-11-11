@@ -45,7 +45,7 @@ export default function BusinessSignup() {
           password,
           email,
           role,
-          created_at,
+          created_at
         }),
         headers: { "Content-Type": "application/json" },
       });
