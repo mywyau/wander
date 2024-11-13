@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Sidebar({ isOpen }: { isOpen: boolean }) {
-    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
 
     // Toggle collapse state
     const toggleCollapse = () => {
