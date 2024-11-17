@@ -29,6 +29,7 @@ export default function BusinessSignup() {
 
     const user_id = username.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now();
     const created_at = new Date().toISOString().slice(0, 19);
+    const updated_at = new Date().toISOString().slice(0, 19);
 
     try {
       // Clear previous field-specific errors
@@ -45,7 +46,8 @@ export default function BusinessSignup() {
           password,
           email,
           role,
-          created_at
+          created_at,
+          updated_at
         }),
         headers: { "Content-Type": "application/json" },
       });
