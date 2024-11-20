@@ -27,9 +27,9 @@ export default function BusinessSignup() {
       return;
     }
 
-    const user_id = username.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now();
-    const created_at = new Date().toISOString().slice(0, 19);
-    const updated_at = new Date().toISOString().slice(0, 19);
+    const userId = username.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now();
+    const createdAt = new Date().toISOString().slice(0, 19);
+    const updatedAt = new Date().toISOString().slice(0, 19);
 
     try {
       // Clear previous field-specific errors
@@ -41,13 +41,13 @@ export default function BusinessSignup() {
       const res = await fetch("http://localhost:8080/cashew/register", {
         method: "POST",
         body: JSON.stringify({
-          user_id,
+          userId,
           username,
           password,
           email,
           role,
-          created_at,
-          updated_at
+          createdAt,
+          updatedAt
         }),
         headers: { "Content-Type": "application/json" },
       });
