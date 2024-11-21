@@ -176,7 +176,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <Link
           href="/dashboard/book-desk"
           className="block bg-blue-500 text-white text-center py-4 px-6 rounded-lg shadow hover:bg-blue-600"
@@ -195,7 +195,7 @@ const DashboardPage = () => {
         >
           View Past Bookings
         </Link>
-      </div>
+      </div> */}
 
       {/* Side-by-Side Booking Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

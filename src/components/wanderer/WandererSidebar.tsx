@@ -69,14 +69,6 @@ export default function Sidebar({ isOpen }: { isOpen: boolean }) {
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Profile</span>
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            href="/logout"
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-red-700"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Logout</span>
-                        </Link>
-                    </li>
                 </ul>
             </div>
         </aside>

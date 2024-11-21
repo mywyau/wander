@@ -1,14 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import {
-  User,
-  UserLoginDetails,
-  UserPersonalDetails,
-  UserAddress,
   UpdatedUserRequest,
+  User
 } from "@/types/user";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 
 const ProfileSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -61,17 +58,17 @@ export default function ProfilePage() {
     setUserData((prevData) =>
       prevData
         ? {
-            ...prevData,
-            userLoginDetails: id.startsWith("login.")
-              ? { ...prevData.userLoginDetails, [id.split(".")[1]]: value }
-              : prevData.userLoginDetails,
-            userPersonalDetails: id.startsWith("personal.")
-              ? { ...prevData.userPersonalDetails, [id.split(".")[1]]: value }
-              : prevData.userPersonalDetails,
-            userAddress: id.startsWith("address.")
-              ? { ...prevData.userAddress, [id.split(".")[1]]: value }
-              : prevData.userAddress,
-          }
+          ...prevData,
+          userLoginDetails: id.startsWith("login.")
+            ? { ...prevData.userLoginDetails, [id.split(".")[1]]: value }
+            : prevData.userLoginDetails,
+          userPersonalDetails: id.startsWith("personal.")
+            ? { ...prevData.userPersonalDetails, [id.split(".")[1]]: value }
+            : prevData.userPersonalDetails,
+          userAddress: id.startsWith("address.")
+            ? { ...prevData.userAddress, [id.split(".")[1]]: value }
+            : prevData.userAddress,
+        }
         : null
     );
   };
@@ -79,13 +76,13 @@ export default function ProfilePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-  
+
     if (!session?.user?.userId || !userData) {
       setMessage("User ID or data is missing.");
       console.error("Cannot submit: User ID or data is missing.");
       return;
     }
-  
+
     // Construct the UpdatedUserRequest payload
     const updatedUserRequest: UpdatedUserRequest = {
       loginDetails: {
@@ -98,23 +95,23 @@ export default function ProfilePage() {
         ...userData.userPersonalDetails,
       }
     };
-  
+
     // Remove `null`, `undefined`, or empty string fields
     const cleanRequest = JSON.parse(JSON.stringify(updatedUserRequest, (key, value) => {
       return value === null || value === undefined || value === "" ? undefined : value;
     }));
-  
+
     console.log("Cleaned UpdatedUserRequest payload:", cleanRequest); // Log cleaned payload
-  
+
     try {
       const res = await fetch(`http://localhost:8080/cashew/wanderer/user/profile/${session.user.userId}`, {
         method: "PUT",
         body: JSON.stringify(cleanRequest),
         headers: { "Content-Type": "application/json" },
       });
-  
+
       console.log("Submit response status:", res.status); // Log response status
-  
+
       if (res.ok) {
         const updatedData: User = await res.json();
         console.log("Updated user data:", updatedData); // Log updated user data
@@ -132,7 +129,7 @@ export default function ProfilePage() {
       setIsLoading(false);
     }
   };
-  
+
 
   if (status === "loading") return <p>Loading session...</p>;
   if (!session || !session.user || status === "unauthenticated") return <p>Please log in to view your profile.</p>;
@@ -242,28 +239,111 @@ export default function ProfilePage() {
                   disabled={!isEditing}
                 />
               </div>
+
               <div>
                 <label htmlFor="address.city" className="block text-sm font-medium text-gray-700 mb-1">City</label>
-                <input
-                  type="text"
+                <select
                   id="address.city"
                   value={userData.userAddress.city || ""}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md"
                   disabled={!isEditing}
-                />
+                >
+                  <option value="" disabled>Select a city</option>
+                  <option value="Aberdeen">Aberdeen</option>
+                  <option value="Armagh">Armagh</option>
+                  <option value="Bangor">Bangor</option>
+                  <option value="Bath">Bath</option>
+                  <option value="Belfast">Belfast</option>
+                  <option value="Birmingham">Birmingham</option>
+                  <option value="Bradford">Bradford</option>
+                  <option value="Brighton and Hove">Brighton and Hove</option>
+                  <option value="Bristol">Bristol</option>
+                  <option value="Cambridge">Cambridge</option>
+                  <option value="Canterbury">Canterbury</option>
+                  <option value="Cardiff">Cardiff</option>
+                  <option value="Carlisle">Carlisle</option>
+                  <option value="Chelmsford">Chelmsford</option>
+                  <option value="Chester">Chester</option>
+                  <option value="Chichester">Chichester</option>
+                  <option value="Coventry">Coventry</option>
+                  <option value="Derby">Derby</option>
+                  <option value="Derry">Derry</option>
+                  <option value="Dundee">Dundee</option>
+                  <option value="Durham">Durham</option>
+                  <option value="Edinburgh">Edinburgh</option>
+                  <option value="Ely">Ely</option>
+                  <option value="Exeter">Exeter</option>
+                  <option value="Glasgow">Glasgow</option>
+                  <option value="Gloucester">Gloucester</option>
+                  <option value="Hereford">Hereford</option>
+                  <option value="Inverness">Inverness</option>
+                  <option value="Kingston upon Hull">Kingston upon Hull</option>
+                  <option value="Lancaster">Lancaster</option>
+                  <option value="Leeds">Leeds</option>
+                  <option value="Leicester">Leicester</option>
+                  <option value="Lichfield">Lichfield</option>
+                  <option value="Lincoln">Lincoln</option>
+                  <option value="Lisburn">Lisburn</option>
+                  <option value="Liverpool">Liverpool</option>
+                  <option value="London">London</option>
+                  <option value="Manchester">Manchester</option>
+                  <option value="Newcastle upon Tyne">Newcastle upon Tyne</option>
+                  <option value="Newport">Newport</option>
+                  <option value="Norwich">Norwich</option>
+                  <option value="Nottingham">Nottingham</option>
+                  <option value="Oxford">Oxford</option>
+                  <option value="Perth">Perth</option>
+                  <option value="Peterborough">Peterborough</option>
+                  <option value="Plymouth">Plymouth</option>
+                  <option value="Portsmouth">Portsmouth</option>
+                  <option value="Preston">Preston</option>
+                  <option value="Ripon">Ripon</option>
+                  <option value="Salford">Salford</option>
+                  <option value="Salisbury">Salisbury</option>
+                  <option value="Sheffield">Sheffield</option>
+                  <option value="Southampton">Southampton</option>
+                  <option value="St Albans">St Albans</option>
+                  <option value="Stirling">Stirling</option>
+                  <option value="Stoke-on-Trent">Stoke-on-Trent</option>
+                  <option value="Sunderland">Sunderland</option>
+                  <option value="Swansea">Swansea</option>
+                  <option value="Truro">Truro</option>
+                  <option value="Wakefield">Wakefield</option>
+                  <option value="Wells">Wells</option>
+                  <option value="Westminster">Westminster</option>
+                  <option value="Winchester">Winchester</option>
+                  <option value="Wolverhampton">Wolverhampton</option>
+                  <option value="Worcester">Worcester</option>
+                  <option value="York">York</option>
+                </select>
               </div>
+
+
               <div>
                 <label htmlFor="address.country" className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                <input
-                  type="text"
+                <select
                   id="address.country"
                   value={userData.userAddress.country || ""}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md"
                   disabled={!isEditing}
-                />
+                >
+                  <option value="" disabled>Select a country</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Brazil">Brazil</option>
+                  <option value="Canada">Canada</option>
+                  <option value="China">China</option>
+                  <option value="Germany">Germany</option>
+                  <option value="France">France</option>
+                  <option value="India">India</option>
+                  <option value="Japan">Japan</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="United States">United States</option>
+                  {/* Add more countries as needed */}
+                </select>
               </div>
+
               <div>
                 <label htmlFor="address.county" className="block text-sm font-medium text-gray-700 mb-1">County</label>
                 <input
@@ -286,17 +366,15 @@ export default function ProfilePage() {
                   disabled={!isEditing}
                 />
               </div>
-              
+
               {/* Add more fields for address */}
             </ProfileSection>
-            
 
             <div className="col-span-full">
               <button
                 type="submit"
-                className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 ${
-                  isLoading ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                 disabled={isLoading || !isEditing}
               >
                 {isLoading ? "Saving..." : "Save Changes"}
