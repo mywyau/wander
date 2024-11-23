@@ -20,7 +20,7 @@ interface Booking {
 const DashboardPage = () => {
 
 
-  const userName = "John Doe"; // Replace with dynamic user data if available
+  const userName = "Business John Doe"; // Replace with dynamic user data if available
   const [upcomingBookings, setUpcomingBookings] = useState<Booking[]>([
     {
       id: 1,
@@ -172,11 +172,12 @@ const DashboardPage = () => {
       {/* Hero Section */}
       <div className="bg-white shadow-md p-6 rounded-lg mb-6">
         <h1 className="text-2xl font-bold">Welcome back, {userName}!</h1>
-        <p className="text-gray-600 mt-2">Here’s a quick overview of your account and upcoming bookings.</p>
+        <p className="text-gray-600 mt-2">Here’s a quick overview of your account.</p>
       </div>
 
       {/* Side-by-Side Booking Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
         {/* Desk Bookings Section */}
         <div className="bg-white shadow-md p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Upcoming Desk Bookings</h2>
@@ -297,6 +298,7 @@ const DashboardPage = () => {
           ) : (
             <p className="text-gray-600">You have no upcoming meeting room bookings.</p>
           )}
+        
         </div>
       </div>
     </div>

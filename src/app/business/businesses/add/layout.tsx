@@ -7,6 +7,7 @@ import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../../../globals.css";
+import BusinessSidebar from '@/components/business/BusinessSidebar';
 
 // Load fonts
 const geistSans = localFont({
@@ -47,7 +48,7 @@ const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children 
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex flex-1">
-              <Sidebar isOpen={true} />
+              <BusinessSidebar isOpen={true} />
               <main className="flex-1 container mx-auto p-4 mt-4">
                 {children} {/* Page content */}
               </main>

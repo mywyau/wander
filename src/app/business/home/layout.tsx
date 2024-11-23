@@ -1,4 +1,4 @@
-// app/BusinessProfile/layout.tsx
+// app/Home/layout.tsx
 import React from 'react';
 
 import AuthProvider from "@/components/AuthProvider";
@@ -6,18 +6,19 @@ import Navbar from "@/components/NavBar";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "../../../globals.css";
+import "../../globals.css";
+import WandererSidebar from '@/components/wanderer/WandererSidebar';
 import BusinessSidebar from '@/components/business/BusinessSidebar';
 
 // Load fonts
 const geistSans = localFont({
-  src: "../../../fonts/GeistVF.woff",
+  src: "../../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 
 const geistMono = localFont({
-  src: "../../../fonts/GeistVF.woff",
+  src: "../../fonts/GeistVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -37,11 +38,11 @@ export const metadata: Metadata = {
 };
 
 
-interface BusinessProfileLayoutProps {
+interface HomeLayoutProps {
   children: React.ReactNode;
 }
 
-const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children }) => {
+const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
     return (
       <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
         <AuthProvider>
@@ -60,4 +61,4 @@ const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children 
   };
   
 
-export default BusinessProfileLayout;
+export default HomeLayout;

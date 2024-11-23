@@ -23,19 +23,21 @@ export default function BusinessSignup() {
       return;
     }
 
-    const user_id = username.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now(); // Example userId based on name and timestamp
-    const created_at = new Date().toISOString().slice(0, 19); // Generates ISO 8601 format without milliseconds
+    const userId = username.toLowerCase().replace(/\s+/g, "_") + "_" + Date.now(); // Example userId based on name and timestamp
+    const createdAt = new Date().toISOString().slice(0, 19); // Generates ISO 8601 format without milliseconds
+    const updatedAt = new Date().toISOString().slice(0, 19); // Generates ISO 8601 format without milliseconds
 
     // Log request details
     console.log("Submitting signup request to backend:");
     console.log("Endpoint:", "http://localhost:8080/cashew/register");
     console.log("Payload:", {
-      user_id,
+      userId,
       username: username,
       password,
       email,
       role,
-      created_at,
+      createdAt,
+      updatedAt
     });
 
     try {
@@ -43,12 +45,13 @@ export default function BusinessSignup() {
       const res = await fetch("http://localhost:8080/cashew/register", {
         method: "POST",
         body: JSON.stringify({
-          user_id,
-          username: username,
+          userId,
+          username,
           password,
           email,
           role,
-          created_at,
+          createdAt,
+          updatedAt
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -69,7 +72,7 @@ export default function BusinessSignup() {
         //   router.push("/wanderer/home"); // Redirect to login page if sign-in fails
         // }
         
-        router.push("/business/dashboard"); // Redirect to dashboard after successful login
+        router.push("/business/home"); // Redirect to dashboard after successful login
       } else {
         // Capture and log error message from the server
         const errorData = await res.json();
