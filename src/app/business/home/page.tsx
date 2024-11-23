@@ -1,308 +1,111 @@
-"use client";
-
-import Link from "next/link";
-import { useState } from "react";
-
-interface Booking {
-  id: number;
-  type: "Desk" | "Meeting Room";
-  location: string;
-  time: string;
-  street: string;
-  city: string;
-  postcode: string;
-  contactNumber: string;
-  email: string;
-  company: string;
-  status: string; // "Active" or "Cancelled"
-}
-
-const DashboardPage = () => {
+"use client"
 
 
-  const userName = "Business John Doe"; // Replace with dynamic user data if available
-  const [upcomingBookings, setUpcomingBookings] = useState<Booking[]>([
-    {
-      id: 1,
-      type: "Desk",
-      location: "Office A",
-      time: "10:00 AM - 2:00 PM",
-      street: "123 Desk Lane",
-      city: "New York",
-      postcode: "10001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 2,
-      type: "Desk",
-      location: "Office A",
-      time: "10:00 AM - 2:00 PM",
-      street: "123 Desk Lane",
-      city: "New York",
-      postcode: "10001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 3,
-      type: "Desk",
-      location: "Office A",
-      time: "10:00 AM - 2:00 PM",
-      street: "123 Desk Lane",
-      city: "New York",
-      postcode: "10001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 4,
-      type: "Desk",
-      location: "Office A",
-      time: "10:00 AM - 2:00 PM",
-      street: "123 Desk Lane",
-      city: "New York",
-      postcode: "10001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 5,
-      type: "Desk",
-      location: "Office A",
-      time: "10:00 AM - 2:00 PM",
-      street: "123 Desk Lane",
-      city: "New York",
-      postcode: "10001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 6,
-      type: "Meeting Room",
-      location: "Room 4, Office B",
-      time: "2:30 PM - 4:30 PM",
-      street: "456 Meeting Ave",
-      city: "Los Angeles",
-      postcode: "90001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 7,
-      type: "Meeting Room",
-      location: "Room 4, Office B",
-      time: "2:30 PM - 4:30 PM",
-      street: "456 Meeting Ave",
-      city: "Los Angeles",
-      postcode: "90001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 8,
-      type: "Meeting Room",
-      location: "Room 4, Office B",
-      time: "2:30 PM - 4:30 PM",
-      street: "456 Meeting Ave",
-      city: "Los Angeles",
-      postcode: "90001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 9,
-      type: "Meeting Room",
-      location: "Room 4, Office B",
-      time: "2:30 PM - 4:30 PM",
-      street: "456 Meeting Ave",
-      city: "Los Angeles",
-      postcode: "90001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-    {
-      id: 10,
-      type: "Meeting Room",
-      location: "Room 4, Office B",
-      time: "2:30 PM - 4:30 PM",
-      street: "456 Meeting Ave",
-      city: "Los Angeles",
-      postcode: "90001",
-      contactNumber: "07402205071",
-      email: "capgemini@gmail.com",
-      company: "Capgemini",
-      status: "Active",
-    },
-  ]);
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from "chart.js";
 
-  const [confirmationBookingId, setConfirmationBookingId] = useState<number | null>(null);
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
-  const handleCancelBooking = (bookingId: number) => {
-    const updatedBookings = upcomingBookings.map((booking) =>
-      booking.id === bookingId ? { ...booking, status: "Cancelled" } : booking
-    );
-    setUpcomingBookings(updatedBookings);
-    setConfirmationBookingId(null); // Close confirmation prompt
+const Dashboard = () => {
+  // Stubbed data for analytics
+  const chartData = {
+    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    datasets: [
+      {
+        label: "Views",
+        data: [120, 200, 150, 80, 250, 300, 400],
+        borderColor: "#4F46E5",
+        backgroundColor: "rgba(79, 70, 229, 0.2)",
+        tension: 0.4,
+      },
+    ],
   };
 
-  const deskBookings = upcomingBookings.filter((booking) => booking.type === "Desk");
-  const meetingRoomBookings = upcomingBookings.filter((booking) => booking.type === "Meeting Room");
+  const inquiries = [
+    { id: 1, message: "Can I book this space for next week?", date: "2024-11-20" },
+    { id: 2, message: "Is parking available?", date: "2024-11-21" },
+  ];
+
+  const listings = [
+    { id: 1, name: "Modern Office Downtown", views: 320, inquiries: 10 },
+    { id: 2, name: "Cozy Coworking Space", views: 200, inquiries: 5 },
+  ];
 
   return (
-    <div>
-      {/* Hero Section */}
-      <div className="bg-white shadow-md p-6 rounded-lg mb-6">
-        <h1 className="text-2xl font-bold">Welcome back, {userName}!</h1>
-        <p className="text-gray-600 mt-2">Here’s a quick overview of your account.</p>
+    <div className="min-h-screen bg-gray-100 p-6">
+      {/* Header */}
+      <h1 className="text-3xl font-bold text-gray-800">Business Dashboard</h1>
+
+      {/* Overview Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+        <div className="bg-white shadow-md rounded-lg p-4">
+          <h2 className="text-gray-600">Total Listings</h2>
+          <p className="text-2xl font-semibold">{listings.length}</p>
+        </div>
+        <div className="bg-white shadow-md rounded-lg p-4">
+          <h2 className="text-gray-600">Total Views</h2>
+          <p className="text-2xl font-semibold">
+            {listings.reduce((sum, listing) => sum + listing.views, 0)}
+          </p>
+        </div>
+        <div className="bg-white shadow-md rounded-lg p-4">
+          <h2 className="text-gray-600">Total Inquiries</h2>
+          <p className="text-2xl font-semibold">
+            {listings.reduce((sum, listing) => sum + listing.inquiries, 0)}
+          </p>
+        </div>
+        <div className="bg-white shadow-md rounded-lg p-4">
+          <h2 className="text-gray-600">Active Listings</h2>
+          <p className="text-2xl font-semibold">{listings.length}</p>
+        </div>
       </div>
 
-      {/* Side-by-Side Booking Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Analytics Section */}
+      <div className="bg-white shadow-md rounded-lg p-6 mt-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Analytics Overview</h2>
+        <Line data={chartData} />
+      </div>
 
-        {/* Desk Bookings Section */}
-        <div className="bg-white shadow-md p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Upcoming Desk Bookings</h2>
-          {deskBookings.length > 0 ? (
-            <ul className="divide-y divide-gray-200">
-              {deskBookings.map((booking) => (
-                <li key={booking.id} className="py-4 flex justify-between">
-                  <div>
-                    <p className="font-medium">{booking.location}</p>
-                    <p className="text-gray-500 text-sm">{booking.time}</p>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-600">Street: {booking.street}</p>
-                      <p className="text-sm text-gray-600">City: {booking.city}</p>
-                      <p className="text-sm text-gray-600">Postcode: {booking.postcode}</p>
-                    </div>
-                    <p className={`text-sm font-bold mt-2 ${booking.status === "Cancelled" ? "text-red-500" : "text-green-500"}`}>
-                      {booking.status}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">Contact: {booking.contactNumber}</p>
-                    <p className="text-sm text-gray-600">Email: {booking.email}</p>
-                    <p className="text-sm text-gray-600">Company: {booking.company}</p>
-                    {booking.status === "Active" && (
-                      <div className="mt-2">
-                        {confirmationBookingId === booking.id ? (
-                          <div className="flex items-center gap-4">
-                            <button
-                              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                              onClick={() => handleCancelBooking(booking.id)}
-                            >
-                              Yes, Cancel
-                            </button>
-                            <button
-                              className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
-                              onClick={() => setConfirmationBookingId(null)}
-                            >
-                              No
-                            </button>
-                          </div>
-                        ) : (
-                          <button
-                            className="text-red-600 hover:underline"
-                            onClick={() => setConfirmationBookingId(booking.id)}
-                          >
-                            Cancel
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-600">You have no upcoming desk bookings.</p>
-          )}
+      {/* Listings Section */}
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Listings</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {listings.map((listing) => (
+            <div
+              key={listing.id}
+              className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center"
+            >
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">{listing.name}</h3>
+                <p className="text-gray-600">Views: {listing.views}</p>
+                <p className="text-gray-600">Inquiries: {listing.inquiries}</p>
+              </div>
+              <button className="text-blue-600 hover:underline">Manage</button>
+            </div>
+          ))}
         </div>
+      </div>
 
-        {/* Meeting Room Bookings Section */}
-        <div className="bg-white shadow-md p-6 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Upcoming Meeting Room Bookings</h2>
-          {meetingRoomBookings.length > 0 ? (
-            <ul className="divide-y divide-gray-200">
-              {meetingRoomBookings.map((booking) => (
-                <li key={booking.id} className="py-4 flex justify-between">
-                  <div>
-                    <p className="font-medium">{booking.location}</p>
-                    <p className="text-gray-500 text-sm">{booking.time}</p>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-600">Street: {booking.street}</p>
-                      <p className="text-sm text-gray-600">City: {booking.city}</p>
-                      <p className="text-sm text-gray-600">Postcode: {booking.postcode}</p>
-                    </div>
-                    <p
-                      className={`text-sm font-bold mt-2 ${
-                        booking.status === "Cancelled" ? "text-red-500" : "text-green-500"
-                      }`}
-                    >
-                      {booking.status}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-600">Contact: {booking.contactNumber}</p>
-                    <p className="text-sm text-gray-600">Email: {booking.email}</p>
-                    <p className="text-sm text-gray-600">Company: {booking.company}</p>
-                    {booking.status === "Active" && (
-                      <div className="mt-2">
-                        {confirmationBookingId === booking.id ? (
-                          <div className="flex items-center gap-4">
-                            <button
-                              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                              onClick={() => handleCancelBooking(booking.id)}
-                            >
-                              Yes, Cancel
-                            </button>
-                            <button
-                              className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
-                              onClick={() => setConfirmationBookingId(null)}
-                            >
-                              No
-                            </button>
-                          </div>
-                        ) : (
-                          <button
-                            className="text-red-600 hover:underline"
-                            onClick={() => setConfirmationBookingId(booking.id)}
-                          >
-                            Cancel
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  </div>
+      {/* Inquiries Section */}
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Recent Inquiries</h2>
+        <div className="bg-white shadow-md rounded-lg p-4">
+          {inquiries.length > 0 ? (
+            <ul>
+              {inquiries.map((inquiry) => (
+                <li key={inquiry.id} className="border-b border-gray-200 py-2">
+                  <p className="text-gray-800">{inquiry.message}</p>
+                  <p className="text-sm text-gray-600">{inquiry.date}</p>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-gray-600">You have no upcoming meeting room bookings.</p>
+            <p className="text-gray-600">No inquiries yet.</p>
           )}
-        
         </div>
       </div>
     </div>
   );
 };
 
-export default DashboardPage;
+export default Dashboard;
