@@ -38,7 +38,7 @@ export default function BusinessSignup() {
       setUsernameError(null);
 
       // Call the backend API to handle signup
-      const res = await fetch("http://localhost:8080/cashew/register", {
+      const res = await fetch("http://cashew-app:8080/cashew/register", {
         method: "POST",
         body: JSON.stringify({
           userId,

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose up nextjs-prod
+docker-compose up nextjs-prod --build

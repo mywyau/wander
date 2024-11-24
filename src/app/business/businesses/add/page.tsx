@@ -102,7 +102,7 @@ const AddBusinessPage = () => {
     if (Object.keys(newErrors).length === 0) {
       console.log("Business data ready to be submitted:", formData);
 
-      fetch(`http://localhost:8080/api/business`, {
+      fetch(`http://cashew-app:8080/api/business`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

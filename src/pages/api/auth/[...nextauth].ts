@@ -1,11 +1,8 @@
 // Import required libraries and initialize Prisma client for DB operations
-import { PrismaClient } from "@prisma/client";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-
-const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -26,7 +23,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const response = await fetch("http://localhost:8080/cashew/login", {
+          const response = await fetch("http://cashew-app:8080/cashew/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

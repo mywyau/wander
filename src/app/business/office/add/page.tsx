@@ -110,7 +110,7 @@ const AddOfficePage = () => {
         if (Object.keys(newErrors).length === 0) {
             console.log("Office data ready to be submitted:", formData);
 
-            fetch(`http://localhost:8080/api/offices`, {
+            fetch(`http://cashew-app:8080/api/offices`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
