@@ -1,5 +1,6 @@
 "use client";
 
+import AppConfig from "@/config/AppConfig";
 import React, { useState } from "react";
 
 // Define interfaces
@@ -102,7 +103,7 @@ const AddBusinessPage = () => {
     if (Object.keys(newErrors).length === 0) {
       console.log("Business data ready to be submitted:", formData);
 
-      fetch(`http://cashew-app:8080/api/business`, {
+      fetch(`http://${AppConfig.baseUrl}//api/business`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import AppConfig from '../../../config/AppConfig';
+
 
 export default function BusinessSignup() {
   const [email, setEmail] = useState("");
@@ -38,19 +40,20 @@ export default function BusinessSignup() {
       setUsernameError(null);
 
       // Call the backend API to handle signup
-      const res = await fetch("http://cashew-app:8080/cashew/register", {
-        method: "POST",
-        body: JSON.stringify({
-          userId,
-          username,
-          password,
-          email,
-          role,
-          createdAt,
-          updatedAt
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const res =
+        await fetch(`http://${AppConfig.baseUrl}/cashew/register`, {
+          method: "POST",
+          body: JSON.stringify({
+            userId,
+            username,
+            password,
+            email,
+            role,
+            createdAt,
+            updatedAt
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
 
       if (res.ok) {
         router.push("/wanderer/home"); // Redirect on success
