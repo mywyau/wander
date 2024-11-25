@@ -19,7 +19,7 @@ export default class SignUpConnector {
    */
   static async register(payload: UserSignupRequest): Promise<SignUpResponse> {
     try {
-      const res = await fetch(`http://${AppConfig.baseUrl}/cashew/register`, {
+      const res = await fetch(`http://localhost:8080/cashew/register`, { // has to use local host since we are interacting with it via client side browser
         method: "POST",
         body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" },
