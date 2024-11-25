@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { useRouter } from "next/navigation";
-import WandererSignup from "../../../../../app/wanderer/signup/page";
+import WandererSignup from "@/app/wanderer/signup/page";
 import SignUpConnector from "@/app/wanderer/signup/connector/SignUpConnector";
-import SignUpHelper from "../../../../../app/wanderer/signup/SignUpHelper";
+import SignUpHelper from "@/app/wanderer/signup/SignUpHelper";
 
 // Mock the useRouter hook
 jest.mock("next/navigation", () => ({
@@ -10,7 +10,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 // Mock the SignUpConnector
-jest.mock("@/app/wanderer/signup/SignUpConnector", () => ({
+jest.mock("@/app/wanderer/signup/connector/SignUpConnector", () => ({
   register: jest.fn(),
 }));
 
