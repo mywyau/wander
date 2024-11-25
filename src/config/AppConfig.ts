@@ -1,22 +1,30 @@
-
-
 class AppConfig {
-    // Boolean flag to determine if Docker URL should be used
-    static useDockerUrl: boolean = process.env.NEXT_PUBLIC_USE_DOCKER_URL === "true";
-  
-    // Host and port information for local and container setups
-    static urlLocalHost: string = process.env.NEXT_PUBLIC_LOCAL_CASHEW_HOST || "";
-    static urlLocalPort: string = process.env.NEXT_PUBLIC_LOCAL_CASHEW_POST || "";
-    static urlContainerHost: string = process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST || "";
-    static urlContainerPort: string = process.env.NEXT_PUBLIC_CONTAINER_CASHEW_POST || "";
-  
-    // Base URL logic based on useDockerUrl
-    static get baseUrl(): string {
-      return this.useDockerUrl
-        ? `${this.urlLocalHost}${this.urlLocalPort}`
-        : `${this.urlContainerHost}${this.urlContainerPort}`;
-    }
+
+  static get urlLocalHost(): string {
+    return process.env.NEXT_PUBLIC_LOCAL_CASHEW_HOST || "";
   }
-  
-  export default AppConfig;
-  
+
+  static get urlLocalPort(): string {
+    return process.env.NEXT_PUBLIC_LOCAL_CASHEW_POST || "";
+  }
+
+  static get urlContainerHost(): string {
+    return process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST || "";
+  }
+
+  static get urlContainerPort(): string {
+    return process.env.NEXT_PUBLIC_CONTAINER_CASHEW_POST || "";
+  }
+
+  static get useDockerUrl(): boolean {
+    return process.env.NEXT_PUBLIC_USE_DOCKER_URL === "true";
+  }
+
+  static get baseUrl(): string {
+    return this.useDockerUrl
+      ? `${this.urlContainerHost}${this.urlContainerPort}`
+      : `${this.urlLocalHost}${this.urlLocalPort}`;
+  }
+}
+
+export default AppConfig;
