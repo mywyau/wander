@@ -28,7 +28,7 @@ export class AuthService {
     }
 
     try {
-      const response = await fetch(`http://${AppConfig.baseUrl}/cashew/login`, {
+      const response = await fetch(`http://${AppConfig.baseUrl}/cashew/login`, {   // for docker app needs to be cashew:8080
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),

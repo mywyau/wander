@@ -154,7 +154,7 @@ const DeskPage = () => {
 
             console.time("API Request Duration");
             // Send data to API
-            fetch(`http://${AppConfig.baseUrl}//cashew/business/desk/listing/create`, {
+            fetch(`http://localhost:8080/cashew/business/desk/listing/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(deskData),
