@@ -1,12 +1,14 @@
 "use client";
 
-import AppConfig from "@/config/AppConfig";
 import {
   UpdatedUserRequest,
   User
 } from "@/types/user";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import EmailInputField from "./components/EmailInputField";
+import SelectField from "./components/SelectInputField";
+import TextInputField from "./components/TextInputField";
 
 
 const ProfileSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -144,53 +146,43 @@ export default function ProfilePage() {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <ProfileSection title="Login Details">
-              <div>
-                <label htmlFor="login.username" className="block text-sm font-medium text-gray-700 mb-1">Username</label>
-                <input
-                  type="text"
-                  id="login.username"
-                  value={userData.userLoginDetails.username}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
-              <div>
-                <label htmlFor="login.email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input
-                  type="email"
-                  id="login.email"
-                  value={userData.userLoginDetails.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
+
+              <TextInputField
+                id="login.username"
+                label="Username"
+                value={userData.userLoginDetails.username}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
+              <EmailInputField
+                id="login.email"
+                label="Email"
+                value={userData.userLoginDetails.email}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
             </ProfileSection>
 
             <ProfileSection title="Personal Details">
-              <div>
-                <label htmlFor="personal.firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                <input
-                  type="text"
-                  id="personal.firstName"
-                  value={userData.userPersonalDetails.firstName || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
-              <div>
-                <label htmlFor="personal.lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                <input
-                  type="text"
-                  id="personal.lastName"
-                  value={userData.userPersonalDetails.lastName || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
+
+              <TextInputField
+                id="personal.firstName"
+                label="First Name"
+                value={userData.userPersonalDetails.firstName || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
+              <TextInputField
+                id="personal.lastName"
+                label="Last Name"
+                value={userData.userPersonalDetails.lastName || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
               <div>
                 <label htmlFor="personal.contactNumber" className="block text-sm font-medium text-gray-700 mb-1">Contact Number</label>
                 <input
@@ -202,171 +194,129 @@ export default function ProfilePage() {
                   disabled={!isEditing}
                 />
               </div>
-              <div>
-                <label htmlFor="personal.email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input
-                  type="text"
-                  id="personal.email"
-                  value={userData.userPersonalDetails.email || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
-              <div>
-                <label htmlFor="personal.company" className="block text-sm font-medium text-gray-700 mb-1">Company</label>
-                <input
-                  type="text"
-                  id="personal.company"
-                  value={userData.userPersonalDetails.company || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
 
-              {/* Add more fields for personal details */}
+              <EmailInputField
+                id="personal.email"
+                label="Email"
+                value={userData.userPersonalDetails.email || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
+
+              <TextInputField
+                id="personal.company"
+                label="Company"
+                value={userData.userPersonalDetails.company || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
             </ProfileSection>
 
             <ProfileSection title="Address">
-              <div>
-                <label htmlFor="address.street" className="block text-sm font-medium text-gray-700 mb-1">Street</label>
-                <input
-                  type="text"
-                  id="address.street"
-                  value={userData.userAddress.street || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
 
-              <div>
-                <label htmlFor="address.city" className="block text-sm font-medium text-gray-700 mb-1">City</label>
-                <select
-                  id="address.city"
-                  value={userData.userAddress.city || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                >
-                  <option value="" disabled>Select a city</option>
-                  <option value="Aberdeen">Aberdeen</option>
-                  <option value="Armagh">Armagh</option>
-                  <option value="Bangor">Bangor</option>
-                  <option value="Bath">Bath</option>
-                  <option value="Belfast">Belfast</option>
-                  <option value="Birmingham">Birmingham</option>
-                  <option value="Bradford">Bradford</option>
-                  <option value="Brighton and Hove">Brighton and Hove</option>
-                  <option value="Bristol">Bristol</option>
-                  <option value="Cambridge">Cambridge</option>
-                  <option value="Canterbury">Canterbury</option>
-                  <option value="Cardiff">Cardiff</option>
-                  <option value="Carlisle">Carlisle</option>
-                  <option value="Chelmsford">Chelmsford</option>
-                  <option value="Chester">Chester</option>
-                  <option value="Chichester">Chichester</option>
-                  <option value="Coventry">Coventry</option>
-                  <option value="Derby">Derby</option>
-                  <option value="Derry">Derry</option>
-                  <option value="Dundee">Dundee</option>
-                  <option value="Durham">Durham</option>
-                  <option value="Edinburgh">Edinburgh</option>
-                  <option value="Ely">Ely</option>
-                  <option value="Exeter">Exeter</option>
-                  <option value="Glasgow">Glasgow</option>
-                  <option value="Gloucester">Gloucester</option>
-                  <option value="Hereford">Hereford</option>
-                  <option value="Inverness">Inverness</option>
-                  <option value="Kingston upon Hull">Kingston upon Hull</option>
-                  <option value="Lancaster">Lancaster</option>
-                  <option value="Leeds">Leeds</option>
-                  <option value="Leicester">Leicester</option>
-                  <option value="Lichfield">Lichfield</option>
-                  <option value="Lincoln">Lincoln</option>
-                  <option value="Lisburn">Lisburn</option>
-                  <option value="Liverpool">Liverpool</option>
-                  <option value="London">London</option>
-                  <option value="Manchester">Manchester</option>
-                  <option value="Newcastle upon Tyne">Newcastle upon Tyne</option>
-                  <option value="Newport">Newport</option>
-                  <option value="Norwich">Norwich</option>
-                  <option value="Nottingham">Nottingham</option>
-                  <option value="Oxford">Oxford</option>
-                  <option value="Perth">Perth</option>
-                  <option value="Peterborough">Peterborough</option>
-                  <option value="Plymouth">Plymouth</option>
-                  <option value="Portsmouth">Portsmouth</option>
-                  <option value="Preston">Preston</option>
-                  <option value="Ripon">Ripon</option>
-                  <option value="Salford">Salford</option>
-                  <option value="Salisbury">Salisbury</option>
-                  <option value="Sheffield">Sheffield</option>
-                  <option value="Southampton">Southampton</option>
-                  <option value="St Albans">St Albans</option>
-                  <option value="Stirling">Stirling</option>
-                  <option value="Stoke-on-Trent">Stoke-on-Trent</option>
-                  <option value="Sunderland">Sunderland</option>
-                  <option value="Swansea">Swansea</option>
-                  <option value="Truro">Truro</option>
-                  <option value="Wakefield">Wakefield</option>
-                  <option value="Wells">Wells</option>
-                  <option value="Westminster">Westminster</option>
-                  <option value="Winchester">Winchester</option>
-                  <option value="Wolverhampton">Wolverhampton</option>
-                  <option value="Worcester">Worcester</option>
-                  <option value="York">York</option>
-                </select>
-              </div>
+              <TextInputField
+                id="address.street"
+                label="Street"
+                value={userData.userAddress.street || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
 
+              <SelectField
+                id="address.city"
+                label="City"
+                value={userData.userAddress.city || ""}
+                onChange={handleChange}
+                options={[
+                  { value: "Aberdeen", label: "Aberdeen" },
+                  { value: "Armagh", label: "Armagh" },
+                  { value: "Bangor", label: "Bangor" },
+                  { value: "Bath", label: "Bath" },
+                  { value: "Belfast", label: "Belfast" },
+                  { value: "Birmingham", label: "Birmingham" },
+                  { value: "Bradford", label: "Bradford" },
+                  { value: "Brighton and Hove", label: "Brighton and Hove" },
+                  { value: "Bristol", label: "Bristol" },
+                  { value: "Cambridge", label: "Cambridge" },
+                  { value: "Canterbury", label: "Canterbury" },
+                  { value: "Cardiff", label: "Cardiff" },
+                  { value: "Carlisle", label: "Carlisle" },
+                  { value: "Chelmsford", label: "Chelmsford" },
+                  { value: "Chester", label: "Chester" },
+                  { value: "Chichester", label: "Chichester" },
+                  { value: "Coventry", label: "Coventry" },
+                  { value: "Derby", label: "Derby" },
+                  { value: "Derry", label: "Derry" },
+                  { value: "Dundee", label: "Dundee" },
+                  { value: "Durham", label: "Durham" },
+                  { value: "Edinburgh", label: "Edinburgh" },
+                  { value: "Ely", label: "Ely" },
+                  { value: "Exeter", label: "Exeter" },
+                  { value: "Glasgow", label: "Glasgow" },
+                  { value: "Gloucester", label: "Gloucester" },
+                  { value: "Hereford", label: "Hereford" },
+                  { value: "Inverness", label: "Inverness" },
+                  { value: "Kingston upon Hull", label: "Kingston upon Hull" },
+                  { value: "Lancaster", label: "Lancaster" },
+                  { value: "Leeds", label: "Leeds" },
+                  { value: "Leicester", label: "Leicester" },
+                  { value: "Lichfield", label: "Lichfield" },
+                  { value: "Lincoln", label: "Lincoln" },
+                  { value: "Lisburn", label: "Lisburn" },
+                  { value: "Liverpool", label: "Liverpool" },
+                  { value: "London", label: "London" },
+                  { value: "Manchester", label: "Manchester" },
+                  { value: "Newcastle upon Tyne", label: "Newcastle upon Tyne" },
+                  { value: "Newport", label: "Newport" },
+                  { value: "Norwich", label: "Norwich" },
+                  { value: "Nottingham", label: "Nottingham" },
+                  { value: "Oxford", label: "Oxford" },
+                  { value: "Perth", label: "Perth" },
+                  { value: "Peterborough", label: "Peterborough" },
+                  { value: "Plymouth", label: "Plymouth" },
+                  { value: "Portsmouth", label: "Portsmouth" },
+                  { value: "Preston", label: "Preston" },
+                  { value: "Ripon", label: "Ripon" },
+                  { value: "Salford", label: "Salford" },
+                  { value: "Salisbury", label: "Salisbury" },
+                  { value: "Sheffield", label: "Sheffield" },
+                  { value: "Southampton", label: "Southampton" },
+                  { value: "St Albans", label: "St Albans" },
+                  { value: "Stirling", label: "Stirling" },
+                  { value: "Stoke-on-Trent", label: "Stoke-on-Trent" },
+                  { value: "Sunderland", label: "Sunderland" },
+                  { value: "Swansea", label: "Swansea" },
+                  { value: "Truro", label: "Truro" },
+                  { value: "Wakefield", label: "Wakefield" },
+                  { value: "Wells", label: "Wells" },
+                  { value: "Westminster", label: "Westminster" },
+                  { value: "Winchester", label: "Winchester" },
+                  { value: "Wolverhampton", label: "Wolverhampton" },
+                  { value: "Worcester", label: "Worcester" },
+                  { value: "York", label: "York" },
+                ]}
+                disabled={!isEditing}
+              />
 
-              <div>
-                <label htmlFor="address.country" className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                <select
-                  id="address.country"
-                  value={userData.userAddress.country || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                >
-                  <option value="" disabled>Select a country</option>
-                  <option value="Australia">Australia</option>
-                  <option value="Brazil">Brazil</option>
-                  <option value="Canada">Canada</option>
-                  <option value="China">China</option>
-                  <option value="Germany">Germany</option>
-                  <option value="France">France</option>
-                  <option value="India">India</option>
-                  <option value="Japan">Japan</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="United States">United States</option>
-                  {/* Add more countries as needed */}
-                </select>
-              </div>
+              <SelectField
+                id="address.country"
+                label="Country"
+                value={userData.userAddress.country || ""}
+                onChange={handleChange}
+                options={[
+                  { value: "United Kingdom", label: "United Kingdom" },
+                  // Add other countries
+                ]}
+                disabled={!isEditing}
+              />
 
-              <div>
-                <label htmlFor="address.county" className="block text-sm font-medium text-gray-700 mb-1">County</label>
-                <input
-                  type="text"
-                  id="address.county"
-                  value={userData.userAddress.county || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
-              <div>
-                <label htmlFor="address.postcode" className="block text-sm font-medium text-gray-700 mb-1">Postcode</label>
-                <input
-                  type="text"
-                  id="address.postcode"
-                  value={userData.userAddress.postcode || ""}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  disabled={!isEditing}
-                />
-              </div>
+              <TextInputField
+                id="address.postcode"
+                label="Postcode"
+                value={userData.userAddress.postcode || ""}
+                onChange={handleChange}
+                disabled={!isEditing}
+              />
 
               {/* Add more fields for address */}
             </ProfileSection>
