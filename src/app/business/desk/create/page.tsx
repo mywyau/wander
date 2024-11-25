@@ -1,30 +1,6 @@
 "use client";
 
-import AppConfig from "@/config/AppConfig";
 import React, { useState } from "react";
-
-// Define interfaces
-interface Availability {
-    days: string[];
-    startTime: string; // ISO 8601 string
-    endTime: string; // ISO 8601 string
-}
-
-interface DeskListingRequest {
-    business_id: string;
-    workspace_id: string;
-    title: string;
-    description?: string;
-    desk_type: string;
-    quantity: number;
-    price_per_hour: number;
-    price_per_day: number;
-    rules?: string;
-    features: string[];
-    availability: Availability;
-    created_at: string;
-    updated_at: string;
-}
 
 const DeskPage = () => {
     const [formData, setFormData] = useState<Partial<DeskListingRequest>>({
@@ -154,7 +130,8 @@ const DeskPage = () => {
 
             console.time("API Request Duration");
             // Send data to API
-            fetch(`http://localhost:8080/cashew/business/desk/listing/create`, {
+            fetch(
+                `http://localhost:8081/pistachio/business/desk/listing/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(deskData),

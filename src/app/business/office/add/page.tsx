@@ -2,6 +2,7 @@
 
 import AppConfig from "@/config/AppConfig";
 import React, { useState } from "react";
+import AddressSearch from "./components/AddressSearch";
 
 // Define interfaces
 interface Office {
@@ -149,9 +150,14 @@ const AddOfficePage = () => {
         }
     };
 
+    const handleAddressSelect = (data) => {
+        console.log('Selected Address:', data);
+      };
+
     return (
         <div className="max-w-4xl mx-auto p-8">
             <h1 className="text-2xl font-bold mb-6">Add an Office</h1>
+
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Office Name */}
                 <div>
@@ -183,51 +189,8 @@ const AddOfficePage = () => {
                     />
                 </div>
 
-                {/* Address */}
-                <div>
-                    <label htmlFor="street" className="block text-sm font-medium text-gray-700">
-                        Street Address
-                    </label>
-                    <input
-                        type="text"
-                        id="street"
-                        name="street"
-                        value={formData.street}
-                        onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
-                    />
-                    {errors.street && <p className="text-red-500 text-sm">{errors.street}</p>}
-                </div>
-                <div className="grid grid-cols-2 gap-6">
-                    <div>
-                        <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            id="city"
-                            name="city"
-                            value={formData.city}
-                            onChange={handleChange}
-                            className="w-full mt-1 px-4 py-2 border rounded-md"
-                        />
-                        {errors.city && <p className="text-red-500 text-sm">{errors.city}</p>}
-                    </div>
-                    <div>
-                        <label htmlFor="postcode" className="block text-sm font-medium text-gray-700">
-                            Postcode
-                        </label>
-                        <input
-                            type="text"
-                            id="postcode"
-                            name="postcode"
-                            value={formData.postcode}
-                            onChange={handleChange}
-                            className="w-full mt-1 px-4 py-2 border rounded-md"
-                        />
-                        {errors.postcode && <p className="text-red-500 text-sm">{errors.postcode}</p>}
-                    </div>
-                </div>
+
+                <AddressSearch onSelect={handleAddressSelect} />
 
                 {/* Floors and Total Desks */}
                 <div className="grid grid-cols-2 gap-6">
