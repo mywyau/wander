@@ -1,5 +1,5 @@
 import { UserSignupRequest } from "@/types/registration/UserSignupRequest";
-import AppConfig from "../../../config/AppConfig"; // Adjust the path as needed
+import AppConfig from "../../../../config/AppConfig"; // Adjust the path as needed
 
 export interface SignUpResponse {
   success: boolean;

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import WandererSignup from "../../../../../app/wanderer/signup/page";
-import SignUpConnector from "@/app/wanderer/signup/SignUpConnector";
+import SignUpConnector from "@/app/wanderer/signup/connector/SignUpConnector";
 import SignUpHelper from "../../../../../app/wanderer/signup/SignUpHelper";
 
 // Mock the useRouter hook

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { UserSignupRequest } from "../../../types/registration/UserSignupRequest";
 import InputWithError from "./components/InputWithError";
 import PasswordInputField from "./components/PasswordInputField";
-import SignUpConnector from "./SignUpConnector";
+import SignUpConnector from "./connector/SignUpConnector";
 import SignUpHelper from "./SignUpHelper";
 
 
