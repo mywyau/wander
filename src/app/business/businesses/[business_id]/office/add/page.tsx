@@ -3,6 +3,8 @@
 import AppConfig from "@/config/AppConfig";
 import React, { useState } from "react";
 import AddressSearch from "./components/AddressSearch";
+import NumberInput from "./components/NumberInput";
+import TextInput from "./components/TextInput";
 
 // Define interfaces
 interface Office {
@@ -87,6 +89,15 @@ const AddOfficePage = () => {
         }));
     };
 
+    const handleAddressSelect = (data: { address: string; location: { lat: number; lng: number }; components: { street: string; city: string; postcode: string } }) => {
+        setFormData((prev) => ({
+            ...prev,
+            street: data.components.street,
+            city: data.components.city,
+            postcode: data.components.postcode,
+        }));
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -150,30 +161,22 @@ const AddOfficePage = () => {
         }
     };
 
-    const handleAddressSelect = (data) => {
-        console.log('Selected Address:', data);
-      };
-
     return (
         <div className="max-w-4xl mx-auto p-8">
             <h1 className="text-2xl font-bold mb-6">Add an Office</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Office Name */}
-                <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                        Office Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
-                    />
-                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-                </div>
+
+                <TextInput
+                    id="name"
+                    name="name"
+                    label="Office Name"
+                    value={formData.name || ""}
+                    onChange={handleChange}
+                    placeholder="Enter the office name"
+                    error={errors.name}
+                />
 
                 {/* Description */}
                 <div>
@@ -189,39 +192,29 @@ const AddOfficePage = () => {
                     />
                 </div>
 
-
                 <AddressSearch onSelect={handleAddressSelect} />
 
                 {/* Floors and Total Desks */}
                 <div className="grid grid-cols-2 gap-6">
-                    <div>
-                        <label htmlFor="floors" className="block text-sm font-medium text-gray-700">
-                            Number of Floors
-                        </label>
-                        <input
-                            type="number"
-                            id="floors"
-                            name="floors"
-                            value={formData.floors}
-                            onChange={handleChange}
-                            min="1"
-                            className="w-full mt-1 px-4 py-2 border rounded-md"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="totalDesks" className="block text-sm font-medium text-gray-700">
-                            Total Desks
-                        </label>
-                        <input
-                            type="number"
-                            id="totalDesks"
-                            name="totalDesks"
-                            value={formData.totalDesks}
-                            onChange={handleChange}
-                            min="1"
-                            className="w-full mt-1 px-4 py-2 border rounded-md"
-                        />
-                    </div>
+                    <NumberInput
+                        id="floors"
+                        name="floors"
+                        label="Number of Floors"
+                        value={formData.floors}
+                        onChange={handleChange}
+                        min={1}
+                        error={errors.floors}
+                    />
+
+                    <NumberInput
+                        id="totalDesks"
+                        name="totalDesks"
+                        label="Total Desks"
+                        value={formData.totalDesks}
+                        onChange={handleChange}
+                        min={1}
+                        error={errors.totalDesks}
+                    />
                 </div>
 
                 {/* Contact Information */}
@@ -239,6 +232,7 @@ const AddOfficePage = () => {
                     />
                     {errors.contactEmail && <p className="text-red-500 text-sm">{errors.contactEmail}</p>}
                 </div>
+
                 <div>
                     <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700">
                         Contact Phone
@@ -323,7 +317,6 @@ const AddOfficePage = () => {
                         </div>
                     </fieldset>
                 </div>
-
                 {/* Submit Button */}
                 <div>
                     <button

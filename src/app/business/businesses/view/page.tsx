@@ -76,7 +76,7 @@ const BusinessesPage = () => {
 
                             <div className="mt-4 flex justify-between">
                                 <Link
-                                    href={`/businesses/${business.id}/offices`}
+                                    href={`/businesses/${business.id}/office/view`}
                                     className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                                 >
                                     View Offices
