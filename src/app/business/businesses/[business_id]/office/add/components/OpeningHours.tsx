@@ -46,8 +46,8 @@ const OpeningHours: React.FC<OpeningHoursProps> = ({
           </label>
           <input
             type="time"
-            id="startTime"
-            name="startTime"
+            id="office-specs-availability-start-time"
+            name="officeSpecs.availability.startTime"
             value={startTime}
             onChange={onTimeChange}
             className="w-full mt-1 px-4 py-2 border rounded-md"
@@ -60,8 +60,8 @@ const OpeningHours: React.FC<OpeningHoursProps> = ({
           </label>
           <input
             type="time"
-            id="endTime"
-            name="endTime"
+            id="office-specs-availability-end-time"
+            name="officeSpecs.availability.endTime"
             value={endTime}
             onChange={onTimeChange}
             className="w-full mt-1 px-4 py-2 border rounded-md"
