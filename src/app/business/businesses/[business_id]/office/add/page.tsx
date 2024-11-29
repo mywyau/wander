@@ -2,11 +2,15 @@
 
 import AppConfig from "@/config/AppConfig";
 import React, { useState } from "react";
+import AddOfficeButton from "./components/AddOfficeButton";
 import AddressSearch from "./components/AddressSearch";
+import AmenitiesCheckbox from "./components/AmenitiesCheckbox";
+import DescriptionTextArea from "./components/DescriptionTextArea";
 import NumberInput from "./components/NumberInput";
+import OpeningHours from "./components/OpeningHours";
+import SelectField from "./components/SelectInputField";
 import TextInput from "./components/TextInput";
 import { AddressDetails, Office } from "./types/OfficeInterfaces";
-import SelectField from "./components/SelectInputField";
 
 
 const AddOfficePage = () => {
@@ -61,11 +65,6 @@ const AddOfficePage = () => {
                 createdAt: "",
                 updatedAt: "",
             },
-            availability: {
-                days: [],
-                startTime: "",
-                endTime: "",
-            },
             createdAt: "",
             updatedAt: "",
         }
@@ -80,15 +79,15 @@ const AddOfficePage = () => {
         >
     ) => {
         const { name, value } = e.target;
-    
+
         // Handle nested keys with dot notation (e.g., "addressDetails.street")
         if (name.includes(".")) {
             const keys = name.split("."); // Split by dot notation, e.g., ["addressDetails", "street"]
-    
+
             setFormData((prev) => {
                 let updated = { ...prev }; // Start with a shallow copy of the current state
                 let currentLevel = updated;
-    
+
                 // Traverse and create nested objects dynamically
                 for (let i = 0; i < keys.length - 1; i++) {
                     const key = keys[i];
@@ -97,10 +96,10 @@ const AddOfficePage = () => {
                     }
                     currentLevel = currentLevel[key];
                 }
-    
+
                 // Update the final key
                 currentLevel[keys[keys.length - 1]] = value;
-    
+
                 return updated;
             });
         } else {
@@ -108,7 +107,7 @@ const AddOfficePage = () => {
             setFormData((prev) => ({ ...prev, [name]: value }));
         }
     };
-    
+
 
 
     const handleAmenitiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,20 +143,23 @@ const AddOfficePage = () => {
     };
 
 
-    const handleAvailabilityCheckboxChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleAvailabilityCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = e.target;
+    
         setFormData((prev) => ({
             ...prev,
-            availability: {
-                ...prev.availability!,
-                days: checked
-                    ? [...(prev.availability!.days || []), value]
-                    : prev.availability!.days?.filter((day) => day !== value) || [],
+            officeSpecs: {
+                ...prev.officeSpecs,
+                availability: {
+                    ...prev.officeSpecs?.availability,
+                    days: checked
+                        ? [...(prev.officeSpecs?.availability?.days || []), value]
+                        : prev.officeSpecs?.availability?.days?.filter((day) => day !== value) || [],
+                },
             },
         }));
     };
+    
 
     const handleAddressSelect = (
         data: {
@@ -311,9 +313,9 @@ const AddOfficePage = () => {
             <h1 className="text-2xl font-bold mb-6">Add an Office</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Office Name */}
 
                 <TextInput
+                    type="text"
                     id="officeName"
                     name="officeSpecs.officeName"
                     label="Office Name"
@@ -323,19 +325,13 @@ const AddOfficePage = () => {
                     error={errors.officeName}
                 />
 
-                {/* Description */}
-                <div>
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                        Description
-                    </label>
-                    <textarea
-                        id="description"
-                        name="officeSpecs.description"
-                        value={formData.officeSpecs?.description}
-                        onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
-                    />
-                </div>
+                <DescriptionTextArea
+                    id="description"
+                    name="officeSpecs.description"
+                    label="Description"
+                    value={formData.officeSpecs?.description}
+                    onChange={handleChange}
+                />
 
                 <SelectField
                     id="officeSpecs.officeType"
@@ -354,7 +350,6 @@ const AddOfficePage = () => {
 
                 <AddressSearch onSelect={handleAddressSelect} />
 
-                {/* Floors and Total Desks */}
                 <div className="grid grid-cols-3 gap-6">
                     <NumberInput
                         id="officeSpecs.numberOfFloors"
@@ -387,117 +382,55 @@ const AddOfficePage = () => {
                     />
                 </div>
 
-                {/* Contact Information */}
-                <div>
-                    <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700">
-                        Contact Email
-                    </label>
-                    <input
-                        type="email"
-                        id="contactDetails.contactEmail"
-                        name="contactDetails.contactEmail"
-                        value={formData.contactDetails?.contactEmail}
-                        onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
-                    />
-                    {errors.contactEmail && <p className="text-red-500 text-sm">{errors.contactEmail}</p>}
-                </div>
+                <TextInput
+                    type="email"
+                    id="contact-details-contact-email"
+                    name="contactDetails.contactEmail"
+                    label="Email"
+                    value={formData.contactDetails?.contactEmail}
+                    onChange={handleChange}
+                    placeholder="Enter a contact email for the office"
+                    error={errors.contactEmail}
+                />
 
-                <div>
-                    <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">
-                        Contact Phone
-                    </label>
-                    <input
-                        type="tel"
-                        id="contactDetails.contactNumber"
-                        name="contactDetails.contactNumber"
-                        value={formData.contactDetails?.contactNumber}
-                        onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
-                    />
-                    {errors.contactNumber && <p className="text-red-500 text-sm">{errors.contactNumber}</p>}
-                </div>
+                <TextInput
+                    type="tel"
+                    id="contact-details-contact-number"
+                    name="contactDetails.contactNumber"
+                    label="Contact Number"
+                    value={formData.contactDetails?.contactNumber}
+                    onChange={handleChange}
+                    placeholder="Enter a contact number for the office"
+                    error={errors.contactNumber}
+                />
 
-                {/* Amenities */}
-                <fieldset>
-                    <legend className="block text-sm font-medium text-gray-700">Amenities</legend>
-                    <div className="flex gap-4 mt-2">
-                        {["Wi-Fi", "Power Outlets", "Monitor", "Coffee", "Air Conditioning"].map((amenity) => (
-                            <label key={amenity} className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    value={amenity}
-                                    checked={formData.officeSpecs?.amenities?.includes(amenity)}
-                                    onChange={handleAmenitiesChange}
-                                    className="mr-2"
-                                />
-                                {amenity}
-                            </label>
-                        ))}
-                    </div>
-                </fieldset>
+                <AmenitiesCheckbox
+                    amenities={["Wi-Fi", "Power Outlets", "Monitor", "Coffee", "Air Conditioning"]} // Available amenities
+                    selectedAmenities={formData.officeSpecs?.amenities || []} // Selected amenities from formData
+                    onChange={handleAmenitiesChange} // Pass the change handler
+                />
 
-                {/* Opening Hours */}
-                <div>
-                    <fieldset>
-                        <legend className="block text-sm font-medium text-gray-700">Opening Hours</legend>
-                        <div className="flex gap-4 mt-2">
-                            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
-                                <label key={day} className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        value={day}
-                                        checked={formData.officeSpecs?.availability?.days.includes(day)}
-                                        onChange={handleAvailabilityCheckboxChange}
-                                        className="mr-2"
-                                    />
-                                    {day}
-                                </label>
-                            ))}
-                        </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <div className="mt-4">
-                                <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">
-                                    Start Time
-                                </label>
-                                <input
-                                    type="time"
-                                    id="startTime"
-                                    name="officeSpecs.availability.startTime"
-                                    value={formData.officeSpecs?.availability?.startTime}
-                                    onChange={handleChange}
-                                    className="w-full mt-1 px-4 py-2 border rounded-md"
-                                />
-                                {errors.startTime && <p className="text-red-500 text-sm">{errors.startTime}</p>}
-                            </div>
-                            <div className="mt-4">
-                                <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">
-                                    End Time
-                                </label>
-                                <input
-                                    type="time"
-                                    id="endTime"
-                                    name="officeSpecs.availability.endTime"
-                                    value={formData.officeSpecs?.availability?.endTime}
-                                    onChange={handleChange}
-                                    className="w-full mt-1 px-4 py-2 border rounded-md"
-                                />
-                                {errors.endTime && <p className="text-red-500 text-sm">{errors.endTime}</p>}
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                {/* Submit Button */}
-                <div>
-                    <button
-                        type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
-                    >
-                        Add Office
-                    </button>
-                </div>
-            </form>
-        </div>
+                <OpeningHours
+                    days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+                    selectedDays={formData.officeSpecs?.availability?.days || []}
+                    startTime={formData.officeSpecs?.availability?.startTime || ""}
+                    endTime={formData.officeSpecs?.availability?.endTime || ""}
+                    onDayChange={handleAvailabilityCheckboxChange}
+                    onTimeChange={handleChange}
+                    errors={{
+                        startTime: errors.startTime,
+                        endTime: errors.endTime,
+                    }}
+                />
+
+                <AddOfficeButton
+                    label="Add Office"
+                    type="submit"
+                    className="w-full" // Additional styles if needed
+                />
+
+            </form >
+        </div >
     );
 };
 
