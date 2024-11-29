@@ -5,74 +5,144 @@ import React, { useState } from "react";
 import AddressSearch from "./components/AddressSearch";
 import NumberInput from "./components/NumberInput";
 import TextInput from "./components/TextInput";
+import { AddressDetails, Office } from "./types/OfficeInterfaces";
+import SelectField from "./components/SelectInputField";
 
-// Define interfaces
-interface Office {
-    name: string;
-    description?: string;
-    street: string;
-    city: string;
-    postcode: string;
-    floors: number;
-    totalDesks: number;
-    amenities: string[];
-    contactEmail: string;
-    contactPhone: string;
-    openingHours: {
-        days: string[];
-        startTime: string; // ISO 8601 string
-        endTime: string; // ISO 8601 string
-    };
-}
 
 const AddOfficePage = () => {
-    const [formData, setFormData] = useState<Partial<Office>>({
-        name: "",
-        description: "",
-        street: "",
-        city: "",
-        postcode: "",
-        floors: 0,
-        totalDesks: 0,
-        amenities: [],
-        contactEmail: "",
-        contactPhone: "",
-        openingHours: {
-            days: [],
-            startTime: "",
-            endTime: "",
-        },
-    });
+
+    const [formData, setFormData] = useState<Partial<Office>>(
+        {
+            officeId: "",
+            officeSpecs: {
+                id: 0,
+                businessId: "",
+                officeId: "",
+                officeName: "",
+                description: "",
+                officeType: "",
+                numberOfFloors: 0,
+                totalDesks: 0,
+                capacity: 0,
+                amenities: [],
+                availability: {
+                    days: [],
+                    startTime: "",
+                    endTime: "",
+                },
+                rules: "",
+                createdAt: "",
+                updatedAt: "",
+            },
+            addressDetails: {
+                id: 0,
+                businessId: "",
+                officeId: "",
+                buildingName: "",
+                floorNumber: "",
+                street: "",
+                city: "",
+                country: "",
+                county: "",
+                postcode: "",
+                latitude: 0,
+                longitude: 0,
+                createdAt: "",
+                updatedAt: "",
+            },
+            contactDetails: {
+                id: 0,
+                businessId: "",
+                officeId: "",
+                primaryContactFirstName: "",
+                primaryContactLastName: "",
+                contactEmail: "",
+                contactNumber: "",
+                createdAt: "",
+                updatedAt: "",
+            },
+            availability: {
+                days: [],
+                startTime: "",
+                endTime: "",
+            },
+            createdAt: "",
+            updatedAt: "",
+        }
+    );
+
 
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-    // Handle form input changes
     const handleChange = (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
         >
     ) => {
         const { name, value } = e.target;
+    
+        // Handle nested keys with dot notation (e.g., "addressDetails.street")
         if (name.includes(".")) {
-            const [parent, child] = name.split(".");
-            setFormData((prev) => ({
-                ...prev,
-                [parent]: { ...(prev[parent] as object), [child]: value },
-            }));
+            const keys = name.split("."); // Split by dot notation, e.g., ["addressDetails", "street"]
+    
+            setFormData((prev) => {
+                let updated = { ...prev }; // Start with a shallow copy of the current state
+                let currentLevel = updated;
+    
+                // Traverse and create nested objects dynamically
+                for (let i = 0; i < keys.length - 1; i++) {
+                    const key = keys[i];
+                    if (!currentLevel[key]) {
+                        currentLevel[key] = {}; // Create nested objects if they don't exist
+                    }
+                    currentLevel = currentLevel[key];
+                }
+    
+                // Update the final key
+                currentLevel[keys[keys.length - 1]] = value;
+    
+                return updated;
+            });
         } else {
+            // Handle top-level keys (e.g., "officeName")
             setFormData((prev) => ({ ...prev, [name]: value }));
         }
     };
+    
+
 
     const handleAmenitiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, checked } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            amenities: checked
-                ? [...(prev.amenities || []), value]
-                : prev.amenities?.filter((amenity) => amenity !== value) || [],
-        }));
+
+        setFormData((prev) => {
+
+            const updatedAmenities = prev.officeSpecs?.amenities || [];
+
+            switch (checked) {
+                case true: // Checkbox is checked
+                    return {
+                        ...prev,
+                        officeSpecs: {
+                            ...prev.officeSpecs,
+                            amenities: [...updatedAmenities, value],
+                        },
+                    };
+
+                case false: // Checkbox is unchecked
+                    return {
+                        ...prev,
+                        officeSpecs: {
+                            ...prev.officeSpecs,
+                            amenities: updatedAmenities.filter((amenity) => amenity !== value),
+                        },
+                    };
+
+                default:
+                    return prev; // No change
+            }
+        });
     };
+
 
     const handleAvailabilityCheckboxChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -80,50 +150,82 @@ const AddOfficePage = () => {
         const { value, checked } = e.target;
         setFormData((prev) => ({
             ...prev,
-            openingHours: {
-                ...prev.openingHours!,
+            availability: {
+                ...prev.availability!,
                 days: checked
-                    ? [...(prev.openingHours!.days || []), value]
-                    : prev.openingHours!.days?.filter((day) => day !== value) || [],
+                    ? [...(prev.availability!.days || []), value]
+                    : prev.availability!.days?.filter((day) => day !== value) || [],
             },
         }));
     };
 
-    const handleAddressSelect = (data: { address: string; location: { lat: number; lng: number }; components: { street: string; city: string; postcode: string } }) => {
-        setFormData((prev) => ({
-            ...prev,
-            street: data.components.street,
-            city: data.components.city,
-            postcode: data.components.postcode,
-        }));
+    const handleAddressSelect = (
+        data: {
+            address: string;
+            location: { lat: number; lng: number };
+            components: { street: string; city: string; postcode: string }
+        }
+    ) => {
+
+        setFormData((prev) => (
+            {
+                ...prev,
+                addressDetails: {
+                    ...(prev.addressDetails as AddressDetails), // Ensure existing data aligns with the interface
+                    street: data.components.street,
+                    city: data.components.city,
+                    postcode: data.components.postcode,
+                    latitude: data.location.lat,
+                    longitude: data.location.lng
+                }
+            }
+        ));
     };
 
+    const validateForm = (formData: Partial<Office>) => {
+        const newErrors: { [key: string]: string } = {};
+
+        // Validate officeSpecs
+        const requiredOfficeSpecsFields = ["officeName", "description", "officeType", "numberOfFloors", "capacity", "amenities", "availability", "rules"];
+        requiredOfficeSpecsFields.forEach((field) => {
+            if (!formData.officeSpecs?.[field as keyof typeof formData.officeSpecs]) {
+                newErrors[field] = `${field} is required.`;
+            }
+        });
+
+        // Validate addressDetails
+        const requiredAddressFields = ["buildingName", "floorNumber", "street", "city", "country", "county", "postcode"];
+        requiredAddressFields.forEach((field) => {
+            if (!formData.addressDetails?.[field as keyof typeof formData.addressDetails]) {
+                newErrors[field] = `${field} is required.`;
+            }
+        });
+
+        // Validate contactDetails
+        const requiredContactFields = ["primaryContactFirstName", "primaryContactLastName", "contactEmail", "contactNumber"];
+        requiredContactFields.forEach((field) => {
+            if (!formData.contactDetails?.[field as keyof typeof formData.contactDetails]) {
+                newErrors[field] = `${field} is required.`;
+            }
+        });
+
+        return newErrors;
+    };
+
+
     const handleSubmit = (e: React.FormEvent) => {
+
         e.preventDefault();
 
         console.log("Form submission triggered.");
 
-        // Validate the form
-        const newErrors: { [key: string]: string } = {};
-        if (!formData.name) newErrors.name = "Office name is required.";
-        if (!formData.street) newErrors.street = "Street address is required.";
-        if (!formData.city) newErrors.city = "City is required.";
-        if (!formData.postcode) newErrors.postcode = "Postcode is required.";
-        if (!formData.contactEmail) newErrors.contactEmail = "Contact email is required.";
-        if (!formData.contactPhone) newErrors.contactPhone = "Contact phone is required.";
-        if (!formData.openingHours?.days?.length)
-            newErrors.openingHours = "Select at least one opening day.";
-        if (!formData.openingHours?.startTime)
-            newErrors.startTime = "Opening start time is required.";
-        if (!formData.openingHours?.endTime)
-            newErrors.endTime = "Closing end time is required.";
-
-        setErrors(newErrors);
+        const newErrors = validateForm(formData);
+        setErrors(newErrors); // Update errors in state
 
         if (Object.keys(newErrors).length === 0) {
             console.log("Office data ready to be submitted:", formData);
 
-            fetch(`http://${AppConfig.baseUrl}//api/offices`, {
+            fetch(`http://${AppConfig.baseUrl}/api/offices`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -137,23 +239,66 @@ const AddOfficePage = () => {
                 .then((data) => {
                     console.log("Office successfully created:", data);
                     // Clear the form after successful submission
-                    setFormData({
-                        name: "",
-                        description: "",
-                        street: "",
-                        city: "",
-                        postcode: "",
-                        floors: 0,
-                        totalDesks: 0,
-                        amenities: [],
-                        contactEmail: "",
-                        contactPhone: "",
-                        openingHours: {
-                            days: [],
-                            startTime: "",
-                            endTime: "",
-                        },
-                    });
+                    setFormData(
+                        {
+                            officeId: "",
+                            officeSpecs: {
+                                id: 0,
+                                businessId: "",
+                                officeId: "",
+                                officeName: "",
+                                description: "",
+                                officeType: "",
+                                numberOfFloors: 0,
+                                totalDesks: 0,
+                                capacity: 0,
+                                amenities: [],
+                                availability: {
+                                    days: [],
+                                    startTime: "",
+                                    endTime: "",
+                                },
+                                rules: "",
+                                createdAt: "",
+                                updatedAt: "",
+                            },
+                            addressDetails: {
+                                id: 0,
+                                businessId: "",
+                                officeId: "",
+                                buildingName: "",
+                                floorNumber: "",
+                                street: "",
+                                city: "",
+                                country: "",
+                                county: "",
+                                postcode: "",
+                                latitude: 0,
+                                longitude: 0,
+                                createdAt: "",
+                                updatedAt: "",
+                            },
+                            contactDetails: {
+                                id: 0,
+                                businessId: "",
+                                officeId: "",
+                                primaryContactFirstName: "",
+                                primaryContactLastName: "",
+                                contactEmail: "",
+                                contactNumber: "",
+                                createdAt: "",
+                                updatedAt: "",
+                            },
+                            availability: {
+                                days: [],
+                                startTime: "",
+                                endTime: "",
+                            },
+                            createdAt: "",
+                            updatedAt: "",
+                        }
+                    );
+                    setErrors({});
                 })
                 .catch((err) => {
                     console.error("Error creating office:", err);
@@ -169,13 +314,13 @@ const AddOfficePage = () => {
                 {/* Office Name */}
 
                 <TextInput
-                    id="name"
-                    name="name"
+                    id="officeName"
+                    name="officeSpecs.officeName"
                     label="Office Name"
-                    value={formData.name || ""}
+                    value={formData.officeSpecs?.officeName || ""}
                     onChange={handleChange}
                     placeholder="Enter the office name"
-                    error={errors.name}
+                    error={errors.officeName}
                 />
 
                 {/* Description */}
@@ -185,35 +330,60 @@ const AddOfficePage = () => {
                     </label>
                     <textarea
                         id="description"
-                        name="description"
-                        value={formData.description}
+                        name="officeSpecs.description"
+                        value={formData.officeSpecs?.description}
                         onChange={handleChange}
                         className="w-full mt-1 px-4 py-2 border rounded-md"
                     />
                 </div>
 
+                <SelectField
+                    id="officeSpecs.officeType"
+                    name="officeSpecs.officeType" // Correctly set the nested name
+                    label="Office Type"
+                    value={formData.officeSpecs?.officeType || ""}
+                    onChange={handleChange}
+                    options={[
+                        { value: "ExecutiveOffice", label: "Executive Office" },
+                        { value: "OpenPlanOffice", label: "Open-plan Office" },
+                        { value: "PrivateOffice", label: "Private Office" }
+                    ]}
+                    error={errors.officeType}
+                />
+
+
                 <AddressSearch onSelect={handleAddressSelect} />
 
                 {/* Floors and Total Desks */}
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-3 gap-6">
                     <NumberInput
-                        id="floors"
-                        name="floors"
+                        id="officeSpecs.numberOfFloors"
+                        name="officeSpecs.numberOfFloors"
                         label="Number of Floors"
-                        value={formData.floors}
+                        value={formData.officeSpecs?.numberOfFloors}
                         onChange={handleChange}
                         min={1}
                         error={errors.floors}
                     />
 
                     <NumberInput
-                        id="totalDesks"
-                        name="totalDesks"
+                        id="officeSpecs.totalDesks"
+                        name="officeSpecs.totalDesks"
                         label="Total Desks"
-                        value={formData.totalDesks}
+                        value={formData.officeSpecs?.totalDesks}
                         onChange={handleChange}
                         min={1}
                         error={errors.totalDesks}
+                    />
+
+                    <NumberInput
+                        id="officeSpecs.capacity"
+                        name="officeSpecs.capacity"
+                        label="Capacity"
+                        value={formData.officeSpecs?.capacity}
+                        onChange={handleChange}
+                        min={1}
+                        error={errors.capacity}
                     />
                 </div>
 
@@ -224,9 +394,9 @@ const AddOfficePage = () => {
                     </label>
                     <input
                         type="email"
-                        id="contactEmail"
-                        name="contactEmail"
-                        value={formData.contactEmail}
+                        id="contactDetails.contactEmail"
+                        name="contactDetails.contactEmail"
+                        value={formData.contactDetails?.contactEmail}
                         onChange={handleChange}
                         className="w-full mt-1 px-4 py-2 border rounded-md"
                     />
@@ -234,18 +404,18 @@ const AddOfficePage = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">
                         Contact Phone
                     </label>
                     <input
                         type="tel"
-                        id="contactPhone"
-                        name="contactPhone"
-                        value={formData.contactPhone}
+                        id="contactDetails.contactNumber"
+                        name="contactDetails.contactNumber"
+                        value={formData.contactDetails?.contactNumber}
                         onChange={handleChange}
                         className="w-full mt-1 px-4 py-2 border rounded-md"
                     />
-                    {errors.contactPhone && <p className="text-red-500 text-sm">{errors.contactPhone}</p>}
+                    {errors.contactNumber && <p className="text-red-500 text-sm">{errors.contactNumber}</p>}
                 </div>
 
                 {/* Amenities */}
@@ -257,7 +427,7 @@ const AddOfficePage = () => {
                                 <input
                                     type="checkbox"
                                     value={amenity}
-                                    checked={formData.amenities?.includes(amenity)}
+                                    checked={formData.officeSpecs?.amenities?.includes(amenity)}
                                     onChange={handleAmenitiesChange}
                                     className="mr-2"
                                 />
@@ -277,7 +447,7 @@ const AddOfficePage = () => {
                                     <input
                                         type="checkbox"
                                         value={day}
-                                        checked={formData.openingHours?.days.includes(day)}
+                                        checked={formData.officeSpecs?.availability?.days.includes(day)}
                                         onChange={handleAvailabilityCheckboxChange}
                                         className="mr-2"
                                     />
@@ -293,8 +463,8 @@ const AddOfficePage = () => {
                                 <input
                                     type="time"
                                     id="startTime"
-                                    name="openingHours.startTime"
-                                    value={formData.openingHours?.startTime}
+                                    name="officeSpecs.availability.startTime"
+                                    value={formData.officeSpecs?.availability?.startTime}
                                     onChange={handleChange}
                                     className="w-full mt-1 px-4 py-2 border rounded-md"
                                 />
@@ -307,8 +477,8 @@ const AddOfficePage = () => {
                                 <input
                                     type="time"
                                     id="endTime"
-                                    name="openingHours.endTime"
-                                    value={formData.openingHours?.endTime}
+                                    name="officeSpecs.availability.endTime"
+                                    value={formData.officeSpecs?.availability?.endTime}
                                     onChange={handleChange}
                                     className="w-full mt-1 px-4 py-2 border rounded-md"
                                 />
