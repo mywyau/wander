@@ -1,8 +1,8 @@
-# Bigwig
+# Wander
 
 ## Summary
 
-Frontend Repo for business domain specific functions, services and User Interface
+Frontend Repo/User Interface for wanderer user domain specific functions and services.
 
 
 ## Running the App
