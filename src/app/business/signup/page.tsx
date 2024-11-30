@@ -1,5 +1,6 @@
 "use client";
 
+import AppConfig from "@/config/AppConfig";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -29,7 +30,7 @@ export default function BusinessSignup() {
 
     // Log request details
     console.log("Submitting signup request to backend:");
-    console.log("Endpoint:", "http://cashew-app:8080/cashew/register");
+    console.log("Endpoint:", `http://${AppConfig.baseUrl}//cashew/register`);
     console.log("Payload:", {
       userId,
       username: username,
@@ -42,7 +43,7 @@ export default function BusinessSignup() {
 
     try {
       // Call the backend API to handle signup
-      const res = await fetch("http://cashew-app:8080/cashew/register", {
+      const res = await fetch(`http://${AppConfig.baseUrl}//cashew/register`, {
         method: "POST",
         body: JSON.stringify({
           userId,

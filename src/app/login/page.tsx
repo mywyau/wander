@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -98,18 +99,6 @@ export default function Login() {
         >
           Sign in with Google
         </button>
-        {/* <button
-          onClick={() => handleProviderSignIn("facebook")}
-          className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition-colors"
-        >
-          Sign in with Facebook
-        </button>
-        <button
-          onClick={() => handleProviderSignIn("twitter")}
-          className="w-full bg-blue-400 text-white py-3 rounded hover:bg-blue-500 transition-colors"
-        >
-          Sign in with Twitter
-        </button> */}
       </div>
 
       <p className="mt-4">

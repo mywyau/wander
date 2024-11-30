@@ -1,5 +1,6 @@
 "use client";
 
+import AppConfig from "@/config/AppConfig";
 import {
   UpdatedUserRequest,
   User
@@ -29,7 +30,7 @@ export default function ProfilePage() {
         setIsLoading(true);
         console.log("Fetching user data..."); // Log request initiation
         try {
-          const res = await fetch(`http://cashew-app:8080/cashew/wanderer/user/profile/${session.user.userId}`);
+          const res = await fetch(`http://${AppConfig.baseUrl}//cashew/wanderer/user/profile/${session.user.userId}`);
           console.log("Fetch response status:", res.status); // Log response status
 
           if (res.ok) {
@@ -104,7 +105,7 @@ export default function ProfilePage() {
     console.log("Cleaned UpdatedUserRequest payload:", cleanRequest); // Log cleaned payload
 
     try {
-      const res = await fetch(`http://cashew-app:8080/cashew/wanderer/user/profile/${session.user.userId}`, {
+      const res = await fetch(`http://${AppConfig.baseUrl}//cashew/wanderer/user/profile/${session.user.userId}`, {
         method: "PUT",
         body: JSON.stringify(cleanRequest),
         headers: { "Content-Type": "application/json" },

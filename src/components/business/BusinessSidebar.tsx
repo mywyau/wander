@@ -62,20 +62,9 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>User Profile</span>
                         </Link>
                     </li>
-
-
                     <li>
                         <Link
-                            href="/business/office/view"
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>View your offices</span>
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href="/business/office/add"
+                            href="/business//businesses/123/office/add"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add an office</span>
@@ -84,22 +73,12 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
 
                     <li>
                         <Link
-                            href="/business/office/edit"
+                            href="/business/businesses/123/office/edit"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Edit an office</span>
                         </Link>
                     </li>
-                    
-                    <li>
-                        <Link
-                            href="/business/desk/create"
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Create a desk</span>
-                        </Link>
-                    </li>
-
                     <li>
                         <Link
                             href="/business/businesses/view"

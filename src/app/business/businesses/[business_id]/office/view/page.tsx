@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+
 
 interface Office {
     id: string;
@@ -17,10 +18,11 @@ interface Office {
     contactPhone: string;
 }
 
-const OfficesPage = () => {
-    const router = useRouter();
-    const businessId = "business_123"; // Replace with dynamic routing parameter later
-    const businessName = "Capgemini"; // Hardcoded for now, replace with API data later
+export default function OfficesPage() {
+    const params = useParams();
+    const business_id = params.business_id;
+
+    const businessName = "Capgemini"; // Replace with API call to fetch business details
 
     // Hardcoded offices data
     const [offices, setOffices] = useState<Office[]>([
@@ -50,10 +52,14 @@ const OfficesPage = () => {
         },
     ]);
 
+    if (!business_id) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="max-w-6xl mx-auto p-8">
             <h1 className="text-2xl font-bold mb-6">
-                Offices for {businessName}
+                Offices for {businessName} (ID: {business_id})
             </h1>
 
             <div className="flex justify-between items-center mb-6">
@@ -61,7 +67,7 @@ const OfficesPage = () => {
                     {offices.length} offices found.
                 </p>
                 <Link
-                    href={`/businesses/${businessId}/add-office`}
+                    href={`/business/businesses/${business_id}/office/add`}
                     className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                 >
                     Add New Office
@@ -103,13 +109,13 @@ const OfficesPage = () => {
 
                             <div className="mt-4 flex justify-between">
                                 <Link
-                                    href={`/businesses/${businessId}/offices/${office.id}/desks`}
+                                    href={`/businesses/${business_id}/office/${office.id}/desk/view`}
                                     className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                                 >
                                     View Desks
                                 </Link>
                                 <Link
-                                    href={`/businesses/${businessId}/offices/${office.id}/edit`}
+                                    href={`/businesses/${business_id}/offices/${office.id}/edit`}
                                     className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
                                 >
                                     Edit
@@ -121,6 +127,4 @@ const OfficesPage = () => {
             )}
         </div>
     );
-};
-
-export default OfficesPage;
+}

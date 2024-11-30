@@ -18,7 +18,7 @@ const BusinessesPage = () => {
     // Hardcoded fake data for testing
     const [businesses, setBusinesses] = useState<Business[]>([
         {
-            id: "business_123",
+            id: "123",
             name: "Capgemini",
             description: "A leading consultancy firm.",
             address: "123 Desk Lane",
@@ -76,13 +76,13 @@ const BusinessesPage = () => {
 
                             <div className="mt-4 flex justify-between">
                                 <Link
-                                    href={`/businesses/${business.id}/offices`}
+                                    href={`/business/businesses/${business.id}/office/view`}
                                     className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
                                 >
                                     View Offices
                                 </Link>
                                 <Link
-                                    href={`/businesses/${business.id}/edit`}
+                                    href={`/business/businesses/${business.id}/office/edit`}
                                     className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
                                 >
                                     Edit
