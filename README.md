@@ -1,56 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bigwig
 
-## Getting Started
+## Summary
 
-First, run the development server:
+Frontend Repo for business domain specific functions, services and User Interface
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+## Running the App
+
+### Dev
+
+```
+ ./docker_compose_dev.sh
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-
-## first cloning project and setting up
-
- npm install
-
-
- ## Running app
-
- ./run.sh
- 
-
- ## Running tests
-
- ./run_tests.sh
+```
+ ./docker_compose_prod.sh
+```
 
 ## Running tests
 
-  - Local:        http://localhost:3000
-  - Environments: .env
+```
+ ./run_tests.sh 
+```
+
+### To run a single unit test suite
+
+Note you may need to use absolute paths but jest is pretty good in handling relative paths
+
+```
+ ./run_tests.sh  <path to test suite file>   
+```
+
+## App configs
+
+Configuration values are handled in the .env files
+
+There is a inheritence/heirarchy type logic to these files 
+
+TODO: document exmaple
+
+## Some useful Next Js reminders:
+
+### Routes and paths
+
+To add routes to the app follow add directories in the app and use file paths do define new pages and routing. 
+
+The final file in the path should then be a page.tsx file however the component can be called anything you want.
+
+### Query parameters
+
+use [id] in the path for query parameters
+
+### Components and types
+
+Components and types for code locality sake can be defined in the final directory as components/types directories this should help mentally keeping track of page    related components and interfaces/types.
+
+please delete any unrelated code and likely unused code, please keep comments to a minimal and program in a functional declarative manner. 
+ 
+
+Notes:
+Thank you for reading :)
