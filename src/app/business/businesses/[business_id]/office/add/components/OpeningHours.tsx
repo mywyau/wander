@@ -42,7 +42,7 @@ const OpeningHours: React.FC<OpeningHoursProps> = ({
       <div className="grid grid-cols-2 gap-6 mt-4">
         <div>
           <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">
-            Start Time
+            Opening Time
           </label>
           <input
             type="time"
@@ -56,7 +56,7 @@ const OpeningHours: React.FC<OpeningHoursProps> = ({
         </div>
         <div>
           <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">
-            End Time
+            Closing Time
           </label>
           <input
             type="time"

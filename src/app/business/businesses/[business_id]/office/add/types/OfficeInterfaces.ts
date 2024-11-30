@@ -5,7 +5,6 @@ export interface Office {
   officeSpecs: OfficeSpecs;
   addressDetails: AddressDetails;
   contactDetails: ContactDetails;
-  availability: Availability;
   createdAt: string;
   updatedAt: string;
 }

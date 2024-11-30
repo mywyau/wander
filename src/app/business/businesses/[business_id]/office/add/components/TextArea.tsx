@@ -1,7 +1,6 @@
 import React from "react";
 
-interface DescriptionTextAreaProp {
-    type: string;
+interface TextAreaProp {
     id: string;
     name: string;
     label: string;
@@ -11,7 +10,7 @@ interface DescriptionTextAreaProp {
     error?: string;
 }
 
-const DescriptionTextArea: React.FC<DescriptionTextAreaProp> = (
+const TextArea: React.FC<TextAreaProp> = (
     {
         id,
         name,
@@ -24,7 +23,7 @@ const DescriptionTextArea: React.FC<DescriptionTextAreaProp> = (
     return (
         < div >
             <label htmlFor={id} className="block text-sm font-medium text-gray-700">
-                Description
+                {label}
             </label>
             <textarea
                 id={id}
@@ -38,4 +37,4 @@ const DescriptionTextArea: React.FC<DescriptionTextAreaProp> = (
     );
 };
 
-export default DescriptionTextArea;
+export default TextArea;
