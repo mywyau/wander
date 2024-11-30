@@ -25,23 +25,25 @@ const DeskPage = () => {
 
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-    // Handle form input changes
     const handleChange = (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
         >
     ) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
+        const parsedValue = type === "number" ? Number(value) : value;
+    
         if (name.includes(".")) {
             const [parent, child] = name.split(".");
             setFormData((prev) => ({
                 ...prev,
-                [parent]: { ...(prev[parent] as object), [child]: value },
+                [parent]: { ...(prev[parent] as object), [child]: parsedValue },
             }));
         } else {
-            setFormData((prev) => ({ ...prev, [name]: value }));
+            setFormData((prev) => ({ ...prev, [name]: parsedValue }));
         }
     };
+    
 
     const handleAvailabilityCheckboxChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -131,7 +133,7 @@ const DeskPage = () => {
             console.time("API Request Duration");
             // Send data to API
             fetch(
-                `http://localhost:8081/pistachio/business/desk/listing/create`, {
+                `http://localhost:1010/pistachio/business/desk/listing/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(deskData),
