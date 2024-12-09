@@ -1,5 +1,4 @@
 import { UserSignupRequest } from "@/types/registration/UserSignupRequest";
-import AppConfig from "../../../../config/AppConfig"; // Adjust the path as needed
 
 export interface SignUpResponse {
   success: boolean;
@@ -29,6 +28,7 @@ export default class SignUpConnector {
         return { success: true };
       } else {
         const errorData = await res.json();
+        console.error("Error response:", errorData);
         return { success: false, errorData };
       }
     } catch (error) {
