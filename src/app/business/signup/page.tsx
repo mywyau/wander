@@ -1,7 +1,6 @@
 "use client";
 
 import AppConfig from "@/config/AppConfig";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -72,7 +71,7 @@ export default function BusinessSignup() {
         // } else {
         //   router.push("/wanderer/home"); // Redirect to login page if sign-in fails
         // }
-        
+
         router.push("/business/home"); // Redirect to dashboard after successful login
       } else {
         // Capture and log error message from the server

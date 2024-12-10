@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react"; // Import useSession and signOut
+import AppConfig from "@/config/AppConfig";
 
 export default function NavbarSidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
@@ -67,7 +68,7 @@ export default function NavbarSidebar() {
                 </div>
               ) : (
                 <Link
-                  href="/login"
+                  href={`${AppConfig.reggieUrl}`}
                   className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
                 >
                   Login

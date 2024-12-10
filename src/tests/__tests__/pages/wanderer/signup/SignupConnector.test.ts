@@ -1,4 +1,4 @@
-import SignUpConnector from "../../../../../app/wanderer/signup/SignUpConnector";
+import SignUpConnector from "../../../../../app/user/signup/SignUpConnector";
 
 global.fetch = jest.fn();
 

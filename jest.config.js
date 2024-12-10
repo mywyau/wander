@@ -19,7 +19,7 @@ const customJestConfig = {
     "^.+\\.(mjs|cjs)$": "<rootDir>/esm-transformer.js", // Use custom transformer for ESM modules
   },
   transformIgnorePatterns: [
-    "/node_modules/(?!jose)", // Ensure that jose and other ESM modules are transformed
+    "/node_modules/(?!jose|openid-client)", // Ensure that jose and other ESM modules are transformed
   ],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
