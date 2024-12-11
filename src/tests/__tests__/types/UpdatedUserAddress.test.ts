@@ -1,6 +1,6 @@
 // __tests__/updatedUserAddress.test.ts
 
-import { UpdatedUserAddress } from "@/types/user";
+import { UpdatedUserAddress } from "@/app/user/account/profile/types/User";
 
 describe("UpdatedUserAddress JSON Serialization and Deserialization", () => {
   it("should serialize an UpdatedUserAddress object to JSON", () => {

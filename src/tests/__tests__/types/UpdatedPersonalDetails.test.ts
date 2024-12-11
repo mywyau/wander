@@ -1,6 +1,6 @@
 // __tests__/updatedPersonalDetails.test.ts
 
-import { UpdatedPersonalDetails } from "@/types/user";
+import { UpdatedPersonalDetails } from "@/app/user/account/profile/types/User";
 
 describe("UpdatedPersonalDetails JSON Serialization and Deserialization", () => {
   it("should serialize an UpdatedPersonalDetails object to JSON", () => {

@@ -44,11 +44,11 @@ class AppConfig {
       : `${this.urlLocalHost}${this.urlLocalPort}`;
   }
 
-  static get reggieUrl(): string {
-    return this.useDockerUrl
+  static getReggieUrl(isContainer: boolean): string {
+    return isContainer
       ? `${this.reggieContainerHost}${this.reggieContainerPort}`
       : `${this.reggieLocalHost}${this.reggieLocalPort}`;
-  }
+  }  
 
 }
 

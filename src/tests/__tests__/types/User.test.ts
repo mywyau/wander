@@ -1,5 +1,5 @@
 // __tests__/apiResponse.test.ts
-import { User } from "@/types/user";
+import { User } from "@/app/user/account/profile/types/User";
 
 describe("API Response Validation", () => {
   it("should match hardcoded JSON structure for User object after JSON.stringify", () => {
