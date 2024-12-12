@@ -13,51 +13,53 @@ describe('AppConfig', () => {
     process.env = originalEnv; // Restore original process.env after each test
   });
 
-  test('should use container URL when NEXT_PUBLIC_USE_DOCKER_URL is "true"', () => {
-    process.env.NEXT_PUBLIC_USE_DOCKER_URL = "true";
-    process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST = "cashew-app:";
-    process.env.NEXT_PUBLIC_CONTAINER_CASHEW_POST = "8080";
+  test('should use container URL when USE_DOCKER_URL is "true"', () => {
+    process.env.USE_DOCKER_URL = "true";
+    process.env.CONTAINER_CASHEW_HOST = "cashew-app:";
+    process.env.CONTAINER_CASHEW_PORT = "8080";
 
-    expect(AppConfig.baseCashewUrl).toBe(true);
-    expect(AppConfig.baseCashewUrl).toBe("cashew-app:8080");
+    expect(AppConfig.useDockerCashew).toBe(true);
+    expect(AppConfig.baseCashewUrl(true)).toBe("cashew-app:8080");
   });
 
-  test('should use local URL when NEXT_PUBLIC_USE_DOCKER_URL is "false"', () => {
-    process.env.NEXT_PUBLIC_USE_DOCKER_URL = "false";
-    process.env.NEXT_PUBLIC_LOCAL_CASHEW_HOST = "localhost:";
-    process.env.NEXT_PUBLIC_LOCAL_CASHEW_POST = "8080";
+  test('should use localhost URL when isContainer is "false"', () => {
 
-    expect(AppConfig.baseCashewUrl).toBe(false);
-    expect(AppConfig.baseCashewUrl).toBe("localhost:8080");
+    process.env.USE_DOCKER_URL = "false";
+    process.env.LOCAL_CASHEW_HOST = "localhost:";
+    process.env.LOCAL_CASHEW_PORT = "8080";
+
+    expect(AppConfig.useDockerCashew).toBe(false);
+    expect(AppConfig.baseCashewUrl(false)).toBe("localhost:8080");
   });
 
 
   test('should fall back to empty strings when environment variables are not set', () => {
-    delete process.env.NEXT_PUBLIC_USE_DOCKER_URL;
-    delete process.env.NEXT_PUBLIC_LOCAL_CASHEW_HOST;
-    delete process.env.NEXT_PUBLIC_LOCAL_CASHEW_POST;
-    delete process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST;
-    delete process.env.NEXT_PUBLIC_CONTAINER_CASHEW_POST;
+    delete process.env.USE_DOCKER_URL;
+    delete process.env.LOCAL_CASHEW_HOST;
+    delete process.env.LOCAL_CASHEW_PORT;
+    delete process.env.CONTAINER_CASHEW_HOST;
+    delete process.env.CONTAINER_CASHEW_PORT;
 
-    expect(AppConfig.useDockerUrl).toBe(false); // Default to false
-    expect(AppConfig.baseUrl).toBe(""); // Empty since no host/port are set
+    expect(AppConfig.useDockerCashew).toBe(false); // Default to false
+
+    expect(AppConfig.baseCashewUrl(false)).toBe(""); // Empty since no host/port are set
   });
 
   test('should handle mixed configurations correctly', () => {
 
-    process.env.NEXT_PUBLIC_USE_DOCKER_URL = "true";
+    process.env.USE_DOCKER_URL = "true";
 
     process.env.LOCAL_CASHEW_HOST = "localhost:";
-    process.env.LOCAL_CASHEW_POST = "3000";
+    process.env.LOCAL_CASHEW_PORT = "3000";
 
-    process.env.CONTAINER_CASHEW_HOST = "cashew-app:";
-    process.env.CONTAINER_CASHEW_POST = "8080";
+    process.env.CONTAINER_CASHEW_HOST = "cashew:";
+    process.env.CONTAINER_CASHEW_PORT = "8080";
 
-    expect(AppConfig.baseCashewUrl).toBe(true);
-    expect(AppConfig.baseCashewUrl).toBe("cashew-app:8080");
+    expect(AppConfig.useDockerCashew).toBe(true);
+    expect(AppConfig.baseCashewUrl(true)).toBe("cashew:8080");
 
 
-    process.env.NEXT_PUBLIC_USE_DOCKER_URL = "false";
-    expect(AppConfig.baseCashewUrl).toBe("localhost:3000");
+    process.env.USE_DOCKER_URL = "false";
+    expect(AppConfig.baseCashewUrl(false)).toBe("localhost:3000");
   });
 });

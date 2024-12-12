@@ -1,5 +1,9 @@
 class AppConfig {
 
+  static get useDockerCashew(): boolean {
+    return process.env.USE_DOCKER_URL === "true";
+  }
+
   static get cashewLocalHost(): string {
     return process.env.LOCAL_CASHEW_HOST || "";
   }
@@ -14,10 +18,6 @@ class AppConfig {
 
   static get cashewContainerPort(): string {
     return process.env.CONTAINER_CASHEW_PORT || "";
-  }
-
-  static get useDockerCashew(): boolean {
-    return process.env.NEXT_PUBLIC_USE_DOCKER_CASHEW === "true";
   }
 
 
