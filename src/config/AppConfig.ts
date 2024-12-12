@@ -1,23 +1,23 @@
 class AppConfig {
 
-  static get urlLocalHost(): string {
+  static get cashewLocalHost(): string {
     return process.env.LOCAL_CASHEW_HOST || "";
   }
 
-  static get urlLocalPort(): string {
+  static get cashewLocalPort(): string {
     return process.env.LOCAL_CASHEW_PORT || "";
   }
 
-  static get urlContainerHost(): string {
+  static get cashewContainerHost(): string {
     return process.env.CONTAINER_CASHEW_HOST || "";
   }
 
-  static get urlContainerPort(): string {
+  static get cashewContainerPort(): string {
     return process.env.CONTAINER_CASHEW_PORT || "";
   }
 
-  static get useDockerUrl(): boolean {
-    return process.env.NEXT_PUBLIC_USE_DOCKER_URL === "true";
+  static get useDockerCashew(): boolean {
+    return process.env.NEXT_PUBLIC_USE_DOCKER_CASHEW === "true";
   }
 
 
@@ -38,17 +38,17 @@ class AppConfig {
   }
 
 
-  static get baseUrl(): string {
-    return this.useDockerUrl
-      ? `${this.urlContainerHost}${this.urlContainerPort}`
-      : `${this.urlLocalHost}${this.urlLocalPort}`;
+  static baseCashewUrl(isContainer: boolean): string {
+    return isContainer
+      ? `${this.cashewContainerHost}${this.cashewContainerPort}`
+      : `${this.cashewLocalHost}${this.cashewLocalPort}`;
   }
 
   static getReggieUrl(isContainer: boolean): string {
     return isContainer
       ? `${this.reggieContainerHost}${this.reggieContainerPort}`
       : `${this.reggieLocalHost}${this.reggieLocalPort}`;
-  }  
+  }
 
 }
 
