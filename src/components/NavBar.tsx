@@ -1,9 +1,9 @@
 "use client";
 
+import AppConfig from "@/config/AppConfig";
+import { signOut, useSession } from "next-auth/react"; // Import useSession and signOut
 import Link from "next/link";
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react"; // Import useSession and signOut
-import AppConfig from "@/config/AppConfig";
 
 export default function NavbarSidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
@@ -67,12 +67,13 @@ export default function NavbarSidebar() {
                   </button>
                 </div>
               ) : (
-                <Link
-                  href={`${AppConfig.reggieUrl}`}
+                <a
+                  href={`http://${AppConfig.getReggieUrl(false)}/login`}
                   className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
+                  target="_self"
                 >
                   Login
-                </Link>
+                </a>
               )}
             </div>
 

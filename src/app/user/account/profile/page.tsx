@@ -1,24 +1,19 @@
 "use client";
 
-import {
-  UpdatedUserRequest,
-  User
-} from "@/types/user";
+import { UpdatedUserRequest, User } from "@/app/user/account/profile/types/User";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import CustomButton from "./components/CustomButton";
 import EmailInputField from "./components/EmailInputField";
+import ProfileSection from "./components/ProfileSection";
 import SelectField from "./components/SelectInputField";
 import TextInputField from "./components/TextInputField";
+import { updateUserDataField } from "./form/ProfileForm";
+import { fetchUserData, updateUserData } from "./services/UserService";
 
-
-const ProfileSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-    <h2 className="text-xl font-semibold mb-4 border-b-2 border-gray-200 pb-2">{title}</h2>
-    {children}
-  </div>
-);
 
 export default function ProfilePage() {
+
   const { data: session, status } = useSession();
   const [userData, setUserData] = useState<User | null>(null);
   const [message, setMessage] = useState("");
@@ -28,52 +23,20 @@ export default function ProfilePage() {
   // Fetch user profile data
   useEffect(() => {
     if (status === "authenticated" && session?.user?.userId) {
-      const fetchUserData = async () => {
-        setIsLoading(true);
-        console.log("Fetching user data..."); // Log request initiation
-        try {
-          const res = await fetch(`http://localhost:8080/cashew/wanderer/user/profile/${session.user.userId}`);
-          console.log("Fetch response status:", res.status); // Log response status
-
-          if (res.ok) {
-            const data: User = await res.json();
-            console.log("Fetched user data:", data); // Log fetched data
-            setUserData(data);
-          } else {
-            setMessage("Failed to fetch user data.");
-            console.error("Failed to fetch user data, response:", res);
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          setMessage("An error occurred while fetching user data.");
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchUserData();
+      setIsLoading(true);
+      fetchUserData(session.user.userId)
+        .then((data) => {
+          if (data) setUserData(data);
+          else setMessage("Failed to fetch user data.");
+        })
+        .catch(() => setMessage("An error occurred while fetching user data."))
+        .finally(() => setIsLoading(false));
     }
   }, [session, status]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-
-    setUserData((prevData) =>
-      prevData
-        ? {
-          ...prevData,
-          userLoginDetails: id.startsWith("login.")
-            ? { ...prevData.userLoginDetails, [id.split(".")[1]]: value }
-            : prevData.userLoginDetails,
-          userPersonalDetails: id.startsWith("personal.")
-            ? { ...prevData.userPersonalDetails, [id.split(".")[1]]: value }
-            : prevData.userPersonalDetails,
-          userAddress: id.startsWith("address.")
-            ? { ...prevData.userAddress, [id.split(".")[1]]: value }
-            : prevData.userAddress,
-        }
-        : null
-    );
+    setUserData((prevData) => updateUserDataField(prevData, id, value));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -82,57 +45,34 @@ export default function ProfilePage() {
 
     if (!session?.user?.userId || !userData) {
       setMessage("User ID or data is missing.");
-      console.error("Cannot submit: User ID or data is missing.");
       return;
     }
 
-    // Construct the UpdatedUserRequest payload
     const updatedUserRequest: UpdatedUserRequest = {
-      loginDetails: {
-        ...userData.userLoginDetails,
-      },
-      address: {
-        ...userData.userAddress,
-      },
-      personalDetails: {
-        ...userData.userPersonalDetails,
-      }
+      loginDetails: { ...userData.userLoginDetails },
+      address: { ...userData.userAddress },
+      personalDetails: { ...userData.userPersonalDetails },
     };
 
-    // Remove `null`, `undefined`, or empty string fields
-    const cleanRequest = JSON.parse(JSON.stringify(updatedUserRequest, (key, value) => {
-      return value === null || value === undefined || value === "" ? undefined : value;
-    }));
+    const cleanRequest =
+      JSON.parse(
+        JSON.stringify(updatedUserRequest, (key, value) =>
+          value === null || value === undefined || value === "" ? undefined : value
+        )
+      );
 
-    console.log("Cleaned UpdatedUserRequest payload:", cleanRequest); // Log cleaned payload
+    const updatedData = await updateUserData(session.user.userId, cleanRequest);
 
-    try {
-      const res = await fetch(`http://localhost:8080/cashew/wanderer/user/profile/${session.user.userId}`, {
-        method: "PUT",
-        body: JSON.stringify(cleanRequest),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      console.log("Submit response status:", res.status); // Log response status
-
-      if (res.ok) {
-        const updatedData: User = await res.json();
-        console.log("Updated user data:", updatedData); // Log updated user data
-        setUserData(updatedData);
-        setMessage("Profile updated successfully.");
-        setIsEditing(false);
-      } else {
-        setMessage("Failed to update profile.");
-        console.error("Failed to update profile, response:", res);
-      }
-    } catch (error) {
-      console.error("Error updating user data:", error);
-      setMessage("An error occurred while updating the profile.");
-    } finally {
-      setIsLoading(false);
+    if (updatedData) {
+      setUserData(updatedData);
+      setMessage("Profile updated successfully.");
+      setIsEditing(false);
+    } else {
+      setMessage("Failed to update profile.");
     }
-  };
 
+    setIsLoading(false);
+  };
 
   if (status === "loading") return <p>Loading session...</p>;
   if (!session || !session.user || status === "unauthenticated") return <p>Please log in to view your profile.</p>;
@@ -322,26 +262,26 @@ export default function ProfilePage() {
             </ProfileSection>
 
             <div className="col-span-full">
-              <button
+              <CustomButton
                 type="submit"
-                className={`w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                disabled={isLoading || !isEditing}
+                className="bg-indigo-600 text-white hover:bg-indigo-700"
+                disabled={isLoading}
               >
                 {isLoading ? "Saving..." : "Save Changes"}
-              </button>
+              </CustomButton>
             </div>
 
             <div className="col-span-full">
-              <button
-                type="button"
+              <CustomButton
                 onClick={() => setIsEditing(!isEditing)}
-                className="w-full bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 transition duration-200"
+                className="w-full bg-gray-500 text-white hover:bg-gray-600"
               >
                 {isEditing ? "Cancel Editing" : "Edit"}
-              </button>
+              </CustomButton>
             </div>
+
           </form>
+
         </div>
       </div>
     </div>

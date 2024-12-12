@@ -4,7 +4,7 @@ import AppConfig from "@/config/AppConfig";
 import {
   UpdatedUserRequest,
   User
-} from "@/types/user";
+} from "@/app/user/account/profile/types/User";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
