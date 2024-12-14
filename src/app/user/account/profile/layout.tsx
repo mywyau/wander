@@ -3,7 +3,7 @@ import React from 'react';
 
 import AuthProvider from "@/components/AuthProvider";
 import Navbar from "@/components/NavBar";
-import WandererSidebar from '@/components/wanderer/WandererSidebar';
+import WandererSidebar from '@/components/user/UserSidebar';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../../../globals.css";

@@ -7,7 +7,7 @@ import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../../globals.css";
-import WandererSidebar from '@/components/wanderer/WandererSidebar';
+import WandererSidebar from '@/components/user/UserSidebar';
 import BusinessSidebar from '@/components/business/BusinessSidebar';
 
 // Load fonts
