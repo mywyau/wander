@@ -22,6 +22,7 @@ export default function ProfilePage() {
 
   // Fetch user profile data
   useEffect(() => {
+    
     if (status === "authenticated" && session?.user?.userId) {
       setIsLoading(true);
       fetchUserData(session.user.userId)

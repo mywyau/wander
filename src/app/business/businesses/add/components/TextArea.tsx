@@ -1,45 +1,40 @@
 import React from "react";
 
-interface TextInputProps {
-    type: string;
+interface TextAreaProp {
     id: string;
     name: string;
     label: string;
-    value: string | undefined;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Change handler
     placeholder?: string
     error?: string;
 }
 
-const TextInput: React.FC<TextInputProps> = (
+const TextArea: React.FC<TextAreaProp> = (
     {
-        type,
         id,
         name,
         label,
         value,
         onChange,
-        placeholder = "",
-        error,
+        placeholder = "short description of office"
     }
 ) => {
     return (
-        <div>
+        < div >
             <label htmlFor={id} className="block text-sm font-medium text-gray-700">
                 {label}
             </label>
-            <input
-                type={type}
+            <textarea
                 id={id}
                 name={name}
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                className={`w-full mt-1 px-4 py-2 border rounded-md ${error ? "border-red-500" : "border-gray-300"}`}
+                className="w-full mt-1 px-4 py-2 border rounded-md"
             />
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-        </div>
+        </div >
     );
 };
 
-export default TextInput;
+export default TextArea;

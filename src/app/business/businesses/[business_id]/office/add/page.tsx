@@ -69,7 +69,6 @@ const AddOfficePage = () => {
         }
     );
 
-
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const handleChange = (
@@ -191,7 +190,6 @@ const AddOfficePage = () => {
             },
         }));
     };
-
 
     const handleAddressSelect = (
         data: {
@@ -366,7 +364,6 @@ const AddOfficePage = () => {
         }
     };
 
-
     return (
         <div className="max-w-4xl mx-auto p-8">
             <h1 className="text-2xl font-bold mb-6">Add an Office</h1>
@@ -405,8 +402,6 @@ const AddOfficePage = () => {
                     ]}
                     error={errors.officeType}
                 />
-
-                {/* <AddressSearch onSelect={handleAddressSelect} /> */}
 
                 <AddressSearch
                     addressDetails={formData.addressDetails || {}}

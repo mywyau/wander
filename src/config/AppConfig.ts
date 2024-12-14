@@ -20,6 +20,21 @@ class AppConfig {
     return process.env.CONTAINER_CASHEW_PORT || "";
   }
 
+  static get pistachioLocalHost(): string {
+    return process.env.LOCAL_PISTACHIO_HOST || "";
+  }
+
+  static get pistachioLocalPort(): string {
+    return process.env.LOCAL_PISTACHIO_PORT || "";
+  }
+
+  static get pistachioContainerHost(): string {
+    return process.env.CONTAINER_PISTACHIO_HOST || "";
+  }
+
+  static get pistachioContainerPort(): string {
+    return process.env.CONTAINER_PISTACHIO_PORT || "";
+  }
 
   static get reggieLocalHost(): string {
     return process.env.LOCAL_REGGIE_HOST || "";
@@ -37,11 +52,16 @@ class AppConfig {
     return process.env.CONTAINER_REGGIE_PORT || "";
   }
 
-
   static baseCashewUrl(isContainer: boolean): string {
     return isContainer
       ? `${this.cashewContainerHost}${this.cashewContainerPort}`
       : `${this.cashewLocalHost}${this.cashewLocalPort}`;
+  }
+
+  static basePistachioUrl(isContainer: boolean): string {
+    return isContainer
+      ? `${this.pistachioContainerHost}${this.pistachioContainerPort}`
+      : `${this.pistachioLocalHost}${this.pistachioLocalPort}`;
   }
 
   static getReggieUrl(isContainer: boolean): string {

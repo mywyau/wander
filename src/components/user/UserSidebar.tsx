@@ -47,7 +47,7 @@ export default function Sidebar({ isOpen }: { isOpen: boolean }) {
                 <ul className="space-y-2 font-medium">
                     <li>
                         <Link
-                            href="/wanderer/home"
+                            href="/user/home"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Dashboard</span>
@@ -55,7 +55,7 @@ export default function Sidebar({ isOpen }: { isOpen: boolean }) {
                     </li>
                     <li>
                         <Link
-                            href="/wanderer/past-bookings"
+                            href="/user/past-bookings"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Past Bookings</span>
@@ -63,7 +63,7 @@ export default function Sidebar({ isOpen }: { isOpen: boolean }) {
                     </li>
                     <li>
                         <Link
-                            href="/wanderer/account/profile"
+                            href="/user/account/profile"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Profile</span>

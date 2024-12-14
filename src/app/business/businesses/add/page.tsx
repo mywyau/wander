@@ -1,269 +1,168 @@
 "use client";
 
-import AppConfig from "@/config/AppConfig";
 import React, { useState } from "react";
+import AddBusinessButton from "./components/AddBusinessButton";
 import AddressSearch from "./components/AddressSearch";
+import TextArea from "./components/TextArea";
 import TextInput from "./components/TextInput";
-
-// Define interfaces
-interface Business {
-    name: string;
-    description?: string;
-    street: string;
-    city: string;
-    postcode: string;
-    contactEmail: string;
-    contactPhone: string;
-    openingHours: {
-        days: string[];
-        startTime: string; // ISO 8601 string
-        endTime: string; // ISO 8601 string
-    };
-}
+import { createBusiness } from "./service/AddBusinessConnector";
+import { initializeBusinessForm } from "./service/FormFactory";
+import { handleNestedChange, validateBusinessForm } from "./service/FormUtils";
+import { BusinessListing } from "./types/BusinessListing";
 
 const AddBusinessPage = () => {
-    const [formData, setFormData] = useState<Partial<Business>>({
-        name: "",
-        description: "",
-        street: "",
-        city: "",
-        postcode: "",
-        contactEmail: "",
-        contactPhone: "",
-        openingHours: {
-            days: [],
-            startTime: "",
-            endTime: "",
-        },
-    });
-
+    const [formData, setFormData] = useState<Partial<BusinessListing>>(initializeBusinessForm());
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-    // Handle form input changes
     const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
         const { name, value } = e.target;
-        if (name.includes(".")) {
-            const [parent, child] = name.split(".");
-            setFormData((prev) => ({
-                ...prev,
-                [parent]: { ...(prev[parent] as object), [child]: value },
-            }));
-        } else {
-            setFormData((prev) => ({ ...prev, [name]: value }));
-        }
+        setFormData((prev) => handleNestedChange(prev, name, value));
     };
 
-    const handleAvailabilityCheckboxChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const { value, checked } = e.target;
+    const handleAddressSelect = (data: {
+        address: string;
+        location: { lat: number; lng: number };
+        components: { street: string; city: string; postcode: string };
+    }) => {
         setFormData((prev) => ({
             ...prev,
-            openingHours: {
-                ...prev.openingHours!,
-                days: checked
-                    ? [...(prev.openingHours!.days || []), value]
-                    : prev.openingHours!.days?.filter((day) => day !== value) || [],
+            addressDetails: {
+                ...prev.addressDetails!,
+                street: data.components.street,
+                city: data.components.city,
+                postcode: data.components.postcode,
+                latitude: data.location.lat,
+                longitude: data.location.lng,
             },
         }));
     };
 
-    const handleAddressSelect = (data: { address: string; location: { lat: number; lng: number }; components: { street: string; city: string; postcode: string } }) => {
-        setFormData((prev) => ({
-            ...prev,
-            street: data.components.street,
-            city: data.components.city,
-            postcode: data.components.postcode,
-        }));
-    };
+    const handleSubmit = async (e: React.FormEvent) => {
 
-    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        const validationErrors = validateBusinessForm(formData);
+        setErrors(validationErrors);
 
-        console.log("Form submission triggered.");
-
-        // Validate the form
-        const newErrors: { [key: string]: string } = {};
-        if (!formData.name) newErrors.name = "Business name is required.";
-        if (!formData.street) newErrors.street = "Street address is required.";
-        if (!formData.city) newErrors.city = "City is required.";
-        if (!formData.postcode) newErrors.postcode = "Postcode is required.";
-        if (!formData.contactEmail) newErrors.contactEmail = "Contact email is required.";
-        if (!formData.contactPhone) newErrors.contactPhone = "Contact phone is required.";
-        if (!formData.openingHours?.days?.length)
-            newErrors.openingHours = "Select at least one opening day.";
-        if (!formData.openingHours?.startTime)
-            newErrors.startTime = "Opening start time is required.";
-        if (!formData.openingHours?.endTime)
-            newErrors.endTime = "Closing end time is required.";
-
-        setErrors(newErrors);
-
-        if (Object.keys(newErrors).length === 0) {
-            console.log("Business data ready to be submitted:", formData);
-
-            fetch(`http://${AppConfig.baseUrl}//api/Businesss`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            })
-                .then((res) => {
-                    if (!res.ok) {
-                        throw new Error("Failed to add Business.");
-                    }
-                    return res.json();
-                })
-                .then((data) => {
-                    console.log("Business successfully created:", data);
-                    // Clear the form after successful submission
-                    setFormData({
-                        name: "",
-                        description: "",
-                        street: "",
-                        city: "",
-                        postcode: "",
-                        contactEmail: "",
-                        contactPhone: "",
-                        openingHours: {
-                            days: [],
-                            startTime: "",
-                            endTime: "",
-                        },
-                    });
-                })
-                .catch((err) => {
-                    console.error("Error creating Business:", err);
-                });
+        if (Object.keys(validationErrors).length === 0) {
+            try {
+                const result = await createBusiness(formData);
+                console.log("Business created:", result);
+                setFormData(initializeBusinessForm());
+                setErrors({});
+            } catch (error) {
+                console.error("Error creating business:", error);
+            }
         }
     };
 
     return (
         <div className="max-w-4xl mx-auto p-8">
-            <h1 className="text-2xl font-bold mb-6">Add an Business</h1>
+            <h1 className="text-2xl font-bold mb-6">Add a Business</h1>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Business Name */}
 
                 <TextInput
-                    id="name"
-                    name="name"
+                    type="text"
+                    id="businessSpecs.businessName"
+                    name="businessSpecs.businessName"
                     label="Business Name"
-                    value={formData.name || ""}
+                    value={formData.businessSpecs?.businessName || ""}
                     onChange={handleChange}
                     placeholder="Enter the Business name"
-                    error={errors.name}
+                    error={errors.businessName}
                 />
 
-                {/* Description */}
-                <div>
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                        Description
-                    </label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        value={formData.description}
+                <TextArea
+                    id="description"
+                    name="businessSpecs.description"
+                    label="Description"
+                    value={formData.businessSpecs?.description || ""}
+                    onChange={handleChange}
+                />
+
+                <AddressSearch
+                    addressDetails={formData.addressDetails || {}}
+                    setAddressDetails={(updatedAddress) =>
+                        setFormData((prev) => ({ ...prev, addressDetails: updatedAddress }))
+                    }
+                />
+
+                <div className="grid grid-cols-2 gap-6">
+                    <TextInput
+                        type="businessName"
+                        id="building-name"
+                        name="contactDetails.buildingName"
+                        label="Building Name"
+                        value={formData.addressDetails?.buildingName}
                         onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
+                        placeholder="Please enter a building name"
+                        error={errors.buildingName}
+                    />
+
+                    <TextInput
+                        type="floorNumber"
+                        id="floor-number"
+                        name="contactDetails.floorNumber"
+                        label="Floor Number"
+                        value={formData.addressDetails?.floorNumber}
+                        onChange={handleChange}
+                        placeholder="Please enter the floor number"
+                        error={errors.floorNumber}
                     />
                 </div>
 
-                <AddressSearch onSelect={handleAddressSelect} />
+                <div className="grid grid-cols-2 gap-6">
+                    <TextInput
+                        type="text"
+                        id="primary-contact-first-name"
+                        name="contactDetails.primaryContactFirstName"
+                        label="Primary Contact First Name"
+                        value={formData.contactDetails?.primaryContactFirstName}
+                        onChange={handleChange}
+                        placeholder="Enter a contact's first name"
+                        error={errors.primaryContactFirstName}
+                    />
 
-                {/* Contact Information */}
-                <div>
-                    <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-700">
-                        Contact Email
-                    </label>
-                    <input
+                    <TextInput
+                        type="text"
+                        id="primary-contact-last-name"
+                        name="contactDetails.primaryContactLastName"
+                        label="Primary Contact Last Name"
+                        value={formData.contactDetails?.primaryContactLastName}
+                        onChange={handleChange}
+                        placeholder="Enter a contact's last name"
+                        error={errors.primaryContactLastName}
+                    />
+                </div>
+
+
+                <div className="grid grid-cols-2 gap-6">
+                    <TextInput
                         type="email"
-                        id="contactEmail"
-                        name="contactEmail"
-                        value={formData.contactEmail}
+                        id="contact-details-contact-email"
+                        name="contactDetails.contactEmail"
+                        label="Email"
+                        value={formData.contactDetails?.contactEmail}
                         onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
+                        placeholder="Enter an email for business enqueries"
+                        error={errors.contactEmail}
                     />
-                    {errors.contactEmail && <p className="text-red-500 text-sm">{errors.contactEmail}</p>}
-                </div>
 
-                <div>
-                    <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700">
-                        Contact Phone
-                    </label>
-                    <input
+                    <TextInput
                         type="tel"
-                        id="contactPhone"
-                        name="contactPhone"
-                        value={formData.contactPhone}
+                        id="contact-details-contact-number"
+                        name="contactDetails.contactNumber"
+                        label="Contact Number"
+                        value={formData.contactDetails?.contactNumber}
                         onChange={handleChange}
-                        className="w-full mt-1 px-4 py-2 border rounded-md"
+                        placeholder="Enter a phone number for business enqueries"
+                        error={errors.contactNumber}
                     />
-                    {errors.contactPhone && <p className="text-red-500 text-sm">{errors.contactPhone}</p>}
                 </div>
 
-                {/* Opening Hours */}
-                <div>
-                    <fieldset>
-                        <legend className="block text-sm font-medium text-gray-700">Opening Hours</legend>
-                        <div className="flex gap-4 mt-2">
-                            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
-                                <label key={day} className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        value={day}
-                                        checked={formData.openingHours?.days.includes(day)}
-                                        onChange={handleAvailabilityCheckboxChange}
-                                        className="mr-2"
-                                    />
-                                    {day}
-                                </label>
-                            ))}
-                        </div>
-                        <div className="grid grid-cols-2 gap-6">
-                            <div className="mt-4">
-                                <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">
-                                    Start Time
-                                </label>
-                                <input
-                                    type="time"
-                                    id="startTime"
-                                    name="openingHours.startTime"
-                                    value={formData.openingHours?.startTime}
-                                    onChange={handleChange}
-                                    className="w-full mt-1 px-4 py-2 border rounded-md"
-                                />
-                                {errors.startTime && <p className="text-red-500 text-sm">{errors.startTime}</p>}
-                            </div>
-                            <div className="mt-4">
-                                <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">
-                                    End Time
-                                </label>
-                                <input
-                                    type="time"
-                                    id="endTime"
-                                    name="openingHours.endTime"
-                                    value={formData.openingHours?.endTime}
-                                    onChange={handleChange}
-                                    className="w-full mt-1 px-4 py-2 border rounded-md"
-                                />
-                                {errors.endTime && <p className="text-red-500 text-sm">{errors.endTime}</p>}
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                {/* Submit Button */}
-                <div>
-                    <button
-                        type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
-                    >
-                        Add Business
-                    </button>
-                </div>
+                <AddBusinessButton label="Add Business" type="submit" className="w-full" />
             </form>
         </div>
     );

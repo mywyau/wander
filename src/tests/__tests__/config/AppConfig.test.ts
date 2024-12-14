@@ -1,7 +1,7 @@
 import AppConfig from '@/config/AppConfig';
 
 describe('AppConfig', () => {
-    
+
   const originalEnv = process.env;
 
   // Before each test, reset the process.env
@@ -15,11 +15,11 @@ describe('AppConfig', () => {
 
   test('should use container URL when USE_DOCKER_URL is "true"', () => {
     process.env.USE_DOCKER_URL = "true";
-    process.env.CONTAINER_CASHEW_HOST = "cashew-app:";
+    process.env.CONTAINER_CASHEW_HOST = "cashew:";
     process.env.CONTAINER_CASHEW_PORT = "8080";
 
     expect(AppConfig.useDockerCashew).toBe(true);
-    expect(AppConfig.baseCashewUrl(true)).toBe("cashew-app:8080");
+    expect(AppConfig.baseCashewUrl(true)).toBe("cashew:8080");
   });
 
   test('should use localhost URL when isContainer is "false"', () => {
@@ -31,7 +31,6 @@ describe('AppConfig', () => {
     expect(AppConfig.useDockerCashew).toBe(false);
     expect(AppConfig.baseCashewUrl(false)).toBe("localhost:8080");
   });
-
 
   test('should fall back to empty strings when environment variables are not set', () => {
     delete process.env.USE_DOCKER_URL;
@@ -61,5 +60,19 @@ describe('AppConfig', () => {
 
     process.env.USE_DOCKER_URL = "false";
     expect(AppConfig.baseCashewUrl(false)).toBe("localhost:3000");
+  });
+
+
+  test('pistachio configs should be correct', () => {
+
+    process.env.LOCAL_PISITACHIO_HOST = "localhost:";
+    process.env.LOCAL_PISITACHIO_PORT = "1010";
+
+    process.env.CONTAINER_PISITACHIO_HOST = "pistachio:";
+    process.env.CONTAINER_PISITACHIO_PORT = "1010";
+
+    expect(AppConfig.useDockerCashew).toBe(true);
+    expect(AppConfig.basePistachioUrl(true)).toBe("pistachio:1010");
+    expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1010");
   });
 });
