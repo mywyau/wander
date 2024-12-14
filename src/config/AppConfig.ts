@@ -36,6 +36,22 @@ class AppConfig {
     return process.env.CONTAINER_PISTACHIO_PORT || "";
   }
 
+  static get peanutLocalHost(): string {
+    return process.env.LOCAL_PEANUT_HOST || "";
+  }
+
+  static get peanutLocalPort(): string {
+    return process.env.LOCAL_PEANUT_PORT || "";
+  }  
+  
+  static get peanutContainerHost(): string {
+    return process.env.CONTAINER_PEANUT_HOST || "";
+  }
+  
+  static get peanutContainerPort(): string {
+    return process.env.CONTAINER_PEANUT_PORT || "";
+  }
+
   static get reggieLocalHost(): string {
     return process.env.LOCAL_REGGIE_HOST || "";
   }
@@ -62,6 +78,12 @@ class AppConfig {
     return isContainer
       ? `${this.pistachioContainerHost}${this.pistachioContainerPort}`
       : `${this.pistachioLocalHost}${this.pistachioLocalPort}`;
+  }
+
+  static basePeanutUrl(isContainer: boolean): string {
+    return isContainer
+      ? `${this.peanutContainerHost}${this.peanutContainerPort}`
+      : `${this.peanutLocalHost}${this.peanutLocalPort}`;
   }
 
   static getReggieUrl(isContainer: boolean): string {

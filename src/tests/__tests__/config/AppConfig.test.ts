@@ -75,4 +75,18 @@ describe('AppConfig', () => {
     expect(AppConfig.basePistachioUrl(true)).toBe("pistachio:1010");
     expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1010");
   });
+
+
+  test('peanut configs should be correct', () => {
+
+    process.env.LOCAL_PEANUT_HOST = "localhost:";
+    process.env.LOCAL_PEANUT_PORT = "1011";
+
+    process.env.CONTAINER_PEANUT_HOST = "peanut:";
+    process.env.CONTAINER_PEANUT_PORT = "1011";
+
+    expect(AppConfig.useDockerCashew).toBe(true);
+    expect(AppConfig.basePeanutUrl(true)).toBe("peanut:1011");
+    expect(AppConfig.basePeanutUrl(false)).toBe("localhost:1011");
+  });
 });
