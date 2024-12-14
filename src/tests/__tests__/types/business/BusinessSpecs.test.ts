@@ -1,7 +1,7 @@
 
 import { BusinessSpecs } from "@/app/business/businesses/add/types/BusinessSpecs";
 
-describe("BusinessSpecs JSON Serialization and Deserialization", () => {
+describe("BusinessSpecs - JSON Serialization and Deserialization", () => {
 
   it("should serialize an BusinessSpecs object to JSON", () => {
 
@@ -12,7 +12,7 @@ describe("BusinessSpecs JSON Serialization and Deserialization", () => {
       businessName: "mikey corp",
       description: "some desc",
       createdAt: "2024-01-01T00:00:00Z",
-      updatedAt: "2024-01-02T00:00:00Z",
+      updatedAt: "2024-01-02T00:00:00Z"
     };
 
     const expectedJson = JSON.stringify({
@@ -22,7 +22,7 @@ describe("BusinessSpecs JSON Serialization and Deserialization", () => {
       businessName: "mikey corp",
       description: "some desc",
       createdAt: "2024-01-01T00:00:00Z",
-      updatedAt: "2024-01-02T00:00:00Z",
+      updatedAt: "2024-01-02T00:00:00Z"
     });
 
     const actualJson = JSON.stringify(businessSpecs);
@@ -32,13 +32,13 @@ describe("BusinessSpecs JSON Serialization and Deserialization", () => {
   it("should deserialize a JSON string to an BusinessSpecs object", () => {
 
     const jsonString = `{
-      id: 1,
-      userId: "user_id_1",
-      businessId: "business_id_1",
-      businessName: "mikey corp",
-      description: "some desc",
-      createdAt: "2024-01-01T00:00:00Z",
-      updatedAt: "2024-01-02T00:00:00Z",
+      "id": 1,
+      "userId": "user_id_1",
+      "businessId": "business_id_1",
+      "businessName": "mikey corp",
+      "description": "some desc",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-02T00:00:00Z"
     }`;
 
     const expectedObject: BusinessSpecs = {
@@ -48,7 +48,7 @@ describe("BusinessSpecs JSON Serialization and Deserialization", () => {
       businessName: "mikey corp",
       description: "some desc",
       createdAt: "2024-01-01T00:00:00Z",
-      updatedAt: "2024-01-02T00:00:00Z",
+      updatedAt: "2024-01-02T00:00:00Z"
     };
 
     const actualObject = JSON.parse(jsonString) as BusinessSpecs;

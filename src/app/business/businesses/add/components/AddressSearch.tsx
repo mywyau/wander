@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { AddressDetails } from '../types/BusinessInterfaces'; // Adjust the path as needed
+import { AddressDetails } from '../types/BusinessListing'; // Adjust the path as needed
 
 const libraries = ['places'];
 
