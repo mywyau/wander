@@ -3,46 +3,10 @@ import React, { useState } from 'react';
 import { BusinessAddressDetails } from '../types/BusinessAddressDetails'; // Adjust the path as needed
 import AddressInput from './AddressInput';
 import MapContainer from './MapContainer';
+import mockAddresses from '../data/MockAddressData';
 
 const libraries = ['places'];
 
-// Mock data aligned with BusinessAddressDetails schema
-const MOCK_ADDRESSES: BusinessAddressDetails[] = [
-  {
-    id: 1,
-    userId: "userId_1",
-    businessId: "business_1",
-    businessName: "mikey corp",
-    buildingName: "Building A",
-    floorNumber: "1",
-    street: "123 Main Street",
-    city: "New York",
-    country: "United States",
-    county: "New York County",
-    postcode: "10001",
-    latitude: 40.712776,
-    longitude: -74.005974,
-    createdAt: new Date().toISOString().slice(0, 19),
-    updatedAt: new Date().toISOString().slice(0, 19),
-  },
-  {
-    id: 2,
-    userId: "userId_2",
-    businessId: "business_1",
-    businessName: "mikey corp 2",
-    buildingName: "Building B",
-    floorNumber: "2",
-    street: "456 Elm Street",
-    city: "San Francisco",
-    country: "United States",
-    county: "San Francisco County",
-    postcode: "94102",
-    latitude: 37.774929,
-    longitude: -122.419418,
-    createdAt: new Date().toISOString().slice(0, 19),
-    updatedAt: new Date().toISOString().slice(0, 19),
-  },
-];
 
 const AddressSearch = ({
   addressDetails,
@@ -72,7 +36,7 @@ const AddressSearch = ({
 
     // Filter mock data based on input
     if (query.length > 0) {
-      const filteredSuggestions = MOCK_ADDRESSES.filter((addr) =>
+      const filteredSuggestions = mockAddresses.filter((addr) =>
         addr.street.toLowerCase().includes(query.toLowerCase())
       );
       setSuggestions(filteredSuggestions);
