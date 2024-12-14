@@ -1,15 +1,18 @@
+import { useJsApiLoader } from '@react-google-maps/api';
 import React, { useState } from 'react';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { AddressDetails } from '../types/BusinessListing'; // Adjust the path as needed
+import { BusinessAddressDetails } from '../types/BusinessAddressDetails'; // Adjust the path as needed
+import AddressInput from './AddressInput';
+import MapContainer from './MapContainer';
 
 const libraries = ['places'];
 
-// Mock data aligned with AddressDetails schema
-const MOCK_ADDRESSES: AddressDetails[] = [
+// Mock data aligned with BusinessAddressDetails schema
+const MOCK_ADDRESSES: BusinessAddressDetails[] = [
   {
     id: 1,
+    userId: "userId_1",
     businessId: "business_1",
-    officeId: "office_1",
+    businessName: "mikey corp",
     buildingName: "Building A",
     floorNumber: "1",
     street: "123 Main Street",
@@ -24,8 +27,9 @@ const MOCK_ADDRESSES: AddressDetails[] = [
   },
   {
     id: 2,
-    businessId: "business_456",
-    officeId: "office_2",
+    userId: "userId_2",
+    businessId: "business_1",
+    businessName: "mikey corp 2",
     buildingName: "Building B",
     floorNumber: "2",
     street: "456 Elm Street",
@@ -44,24 +48,27 @@ const AddressSearch = ({
   addressDetails,
   setAddressDetails,
 }: {
-  addressDetails: Partial<AddressDetails>;
-  setAddressDetails: React.Dispatch<React.SetStateAction<Partial<AddressDetails>>>;
+  addressDetails: Partial<BusinessAddressDetails>;
+  setAddressDetails: React.Dispatch<React.SetStateAction<Partial<BusinessAddressDetails>>>;
 }) => {
-  const [suggestions, setSuggestions] = useState<AddressDetails[]>([]);
 
+  const [suggestions, setSuggestions] = useState<BusinessAddressDetails[]>([]);
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY, // Replace with your API key
     libraries,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     const query = e.target.value;
 
     // Update address field in state
-    setAddressDetails((prev) => ({
-      ...prev,
-      street: query,
-    }));
+    setAddressDetails(
+      (prev) => ({
+        ...prev,
+        street: query,
+      })
+    );
 
     // Filter mock data based on input
     if (query.length > 0) {
@@ -74,7 +81,7 @@ const AddressSearch = ({
     }
   };
 
-  const handleSelect = (selectedAddress: AddressDetails) => {
+  const handleSelect = (selectedAddress: BusinessAddressDetails) => {
     // Update all fields in address details
     setAddressDetails({
       ...selectedAddress,
@@ -87,16 +94,16 @@ const AddressSearch = ({
 
   return (
     <div className="flex flex-col lg:flex-row lg:space-x-4">
-      {/* Address Search */}
+
       <div className="relative max-w-md mx-auto lg:w-1/2">
-        <label className="block text-sm font-medium text-gray-700">Search</label>
-        <input
-          type="text"
+
+        <AddressInput
+          label="Search"
           placeholder="Search for an address"
-          value={addressDetails.street || ""}
+          value={addressDetails.street}
           onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
+
         {suggestions.length > 0 && (
           <ul className="absolute w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-2 z-10">
             {suggestions.map((suggestion, index) => (
@@ -110,39 +117,39 @@ const AddressSearch = ({
             ))}
           </ul>
         )}
+        
         <div className="mt-4 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">City</label>
-            <input
-              type="text"
-              value={addressDetails.city || ""}
-              onChange={(e) => setAddressDetails((prev) => ({ ...prev, city: e.target.value }))}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Country</label>
-            <input
-              type="text"
-              value={addressDetails.country || ""}
-              onChange={(e) => setAddressDetails((prev) => ({ ...prev, country: e.target.value }))}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Postcode</label>
-            <input
-              type="text"
-              value={addressDetails.postcode || ""}
-              onChange={(e) => setAddressDetails((prev) => ({ ...prev, postcode: e.target.value }))}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
+
+          <AddressInput
+            label="City"
+            placeholder=""
+            value={addressDetails.city}
+            onChange={(e) => setAddressDetails((prev) => ({ ...prev, city: e.target.value }))}
+          />
+
+          <AddressInput
+            label="Country"
+            placeholder=""
+            value={addressDetails.country}
+            onChange={(e) => setAddressDetails((prev) => ({ ...prev, country: e.target.value }))}
+          />
+
+          <AddressInput
+            label="Postcode"
+            placeholder=""
+            value={addressDetails.postcode}
+            onChange={(e) => setAddressDetails((prev) => ({ ...prev, postcode: e.target.value }))}
+          />
         </div>
       </div>
 
-      {/* Map */}
-      <div className="mt-4 lg:mt-0 lg:w-1/2 h-96">
+
+      <MapContainer
+        latitude={addressDetails.latitude}
+        longitude={addressDetails.longitude}
+      />
+
+      {/* <div className="mt-4 lg:mt-0 lg:w-1/2 h-96">
         <GoogleMap
           mapContainerStyle={{ width: '100%', height: '100%' }}
           zoom={addressDetails.latitude && addressDetails.longitude ? 14 : 4}
@@ -156,7 +163,7 @@ const AddressSearch = ({
             <Marker position={{ lat: addressDetails.latitude, lng: addressDetails.longitude }} />
           )}
         </GoogleMap>
-      </div>
+      </div> */}
     </div>
   );
 };
