@@ -110,16 +110,16 @@ const AddOfficePage = () => {
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
         const { name, value } = e.target;
-    
+
         // Parse the input value to a number, default to 0 if invalid
         const parsedValue = parseFloat(value) || 0;
-    
+
         if (name.includes(".")) {
             const keys = name.split("."); // Handle nested keys with dot notation
             setFormData((prev) => {
                 let updated = { ...prev };
                 let currentLevel = updated;
-    
+
                 // Traverse and create nested objects dynamically
                 for (let i = 0; i < keys.length - 1; i++) {
                     const key = keys[i];
@@ -128,17 +128,17 @@ const AddOfficePage = () => {
                     }
                     currentLevel = currentLevel[key];
                 }
-    
+
                 // Update the final key
                 currentLevel[keys[keys.length - 1]] = parsedValue;
-    
+
                 return updated;
             });
         } else {
             // For top-level keys
             setFormData((prev) => ({ ...prev, [name]: parsedValue }));
         }
-    };    
+    };
 
 
     const handleAmenitiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,27 +191,37 @@ const AddOfficePage = () => {
         }));
     };
 
-    const handleAddressSelect = (
-        data: {
-            address: string;
-            location: { lat: number; lng: number };
-            components: { street: string; city: string; postcode: string }
-        }
-    ) => {
+    // const handleAddressSelect = (
+    //     data: {
+    //         address: string;
+    //         location: { lat: number; lng: number };
+    //         components: { street: string; city: string; postcode: string }
+    //     }
+    // ) => {
 
-        setFormData((prev) => (
-            {
-                ...prev,
-                addressDetails: {
-                    ...(prev.addressDetails as AddressDetails), // Ensure existing data aligns with the interface
-                    street: data.components.street,
-                    city: data.components.city,
-                    postcode: data.components.postcode,
-                    latitude: data.location.lat,
-                    longitude: data.location.lng
-                }
-            }
-        ));
+    //     setFormData((prev) => (
+    //         {
+    //             ...prev,
+    //             addressDetails: {
+    //                 ...(prev.addressDetails as AddressDetails), // Ensure existing data aligns with the interface
+    //                 street: data.components.street,
+    //                 city: data.components.city,
+    //                 postcode: data.components.postcode,
+    //                 latitude: data.location.lat,
+    //                 longitude: data.location.lng
+    //             }
+    //         }
+    //     ));
+    // };
+
+    const handleAddressUpdate = (updatedAddress: Partial<AddressDetails>) => {
+        setFormData((prev) => ({
+            ...prev,
+            addressDetails: {
+                ...prev.addressDetails,
+                ...updatedAddress,
+            } as AddressDetails, // Explicitly cast to AddressDetails
+        }));
     };
 
     const validateForm = (formData: Partial<Office>) => {
@@ -403,16 +413,20 @@ const AddOfficePage = () => {
                     error={errors.officeType}
                 />
 
-                <AddressSearch
-                    addressDetails={formData.addressDetails || {}}
-                    setAddressDetails={(updatedAddress) =>
-                        setFormData((prev) => ({ ...prev, addressDetails: updatedAddress }))
-                    }
-                />
+                <div className="flex flex-col lg:flex-row lg:space-x-4">
+                    <AddressSearch
+                        addressDetails={formData.addressDetails || {}}
+                        setAddressDetails={(updatedAddress) =>
+                            setFormData(
+                                (prev) => ({ ...prev, addressDetails: updatedAddress })
+                            )
+                        }
+                    />
+                </div>
 
                 <div className="grid grid-cols-2 gap-6">
                     <TextInput
-                        type="buildingName"
+                        type="text"
                         id="building-name"
                         name="contactDetails.buildingName"
                         label="Building Name"
@@ -423,7 +437,7 @@ const AddOfficePage = () => {
                     />
 
                     <TextInput
-                        type="floorNumber"
+                        type="text"
                         id="floor-number"
                         name="contactDetails.floorNumber"
                         label="Floor Number"
@@ -468,7 +482,7 @@ const AddOfficePage = () => {
 
                 <div className="grid grid-cols-2 gap-6">
                     <TextInput
-                        type="primaryContactFirstName"
+                        type="text"
                         id="primary-contact-first-name"
                         name="contactDetails.primaryContactFirstName"
                         label="Primary Contact First Name"
@@ -479,7 +493,7 @@ const AddOfficePage = () => {
                     />
 
                     <TextInput
-                        type="primaryContactLastName"
+                        type="text"
                         id="primary-contact-last-name"
                         name="contactDetails.primaryContactLastName"
                         label="Primary Contact Last Name"
@@ -534,6 +548,7 @@ const AddOfficePage = () => {
                 />
 
                 <TextArea
+                    type="text"
                     id="rules"
                     name="officeSpecs.rules"
                     label="Office Rules"
