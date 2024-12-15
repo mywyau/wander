@@ -7,6 +7,7 @@ interface AmenitiesProps {
 }
 
 const Amenities: React.FC<AmenitiesProps> = ({ amenities, selectedAmenities, onChange }) => {
+
   return (
     <fieldset>
       <legend className="block text-sm font-medium text-gray-700">Amenities</legend>
