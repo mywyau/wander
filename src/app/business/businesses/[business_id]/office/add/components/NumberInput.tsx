@@ -1,22 +1,22 @@
 import React from "react";
+import { FieldError } from "react-hook-form";
 
 interface NumberInputProps {
   id: string;
   name: string;
   label: string;
-  value: number | string | undefined; // Allow both number and string types
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  register: ReturnType<typeof import("react-hook-form").useFormContext>["register"]; // React Hook Form registration
   min?: number;
   max?: number;
   placeholder?: string;
-  error?: string;
+  error?: FieldError | string; // Validation error
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({
   id,
   name,
   label,
-  onChange,
+  register,
   min,
   max,
   placeholder = "",
@@ -30,17 +30,19 @@ const NumberInput: React.FC<NumberInputProps> = ({
       <input
         type="number"
         id={id}
-        name={name}
-        value={value === undefined || value === 0 ? "" : value} // Handle empty value
-        onChange={onChange}
+        {...register(name)}
         min={min}
         max={max}
         placeholder={placeholder}
-        className={`w-full mt-1 px-4 py-2 border rounded-md ${
-          error ? "border-red-500" : "border-gray-300"
+        className={`w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+          error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
         }`}
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && (
+        <p className="text-red-500 text-sm mt-1">
+          {typeof error === "string" ? error : error.message}
+        </p>
+      )}
     </div>
   );
 };

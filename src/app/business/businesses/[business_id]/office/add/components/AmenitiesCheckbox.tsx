@@ -1,13 +1,14 @@
 import React from "react";
+import { FieldError } from "react-hook-form";
 
 interface AmenitiesProps {
   amenities: string[]; // List of available amenities
-  selectedAmenities: string[]; // Currently selected amenities
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Change handler
+  name: string; // Name for React Hook Form registration
+  register: ReturnType<typeof import("react-hook-form").useFormContext>["register"]; // React Hook Form registration
+  error?: FieldError | string; // Validation error
 }
 
-const Amenities: React.FC<AmenitiesProps> = ({ amenities, selectedAmenities, onChange }) => {
-
+const Amenities: React.FC<AmenitiesProps> = ({ amenities, name, register, error }) => {
   return (
     <fieldset>
       <legend className="block text-sm font-medium text-gray-700">Amenities</legend>
@@ -17,14 +18,20 @@ const Amenities: React.FC<AmenitiesProps> = ({ amenities, selectedAmenities, onC
             <input
               type="checkbox"
               value={amenity}
-              checked={selectedAmenities.includes(amenity)}
-              onChange={onChange}
-              className="mr-2"
+              {...register(name)} // React Hook Form registration
+              className={`mr-2 ${
+                error ? "border-red-500" : "border-gray-300"
+              }`}
             />
             {amenity}
           </label>
         ))}
       </div>
+      {error && (
+        <p className="text-red-500 text-sm mt-1">
+          {typeof error === "string" ? error : error.message}
+        </p>
+      )}
     </fieldset>
   );
 };

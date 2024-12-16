@@ -1,22 +1,21 @@
 import React from "react";
+import { FieldError } from "react-hook-form";
 
 interface SelectFieldProps {
   id: string;
   name: string;
   label: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  register: ReturnType<typeof import("react-hook-form").useFormContext>["register"]; // React Hook Form registration
   options: { value: string; label: string }[];
   disabled?: boolean;
-  error?: string;
+  error?: FieldError | string; // Validation error
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
   id,
   name,
   label,
-  value,
-  onChange,
+  register,
   options,
   disabled = false,
   error,
@@ -27,10 +26,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
     </label>
     <select
       id={id}
-      name={name}
-      value={value}
-      onChange={onChange}
-      className="w-full px-4 py-2 border border-gray-300 rounded-md"
+      {...register(name)} // React Hook Form registration
+      className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+        error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
+      }`}
       disabled={disabled}
     >
       <option value="" disabled>
@@ -42,7 +41,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
         </option>
       ))}
     </select>
-    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    {error && (
+      <p className="text-red-500 text-sm mt-1">
+        {typeof error === "string" ? error : error.message}
+      </p>
+    )}
   </div>
 );
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { FieldError } from "react-hook-form";
 
 interface TextInputProps {
   type: string;
@@ -7,7 +6,7 @@ interface TextInputProps {
   name: string;
   label: string;
   placeholder?: string;
-  error?: FieldError | string;
+  error?: string;
   register: ReturnType<typeof import("react-hook-form").useFormContext>["register"];
 }
 
@@ -20,6 +19,7 @@ const TextInput: React.FC<TextInputProps> = ({
   error,
   register,
 }) => {
+  console.log(register(name)); // Should log the registration object for the field
   return (
     <div className="space-y-1">
       <label htmlFor={id} className="block text-sm font-medium text-gray-700">
@@ -30,15 +30,9 @@ const TextInput: React.FC<TextInputProps> = ({
         id={id}
         {...register(name)} // React Hook Form registration
         placeholder={placeholder}
-        className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-          error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
-        }`}
+        className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"}`}
       />
-      {error && (
-        <p className="text-red-500 text-sm">
-          {typeof error === "string" ? error : error.message}
-        </p>
-      )}
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 };

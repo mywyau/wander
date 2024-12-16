@@ -16,44 +16,46 @@ export const officeSpecsSchema = z.object({
   officeType:
     z
       .string()
-      .nonempty("Please select an office type.")
-      .min(3, "Office type must be at least 3 characters.")
-      .max(20, "Office type cannot exceed 20 characters."),
+      .nonempty("Please select an office type."),
   numberOfFloors:
     z
-      .number()
-      .min(1, "Number of floors must be at least 1.")
-      .max(100, "Number of floors cannot exceed 100."),
+      .preprocess(
+        (value) => (value === "" || value === undefined ? undefined : Number(value)),
+        z.number().min(1, "Number of floors must be at least 1.").max(100, "Number of floors cannot exceed 100.")
+      ),
   capacity:
     z
-      .number()
-      .min(1, "Capacity must be greater than 0.")
-      .max(1000, "Capacity cannot exceed 1000."),
+      .preprocess(
+        (value) => (value === "" || value === undefined ? undefined : Number(value)),
+        z.number().min(1, "Capacity at a minimum be 1.").max(10000, "Capacity cannot exceed 10000.")
+      ),
   totalDesks:
     z
-      .number()
-      .min(1, "Total desks must be greater than 0.")
-      .max(1000, "Total desks cannot exceed 1000."),
+      .preprocess(
+        (value) => (value === "" || value === undefined ? undefined : Number(value)),
+        z.number().min(1, "Total desks must be greater than 0.").max(10000, "Total desks cannot exceed 10000")
+      ),
   amenities:
     z
       .array(z.string())
-      .nonempty("At least one amenity must be selected."),
-  availability: z.object({
-    days:
-      z
-        .array(z.string())
-        .nonempty("Availability days are required."),
-    startTime:
-      z
-        .string()
-        .nonempty("Start time is required.")
-        .regex(/^([0-1]\d|2[0-3]):([0-5]\d)$/, "Start time must be in HH:mm format."),
-    endTime:
-      z
-        .string()
-        .nonempty("End time is required.")
-        .regex(/^([0-1]\d|2[0-3]):([0-5]\d)$/, "End time must be in HH:mm format."),
-  }),
+      .refine((arr) => arr.length > 0, "At least one amenity must be selected."),
+  availability:
+    z.object({
+      days:
+        z
+          .array(z.string())
+          .refine((arr) => arr.length > 0, "At least one availability day must be selected."),
+      startTime:
+        z
+          .string()
+          .nonempty("Start time is required.")
+          .regex(/^([0-1]\d|2[0-3]):([0-5]\d)$/, "Start time must be in HH:mm format."),
+      endTime:
+        z
+          .string()
+          .nonempty("End time is required.")
+          .regex(/^([0-1]\d|2[0-3]):([0-5]\d)$/, "End time must be in HH:mm format."),
+    }),
   rules:
     z
       .string()
