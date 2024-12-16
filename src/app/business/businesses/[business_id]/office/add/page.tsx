@@ -1,8 +1,10 @@
+"use client"
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { addressDetailsSchema, contactDetailsSchema, officeSpecsSchema } from "./helpers/validationHelpers";
+import OfficeSpecsForm from "./forms/OfficeSpecsForm";
 
 // Combined schema for backend
 const combinedSchema = z.object({
@@ -112,29 +114,29 @@ const AddOfficePage = () => {
 
     return (
         <div className="space-y-6">
-            {/* Office Specs Section */}
+        
             <FormProvider {...officeSpecsForm}>
                 <form onSubmit={officeSpecsForm.handleSubmit(handleSubmit)}>
                     <h2>Office Specs</h2>
-                    {/* Render Office Specs Form */}
+                    <OfficeSpecsForm />
                 </form>
             </FormProvider>
 
-            {/* Address Details Section */}
-            <FormProvider {...addressDetailsForm}>
+        
+            {/* <FormProvider {...addressDetailsForm}>
                 <form onSubmit={addressDetailsForm.handleSubmit(handleSubmit)}>
                     <h2>Address Details</h2>
-                    {/* Render Address Details Form */}
+                    <AddressDetailsForm />
                 </form>
             </FormProvider>
 
-            {/* Contact Details Section */}
+        
             <FormProvider {...contactDetailsForm}>
                 <form onSubmit={contactDetailsForm.handleSubmit(handleSubmit)}>
                     <h2>Contact Details</h2>
-                    {/* Render Contact Details Form */}
+                    <ContactDetailsForm />
                 </form>
-            </FormProvider>
+            </FormProvider> */}
 
             <button
                 type="button"

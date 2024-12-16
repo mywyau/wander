@@ -1,47 +1,46 @@
 import React from "react";
+import { FieldError } from "react-hook-form";
 
 interface TextInputProps {
-    type: string;
-    id: string;
-    name: string;
-    label: string;
-    value?: string; // Optional because React Hook Form will manage this
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Optional for the same reason
-    placeholder?: string;
-    error?: string;
-    // Accept any other props for compatibility with React Hook Form's `register`
-    [key: string]: any;
+  type: string;
+  id: string;
+  name: string;
+  label: string;
+  placeholder?: string;
+  error?: FieldError | string;
+  register: ReturnType<typeof import("react-hook-form").useFormContext>["register"];
 }
 
 const TextInput: React.FC<TextInputProps> = ({
-    type,
-    id,
-    name,
-    label,
-    value,
-    onChange,
-    placeholder = "",
-    error,
-    ...rest // Capture additional props like `ref` from React Hook Form's `register`
+  type,
+  id,
+  name,
+  label,
+  placeholder = "",
+  error,
+  register,
 }) => {
-    return (
-        <div>
-            <label htmlFor={id} className="block text-sm font-medium text-gray-700">
-                {label}
-            </label>
-            <input
-                type={type}
-                id={id}
-                name={name}
-                value={value} // Controlled input (optional for React Hook Form)
-                onChange={onChange} // Optional for React Hook Form
-                placeholder={placeholder}
-                className={`w-full mt-1 px-4 py-2 border rounded-md ${error ? "border-red-500" : "border-gray-300"}`}
-                {...rest} // Spread additional props (e.g., ref, onBlur, etc.)
-            />
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-        </div>
-    );
+  return (
+    <div className="space-y-1">
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+        {label}
+      </label>
+      <input
+        type={type}
+        id={id}
+        {...register(name)} // React Hook Form registration
+        placeholder={placeholder}
+        className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+          error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
+        }`}
+      />
+      {error && (
+        <p className="text-red-500 text-sm">
+          {typeof error === "string" ? error : error.message}
+        </p>
+      )}
+    </div>
+  );
 };
 
 export default TextInput;
