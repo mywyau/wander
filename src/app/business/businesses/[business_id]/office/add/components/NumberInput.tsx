@@ -16,7 +16,6 @@ const NumberInput: React.FC<NumberInputProps> = ({
   id,
   name,
   label,
-  value,
   onChange,
   min,
   max,

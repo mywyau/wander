@@ -1,110 +1,116 @@
-import React from "react";
-import TextInput from "../components/TextInput";
-import NumberInput from "../components/NumberInput";
-import TextArea from "../components/TextArea";
-import SelectField from "../components/SelectInputField";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import AmenitiesCheckbox from "../components/AmenitiesCheckbox";
+import NumberInput from "../components/NumberInput";
 import OpeningHours from "../components/OpeningHours";
+import SelectField from "../components/SelectInputField";
+import TextArea from "../components/TextArea";
+import TextInput from "../components/TextInput";
+import { officeSpecsSchema } from "../helpers/validationHelpers";
 
-const OfficeSpecsForm = ({ formData, onChange, onNumberChange, onAvailabilityCheckboxChange, onAmenitiesCheckboxChange, errors }) => (
-  <div className="space-y-4">
-    <TextInput
-      type="text"
-      id="officeName"
-      name="officeSpecs.officeName"
-      label="Office Name"
-      value={formData.officeSpecs?.officeName || ""}
-      onChange={onChange}
-      placeholder="Enter the office name"
-      error={errors.officeName}
-    />
+const OfficeSpecsForm = () => {
 
-    <TextArea
-      id="description"
-      name="officeSpecs.description"
-      label="Description"
-      value={formData.officeSpecs?.description || ""}
-      onChange={onChange}
-      placeholder="Enter a description of the office"
-      error={errors.description}
-    />
+  type OfficeFormData = z.infer<typeof officeSpecsSchema>;
 
-    <SelectField
-      id="officeType"
-      name="officeSpecs.officeType"
-      label="Office Type"
-      value={formData.officeSpecs?.officeType || ""}
-      onChange={onChange}
-      options={[
-        { value: "ExecutiveOffice", label: "Executive Office" },
-        { value: "OpenPlanOffice", label: "Open-plan Office" },
-        { value: "PrivateOffice", label: "Private Office" },
-      ]}
-      error={errors.officeType}
-    />
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<OfficeFormData>({
+    resolver: zodResolver(officeSpecsSchema),
+  });
 
-    <NumberInput
-      id="numberOfFloors"
-      name="officeSpecs.numberOfFloors"
-      label="Number of Floors"
-      value={formData.officeSpecs?.numberOfFloors || 0}
-      onChange={onNumberChange}
-      min={1}
-      placeholder="Enter the number of floors"
-      error={errors.numberOfFloors}
-    />
+  const formData = watch(); // To watch current form state
 
-    <NumberInput
-      id="totalDesks"
-      name="officeSpecs.totalDesks"
-      label="Total Desks"
-      value={formData.officeSpecs?.totalDesks || 0}
-      onChange={onNumberChange}
-      min={1}
-      placeholder="Enter the total number of desks"
-      error={errors.totalDesks}
-    />
+  return (
+    <div className="space-y-4">
+      <TextInput
+        type="text"
+        id="officeName"
+        label="Office Name"
+        {...register("officeName")} // React Hook Form registration
+        placeholder="Enter the office name"
+        error={errors.officeName?.message} // Optional chaining
+      />
 
-    <NumberInput
-      id="capacity"
-      name="officeSpecs.capacity"
-      label="Capacity"
-      value={formData.officeSpecs?.capacity || 0}
-      onChange={onNumberChange}
-      min={1}
-      placeholder="Enter the capacity"
-      error={errors.capacity}
-    />
+      <TextArea
+        value={""}
+        id="description"
+        label="Description"
+        {...register("description")}
+        placeholder="Enter a description of the office"
+        error={errors.description?.message} />
 
-    <OpeningHours
-      days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
-      selectedDays={formData.officeSpecs?.availability?.days || []}
-      startTime={formData.officeSpecs?.availability?.startTime || ""}
-      endTime={formData.officeSpecs?.availability?.endTime || ""}
-      onDayChange={(e) => onAvailabilityCheckboxChange(e, "officeSpecs.availability.days")}
-      onTimeChange={onChange}
-      errors={{
-        startTime: errors.startTime,
-        endTime: errors.endTime,
-      }}
-    />
+      <TextArea
+        value={""}
+        id="rules"
+        label="Office Rules"
+        {...register("rules")}
+        placeholder="Enter any rules for the office"
+        error={errors.rules?.message} />
 
-    <AmenitiesCheckbox
-      amenities={["Wi-Fi", "Power Outlets", "Monitor", "Coffee", "Air Conditioning"]}
-      selectedAmenities={formData.officeSpecs?.amenities || []}
-      onChange={(e) => onAmenitiesCheckboxChange(e, "officeSpecs.amenities")}
-    />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <SelectField
+          id="officeType"
+          label="Office Type"
+          {...register("officeType")}
+          options={[
+            { value: "ExecutiveOffice", label: "Executive Office" },
+            { value: "OpenPlanOffice", label: "Open-plan Office" },
+            { value: "PrivateOffice", label: "Private Office" },
+          ]}
+          error={errors.officeType?.message}
+        />
 
-    <TextArea
-      id="rules"
-      name="officeSpecs.rules"
-      label="Office Rules"
-      value={formData.officeSpecs?.rules || ""}
-      onChange={onChange}
-      placeholder="Enter any rules for the office"
-      error={errors.rules}
-    />
-  </div>
-);
+        <NumberInput
+          id="numberOfFloors"
+          label="Number of Floors"
+          {...register("numberOfFloors", { valueAsNumber: true })}
+          min={1}
+          placeholder="Enter the number of floors"
+          error={errors.numberOfFloors?.message}
+        />
+
+        <NumberInput
+          id="totalDesks"
+          label="Total Desks"
+          {...register("totalDesks", { valueAsNumber: true })}
+          min={1}
+          placeholder="Enter the total number of desks"
+          error={errors.totalDesks?.message} />
+
+        <NumberInput
+          id="capacity"
+          label="Capacity"
+          {...register("capacity", { valueAsNumber: true })}
+          min={1}
+          placeholder="Enter the capacity"
+          error={errors.capacity?.message}
+        />
+      </div>
+
+      <OpeningHours
+        days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+        selectedDays={formData.officeSpecs?.availability?.days || []}
+        startTime={formData.officeSpecs?.availability?.startTime || ""}
+        endTime={formData.officeSpecs?.availability?.endTime || ""}
+        onDayChange={(days) => setValue("officeSpecs.availability.days", days)}
+        onTimeChange={(time, key) => setValue(`officeSpecs.availability.${key}`, time)}
+        errors={{
+          startTime: errors.officeSpecs?.availability?.startTime?.message,
+          endTime: errors.officeSpecs?.availability?.endTime?.message,
+        }}
+      />
+
+      <AmenitiesCheckbox
+        amenities={["Wi-Fi", "Power Outlets", "Monitor", "Coffee", "Air Conditioning"]}
+        selectedAmenities={formData.officeSpecs?.amenities || []}
+        onChange={(selected) => setValue("officeSpecs.amenities", selected)}
+      />
+    </div>
+  );
+};
 
 export default OfficeSpecsForm;

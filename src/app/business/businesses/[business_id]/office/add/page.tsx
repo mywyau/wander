@@ -1,186 +1,149 @@
-"use client";
 
-import React, { useState } from "react";
-import AddOfficeButton from "./components/AddOfficeButton";
-import AddressDetailsForm from "./forms/AddressDetailsForm";
-import ContactDetailsForm from "./forms/ContactDetailsForm";
-import OfficeSpecsForm from "./forms/OfficeSpecsForm";
-import { updateNestedField } from "./helpers/formHelpers";
-import { validateForm } from "./helpers/validationHelpers";
-import { Office } from "./types/OfficeInterfaces";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { z } from "zod";
+import { addressDetailsSchema, contactDetailsSchema, officeSpecsSchema } from "./helpers/validationHelpers";
+
+// Combined schema for backend
+const combinedSchema = z.object({
+    officeSpecs: officeSpecsSchema,
+    addressDetails: addressDetailsSchema,
+    contactDetails: contactDetailsSchema,
+});
+
+// Infer type from schema
+type CombinedFormData = z.infer<typeof combinedSchema>;
 
 const AddOfficePage = () => {
-  const [formData, setFormData] = useState<Partial<Office>>({
-    officeId: "office_1",
-    officeSpecs: {
-      id: 1,
-      businessId: "business_1",
-      officeId: "office_1",
-      officeName: "",
-      description: "",
-      officeType: "",
-      numberOfFloors: 0,
-      totalDesks: 0,
-      capacity: 0,
-      amenities: [],
-      availability: {
-        days: [],
-        startTime: "",
-        endTime: "",
-      },
-      rules: "",
-      createdAt: new Date().toISOString().slice(0, 19),
-      updatedAt: new Date().toISOString().slice(0, 19),
-    },
-    addressDetails: {
-      id: 1,
-      businessId: "business_1",
-      officeId: "office_1",
-      buildingName: "",
-      floorNumber: "",
-      street: "",
-      city: "",
-      country: "",
-      county: "",
-      postcode: "",
-      latitude: 0,
-      longitude: 0,
-      createdAt: new Date().toISOString().slice(0, 19),
-      updatedAt: new Date().toISOString().slice(0, 19),
-    },
-    contactDetails: {
-      id: 1,
-      businessId: "business_1",
-      officeId: "office_1",
-      primaryContactFirstName: "",
-      primaryContactLastName: "",
-      contactEmail: "",
-      contactNumber: "",
-      createdAt: new Date().toISOString().slice(0, 19),
-      updatedAt: new Date().toISOString().slice(0, 19),
-    },
-    createdAt: new Date().toISOString().slice(0, 19),
-    updatedAt: new Date().toISOString().slice(0, 19),
-  });
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) =>
-      name.includes(".")
-        ? updateNestedField(prev, name.split("."), value)
-        : { ...prev, [name]: value }
-    );
-  };
-
-    //   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const { name, value } = e.target;
-    //     const parsedValue = parseFloat(value) || 0;
-    //     setFormData((prev) =>
-    //       name.includes(".")
-    //         ? updateNestedField(prev, name.split("."), parsedValue)
-    //         : { ...prev, [name]: parsedValue }
-    //     );
-    //   };
-
-  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    // Parse the string value to a number, or set it as undefined if empty
-    const parsedValue = value === "" ? undefined : parseFloat(value);
-  
-    setFormData((prev) =>
-      name.includes(".")
-        ? updateNestedField(prev, name.split("."), parsedValue)
-        : { ...prev, [name]: parsedValue }
-    );
-  };
-  
-
-  const handleAmenitiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
-    setFormData((prev) => {
-      const updatedAmenities = prev.officeSpecs?.amenities || [];
-      return {
-        ...prev,
-        officeSpecs: {
-          ...prev.officeSpecs,
-          amenities: checked
-            ? [...updatedAmenities, value]
-            : updatedAmenities.filter((amenity) => amenity !== value),
-        },
-      };
-    });
-  };
-
-  const handleAvailabilityCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      officeSpecs: {
-        ...prev.officeSpecs,
+    const defaultOfficeSpecs: {
+        officeName: string;
+        description: string;
+        officeType: string;
+        numberOfFloors: number;
+        capacity: number;
+        totalDesks: number;
+        amenities: [string, ...string[]]; // Explicitly typed as non-empty array
         availability: {
-          ...prev.officeSpecs?.availability,
-          days: checked
-            ? [...(prev.officeSpecs?.availability?.days || []), value]
-            : prev.officeSpecs?.availability?.days?.filter((day) => day !== value) || [],
+            days: [string, ...string[]]; // Explicitly typed as non-empty array
+            startTime: string;
+            endTime: string;
+        };
+        rules: string;
+    } = {
+        officeName: "",
+        description: "",
+        officeType: "",
+        numberOfFloors: 1,
+        capacity: 1,
+        totalDesks: 1,
+        amenities: ["Wi-Fi"], // At least one amenity
+        availability: {
+            days: ["Monday"], // At least one day
+            startTime: "09:00",
+            endTime: "17:00",
         },
-      },
-    }));
-  };
+        rules: "",
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
 
-    const newErrors = validateForm(formData);
-    setErrors(newErrors);
+    const officeSpecsForm = useForm({
+        resolver: zodResolver(officeSpecsSchema), // Attach the schema
+        defaultValues: defaultOfficeSpecs, // Use the default structure
+    });
 
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Form data ready for submission:", formData);
-      // Submit logic here...
-    }
-  };
+    const defaultAddressDetails = {
+        buildingName: "",
+        floorNumber: "",
+        street: "",
+        city: "",
+        country: "",
+        county: "",
+        postcode: "",
+    };
 
-  return (
-    <div className="max-w-4xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">Add an Office</h1>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Office Specs Form */}
-        <OfficeSpecsForm
-          formData={formData}
-          onChange={handleChange}
-          onNumberChange={handleNumberChange}
-          onAvailabilityCheckboxChange={handleAvailabilityCheckboxChange}
-          onAmenitiesCheckboxChange={handleAmenitiesChange}
-          errors={errors}
-        />
+    const addressDetailsForm = useForm({
+        resolver: zodResolver(addressDetailsSchema), // Attach the schema
+        defaultValues: defaultAddressDetails, // Use the default structure
+    });
 
-        {/* Address Details Form */}
-        <AddressDetailsForm
-          formData={formData}
-          onChange={handleChange}
-          errors={errors}
-        />
+    const defaultContactDetails = {
+        primaryContactFirstName: "",
+        primaryContactLastName: "",
+        contactEmail: "",
+        contactNumber: "",
+    };
 
-        {/* Contact Details Form */}
-        <ContactDetailsForm
-          formData={formData}
-          onChange={handleChange}
-          errors={errors}
-        />
+    const contactDetailsForm = useForm({
+        resolver: zodResolver(contactDetailsSchema), // Attach the schema
+        defaultValues: defaultContactDetails, // Use the default structure
+    });
 
-        {/* Submit Button */}
-        <AddOfficeButton
-          label="Add Office"
-          type="submit"
-          className="w-full"
-        />
-      </form>
-    </div>
-  );
+    const handleSubmit = () => {
+
+        const officeSpecsData = officeSpecsForm.getValues();
+        const addressDetailsData = addressDetailsForm.getValues();
+        const contactDetailsData = contactDetailsForm.getValues();
+
+        // Combine all data into a single object
+        const combinedData: CombinedFormData = {
+            officeSpecs: officeSpecsData,
+            addressDetails: addressDetailsData,
+            contactDetails: contactDetailsData,
+        };
+
+        console.log("Combined Data:", combinedData);
+
+        // Send combinedData to your backend
+        fetch("/api/offices", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(combinedData),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to submit form");
+                }
+                return response.json();
+            })
+            .then((data) => console.log("Successfully submitted:", data))
+            .catch((error) => console.error("Submission error:", error));
+    };
+
+    return (
+        <div className="space-y-6">
+            {/* Office Specs Section */}
+            <FormProvider {...officeSpecsForm}>
+                <form onSubmit={officeSpecsForm.handleSubmit(handleSubmit)}>
+                    <h2>Office Specs</h2>
+                    {/* Render Office Specs Form */}
+                </form>
+            </FormProvider>
+
+            {/* Address Details Section */}
+            <FormProvider {...addressDetailsForm}>
+                <form onSubmit={addressDetailsForm.handleSubmit(handleSubmit)}>
+                    <h2>Address Details</h2>
+                    {/* Render Address Details Form */}
+                </form>
+            </FormProvider>
+
+            {/* Contact Details Section */}
+            <FormProvider {...contactDetailsForm}>
+                <form onSubmit={contactDetailsForm.handleSubmit(handleSubmit)}>
+                    <h2>Contact Details</h2>
+                    {/* Render Contact Details Form */}
+                </form>
+            </FormProvider>
+
+            <button
+                type="button"
+                onClick={handleSubmit}
+                className="btn-primary">
+                Submit All
+            </button>
+        </div>
+    );
 };
 
 export default AddOfficePage;
