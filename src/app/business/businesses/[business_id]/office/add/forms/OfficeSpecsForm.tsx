@@ -1,6 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import Amenities from "../components/AmenitiesCheckbox";
 import NumberInput from "../components/NumberInput";
+import OpeningHours from "../components/OpeningHours";
 import SelectField from "../components/SelectField";
 import TextArea from "../components/TextArea";
 import TextInput from "../components/TextInput";
@@ -21,7 +22,7 @@ const OfficeSpecsForm = () => {
           placeholder="Enter the office name"
           register={register}
           error={errors?.officeSpecs?.officeName?.message} // Extract the error message
-          />
+        />
       </div>
 
       <TextArea
@@ -43,7 +44,6 @@ const OfficeSpecsForm = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
 
         <SelectField
           id="officeType"
@@ -94,6 +94,12 @@ const OfficeSpecsForm = () => {
         amenities={["Wi-Fi", "Power Outlets", "Monitor", "Coffee", "Air Conditioning"]}
         register={register}
         error={errors?.officeSpecs?.amenities}
+      />
+
+      {/* Opening Hours */}
+      <OpeningHours
+        days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+        namePrefix="officeSpecs.availability"
       />
 
     </div>

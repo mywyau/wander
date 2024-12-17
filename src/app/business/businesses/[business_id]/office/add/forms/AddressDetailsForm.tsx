@@ -1,98 +1,71 @@
+import { useFormContext } from "react-hook-form";
+import AddressInput from "../components/AddressInput";
 import TextInput from "../components/TextInput";
 
-const AddressDetailsForm = ({ formData, onChange, errors }) => (
-    <div className="space-y-4">
+const AddressDetailsForm = () => {
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <TextInput
-                type="text"
-                id="buildingName"
-                name="addressDetails.buildingName"
-                label="Building Name"
-                value={formData.addressDetails?.buildingName || ""}
-                onChange={onChange}
-                placeholder="Enter the building name"
-                error={errors.buildingName}
-            />
+    const { register, formState: { errors } } = useFormContext();
 
-            <TextInput
-                type="text"
-                id="floorNumber"
-                name="addressDetails.floorNumber"
-                label="Floor Number"
-                value={formData.addressDetails?.floorNumber || ""}
-                onChange={onChange}
-                placeholder="Enter the floor number"
-                error={errors.floorNumber}
-            />
-        </div>
+    return (
+        <div className="space-y-4">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Address Details Form (Single Column) */}
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <TextInput
                     type="text"
+                    id="buildingName"
+                    name="addressDetails.buildingName"
+                    label="Building Name"
+                    placeholder="Enter the name of the building"
+                    register={register}
+                    error={errors?.addressDetails?.buildingName?.message}
+                />
+
+                <AddressInput
                     id="street"
-                    name="addressDetails.street"
                     label="Street"
-                    value={formData.addressDetails?.street || ""}
-                    onChange={onChange}
+                    name="addressDetails.street"
                     placeholder="Enter the street name"
-                    error={errors.street}
+                    register={register}
+                    error={errors?.addressDetails?.street?.message}
                 />
-
-                <TextInput
-                    type="text"
+                <AddressInput
                     id="city"
-                    name="addressDetails.city"
                     label="City"
-                    value={formData.addressDetails?.city || ""}
-                    onChange={onChange}
+                    name="addressDetails.city"
                     placeholder="Enter the city"
-                    error={errors.city}
+                    register={register}
+                    error={errors?.addressDetails?.city?.message}
                 />
 
-                <TextInput
-                    type="text"
+                <AddressInput
                     id="county"
-                    name="addressDetails.county"
                     label="County"
-                    value={formData.addressDetails?.county || ""}
-                    onChange={onChange}
+                    name="addressDetails.county"
                     placeholder="Enter the county"
-                    error={errors.county}
+                    register={register}
+                    error={errors?.addressDetails?.county?.message}
                 />
 
-                <TextInput
-                    type="text"
+                <AddressInput
                     id="country"
-                    name="addressDetails.country"
                     label="Country"
-                    value={formData.addressDetails?.country || ""}
-                    onChange={onChange}
+                    name="addressDetails.country"
                     placeholder="Enter the country"
-                    error={errors.country}
+                    register={register}
+                    error={errors?.addressDetails?.country?.message}
                 />
 
-                <TextInput
-                    type="text"
+                <AddressInput
                     id="postcode"
-                    name="addressDetails.postcode"
                     label="Postcode"
-                    value={formData.addressDetails?.postcode || ""}
-                    onChange={onChange}
+                    name="addressDetails.postcode"
                     placeholder="Enter the postcode"
-                    error={errors.postcode}
+                    register={register}
+                    error={errors?.addressDetails?.postcode?.message}
                 />
             </div>
-
-            {/* Map Placeholder */}
-            <div className="flex items-center justify-center border border-gray-300 rounded-md bg-gray-100 h-96">
-                <p className="text-gray-500">Map Placeholder</p>
-            </div>
-        </div>
-
-    </div>
-);
+        </div >
+    );
+};
 
 export default AddressDetailsForm;

@@ -11,6 +11,7 @@ import { combinedSchema } from "./helpers/combinedSchema";
 type CombinedFormData = z.infer<typeof combinedSchema>;
 
 const AddOfficePage = () => {
+
   const defaultValues: CombinedFormData = {
     officeSpecs: {
       officeName: "",
@@ -75,9 +76,9 @@ const AddOfficePage = () => {
 
         <OfficeSpecsForm />
 
-        {/* <AddressDetailsForm /> */}
+        <AddressDetailsForm />
 
-        {/* <ContactDetailsForm /> */}
+        <ContactDetailsForm />
 
         <button type="submit" className="btn-primary">
           Submit All
