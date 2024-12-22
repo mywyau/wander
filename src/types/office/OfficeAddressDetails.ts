@@ -1,10 +1,9 @@
 
 export interface OfficeAddressDetails {
-  id: number;
   businessId: string;
   officeId: string;
-  buildingName: string;
-  floorNumber: string;
+  buildingName?: string;
+  floorNumber?: string;
   street: string;
   city: string;
   country: string;
@@ -12,6 +11,4 @@ export interface OfficeAddressDetails {
   postcode: string;
   latitude: number;
   longitude: number;
-  createdAt: string;
-  updatedAt: string;
 }
