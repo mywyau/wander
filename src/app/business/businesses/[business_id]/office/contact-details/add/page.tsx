@@ -12,37 +12,13 @@ type CombinedFormData = z.infer<typeof combinedSchema>;
 
 const AddOfficePage = () => {
 
-  const defaultValues: CombinedFormData = {
-    officeSpecs: {
-      officeName: "",
-      description: "",
-      officeType: "",
-      numberOfFloors: "",
-      capacity: "",
-      totalDesks: "",
-      amenities: [],
-      availability: {
-        days: [],
-        startTime: "09:00",
-        endTime: "17:00",
-      },
-      rules: "",
-    },
-    addressDetails: {
-      buildingName: "",
-      floorNumber: "",
-      street: "",
-      city: "",
-      country: "",
-      county: "",
-      postcode: "",
-    },
+  const defaultValues = {
     contactDetails: {
       primaryContactFirstName: "",
       primaryContactLastName: "",
       contactEmail: "",
       contactNumber: "",
-    },
+    }
   };
 
   const methods = useForm({
@@ -73,10 +49,6 @@ const AddOfficePage = () => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
         <h1 className="text-xl font-bold">Add Office</h1>
-
-        <OfficeSpecsForm />
-
-        <AddressDetailsForm />
 
         <ContactDetailsForm />
 
