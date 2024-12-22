@@ -5,7 +5,7 @@ import AddBusinessButton from "./components/AddBusinessButton";
 import AddressSearch from "./components/AddressSearch";
 import TextArea from "./components/TextArea";
 import TextInput from "./components/TextInput";
-import { createBusiness } from "./service/AddBusinessConnector";
+import { createBusiness } from "./connectors/AddBusinessConnector";
 import { initializeBusinessForm } from "./service/FormFactory";
 import { handleNestedChange, validateBusinessForm } from "./service/FormUtils";
 import { BusinessListing } from "./types/BusinessListing";

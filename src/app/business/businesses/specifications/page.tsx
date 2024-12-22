@@ -5,7 +5,7 @@ import AddBusinessButton from "./components/AddBusinessButton";
 import AddressSearch from "./components/AddressSearch";
 import TextArea from "./components/TextArea";
 import TextInput from "./components/TextInput";
-import { createBusiness } from "./service/AddBusinessConnector";
+import { createBusiness } from "./connectors/AddBusinessConnector";
 import { initializeBusinessForm } from "./service/FormFactory";
 import { handleNestedChange, validateBusinessForm } from "./service/FormUtils";
 import { BusinessListing } from "./types/BusinessListing";
@@ -63,55 +63,7 @@ const AddBusinessPage = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
 
-                <TextInput
-                    type="text"
-                    id="businessSpecs.businessName"
-                    name="businessSpecs.businessName"
-                    label="Business Name"
-                    value={formData.businessSpecs?.businessName || ""}
-                    onChange={handleChange}
-                    placeholder="Enter the Business name"
-                    error={errors.businessName}
-                />
 
-                <TextArea
-                    id="description"
-                    name="businessSpecs.description"
-                    label="Description"
-                    value={formData.businessSpecs?.description || ""}
-                    onChange={handleChange}
-                />
-
-                <AddressSearch
-                    addressDetails={formData.addressDetails || {}}
-                    setAddressDetails={(updatedAddress) =>
-                        setFormData((prev) => ({ ...prev, addressDetails: updatedAddress }))
-                    }
-                />
-
-                <div className="grid grid-cols-2 gap-6">
-                    <TextInput
-                        type="businessName"
-                        id="building-name"
-                        name="contactDetails.buildingName"
-                        label="Building Name"
-                        value={formData.addressDetails?.buildingName}
-                        onChange={handleChange}
-                        placeholder="Please enter a building name"
-                        error={errors.buildingName}
-                    />
-
-                    <TextInput
-                        type="floorNumber"
-                        id="floor-number"
-                        name="contactDetails.floorNumber"
-                        label="Floor Number"
-                        value={formData.addressDetails?.floorNumber}
-                        onChange={handleChange}
-                        placeholder="Please enter the floor number"
-                        error={errors.floorNumber}
-                    />
-                </div>
 
                 <AddBusinessButton label="Add Business" type="submit" className="w-full" />
             </form>
