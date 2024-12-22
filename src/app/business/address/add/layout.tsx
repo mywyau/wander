@@ -1,22 +1,22 @@
-// app/TimeSelection/layout.tsx
+// app/BusinessProfile/layout.tsx
 import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
+import BusinessSidebar from '@/components/business/BusinessSidebar';
 import Navbar from "@/components/misc/NavBar";
-import Sidebar from "@/components/misc/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "../globals.css";
+import "../../../../globals.css";
 
 // Load fonts
 const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
+  src: "../../../../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 
 const geistMono = localFont({
-  src: "../fonts/GeistVF.woff",
+  src: "../../../../fonts/GeistVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -36,27 +36,27 @@ export const metadata: Metadata = {
 };
 
 
-interface TimeSelectionLayoutProps {
+interface BusinessProfileLayoutProps {
   children: React.ReactNode;
 }
 
-const TimeSelectionLayout: React.FC<TimeSelectionLayoutProps> = ({ children }) => {
-    return (
-      <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
-        <AuthProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <div className="flex flex-1">
-              <Sidebar isOpen={true} />
-              <main className="flex-1 container mx-auto p-4 mt-4">
-                {children} {/* Page content */}
-              </main>
-            </div>
+const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children }) => {
+  return (
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+      <AuthProvider>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <div className="flex flex-1">
+            <BusinessSidebar isOpen={true} />
+            <main className="flex-1 container mx-auto p-4 mt-4">
+              {children} {/* Page content */}
+            </main>
           </div>
-        </AuthProvider>
-      </div>
-    );
-  };
-  
+        </div>
+      </AuthProvider>
+    </div>
+  );
+};
 
-export default TimeSelectionLayout;
+
+export default BusinessProfileLayout;

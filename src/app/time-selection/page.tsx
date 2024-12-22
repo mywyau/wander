@@ -1,6 +1,6 @@
 "use client";
 
-import TimeGrid from "../../components/Timegrid";
+import TimeGrid from "../../components/misc/Timegrid";
 
 export default function TimeSelectionPage() {
     return (

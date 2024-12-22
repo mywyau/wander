@@ -3,8 +3,8 @@
 'use client'
 
 import { useState } from 'react';
-import DeskGrid from '../../components/DeskGrid';
-import BookingPanel from '../../components/BookingPanel';
+import DeskGrid from '../../components/misc/DeskGrid';
+import BookingPanel from '../../components/misc/BookingPanel';
 
 type Desk = {
   id: string;

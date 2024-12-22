@@ -1,5 +1,5 @@
-import AddressSearch from "@/app/business/businesses/[business_id]/office/add/components/AddressSearch";
-import { AddressDetails } from "@/app/business/businesses/[business_id]/office/add/types/OfficeInterfaces";
+import AddressSearch from "@/app/business/office/add/components/AddressSearch";
+import { AddressDetails } from "@/app/business/office/add/types/OfficeInterfaces";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 

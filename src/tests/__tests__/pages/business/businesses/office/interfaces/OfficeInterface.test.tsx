@@ -1,6 +1,6 @@
 // OfficeInterfaces.test.ts
 
-import { AddressDetails, ContactDetails, Office, OfficeSpecs } from "@/app/business/businesses/[business_id]/office/add/types/OfficeInterfaces";
+import { AddressDetails, ContactDetails, Office, OfficeSpecs } from "@/app/business/office/add/types/OfficeInterfaces";
 
 describe('OfficeInterfaces', () => {
   const mockAvailability: Availability = {

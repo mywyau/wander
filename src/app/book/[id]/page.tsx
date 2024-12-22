@@ -1,5 +1,5 @@
-import DeskMap from "@/components/GoogleMaps";
-import BookingForm from "../../../components/BookingForm";
+import DeskMap from "@/components/misc/GoogleMaps";
+import BookingForm from "../../../components/misc/BookingForm";
 
 interface Coordinates {
   lat: number;

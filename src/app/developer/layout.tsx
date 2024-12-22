@@ -1,9 +1,9 @@
 // app/Developer/layout.tsx
 import React from 'react';
 
-import AuthProvider from "@/components/AuthProvider";
+import AuthProvider from "@/components/misc/AuthProvider";
 import DevSidebar from '@/components/developer/DevSidebar';
-import Navbar from "@/components/NavBar";
+import Navbar from "@/components/misc/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
