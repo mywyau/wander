@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { officeSpecsSchema, addressDetailsSchema, contactDetailsSchema } from "./validationHelpers";
+import { officeSpecsSchema, addressDetailsSchema, contactDetailsSchema } from "./FormValidations";
 
 export const combinedSchema = z.object({
   officeSpecs: officeSpecsSchema, // Reuse the existing officeSpecsSchema

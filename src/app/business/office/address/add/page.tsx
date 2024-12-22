@@ -3,10 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import OfficeSpecsForm from "./forms/OfficeSpecsForm";
-import AddressDetailsForm from "./forms/AddressDetailsForm";
-import ContactDetailsForm from "./forms/ContactDetailsForm";
-import { combinedSchema } from "./helpers/combinedSchema";
 
 type CombinedFormData = z.infer<typeof combinedSchema>;
 
