@@ -1,7 +1,8 @@
 "use client";
 
+import AddOfficeButton from "@/components/office/AddOfficeButton";
 import AddressDetailsForm from "@/forms/office/AddressDetailsForm";
-import { officeAddressDetailsFormSchema }  from "@/forms/office/OfficeAddressFormSchema";
+import { officeAddressDetailsFormSchema } from "@/forms/office/OfficeAddressFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -60,9 +61,12 @@ const AddOfficePage = () => {
 
         <AddressDetailsForm />
 
-        <button type="submit" className="btn-primary">
-          Submit All
-        </button>
+        {/* Use AddOfficeButton as Submit Button */}
+        <AddOfficeButton
+          label="Submit"
+          type="submit"
+          className="btn-primary w-1/3"
+        />
       </form>
     </FormProvider>
   );

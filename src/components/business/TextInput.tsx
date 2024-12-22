@@ -1,15 +1,15 @@
 import React from "react";
+import { UseFormRegister } from "react-hook-form";
 
 interface TextInputProps {
   id: string;
   type: string;
   name: string;
   label: string;
-  value?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   error?: string;
-  className?: string; // Make it optional
+  className?: string;
+  register?: UseFormRegister<any>; // Optional register function from react-hook-form
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -17,25 +17,22 @@ const TextInput: React.FC<TextInputProps> = ({
   type,
   name,
   label,
-  value = "",
-  onChange,
   placeholder = "",
   error,
   className = "",
+  register,
 }) => {
   return (
-    <div>
+    <div className="mb-4">
       <label htmlFor={id} className="block text-sm font-medium text-gray-700">
         {label}
       </label>
       <input
         id={id}
         type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
+        {...(register ? register(name) : {})} // Attach react-hook-form register if provided
         placeholder={placeholder}
-        className={`mt-1 px-4 py-2 border rounded-md ${
+        className={`w-full mt-1 px-4 py-2 border rounded-md ${
           error ? "border-red-500" : "border-gray-300"
         } ${className}`}
       />

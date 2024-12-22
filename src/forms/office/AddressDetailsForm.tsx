@@ -39,7 +39,7 @@ const AddressDetailsForm = () => {
                     label="City"
                     placeholder="Enter the name of the city"
                     register={register}
-                    error={errors?.street?.message}
+                    error={errors?.city?.message}
                     className="w-1/2"
                 />
 
@@ -51,7 +51,7 @@ const AddressDetailsForm = () => {
                     label="Country"
                     placeholder="Enter name of the country"
                     register={register}
-                    error={errors?.street?.message}
+                    error={errors?.country?.message}
                     className="w-1/2"
                 />
 
@@ -62,7 +62,7 @@ const AddressDetailsForm = () => {
                     label="County"
                     placeholder="Enter the name of the county"
                     register={register}
-                    error={errors?.street?.message}
+                    error={errors?.county?.message}
                     className="w-1/2"
                 />
 
@@ -73,7 +73,7 @@ const AddressDetailsForm = () => {
                     label="Postcode"
                     placeholder="Enter the postcode"
                     register={register}
-                    error={errors?.street?.message}
+                    error={errors?.postcode?.message}
                     className="w-1/2"
                 />
             </div>
