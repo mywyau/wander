@@ -1,10 +1,10 @@
 import { useFormContext } from "react-hook-form";
-import Amenities from "../components/AmenitiesCheckbox";
-import NumberInput from "../components/NumberInput";
-import OpeningHours from "../components/OpeningHours";
-import SelectField from "../components/SelectField";
-import TextArea from "../components/TextArea";
-import TextInput from "../components/TextInput";
+import Amenities from "@/components/office/AmenitiesCheckbox";
+import NumberInput from "@/components/business/NumberInput";
+import OpeningHours from "@/components/business/OpeningHours";
+import SelectField from "@/components/business/SelectField";
+import TextArea from "@/components/business/TextArea";
+import TextInput from "@/components/business/TextInput";
 
 const OfficeSpecsForm = () => {
 

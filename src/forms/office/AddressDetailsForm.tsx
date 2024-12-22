@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import AddressInput from "@/components/AddressInput";
-import TextInput from "../components/TextInput";
+import AddressInput from "@/components/business/AddressInput";
+import TextInput from "@/components/business/TextInput";
 
 const AddressDetailsForm = () => {
 

@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import TextInput from "../components/TextInput";
+import TextInput from "@/components/business/TextInput";
 
 const OfficeSpecsForm = () => {
 
