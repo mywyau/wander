@@ -63,25 +63,6 @@ const AddBusinessPage = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
 
-                <TextInput
-                    type="text"
-                    id="businessSpecs.businessName"
-                    name="businessSpecs.businessName"
-                    label="Business Name"
-                    value={formData.businessSpecs?.businessName || ""}
-                    onChange={handleChange}
-                    placeholder="Enter the Business name"
-                    error={errors.businessName}
-                />
-
-                <TextArea
-                    id="description"
-                    name="businessSpecs.description"
-                    label="Description"
-                    value={formData.businessSpecs?.description || ""}
-                    onChange={handleChange}
-                />
-
                 <AddressSearch
                     addressDetails={formData.addressDetails || {}}
                     setAddressDetails={(updatedAddress) =>
