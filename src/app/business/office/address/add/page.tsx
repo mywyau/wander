@@ -1,32 +1,41 @@
 "use client";
 
+import AddressDetailsForm from "@/forms/office/AddressDetailsForm";
+import { officeAddressDetailsFormSchema }  from "@/forms/office/OfficeAddressFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
-type CombinedFormData = z.infer<typeof combinedSchema>;
 
 const AddOfficePage = () => {
 
-  const defaultValues = {
-    addressDetails: {
-      buildingName: "",
-      floorNumber: "",
-      street: "",
-      city: "",
-      country: "",
-      county: "",
-      postcode: "",
-    }
+  const defaultValues: OfficeAddressDetails = {
+    businessId: "",
+    officeId: "",
+    buildingName: "",
+    floorNumber: "",
+    street: "",
+    city: "",
+    country: "",
+    county: "",
+    postcode: "",
+    latitude: 0,
+    longitude: 0,
+    createdAt: "",
+    updatedAt: ""
   };
 
-  const methods = useForm({
-    resolver: zodResolver(combinedSchema),
-    defaultValues,
-    // mode: "onChange", // Validation triggers on each change
-  });
+  type OfficeAddressDetails = z.infer<typeof officeAddressDetailsFormSchema>;
 
-  const onSubmit = (data: CombinedFormData) => {
+  // React Hook Form Methods
+  const methods =
+    useForm<OfficeAddressDetails>({
+      resolver: zodResolver(officeAddressDetailsFormSchema),
+      defaultValues,
+      mode: "onSubmit" // Validation triggers on submit
+    });
+
+  const onSubmit = (data: OfficeAddressDetails) => {
     console.log("Combined Data:", data);
 
     fetch("/api/offices", {

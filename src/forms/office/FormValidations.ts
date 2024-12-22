@@ -65,7 +65,7 @@ export const officeSpecsSchema = z.object({
 });
 
 
-export const addressDetailsSchema = z.object({
+export const officeAddressDetailsSchema = z.object({
   buildingName: z
     .string()
     .nonempty("Building name is required.")

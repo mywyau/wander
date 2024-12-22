@@ -1,6 +1,5 @@
-import { useFormContext } from "react-hook-form";
-import AddressInput from "@/components/business/AddressInput";
 import TextInput from "@/components/business/TextInput";
+import { useFormContext } from "react-hook-form";
 
 const AddressDetailsForm = () => {
 
@@ -9,59 +8,73 @@ const AddressDetailsForm = () => {
     return (
         <div className="space-y-4">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6">
+
                 <TextInput
                     type="text"
                     id="buildingName"
-                    name="addressDetails.buildingName"
+                    name="buildingName"
                     label="Building Name"
                     placeholder="Enter the name of the building"
                     register={register}
-                    error={errors?.addressDetails?.buildingName?.message}
+                    error={errors?.buildingName?.message}
+                    className="w-1/2"
                 />
 
-                <AddressInput
+                <TextInput
+                    type="text"
                     id="street"
+                    name="street"
                     label="Street"
-                    name="addressDetails.street"
-                    placeholder="Enter the street name"
+                    placeholder="Enter the name of the street"
                     register={register}
-                    error={errors?.addressDetails?.street?.message}
+                    error={errors?.street?.message}
+                    className="w-1/2"
                 />
-                <AddressInput
+
+                <TextInput
+                    type="text"
                     id="city"
+                    name="city"
                     label="City"
-                    name="addressDetails.city"
-                    placeholder="Enter the city"
+                    placeholder="Enter the name of the city"
                     register={register}
-                    error={errors?.addressDetails?.city?.message}
+                    error={errors?.street?.message}
+                    className="w-1/2"
                 />
 
-                <AddressInput
-                    id="county"
-                    label="County"
-                    name="addressDetails.county"
-                    placeholder="Enter the county"
-                    register={register}
-                    error={errors?.addressDetails?.county?.message}
-                />
 
-                <AddressInput
+                <TextInput
+                    type="text"
                     id="country"
+                    name="country"
                     label="Country"
-                    name="addressDetails.country"
-                    placeholder="Enter the country"
+                    placeholder="Enter name of the country"
                     register={register}
-                    error={errors?.addressDetails?.country?.message}
+                    error={errors?.street?.message}
+                    className="w-1/2"
                 />
 
-                <AddressInput
+                <TextInput
+                    type="text"
+                    id="county"
+                    name="county"
+                    label="County"
+                    placeholder="Enter the name of the county"
+                    register={register}
+                    error={errors?.street?.message}
+                    className="w-1/2"
+                />
+
+                <TextInput
+                    type="text"
                     id="postcode"
+                    name="postcode"
                     label="Postcode"
-                    name="addressDetails.postcode"
                     placeholder="Enter the postcode"
                     register={register}
-                    error={errors?.addressDetails?.postcode?.message}
+                    error={errors?.street?.message}
+                    className="w-1/2"
                 />
             </div>
         </div >
