@@ -1,8 +1,8 @@
 // app/Home/layout.tsx
 import React from 'react';
 
-import AuthProvider from "@/components/AuthProvider";
-import Navbar from "@/components/NavBar";
+import AuthProvider from "@/components/misc/AuthProvider";
+import Navbar from "@/components/misc/NavBar";
 import WandererSidebar from '@/components/user/UserSidebar';
 import type { Metadata } from "next";
 import localFont from "next/font/local";

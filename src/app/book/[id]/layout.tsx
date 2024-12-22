@@ -1,9 +1,9 @@
 // app/BookNow/layout.tsx
 import React from 'react';
 
-import AuthProvider from "@/components/AuthProvider";
-import Navbar from "@/components/NavBar";
-import Sidebar from "@/components/Sidebar";
+import AuthProvider from "@/components/misc/AuthProvider";
+import Navbar from "@/components/misc/NavBar";
+import Sidebar from "@/components/misc/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../../globals.css";

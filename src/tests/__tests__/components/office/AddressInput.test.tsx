@@ -1,4 +1,4 @@
-import AddressInput from "@/app/business/businesses/[business_id]/office/add/components/AddressInput";
+import AddressInput from "@/app/business/office/add/components/AddressInput";
 import "@testing-library/jest-dom"; // For additional matchers
 import { fireEvent, render, screen } from "@testing-library/react";
 
