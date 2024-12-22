@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddressDetails } from "../types/OfficeInterfaces"; // Adjust the path as needed
+import { AddressDetails } from "../types/OfficeContactDetails"; // Adjust the path as needed
 import AddressInput from "./AddressInput";
 
 // Mock data aligned with AddressDetails schema
