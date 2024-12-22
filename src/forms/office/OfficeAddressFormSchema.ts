@@ -5,15 +5,13 @@ export const officeAddressDetailsFormSchema =
     {
       buildingName: z
         .string()
-        .nonempty("Building name is required.")
-        .min(2, "Building name must be at least 2 characters.")
+        // .nonempty("Building name is required.")
+        .min(0, "Building name must be at least 2 characters.")
         .max(50, "Building name cannot exceed 50 characters."),
       floorNumber: z
-        .string()
-        .nonempty("Floor number is required.")
-        .regex(/^\d+$/, "Floor number must be numeric.")
-        .min(1, "Floor number must be at least 1 character.")
-        .max(5, "Floor number cannot exceed 5 characters."),
+        .number()
+        .min(-10000, "Floor Number cannot be less than -10000")
+        .max(10000, "Floor Number cannot be over 10000"),
       street: z
         .string()
         .nonempty("Street name is required.")
@@ -31,7 +29,7 @@ export const officeAddressDetailsFormSchema =
         .max(50, "Country name cannot exceed 50 characters."),
       county: z
         .string()
-        .nonempty("County is required.")
+        // .nonempty("County is required.")
         .min(2, "County name must be at least 2 characters.")
         .max(50, "County name cannot exceed 50 characters."),
       postcode: z

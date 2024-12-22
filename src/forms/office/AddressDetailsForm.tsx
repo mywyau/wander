@@ -1,4 +1,5 @@
 import TextInput from "@/components/business/TextInput";
+import NumberInput from "@/components/office/NumberInput";
 import { useFormContext } from "react-hook-form";
 
 const AddressDetailsForm = () => {
@@ -14,8 +15,8 @@ const AddressDetailsForm = () => {
                     type="text"
                     id="buildingName"
                     name="buildingName"
-                    label="Building Name"
-                    placeholder="Enter the name of the building"
+                    label="Building Name (optional)"
+                    placeholder="Enter the name of the building (if applicable)"
                     register={register}
                     error={errors?.buildingName?.message}
                     className="w-1/2"

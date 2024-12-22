@@ -10,20 +10,13 @@ import { z } from "zod";
 
 const AddOfficePage = () => {
 
-  const defaultValues: OfficeAddressDetails = {
-    businessId: "",
-    officeId: "",
+  const defaultValues = {
     buildingName: "",
-    floorNumber: "",
     street: "",
     city: "",
     country: "",
     county: "",
-    postcode: "",
-    latitude: 0,
-    longitude: 0,
-    createdAt: "",
-    updatedAt: ""
+    postcode: ""
   };
 
   type OfficeAddressDetails = z.infer<typeof officeAddressDetailsFormSchema>;

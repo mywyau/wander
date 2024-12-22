@@ -32,9 +32,7 @@ const TextInput: React.FC<TextInputProps> = ({
         type={type}
         {...(register ? register(name) : {})} // Attach react-hook-form register if provided
         placeholder={placeholder}
-        className={`w-full mt-1 px-4 py-2 border rounded-md ${
-          error ? "border-red-500" : "border-gray-300"
-        } ${className}`}
+        className={`mt-1 px-4 py-2 border rounded-md ${error ? "border-red-500" : "border-gray-300"} ${className}`}
       />
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
