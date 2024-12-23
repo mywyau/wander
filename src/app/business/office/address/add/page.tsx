@@ -42,6 +42,7 @@ const AddOfficePage = () => {
     };
 
     console.log("Combined Data with Extra Fields:", combinedData);
+    console.log(`http://${AppConfig.basePistachioUrl(true)}/pistachio/business/office/address/create`, combinedData);
 
     // Send the combined data to the backend
     fetch(
@@ -63,6 +64,7 @@ const AddOfficePage = () => {
   };
 
   return (
+    
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
         <h1 className="text-xl font-bold">Add Address Details to Office</h1>

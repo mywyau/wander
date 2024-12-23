@@ -1,5 +1,4 @@
 import TextInput from "@/components/business/TextInput";
-import NumberInput from "@/components/office/NumberInput";
 import { useFormContext } from "react-hook-form";
 
 const AddressDetailsForm = () => {
@@ -19,7 +18,7 @@ const AddressDetailsForm = () => {
                     placeholder="Enter the name of the building (if applicable)"
                     register={register}
                     error={errors?.buildingName?.message}
-                    className="w-1/2"
+                    inputClassName="w-1/2"
                 />
 
                 <TextInput
@@ -30,7 +29,7 @@ const AddressDetailsForm = () => {
                     placeholder="Enter the name of the street"
                     register={register}
                     error={errors?.street?.message}
-                    className="w-1/2"
+                    inputClassName="w-1/2"
                 />
 
                 <TextInput
@@ -41,7 +40,7 @@ const AddressDetailsForm = () => {
                     placeholder="Enter the name of the city"
                     register={register}
                     error={errors?.city?.message}
-                    className="w-1/2"
+                    inputClassName="w-1/2"
                 />
 
 
@@ -53,7 +52,7 @@ const AddressDetailsForm = () => {
                     placeholder="Enter name of the country"
                     register={register}
                     error={errors?.country?.message}
-                    className="w-1/2"
+                    inputClassName="w-1/2"
                 />
 
                 <TextInput
@@ -64,7 +63,7 @@ const AddressDetailsForm = () => {
                     placeholder="Enter the name of the county"
                     register={register}
                     error={errors?.county?.message}
-                    className="w-1/2"
+                    inputClassName="w-1/2"
                 />
 
                 <TextInput
@@ -75,7 +74,7 @@ const AddressDetailsForm = () => {
                     placeholder="Enter the postcode"
                     register={register}
                     error={errors?.postcode?.message}
-                    className="w-1/2"
+                    inputClassName="w-1/2"
                 />
             </div>
         </div >
