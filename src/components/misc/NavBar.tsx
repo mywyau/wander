@@ -43,11 +43,10 @@ export default function NavbarSidebar() {
               </ul>
             </div>
 
-            {/* User Information */}
-            <div className="flex items-center space-x-4">
+            
+            {/* <div className="flex items-center space-x-4">
               {session ? (
                 <div className="flex items-center space-x-3">
-                  {/* Optional: User's profile picture */}
                   {session.user?.image && (
                     <img
                       src={session.user.image}
@@ -59,7 +58,7 @@ export default function NavbarSidebar() {
                     {session.user?.name || session.user?.email}
                   </span>
                   {/* Logout button */}
-                  <button
+                  {/* <button
                     onClick={() => signOut()}
                     className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
                   >
@@ -74,8 +73,8 @@ export default function NavbarSidebar() {
                 >
                   Login
                 </a>
-              )}
-            </div>
+              )} */}
+            {/* </div> */}
 
             {/* Hamburger Icon for Mobile */}
             <button
