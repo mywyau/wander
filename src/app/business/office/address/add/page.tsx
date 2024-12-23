@@ -1,14 +1,15 @@
 "use client";
 
-import AppConfig from "@/config/AppConfig";
 import AddOfficeButton from "@/components/office/AddOfficeButton";
+import AppConfig from "@/config/AppConfig";
 import AddressDetailsForm from "@/forms/office/AddressDetailsForm";
 import { officeAddressDetailsFormSchema } from "@/forms/office/OfficeAddressFormSchema";
+import { OfficeAddressDetails } from "@/types/office/OfficeAddressDetails";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import { OfficeAddressDetails } from "@/types/office/OfficeAddressDetails";
 
 const AddOfficePage = () => {
+
   const defaultValues = {
     buildingName: "",
     street: "",
@@ -28,13 +29,13 @@ const AddOfficePage = () => {
   const onSubmit = (data: OfficeAddressDetails) => {
     console.log("Form Data:", data);
 
-  
+
     const extraFields = {
-      officeId: "OFF12345", 
       businessId: "BUS12345",
+      officeId: "OFF12345"
     };
 
-  
+
     const combinedData = {
       ...data,
       ...extraFields,

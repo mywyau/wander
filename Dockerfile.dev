@@ -1,13 +1,22 @@
 FROM node:20-alpine
 
+# Set working directory
 WORKDIR /app
 
+# Copy package.json and package-lock.json first to leverage Docker cache
 COPY package.json package-lock.json ./
 
+# Install all dependencies
 RUN npm install
 
+# Verify dependencies (Optional)
+RUN npm list @hookform/resolvers zod
+
+# Copy the rest of the application
 COPY . .
 
+# Expose application port
 EXPOSE 3000
 
+# Start the application
 CMD ["npm", "run", "dev"]
