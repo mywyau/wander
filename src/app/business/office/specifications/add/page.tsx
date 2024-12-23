@@ -1,5 +1,7 @@
 "use client";
 
+import NumberInput from "@/components/office/NumberInput";
+import TextArea from "@/components/office/TextArea";
 import TextInput from "@/components/office/TextInput";
 import AppConfig from "@/config/AppConfig";
 import { officeSpecificationsSchema } from "@/forms/office/OfficeSpecificationsFormSchema";
@@ -14,7 +16,7 @@ const AddOfficePage = () => {
 
   const defaultValues = {
     officeName: "A name for the office",
-    description: "A default description for the office that is detailed enough to meet requirements.",
+    description: "A short description of the office to market to your guests.",
     officeType: "",
     numberOfFloors: 0,
     capacity: 0,
@@ -99,44 +101,68 @@ const AddOfficePage = () => {
           <div className="grid grid-cols-1 gap-6">
 
             <TextInput
-              id="primaryContactFirstName"
-              name="primaryContactFirstName"
-              label="Primary Contact First Name"
-              placeholder="Enter a first name"
+              id="officeName"
+              name="officeName"
+              label="Office Name"
+              placeholder="Enter a name for the office"
               register={register}
-              error={errors?.primaryContactFirstName?.message}
+              error={errors?.officeName?.message}
               inputClassName="w-1/2"
             />
 
-            <TextInput
-              id="primaryContactLastName"
-              name="primaryContactLastName"
-              label="Primary Contact Last Name"
-              placeholder="Enter a last name"
+            <TextArea
+              id="description"
+              name="description"
+              label="Office Description"
               register={register}
-              error={errors?.primaryContactLastName?.message}
-              inputClassName="w-1/2"
+              placeholder="Short description of the office"
+              error={errors.description?.message}
             />
 
-            <TextInput
-              id="contactEmail"
-              name="contactEmail"
-              label="Email"
-              placeholder="Enter an email"
+            <TextArea
+              id="rules"
+              name="rules"
+              label="Office Rules"
               register={register}
-              error={errors?.contactEmail?.message}
-              inputClassName="w-1/2"
+              placeholder="Enter any rules you want for the office"
+              error={errors.rules?.message}
             />
 
-            <TextInput
-              id="contactNumber"
-              name="contactNumber"
-              label="Contact Number"
-              placeholder="Enter a phone number"
-              register={register}
-              error={errors?.contactNumber?.message}
-              inputClassName="w-1/2"
-            />
+
+            <div className="w-1/2">
+              <div className="grid grid-cols-3 gap-4">
+
+                <NumberInput
+                  id="numberOfFloors"
+                  name="numberOfFloors"
+                  label="Number Of Floors"
+                  register={register}
+                  placeholder="Enter the number of floors"
+                  error={errors.numberOfFloors?.message}
+                  inputClassName="w-full"
+                />
+
+                <NumberInput
+                  id="capacity"
+                  name="capacity"
+                  label="Capacity"
+                  register={register}
+                  placeholder="Enter the capacity of the office"
+                  error={errors.capacity?.message}
+                  inputClassName="w-full"
+                />
+
+                <NumberInput
+                  id="totalDesks"
+                  name="totalDesks"
+                  label="Total Number of Desks"
+                  register={register}
+                  placeholder="Enter the total number of desks in the office"
+                  error={errors.totalDesks?.message}
+                  inputClassName="w-full"
+                />
+              </div>
+            </div>
           </div>
         </div>
 

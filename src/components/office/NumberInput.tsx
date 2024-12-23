@@ -1,46 +1,57 @@
 import React from "react";
-import { FieldError } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 
 interface NumberInputProps {
   id: string;
   name: string;
   label: string;
-  register?: (name: string, options?: any) => ReturnType<UseFormRegister<any>>;
+  placeholder?: string;
+  register: UseFormRegister<any>;
+  error?: string;
+  inputClassName?: string;
+  labelClassName?: string;
+  containerClassName?: string;
   min?: number;
   max?: number;
-  placeholder?: string;
-  error?: FieldError | string; // Validation error	
-  className?: string;
+  step?: number;
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({
   id,
   name,
   label,
+  placeholder = "",
   register,
+  error,
+  inputClassName = "",
+  labelClassName = "",
+  containerClassName = "",
   min,
   max,
-  placeholder = "",
-  error,
-  className = "",
+  step = 1,
 }) => {
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+    <div className={`mb-4 ${containerClassName}`}>
+      <label htmlFor={id} className={`block text-sm font-medium text-gray-700 ${labelClassName}`}>
         {label}
       </label>
       <input
-        type="number"
         id={id}
+        name={name}
+        type="number" // Ensure the input is for numbers
+        placeholder={placeholder}
         {...register(name)}
+        className={`mt-1 px-4 py-2 border rounded-md ${error ? "border-red-500" : "border-gray-300"
+          } ${inputClassName}`}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
         min={min}
         max={max}
-        placeholder={placeholder}
-        className={`mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"} ${className}`}
+        step={step}
       />
       {error && (
-        <p className="text-red-500 text-sm mt-1">
-          {typeof error === "string" ? error : error.message}
+        <p id={`${id}-error`} className="text-red-500 text-sm mt-1">
+          {error}
         </p>
       )}
     </div>
