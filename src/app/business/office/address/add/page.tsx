@@ -45,8 +45,8 @@ const AddOfficePage = () => {
     const combinedData = {
       ...data,
       businessId: "BUS123456",
-      floorNumber: "1",
       officeId: "OFF123456",
+      floorNumber: "1",
       latitude: 999,
       longitude: 999,
     };

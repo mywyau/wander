@@ -41,7 +41,9 @@ const AddOfficePage = () => {
     setSuccessMessage(null); // Reset success message before submitting
 
     const combinedData = {
-      ...data
+      ...data,
+      businessId: "BUS123456",
+      officeId: "OFF123456",
     };
 
 
