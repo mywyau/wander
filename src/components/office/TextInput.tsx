@@ -19,7 +19,7 @@ const TextInput: React.FC<TextInputProps> = ({
   error,	
   register,	
 }) => {	
-  console.log(register(name)); // Should log the registration object for the field	
+  // console.log(register(name)); // Should log the registration object for the field	
   return (	
     <div className="space-y-1">	
       <label htmlFor={id} className="block text-sm font-medium text-gray-700">	

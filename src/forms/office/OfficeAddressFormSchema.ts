@@ -8,10 +8,6 @@ export const officeAddressDetailsFormSchema =
         // .nonempty("Building name is required.")
         .min(0, "Building name must be at least 2 characters.")
         .max(50, "Building name cannot exceed 50 characters."),
-      floorNumber: z
-        .number()
-        .min(-10000, "Floor Number cannot be less than -10000")
-        .max(10000, "Floor Number cannot be over 10000"),
       street: z
         .string()
         .nonempty("Street name is required.")
