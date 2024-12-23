@@ -1,15 +1,14 @@
 "use client";
 
+import TextInput from "@/components/office/TextInput";
 import AppConfig from "@/config/AppConfig";
 import { officeAddressDetailsFormSchema } from "@/forms/office/OfficeAddressFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const AddOfficePage = () => {
-
-  const appConfig = new AppConfig;
 
   type OfficeAddressDetails = z.infer<typeof officeAddressDetailsFormSchema>;
 
@@ -95,125 +94,75 @@ const AddOfficePage = () => {
 
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-6">
-            <div className="mb-4">
-              <label htmlFor="buildingName" className="block text-sm font-medium text-gray-700">
-                Building Name (optional)
-              </label>
-              <input
-                id="buildingName"
-                name="buildingName"
-                placeholder="Enter the name of the building (if applicable)"
-                {...register("buildingName")}
-                className={`mt-1 px-4 py-2 border rounded-md ${errors?.buildingName ? "border-red-500" : "border-gray-300"} w-1/2`}
-                aria-invalid={!!errors?.buildingName}
-                aria-describedby={errors?.buildingName ? "buildingName-error" : undefined}
-              />
-              {errors?.buildingName && (
-                <p id="buildingName-error" className="text-red-500 text-sm mt-1">
-                  {errors.buildingName.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              id="buildingName"
+              name="buildingName"
+              label="Building Name (optional)"
+              placeholder="Enter the name of the building (if applicable)"
+              register={register}
+              error={errors?.buildingName?.message}
+              inputClassName="w-1/2"
+            />
 
-            <div className="mb-4">
-              <label htmlFor="street" className="block text-sm font-medium text-gray-700">
-                Street
-              </label>
-              <input
-                id="street"
-                name="street"
-                placeholder="Enter the name of the street"
-                {...register("street")}
-                className={`mt-1 px-4 py-2 border rounded-md ${errors?.street ? "border-red-500" : "border-gray-300"} w-1/2`}
-                aria-invalid={!!errors?.street}
-                aria-describedby={errors?.street ? "street-error" : undefined}
-              />
-              {errors?.street && (
-                <p id="street-error" className="text-red-500 text-sm mt-1">
-                  {errors.street.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              id="street"
+              name="street"
+              label="Street"
+              placeholder="Enter the name of the street"
+              register={register}
+              error={errors?.street?.message}
+              inputClassName="w-1/2"
+            />
 
-            <div className="mb-4">
-              <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                City
-              </label>
-              <input
-                id="city"
-                name="city"
-                placeholder="Enter the name of the city"
-                {...register("city")}
-                className={`mt-1 px-4 py-2 border rounded-md ${errors?.city ? "border-red-500" : "border-gray-300"} w-1/2`}
-                aria-invalid={!!errors?.city}
-                aria-describedby={errors?.city ? "city-error" : undefined}
-              />
-              {errors?.city && (
-                <p id="city-error" className="text-red-500 text-sm mt-1">
-                  {errors.city.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              id="street"
+              name="street"
+              label="Street"
+              placeholder="Enter the name of the street"
+              register={register}
+              error={errors?.street?.message}
+              inputClassName="w-1/2"
+            />
 
-            <div className="mb-4">
-              <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                Country
-              </label>
-              <input
-                id="country"
-                name="country"
-                placeholder="Enter name of the country"
-                {...register("country")}
-                className={`mt-1 px-4 py-2 border rounded-md ${errors?.country ? "border-red-500" : "border-gray-300"} w-1/2`}
-                aria-invalid={!!errors?.country}
-                aria-describedby={errors?.country ? "country-error" : undefined}
-              />
-              {errors?.country && (
-                <p id="country-error" className="text-red-500 text-sm mt-1">
-                  {errors.country.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              id="city"
+              name="city"
+              label="City"
+              placeholder="Enter the name of the city"
+              register={register}
+              error={errors?.city?.message}
+              inputClassName="w-1/2"
+            />
 
-            <div className="mb-4">
-              <label htmlFor="county" className="block text-sm font-medium text-gray-700">
-                County
-              </label>
-              <input
-                id="county"
-                name="county"
-                placeholder="Enter the name of the county"
-                {...register("county")}
-                className={`mt-1 px-4 py-2 border rounded-md ${errors?.county ? "border-red-500" : "border-gray-300"} w-1/2`}
-                aria-invalid={!!errors?.county}
-                aria-describedby={errors?.county ? "county-error" : undefined}
-              />
-              {errors?.county && (
-                <p id="county-error" className="text-red-500 text-sm mt-1">
-                  {errors.county.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              id="country"
+              name="country"
+              label="Country"
+              placeholder="Enter the a country"
+              register={register}
+              error={errors?.country?.message}
+              inputClassName="w-1/2"
+            />
 
-            <div className="mb-4">
-              <label htmlFor="postcode" className="block text-sm font-medium text-gray-700">
-                Postcode
-              </label>
-              <input
-                id="postcode"
-                name="postcode"
-                placeholder="Enter the postcode"
-                {...register("postcode")}
-                className={`mt-1 px-4 py-2 border rounded-md ${errors?.postcode ? "border-red-500" : "border-gray-300"} w-1/2`}
-                aria-invalid={!!errors?.postcode}
-                aria-describedby={errors?.postcode ? "postcode-error" : undefined}
-              />
-              {errors?.postcode && (
-                <p id="postcode-error" className="text-red-500 text-sm mt-1">
-                  {errors.postcode.message}
-                </p>
-              )}
-            </div>
+            <TextInput
+              id="county"
+              name="county"
+              label="County"
+              placeholder="Enter the a county"
+              register={register}
+              error={errors?.county?.message}
+              inputClassName="w-1/2"
+            />
+
+            <TextInput
+              id="postcode"
+              name="postcode"
+              label="Postcode"
+              placeholder="Enter the the postcode"
+              register={register}
+              error={errors?.postcode?.message}
+              inputClassName="w-1/2"
+            />
           </div>
         </div>
 
@@ -223,6 +172,7 @@ const AddOfficePage = () => {
         >
           Submit
         </button>
+
       </form>
     </div>
   );
