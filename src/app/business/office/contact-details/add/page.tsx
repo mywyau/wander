@@ -1,58 +1,143 @@
 "use client";
 
+import TextInput from "@/components/office/TextInput";
+import AppConfig from "@/config/AppConfig";
+import { officeContactDetailsSchema } from "@/forms/office/OfficeContactDetailsFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-type CombinedFormData = z.infer<typeof combinedSchema>;
 
 const AddOfficePage = () => {
 
+  type OfficeContactDetailsDetails = z.infer<typeof officeContactDetailsSchema>;
+
   const defaultValues = {
-    contactDetails: {
-      primaryContactFirstName: "",
-      primaryContactLastName: "",
-      contactEmail: "",
-      contactNumber: "",
+    primaryContactFirstName: "",
+    primaryContactLastName: "",
+    contactEmail: "",
+    contactNumber: ""
+  };
+
+  // React Hook Form Methods
+  const methods = useForm<OfficeContactDetailsDetails>({
+    resolver: zodResolver(officeContactDetailsSchema),
+    defaultValues,
+    mode: "onSubmit",
+  });
+
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const onSubmit = async (data: OfficeContactDetailsDetails) => {
+
+    const pistachioUrl = AppConfig.basePistachioUrl(false);
+
+    console.log("onSubmit called");
+    console.log("Form Data:", data);
+    console.log(`http://${pistachioUrl}/pistachio/business/offices/contact/details/create`)
+
+    setSubmitError(null); // Reset error before submitting
+    setSuccessMessage(null); // Reset success message before submitting
+
+    const combinedData = {
+      ...data
+    };
+
+
+    console.log(combinedData);
+
+    try {
+      const response = await fetch(
+        `http://${pistachioUrl}/pistachio/business/offices/contact/details/create`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(combinedData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      const responseData = await response.json();
+      console.log("Successfully submitted:", responseData);
+      setSuccessMessage("Form submitted successfully!");
+      methods.reset(); // Reset form fields after successful submission
+    } catch (error) {
+      console.error("Submission error:", error);
+      setSubmitError("Failed to submit the form. Please try again.");
     }
   };
 
-  const methods = useForm({
-    resolver: zodResolver(combinedSchema),
-    defaultValues,
-    // mode: "onChange", // Validation triggers on each change
-  });
-
-  const onSubmit = (data: CombinedFormData) => {
-    console.log("Combined Data:", data);
-
-    fetch("/api/offices", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to submit form");
-        }
-        return response.json();
-      })
-      .then((data) => console.log("Successfully submitted:", data))
-      .catch((error) => console.error("Submission error:", error));
-  };
+  const {
+    register,
+    formState: { errors },
+  } = methods;
 
   return (
-    <FormProvider {...methods}>
+    <div>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        <h1 className="text-xl font-bold">Add Office</h1>
+        <h1 className="text-xl font-bold">Add Contact Details to Office</h1>
 
-        <ContactDetailsForm />
+        {submitError && <p className="text-red-500">{submitError}</p>}
+        {successMessage && <p className="text-green-500">{successMessage}</p>}
 
-        <button type="submit" className="btn-primary">
-          Submit All
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-6">
+
+            <TextInput
+              id="primaryContactFirstName"
+              name="primaryContactFirstName"
+              label="Primary Contact First Name"
+              placeholder="Enter a first name"
+              register={register}
+              error={errors?.primaryContactFirstName?.message}
+              inputClassName="w-1/2"
+            />
+
+            <TextInput
+              id="primaryContactLastName"
+              name="primaryContactLastName"
+              label="Primary Contact Last Name"
+              placeholder="Enter a last name"
+              register={register}
+              error={errors?.primaryContactLastName?.message}
+              inputClassName="w-1/2"
+            />
+
+            <TextInput
+              id="contactEmail"
+              name="contactEmail"
+              label="Email"
+              placeholder="Enter an email"
+              register={register}
+              error={errors?.contactEmail?.message}
+              inputClassName="w-1/2"
+            />
+
+            <TextInput
+              id="contactNumber"
+              name="contactNumber"
+              label="Contact Number"
+              placeholder="Enter a phone number"
+              register={register}
+              error={errors?.contactNumber?.message}
+              inputClassName="w-1/2"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="btn-primary w-1/3 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
+        >
+          Submit
         </button>
+
       </form>
-    </FormProvider>
+    </div>
   );
 };
 
