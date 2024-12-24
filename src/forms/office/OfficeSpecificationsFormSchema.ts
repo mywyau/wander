@@ -18,7 +18,7 @@ export const officeSpecificationsSchema = z
       officeType:
         z
           .string()
-          .nonempty("Please select an office type."),
+          .nonempty("Please select a type of office."),
       numberOfFloors:
         z
           .preprocess(

@@ -3,6 +3,7 @@
 import Amenities from "@/components/office/Amenities";
 import NumberInput from "@/components/office/NumberInput";
 import OpeningHours from "@/components/office/OpeningHours";
+import SelectField from "@/components/office/SelectField";
 import TextArea from "@/components/office/TextArea";
 import TextInput from "@/components/office/TextInput";
 import AppConfig from "@/config/AppConfig";
@@ -21,8 +22,8 @@ const AddOfficePage = () => {
     description: "",
     officeType: "",
     numberOfFloors: 0,
-    capacity: 0,
     totalDesks: 0,
+    capacity: 0,
     amenities: [],
     availability: {
       days: [],
@@ -96,7 +97,7 @@ const AddOfficePage = () => {
   return (
     <div>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        <h1 className="text-xl font-bold">Add Contact Details to Office</h1>
+        <h1 className="text-xl font-bold">Add specifications to the office</h1>
 
         {submitError && <p className="text-red-500">{submitError}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
@@ -130,6 +131,21 @@ const AddOfficePage = () => {
               register={register}
               placeholder="Enter any rules you want for the office"
               error={errors.rules?.message}
+            />
+
+            <SelectField
+              id="officeType"
+              name="officeType"
+              label="Type of Office"
+              register={register}
+              options={[
+                { value: "CoworkingSpace", label: "Coworking Space" },
+                { value: "OpenPlanOffice", label: "Open Plan Office" },
+                { value: "PrivateOffice", label: "Private Office" },
+                { value: "ExecutiveOffice", label: "Executive Office" },
+                { value: "MeetingRoom", label: "Meeting Room" },
+              ]}
+              error={errors.officeType}
             />
 
             <div className="w-1/2">
