@@ -13,9 +13,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const AddOfficePage = () => {
 
-  type OfficeSpecificationsDetails = z.infer<typeof officeSpecificationsSchema>;
+//  note to self sort out database time issues, scala backend data model using LocalTime and look into 
+//  npm install dayjs for frontend time handling
+
+const AddOfficeSpecificationsPage = () => {
+
+  type OfficeSpecifications = z.infer<typeof officeSpecificationsSchema>;
 
   const defaultValues = {
     officeName: "",
@@ -34,7 +38,7 @@ const AddOfficePage = () => {
   };
 
   // React Hook Form Methods
-  const methods = useForm<OfficeSpecificationsDetails>({
+  const methods = useForm<OfficeSpecifications>({
     resolver: zodResolver(officeSpecificationsSchema),
     defaultValues,
     mode: "onSubmit",
@@ -43,7 +47,7 @@ const AddOfficePage = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: OfficeSpecificationsDetails) => {
+  const onSubmit = async (data: OfficeSpecifications) => {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
 
@@ -56,8 +60,11 @@ const AddOfficePage = () => {
 
     const combinedData = {
       ...data,
+      id: 100,
       businessId: "BUS123456",
       officeId: "OFF123456",
+      createdAt: new Date().toISOString().slice(0, 19),
+      updatedAt: new Date().toISOString().slice(0, 19)
     };
 
 
@@ -211,4 +218,4 @@ const AddOfficePage = () => {
   );
 };
 
-export default AddOfficePage;
+export default AddOfficeSpecificationsPage;
