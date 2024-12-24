@@ -105,9 +105,10 @@ Not sure you are able to run the app but ideally want to containerise all the mi
 
 Due to storage of jwts for auth it is based on the base domain, need to look into reverse proxy or somehow proxying all base domains to look like a single base domain for the app. As it stands auth only works in another microservice called Reggie.
 
-Mising a lot of unit tests, integration tests, just can't be bothered atm. And code changes a with significant rewrites etc. 
+Missing a lot of unit tests, integration tests, just can't be bothered atm. And code changes are with significant rewrites etc. 
+Usually able to re-read and not break stuff during rewrites/refactors
 
 
-Let me know if there are any questions. 
+Let me know if there are any questions :) 
 
 
