@@ -78,8 +78,9 @@ Please delete any unrelated code and likely unused code, please keep comments to
 Notes:
 Thank you for reading :)
 
+---
 
-Kurtis 
+# Kurtis 
 
 Basically the idea is to build a desk/office booking app. Kinda like a air bnb but for desks. Know it's already been done etc. but wanting to learn more about architecture, design, testing, making tooling choices and solo dev choices etc. Also can eventually maybe look into other things such as event driven architecture using kafka/message queues and web hooks. At one point did have a streaming web hook feature in place for desk availabiliy and changing state for a given desk but moved it to another github repo/microservice, and will likely scrap it or change it entirely. 
 
