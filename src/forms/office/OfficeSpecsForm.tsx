@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import Amenities from "@/components/office/AmenitiesCheckbox";
+import Amenities from "@/components/office/Amenities";
 import NumberInput from "@/components/business/NumberInput";
 import OpeningHours from "@/components/business/OpeningHours";
 import SelectField from "@/components/business/SelectField";

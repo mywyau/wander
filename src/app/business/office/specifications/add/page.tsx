@@ -1,6 +1,8 @@
 "use client";
 
+import Amenities from "@/components/office/Amenities";
 import NumberInput from "@/components/office/NumberInput";
+import OpeningHours from "@/components/office/OpeningHours";
 import TextArea from "@/components/office/TextArea";
 import TextInput from "@/components/office/TextInput";
 import AppConfig from "@/config/AppConfig";
@@ -15,8 +17,8 @@ const AddOfficePage = () => {
   type OfficeSpecificationsDetails = z.infer<typeof officeSpecificationsSchema>;
 
   const defaultValues = {
-    officeName: "A name for the office",
-    description: "A short description of the office to market to your guests.",
+    officeName: "",
+    description: "",
     officeType: "",
     numberOfFloors: 0,
     capacity: 0,
@@ -27,7 +29,7 @@ const AddOfficePage = () => {
       startTime: "09:00",
       endTime: "17:00",
     },
-    rules: "Be respectful and clean up after yourself.",
+    rules: "",
   };
 
   // React Hook Form Methods
@@ -89,6 +91,8 @@ const AddOfficePage = () => {
     formState: { errors },
   } = methods;
 
+  const amenitiesList = ["Air Conditioning", "Coffee", "Food", "Printer", "Parking", "Quiet Zones", "WiFi"];
+
   return (
     <div>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
@@ -128,7 +132,6 @@ const AddOfficePage = () => {
               error={errors.rules?.message}
             />
 
-
             <div className="w-1/2">
               <div className="grid grid-cols-3 gap-4">
 
@@ -163,6 +166,20 @@ const AddOfficePage = () => {
                 />
               </div>
             </div>
+
+            <Amenities
+              amenities={amenitiesList}
+              name="amenities"
+              register={register}
+              error={errors.amenities?.message}
+            />
+
+            <OpeningHours
+              days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+              namePrefix="availability"
+              register={register}
+              errors={errors.availability}
+            />
           </div>
         </div>
 
