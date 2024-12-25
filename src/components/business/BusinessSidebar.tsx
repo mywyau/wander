@@ -53,60 +53,30 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Dashboard</span>
                         </Link>
                     </li>
-
                     <li>
                         <Link
-                            href="/business/account/profile"
+                            href="/business/office/address/add"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>User Profile</span>
+                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add office address</span>
                         </Link>
                     </li>
                     <li>
                         <Link
-                            href="/business//businesses/123/office/add"
+                            href="/business/office/contact-details/add"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add an office</span>
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link
-                            href="/business/businesses/123/office/edit"
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Edit an office</span>
+                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add office contact details</span>
                         </Link>
                     </li>
                     <li>
                         <Link
-                            href="/business/businesses/view"
+                            href="/business/office/specifications/add"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
                         >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>View your businesses</span>
+                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add office specifications</span>
                         </Link>
                     </li>
-
-                    <li>
-                        <Link
-                            href="/business/businesses/add"
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add a business</span>
-                        </Link>
-                    </li>
-
-
-                    <li>
-                        <Link
-                            href="/business/businesses/edit"
-                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Edit a business</span>
-                        </Link>
-                    </li>
-
                 </ul>
             </div>
         </aside>

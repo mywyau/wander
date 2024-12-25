@@ -104,7 +104,7 @@ const AddOfficeSpecificationsPage = () => {
   return (
     <div>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        <h1 className="text-xl font-bold">Add specifications to the office</h1>
+        <h1 className="text-xl font-bold">Add Office Specifications</h1>
 
         {submitError && <p className="text-red-500">{submitError}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
@@ -129,6 +129,7 @@ const AddOfficeSpecificationsPage = () => {
               register={register}
               placeholder="Short description of the office"
               error={errors.description?.message}
+              inputClassName="w-2/3"
             />
 
             <TextArea
@@ -138,6 +139,7 @@ const AddOfficeSpecificationsPage = () => {
               register={register}
               placeholder="Enter any rules you want for the office"
               error={errors.rules?.message}
+              inputClassName="w-2/3"
             />
 
             <SelectField
