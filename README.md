@@ -85,17 +85,23 @@ Thank you for reading :)
 Basically the idea is to build a desk/office booking app. Kinda like a air bnb but for desks. Know it's already been done etc. but wanting to learn more about architecture, design, testing, making tooling choices and solo dev choices etc. Also can eventually maybe look into other things such as event driven architecture using kafka/message queues and websockets. 
 At one point did have a streaming websockets feature in place for desk availabiliy and changing state for a given desk but moved it to another github repo/microservice, and will likely scrap it or change it entirely. 
 
-The stack is fairly functional:
+The stack is fairly functional (FP):
 
 - Postgresql
+- Typescript
+- Scala Backend - general style is known as tagless-final which is a coding pattern, generally it involves an interface, implementation of interface and then you can instantiate if you want. Generally follow the pattern:
+    - Trait aka algebra
+    - Class - Impl (Implementation of the abstract trait)
+    - Object to then use as a singleton concrete version.
+    - I can then create alternatives of the Trait/Algebra for testing. So we trade of for more boiler plate code but we do not use a mocking framework/library like "Mockito" or "Scalamock"
 
 - Scala Backend - for features like CRUD operations to create data in sql
 - Scala Backend - websockets servers/kafka pub sub messaging systems - have a few fairly basic examples. Like a publisher, and test consumer to allow sending messages between systems via kafka. But all it does is send a message
 - Scala Backend is a Typelevel stack aka: Http4s (webserver + endpoints), Doobie (connecting to Postgresql), Circes (json handling, for generic derivation etc.)
-- Testing at the moment is Weaver Tests again Scala Typelevel ecosystem
+- Testing at the moment is Weaver Tests again Scala Typelevel ecosystem alternatives are ScalaTests and Munit, ScalaTests is kind old and is slow as all heck.
 - Unit and Integration tests, e.g. CRUD operations creating real sql data in a test db and hitting endpoints by spinning up test server and closing down after.
 - Logging is handled using Log4Cats which I think mainly acts as a wrapper for Slf4jLogger not sure tho.
-- For configuration files use PureConfig. Basically can read in your configuration files as Scala code and add typing so helps reduce bugs in config. Trying to move host and ports, or feature switches and values that can be configured for different environments into configuration files but it's mostly work in progress.
+- For configuration files we use PureConfig. Basically can read in your configuration files as Scala code and add typing so helps reduce bugs in config. Trying to move host and ports, or feature switches and values that can be configured for different environments into configuration files but it's mostly work in progress.
 
 - NextJs for my react frontend. 
 - Tailwind CSS - basically for inline css and a consistent/easy way of handling styling. 
@@ -104,10 +110,10 @@ The stack is fairly functional:
 
 Not sure you are able to run the app but the app should be runnerable via docker containers, all the microservices I have on hand frontend and backend are buildable and runnable via containers and put on a shared docker network etc. 
 
-Due to storage of jwts for auth it is based on the base domain, need to look into reverse proxy or somehow proxying all base domains to look like a single base domain for the app. As it stands auth only works in another microservice called Reggie.
+Due to storage of jwts for auth it is based on the base domain, need to look into reverse proxy or somehow proxying all base domain localhosts and ports to look like a single base domain for the app. As it stands auth only works in another microservice called Reggie.
 
-Missing a lot of unit tests, integration tests, just can't be bothered atm. And code changes are with significant rewrites etc. 
-Usually able to re-read and not break stuff during rewrites/refactors.
+Missing a lot of unit tests, integration tests, just can't be bothered atm. And code changes are often significant rewrites etc. 
+Usually able to re-read and not break stuff during rewrites/refactors. Which is a benefit of solo writing code and a selling point of FP. 
 
 Also have some code lying around elsewhere for github actions to build a small scale devops pipeline. 
 e.g.
