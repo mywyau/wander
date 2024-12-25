@@ -82,14 +82,15 @@ Thank you for reading :)
 
 # Kurtis 
 
-Basically the idea is to build a desk/office booking app. Kinda like a air bnb but for desks. Know it's already been done etc. but wanting to learn more about architecture, design, testing, making tooling choices and solo dev choices etc. Also can eventually maybe look into other things such as event driven architecture using kafka/message queues and web hooks. At one point did have a streaming web hook feature in place for desk availabiliy and changing state for a given desk but moved it to another github repo/microservice, and will likely scrap it or change it entirely. 
+Basically the idea is to build a desk/office booking app. Kinda like a air bnb but for desks. Know it's already been done etc. but wanting to learn more about architecture, design, testing, making tooling choices and solo dev choices etc. Also can eventually maybe look into other things such as event driven architecture using kafka/message queues and websockets. 
+At one point did have a streaming websockets feature in place for desk availabiliy and changing state for a given desk but moved it to another github repo/microservice, and will likely scrap it or change it entirely. 
 
 The stack is fairly functional:
 
 - Postgresql
 
 - Scala Backend - for features like CRUD operations to create data in sql
-- Scala Backend - webhook servers/kafka pub sub messaging systems - have a few fairly basic examples. Like a publisher, and test consumer to allow sending messages between systems via kafka. But all it does is send a message
+- Scala Backend - websockets servers/kafka pub sub messaging systems - have a few fairly basic examples. Like a publisher, and test consumer to allow sending messages between systems via kafka. But all it does is send a message
 - Scala Backend is a Typelevel stack aka: Http4s (webserver + endpoints), Doobie (connecting to Postgresql), Circes (json handling, for generic derivation etc.)
 - Testing at the moment is Weaver Tests again Scala Typelevel ecosystem
 - Unit and Integration tests, e.g. CRUD operations creating real sql data in a test db and hitting endpoints by spinning up test server and closing down after.
