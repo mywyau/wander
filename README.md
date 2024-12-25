@@ -46,9 +46,9 @@ TODO: document exmaple
 
 ### Routes and paths
 
-To add routes to the app follow add directories in the app and use file paths do define new pages and routing. 
+To add routes to the app, add directories in the app and use file paths do define new pages and routing. 
 
-The final file in the path should then be a page.tsx file however the component can be called anything you want.
+The final file in the path should then be a page.tsx file however the page component can be called anything you want.
 
 ### Query parameters
 
@@ -72,7 +72,7 @@ Interfaces for various aspecs such as json requests and responses can be found i
 
 ---
 
-Please delete any unrelated code and likely unused code, please keep comments to a minimal and program in ideally a functional declarative manner. 
+Please delete any unrelated code and likely to be unused code, please keep comments to a minimal and program in ideally a functional declarative manner. 
  
 
 Notes:
@@ -82,7 +82,7 @@ Thank you for reading :)
 
 # Kurtis 
 
-Basically the idea is to build a desk/office booking app. Kinda like a air bnb but for desks. Know it's already been done etc. but wanting to learn more about architecture, design, testing, making tooling choices and solo dev choices etc. Also can eventually maybe look into other things such as event driven architecture using kafka/message queues and websockets. 
+Basically the idea is to build a desk/office booking app. Kinda like a air bnb but for desks. More of an exercise to see how far I get and break away from boring gov code and projects. Wanting to learn more about architecture, design, testing, making tooling choices and solo dev choices etc. Also can eventually maybe look into other things such as event driven architecture using kafka/message queues and websockets. 
 At one point did have a streaming websockets feature in place for desk availabiliy and changing state for a given desk but moved it to another github repo/microservice, and will likely scrap it or change it entirely. 
 
 The stack is fairly functional (FP):
@@ -121,6 +121,16 @@ e.g.
  - Run more end2end tests on PR merge etc. 
  - eventually deployment maybe if I ever successfully get it setup on AWS. 
 
+
+ Learnt a bunch of stuff so far
+
+  1. Tooling, libs and frameworks mentions etc. both front and back.
+  2. Docker, docker-compose, containers, various comands and networks
+  3. Certain design choices and lib choices, also sql related issues and features e.g. storing json in postgres, flyway, containers, ports, networking, schemas etc. 
+  4. Exploring limits of chatgpt
+  5. Styling and design aspects e.g., thinking about page design and user experience. How design changes and modularity helps ease development, code cleanliness and UX.
+  6. Modularisation via creating more repos and breaking up codebases. The advantages and disadvantages, boilerplate code duplication, network issues, communication    etc. 
+  7. probs a ton other stuff but yeah can't remember or doesn't come to mind at time of writing but yeah a bucnh of stuff.
 
 Let me know if there are any questions :) 
 
