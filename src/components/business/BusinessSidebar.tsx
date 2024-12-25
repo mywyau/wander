@@ -14,8 +14,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
     return (
         <aside
             id="sidebar-multi-level-sidebar"
-            className={`sticky top-16 left-0 z-40 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-                } h-screen ${isCollapsed ? "w-16" : "w-64"} bg-gray-50 text-black p-4 shadow-md`}
+            className={`sticky top-16 left-0 z-40 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} h-screen ${isCollapsed ? "w-16" : "w-64"} bg-gray-50 text-black p-4 shadow-md`}
             aria-label="Sidebar"
         >
             {/* Hamburger Icon for Mobile and Desktop */}

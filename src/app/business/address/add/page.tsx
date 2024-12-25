@@ -1,18 +1,19 @@
 "use client";
 
-import TextInput from "@/components/office/TextInput";
+import TextInput from "@/components/business/TextInput";
 import AppConfig from "@/config/AppConfig";
-import { officeAddressDetailsFormSchema } from "@/forms/office/OfficeAddressFormSchema";
+import { businessAddressDetailsFormSchema } from "@/forms/business/BusinessAddressFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const AddOfficePage = () => {
+const AddBusinessPage = () => {
 
-  type OfficeAddressDetails = z.infer<typeof officeAddressDetailsFormSchema>;
+  type BusinessAddressDetails = z.infer<typeof businessAddressDetailsFormSchema>;
 
   const defaultValues = {
+    businessName: "",
     buildingName: "",
     street: "",
     city: "",
@@ -22,8 +23,8 @@ const AddOfficePage = () => {
   };
 
   // React Hook Form Methods
-  const methods = useForm<OfficeAddressDetails>({
-    resolver: zodResolver(officeAddressDetailsFormSchema),
+  const methods = useForm<BusinessAddressDetails>({
+    resolver: zodResolver(businessAddressDetailsFormSchema),
     defaultValues,
     mode: "onSubmit",
   });
@@ -31,21 +32,21 @@ const AddOfficePage = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: OfficeAddressDetails) => {
+  const onSubmit = async (data: BusinessAddressDetails) => {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
 
     console.log("onSubmit called");
     console.log("Form Data:", data);
-    console.log(`http://${pistachioUrl}/pistachio/business/offices/address/create`)
+    console.log(`http://${pistachioUrl}/pistachio/business/businesss/address/create`)
 
     setSubmitError(null); // Reset error before submitting
     setSuccessMessage(null); // Reset success message before submitting
 
     const combinedData = {
       ...data,
+      usersId: "USER123456",
       businessId: "BUS123456",
-      officeId: "OFF123456",
       floorNumber: "1",
       latitude: 999,
       longitude: 999,
@@ -57,7 +58,7 @@ const AddOfficePage = () => {
 
     try {
       const response = await fetch(
-        `http://${pistachioUrl}/pistachio/business/offices/address/create`,
+        `http://${pistachioUrl}/pistachio/business/businesss/address/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -87,13 +88,24 @@ const AddOfficePage = () => {
   return (
     <div>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        <h1 className="text-xl font-bold">Add Office Address Details</h1>
+        <h1 className="text-xl font-bold">Add Business Address Details</h1>
 
         {submitError && <p className="text-red-500">{submitError}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
 
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-6">
+
+          <TextInput
+              id="businessName"
+              name="businessName"
+              label="Business Name"
+              placeholder="Enter the name of the business"
+              register={register}
+              error={errors?.businessName?.message}
+              inputClassName="w-1/2"
+            />
+
             <TextInput
               id="buildingName"
               name="buildingName"
@@ -168,4 +180,4 @@ const AddOfficePage = () => {
   );
 };
 
-export default AddOfficePage;
+export default AddBusinessPage;
