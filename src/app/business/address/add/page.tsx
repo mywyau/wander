@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const AddBusinessPage = () => {
+const AddBusinessAddressPage = () => {
 
   type BusinessAddressDetails = z.infer<typeof businessAddressDetailsFormSchema>;
 
@@ -180,4 +180,4 @@ const AddBusinessPage = () => {
   );
 };
 
-export default AddBusinessPage;
+export default AddBusinessAddressPage;
