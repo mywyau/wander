@@ -102,12 +102,18 @@ The stack is fairly functional:
 - Form validation uses a library called Zod 
 
 
-Not sure you are able to run the app but ideally want to containerise all the microservices I have on hand frontend and backend and put it on a shared docker network etc. 
+Not sure you are able to run the app but the app should be runnerable via docker containers, all the microservices I have on hand frontend and backend are buildable and runnable via containers and put on a shared docker network etc. 
 
 Due to storage of jwts for auth it is based on the base domain, need to look into reverse proxy or somehow proxying all base domains to look like a single base domain for the app. As it stands auth only works in another microservice called Reggie.
 
 Missing a lot of unit tests, integration tests, just can't be bothered atm. And code changes are with significant rewrites etc. 
-Usually able to re-read and not break stuff during rewrites/refactors
+Usually able to re-read and not break stuff during rewrites/refactors.
+
+Also have some code lying around elsewhere for github actions to build a small scale devops pipeline. 
+e.g.
+ - Pull request(PR) checker running unit and integration tests.
+ - Run more end2end tests on PR merge etc. 
+ - eventually deployment maybe if I ever successfully get it setup on AWS. 
 
 
 Let me know if there are any questions :) 
