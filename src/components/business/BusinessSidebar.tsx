@@ -53,6 +53,34 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Dashboard</span>
                         </Link>
                     </li>
+
+                    <li>
+                        <Link
+                            href="/business/address/add"
+                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
+                        >
+                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add business address</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href="/business/contact-details/add"
+                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
+                        >
+                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add business contact details</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            href="/business/specifications/add"
+                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
+                        >
+                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Add business specifications</span>
+                        </Link>
+                    </li>
+
                     <li>
                         <Link
                             href="/business/office/address/add"

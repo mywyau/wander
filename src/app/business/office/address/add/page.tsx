@@ -115,16 +115,6 @@ const AddOfficePage = () => {
             />
 
             <TextInput
-              id="street"
-              name="street"
-              label="Street"
-              placeholder="Enter the name of the street"
-              register={register}
-              error={errors?.street?.message}
-              inputClassName="w-1/2"
-            />
-
-            <TextInput
               id="city"
               name="city"
               label="City"
