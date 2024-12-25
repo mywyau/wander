@@ -1,5 +1,5 @@
 import React from "react";
-import { UseFormRegister, FieldError } from "react-hook-form";
+import { FieldError, UseFormRegister } from "react-hook-form";
 
 interface TextAreaProp {
   id: string;
@@ -8,6 +8,7 @@ interface TextAreaProp {
   register: UseFormRegister<any>; // React Hook Form registration
   placeholder?: string;
   error?: FieldError | string; // Error message
+  inputClassName?: string;
 }
 
 const TextArea: React.FC<TextAreaProp> = ({
@@ -17,6 +18,7 @@ const TextArea: React.FC<TextAreaProp> = ({
   register,
   placeholder = "Short description of office",
   error,
+  inputClassName = ""
 }) => {
   return (
     <div>
@@ -27,9 +29,7 @@ const TextArea: React.FC<TextAreaProp> = ({
         id={id}
         {...register(name)} // React Hook Form registration
         placeholder={placeholder}
-        className={`w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-          error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
-        }`}
+        className={`mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${error ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"} ${inputClassName}`}
       />
       {error && (
         <p className="text-red-500 text-sm mt-1">
