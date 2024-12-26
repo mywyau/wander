@@ -202,7 +202,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                 </li>
                                 <li>
                                     <Link href="/business/desk/edit" className="hover:text-indigo-700">
-                                        Edit a desk listing contact         
+                                        Edit a desk listing
                                     </Link>
                                 </li>
                             </ul>
