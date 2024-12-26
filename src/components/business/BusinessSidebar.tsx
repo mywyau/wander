@@ -79,6 +79,11 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             expandedSections.businesses && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">
                                     <li>
+                                        <Link href="/business/home" className="hover:text-indigo-700">
+                                            Business Dashboard
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link href="/business/businesses/view-all" className="hover:text-indigo-700">
                                             View all businesses
                                         </Link>
