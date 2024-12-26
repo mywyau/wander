@@ -134,4 +134,7 @@ e.g.
 
 Let me know if there are any questions :) 
 
-
+Try this url for viewing some features and content, some is mocked 
+```
+http://localhost:3000/business/home 
+```
