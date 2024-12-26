@@ -52,7 +52,14 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>Dashboard</span>
                         </Link>
                     </li>
-
+                    <li>
+                        <Link
+                            href="/business/businesses/view"
+                            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group hover:text-indigo-700"
+                        >
+                            <span className={`${isCollapsed ? "hidden" : ""} ms-3`}>View your businesses</span>
+                        </Link>
+                    </li>
                     <li>
                         <Link
                             href="/business/address/add"
