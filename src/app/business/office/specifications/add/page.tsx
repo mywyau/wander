@@ -60,11 +60,8 @@ const AddOfficeSpecificationsPage = () => {
 
     const combinedData = {
       ...data,
-      id: 100,
       businessId: "BUS123456",
       officeId: "OFF123456",
-      createdAt: new Date().toISOString().slice(0, 19),
-      updatedAt: new Date().toISOString().slice(0, 19)
     };
 
 
@@ -127,7 +124,7 @@ const AddOfficeSpecificationsPage = () => {
               name="description"
               label="Office Description"
               register={register}
-              placeholder="Short description of the office"
+              placeholder="Enter a short description of the office (text box can be expanded)"
               error={errors.description?.message}
               inputClassName="w-2/3"
             />
@@ -135,9 +132,9 @@ const AddOfficeSpecificationsPage = () => {
             <TextArea
               id="rules"
               name="rules"
-              label="Office Rules"
+              label="Office Rules (optional)"
               register={register}
-              placeholder="Enter any rules you want for the office"
+              placeholder="Enter any rules you want for the office (text box can be expanded)"
               error={errors.rules?.message}
               inputClassName="w-2/3"
             />
