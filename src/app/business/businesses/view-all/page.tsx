@@ -71,7 +71,19 @@ const BusinessesPage = () => {
             contactEmail: "info@greenstartups.com",
             contactPhone: "07402205073",
             numberOfOffices: 10,
-            websiteUrl: "bobs_axes.com",
+            websiteUrl: "green_axes.com",
+        },
+        {
+            id: "business_1337",
+            name: "Blue Startups",
+            description: "UN-ECO-FRIENDLY office solutions.",
+            address: "789 Blue Blvd",
+            city: "Los Angeles",
+            postcode: "90001",
+            contactEmail: "info@bluestartups.com",
+            contactPhone: "07402205073",
+            numberOfOffices: 1000,
+            websiteUrl: "blue.com",
         },
     ]);
 
