@@ -44,7 +44,7 @@ const AddBusinessSpecificationsPage = () => {
 
     console.log("onSubmit called");
     console.log("Form Data:", data);
-    console.log(`http://${pistachioUrl}/pistachio/business/businesss/specifications/create`)
+    console.log(`http://${pistachioUrl}/pistachio/business/businesses/specifications/create`)
 
     setSubmitError(null); // Reset error before submitting
     setSuccessMessage(null); // Reset success message before submitting
@@ -61,7 +61,7 @@ const AddBusinessSpecificationsPage = () => {
 
     try {
       const response = await fetch(
-        `http://${pistachioUrl}/pistachio/business/businesss/specifications/create`,
+        `http://${pistachioUrl}/pistachio/business/businesses/specifications/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -79,7 +79,7 @@ const AddBusinessSpecificationsPage = () => {
       methods.reset(); // Reset form fields after successful submission
     } catch (error) {
       console.error("Submission error:", error);
-      setSubmitError("Failed to submit the form. Please try again.");
+      setSubmitError("Failed to submit. Please try again.");
     }
   };
 

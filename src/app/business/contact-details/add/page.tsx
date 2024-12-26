@@ -35,7 +35,7 @@ const AddBusinessContactDetailsPage = () => {
 
     console.log("onSubmit called");
     console.log("Form Data:", data);
-    console.log(`http://${pistachioUrl}/pistachio/business/businesss/contact/details/create`)
+    console.log(`http://${pistachioUrl}/pistachio/business/businesses/contact/details/create`)
 
     setSubmitError(null); // Reset error before submitting
     setSuccessMessage(null); // Reset success message before submitting
@@ -50,7 +50,7 @@ const AddBusinessContactDetailsPage = () => {
 
     try {
       const response = await fetch(
-        `http://${pistachioUrl}/pistachio/business/businesss/contact/details/create`,
+        `http://${pistachioUrl}/pistachio/business/businesses/contact/details/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ const AddBusinessContactDetailsPage = () => {
       methods.reset(); // Reset form fields after successful submission
     } catch (error) {
       console.error("Submission error:", error);
-      setSubmitError("Failed to submit the form. Please try again.");
+      setSubmitError("Failed to submit. Please try again.");
     }
   };
 
@@ -88,6 +88,16 @@ const AddBusinessContactDetailsPage = () => {
 
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-6">
+
+          <TextInput
+              id="businessName"
+              name="businessName"
+              label="Business Name"
+              placeholder="Enter the name of the business"
+              register={register}
+              error={errors?.businessName?.message}
+              inputClassName="w-1/2"
+            />
 
             <TextInput
               id="primaryContactFirstName"
