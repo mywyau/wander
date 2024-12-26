@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
+
     const [isCollapsed, setIsCollapsed] = useState(false);
+    
     const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
         businesses: false,
         offices: false,
@@ -117,7 +119,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             </svg>
                         </button>
                         {expandedSections.offices && !isCollapsed && (
-                            <ul className="pl-4 space-y-2">
+                            <ul className="pl-4 space-y-4">
                                 <li>
                                     <Link href="/business/office/address/add" className="text-gray-900 hover:text-indigo-700">
                                         Add office address
