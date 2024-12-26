@@ -10,6 +10,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
     const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
         businesses: false,
         offices: false,
+        desks: false,
     });
 
     // Toggle collapse state
@@ -24,7 +25,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
     return (
         <aside
             id="sidebar-multi-level-sidebar"
-            className={`sticky top-0 left-0 z-40 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} h-screen ${isCollapsed ? "w-16" : "w-64"} bg-gray-50 text-black shadow-md`}
+            className={`sticky top-0 left-0 z-40 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} h-screen ${isCollapsed ? "w-16" : "w-64"} bg-gray-50 text-black  border-r border-gray-300`}
             aria-label="Sidebar"
         >
             {/* Header and Hamburger Menu */}
@@ -172,6 +173,52 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             </ul>
                         )}
                     </li>
+
+                    {/* Desks Section */}
+                    <li>
+
+                        <button
+                            onClick={() => toggleSection("desks")}
+                            className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
+                        >
+                            <span className={`${isCollapsed ? "hidden" : ""}`}>Desks</span>
+                            <svg
+                                className={`w-4 h-4 transform ${expandedSections.desks ? "rotate-90" : ""}`}
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        {expandedSections.desks && !isCollapsed && (
+                            <ul className="pl-4 space-y-4">
+                                <li>
+                                    <Link href="/business/desk/view-all" className="hover:text-indigo-700">
+                                        View all desks
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/business/desk/detailed-view" className="hover:text-indigo-700">
+                                        View desk detailed view
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/business/desk/add" className="text-gray-900 hover:text-indigo-700">
+                                        Add a desk listing
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/business/desk/edit" className="hover:text-indigo-700">
+                                        Edit a desk listing contact         
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
+
                 </ul>
             </div>
         </aside>
