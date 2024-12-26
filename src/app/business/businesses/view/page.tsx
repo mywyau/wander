@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 interface Business {
     id: string;
@@ -12,9 +12,29 @@ interface Business {
     postcode: string;
     contactEmail: string;
     contactPhone: string;
+    numberOfOffices: number;
+    websiteUrl: string;
 }
 
 const BusinessesPage = () => {
+
+
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
+        moreDetails: false,
+    });
+
+    // Toggle collapse state
+    const toggleCollapse = () => {
+        setIsCollapsed(!isCollapsed);
+    };
+
+    const toggleSection = (section: string) => {
+        setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
+    };
+
+
     // Hardcoded data for testing
     const [businesses, setBusinesses] = useState<Business[]>([
         {
@@ -26,6 +46,8 @@ const BusinessesPage = () => {
             postcode: "10001",
             contactEmail: "capgemini@gmail.com",
             contactPhone: "07402205071",
+            numberOfOffices: 10,
+            websiteUrl: "bobs_axes.com",
         },
         {
             id: "business_456",
@@ -36,6 +58,8 @@ const BusinessesPage = () => {
             postcode: "94107",
             contactEmail: "info@techinnovators.com",
             contactPhone: "07402205072",
+            numberOfOffices: 10,
+            websiteUrl: "bobs_axes.com",
         },
         {
             id: "business_789",
@@ -46,6 +70,8 @@ const BusinessesPage = () => {
             postcode: "90001",
             contactEmail: "info@greenstartups.com",
             contactPhone: "07402205073",
+            numberOfOffices: 10,
+            websiteUrl: "bobs_axes.com",
         },
     ]);
 
@@ -60,11 +86,14 @@ const BusinessesPage = () => {
     );
 
     const indexOfLastBusiness = currentPage * businessesPerPage;
+
     const indexOfFirstBusiness = indexOfLastBusiness - businessesPerPage;
-    const currentBusinesses = filteredBusinesses.slice(
-        indexOfFirstBusiness,
-        indexOfLastBusiness
-    );
+
+    const currentBusinesses =
+        filteredBusinesses.slice(
+            indexOfFirstBusiness,
+            indexOfLastBusiness
+        );
 
     const totalPages = Math.ceil(filteredBusinesses.length / businessesPerPage);
 
@@ -121,7 +150,39 @@ const BusinessesPage = () => {
                                 <p className="text-sm">
                                     <strong>Phone:</strong> {business.contactPhone}
                                 </p>
+                                <p className="text-sm">
+                                    <strong>Web Address:</strong> {business.websiteUrl}
+                                </p>
                             </div>
+
+                            {/* Businesses Section */}
+
+                            <button
+                                onClick={() => toggleSection("moreDetails")}
+                                className="flex items-center justify-between w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mb-1 mt-3"
+                            >
+                                <span className={`${isCollapsed ? "hidden" : ""}`}>More Details</span>
+                                <svg
+                                    className={`w-4 h-4 transform ${expandedSections.moreDetails ? "rotate-90" : ""}`}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                            {
+                                expandedSections.moreDetails && !isCollapsed && (
+                                    <ul className="space-y-1">
+                                        <div>
+                                            <p className="text-sm mt-2">
+                                                <strong>Number of Offices:</strong> {business.numberOfOffices}
+                                            </p>
+                                        </div>
+                                    </ul>
+                                )
+                            }
 
                             <div className="mt-4 flex justify-between">
                                 <Link
@@ -149,11 +210,10 @@ const BusinessesPage = () => {
                         <button
                             key={i}
                             onClick={() => setCurrentPage(i + 1)}
-                            className={`mx-1 px-3 py-1 rounded ${
-                                currentPage === i + 1
-                                    ? "bg-blue-500 text-white"
-                                    : "bg-gray-300"
-                            }`}
+                            className={`mx-1 px-3 py-1 rounded ${currentPage === i + 1
+                                ? "bg-blue-500 text-white"
+                                : "bg-gray-300"
+                                }`}
                         >
                             {i + 1}
                         </button>

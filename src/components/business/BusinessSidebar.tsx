@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
 
     const [isCollapsed, setIsCollapsed] = useState(false);
-    
+
     const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
         businesses: false,
         offices: false,
@@ -75,34 +75,37 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
-                        {expandedSections.businesses && !isCollapsed && (
-                            <ul className="pl-4 space-y-4">
-                                <li>
-                                    <Link href="/business/businesses/view" className="hover:text-indigo-700">
-                                        View your businesses
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/address/add" className="hover:text-indigo-700">
-                                        Add business address
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/contact-details/add" className="hover:text-indigo-700">
-                                        Add business contact details
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/specifications/add" className="hover:text-indigo-700">
-                                        Add business specifications
-                                    </Link>
-                                </li>
-                            </ul>
-                        )}
+                        {
+                            expandedSections.businesses && !isCollapsed && (
+                                <ul className="pl-4 space-y-4">
+                                    <li>
+                                        <Link href="/business/businesses/view" className="hover:text-indigo-700">
+                                            View your businesses
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/address/add" className="hover:text-indigo-700">
+                                            Add business address
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/contact-details/add" className="hover:text-indigo-700">
+                                            Add business contact details
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/specifications/add" className="hover:text-indigo-700">
+                                            Add business specifications
+                                        </Link>
+                                    </li>
+                                </ul>
+                            )
+                        }
                     </li>
 
                     {/* Offices Section */}
                     <li>
+
                         <button
                             onClick={() => toggleSection("offices")}
                             className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
@@ -118,6 +121,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
+
                         {expandedSections.offices && !isCollapsed && (
                             <ul className="pl-4 space-y-4">
                                 <li>
