@@ -1,72 +1,86 @@
 import React from "react";
+import { UseFormRegister } from "react-hook-form";
 
 interface OpeningHoursProps {
-  days: string[]; // All available days (e.g., ["Monday", "Tuesday", ...])
-  selectedDays: string[]; // Currently selected days
-  startTime: string; // Current start time
-  endTime: string; // Current end time
-  onDayChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Handler for day checkboxes
-  onTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Handler for time inputs
-  errors?: {
-    startTime?: string; // Error for start time
-    endTime?: string; // Error for end time
-  };
+  days: string[]; // List of days
+  namePrefix: string; // Field prefix
+  register: UseFormRegister<any>; // React Hook Form registration
+  errors?: Record<string, any>; // Errors object for availability
 }
 
 const OpeningHours: React.FC<OpeningHoursProps> = ({
   days,
-  selectedDays,
-  startTime,
-  endTime,
-  onDayChange,
-  onTimeChange,
-  errors = {},
+  namePrefix,
+  register,
+  errors,
 }) => {
   return (
-    <fieldset>
-      <legend className="block text-sm font-medium text-gray-700">Opening Hours</legend>
-      <div className="flex gap-4 mt-2">
+    <fieldset className="space-y-4">
+      <legend className="block text-sm font-medium text-gray-700">
+        Opening Hours
+      </legend>
+
+      {/* Days Checkboxes */}
+      <div className="flex flex-wrap gap-4">
         {days.map((day) => (
           <label key={day} className="flex items-center">
             <input
               type="checkbox"
               value={day}
-              checked={selectedDays.includes(day)}
-              onChange={onDayChange}
+              {...register(`${namePrefix}.days`)}
               className="mr-2"
             />
             {day}
           </label>
         ))}
       </div>
-      <div className="grid grid-cols-2 gap-6 mt-4">
+
+      {errors?.days && (
+        <p className="text-red-500 text-sm mt-1">{errors.days.message}</p>
+      )}
+
+      {/* Start and End Time */}
+      <div className="w-1/3 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="startTime" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor={`${namePrefix}.startTime`}
+            className="block text-sm font-medium text-gray-700"
+          >
             Opening Time
           </label>
           <input
             type="time"
-            id="office-specs-availability-start-time"
-            name="officeSpecs.availability.startTime"
-            value={startTime}
-            onChange={onTimeChange}
-            className="w-full mt-1 px-4 py-2 border rounded-md"
+            id={`${namePrefix}.startTime`}
+            {...register(`${namePrefix}.startTime`)}
+            className={`w-full mt-1 px-4 py-2 border rounded-md ${errors?.startTime ? "border-red-500" : "border-gray-300"
+              }`}
           />
-          {errors.startTime && <p className="text-red-500 text-sm mt-1">{errors.startTime}</p>}
+          {errors?.startTime && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.startTime.message}
+            </p>
+          )}
         </div>
+
         <div>
-          <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor={`${namePrefix}.endTime`}
+            className="block text-sm font-medium text-gray-700"
+          >
             Closing Time
           </label>
           <input
             type="time"
-            id="office-specs-availability-end-time"
-            name="officeSpecs.availability.endTime"
-            value={endTime}
-            onChange={onTimeChange}
-            className="w-full mt-1 px-4 py-2 border rounded-md"
+            id={`${namePrefix}.endTime`}
+            {...register(`${namePrefix}.endTime`)}
+            className={`w-full mt-1 px-4 py-2 border rounded-md ${errors?.endTime ? "border-red-500" : "border-gray-300"
+              }`}
           />
-          {errors.endTime && <p className="text-red-500 text-sm mt-1">{errors.endTime}</p>}
+          {errors?.endTime && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.endTime.message}
+            </p>
+          )}
         </div>
       </div>
     </fieldset>

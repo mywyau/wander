@@ -46,7 +46,6 @@ const AddBusinessContactDetailsPage = () => {
       businessId: "OFF123456",
     };
 
-
     console.log(combinedData);
 
     try {
@@ -81,7 +80,7 @@ const AddBusinessContactDetailsPage = () => {
   return (
     <div>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        
+
         <h1 className="text-xl font-bold">Add the Business Contact Details</h1>
 
         {submitError && <p className="text-red-500">{submitError}</p>}

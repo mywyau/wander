@@ -1,39 +1,39 @@
 import React from "react";
 import { UseFormRegister } from "react-hook-form";
 
-interface TextInputProps<TFieldValues> {
+interface TextInputProps {
   id: string;
-  type?: string; // Optional, defaults to "text"
-  name: keyof TFieldValues & string; // Name tied to form data
+  name: string;
   label: string;
   placeholder?: string;
+  register: UseFormRegister<any>;
   error?: string;
-  className?: string; // For container styling
-  inputClassName?: string; // For input field styling
-  register?: UseFormRegister<TFieldValues>; // Form register
+  inputClassName?: string;
+  labelClassName?: string;
+  containerClassName?: string;
 }
 
-const TextInput = <TFieldValues,>({
+const TextInput: React.FC<TextInputProps> = ({
   id,
-  type = "text",
   name,
   label,
   placeholder = "",
-  error,
-  className = "",
-  inputClassName = "",
   register,
-}: TextInputProps<TFieldValues>) => {
+  error,
+  inputClassName = "",
+  labelClassName = "",
+  containerClassName = "",
+}) => {
   return (
-    <div className={`mb-4 ${className}`}>
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+    <div className={`mb-4 ${containerClassName}`}>
+      <label htmlFor={id} className={`block text-sm font-medium text-gray-700 ${labelClassName}`}>
         {label}
       </label>
       <input
         id={id}
-        type={type}
-        {...(register ? register(name) : undefined)}
+        name={name}
         placeholder={placeholder}
+        {...register(name)}
         className={`mt-1 px-4 py-2 border rounded-md ${
           error ? "border-red-500" : "border-gray-300"
         } ${inputClassName}`}

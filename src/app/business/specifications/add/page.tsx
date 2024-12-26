@@ -1,13 +1,10 @@
 "use client";
 
-import Amenities from "@/components/office/Amenities";
-import NumberInput from "@/components/office/NumberInput";
-import OpeningHours from "@/components/office/OpeningHours";
-import SelectField from "@/components/office/SelectField";
-import TextArea from "@/components/office/TextArea";
-import TextInput from "@/components/office/TextInput";
+import OpeningHours from "@/components/business/OpeningHours";
+import TextArea from "@/components/business/TextArea";
+import TextInput from "@/components/business/TextInput";
 import AppConfig from "@/config/AppConfig";
-import { officeSpecificationsSchema } from "@/forms/office/OfficeSpecificationsFormSchema";
+import { businessSpecificationsSchema } from "@/forms/business/BusinessSpecificationsFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -17,29 +14,23 @@ import { z } from "zod";
 //  note to self sort out database time issues, scala backend data model using LocalTime and look into 
 //  npm install dayjs for frontend time handling
 
-const AddOfficeSpecificationsPage = () => {
+const AddBusinessSpecificationsPage = () => {
 
-  type OfficeSpecifications = z.infer<typeof officeSpecificationsSchema>;
+  type BusinessSpecifications = z.infer<typeof businessSpecificationsSchema>;
 
   const defaultValues = {
-    officeName: "",
+    businessName: "",
     description: "",
-    officeType: "",
-    numberOfFloors: 0,
-    totalDesks: 0,
-    capacity: 0,
-    amenities: [],
     availability: {
       days: [],
       startTime: "09:00",
       endTime: "17:00",
     },
-    rules: "",
   };
 
   // React Hook Form Methods
-  const methods = useForm<OfficeSpecifications>({
-    resolver: zodResolver(officeSpecificationsSchema),
+  const methods = useForm<BusinessSpecifications>({
+    resolver: zodResolver(businessSpecificationsSchema),
     defaultValues,
     mode: "onSubmit",
   });
@@ -47,24 +38,22 @@ const AddOfficeSpecificationsPage = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: OfficeSpecifications) => {
+  const onSubmit = async (data: BusinessSpecifications) => {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
 
     console.log("onSubmit called");
     console.log("Form Data:", data);
-    console.log(`http://${pistachioUrl}/pistachio/business/offices/specifications/create`)
+    console.log(`http://${pistachioUrl}/pistachio/business/businesss/specifications/create`)
 
     setSubmitError(null); // Reset error before submitting
     setSuccessMessage(null); // Reset success message before submitting
 
     const combinedData = {
       ...data,
-      id: 100,
-      businessId: "BUS123456",
-      officeId: "OFF123456",
-      createdAt: new Date().toISOString().slice(0, 19),
-      updatedAt: new Date().toISOString().slice(0, 19)
+      userId: "USER123456",
+      businessId: "BUS123456"
+
     };
 
 
@@ -72,7 +61,7 @@ const AddOfficeSpecificationsPage = () => {
 
     try {
       const response = await fetch(
-        `http://${pistachioUrl}/pistachio/business/offices/specifications/create`,
+        `http://${pistachioUrl}/pistachio/business/businesss/specifications/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -113,90 +102,23 @@ const AddOfficeSpecificationsPage = () => {
           <div className="grid grid-cols-1 gap-6">
 
             <TextInput
-              id="officeName"
-              name="officeName"
-              label="Office Name"
-              placeholder="Enter a name for the office"
+              id="businessName"
+              name="businessName"
+              label="Business Name"
+              placeholder="Enter a name for the business"
               register={register}
-              error={errors?.officeName?.message}
+              error={errors?.businessName?.message}
               inputClassName="w-1/2"
             />
 
             <TextArea
               id="description"
               name="description"
-              label="Office Description"
+              label="Business Description"
               register={register}
               placeholder="Short description of the office"
               error={errors.description?.message}
               inputClassName="w-2/3"
-            />
-
-            <TextArea
-              id="rules"
-              name="rules"
-              label="Office Rules"
-              register={register}
-              placeholder="Enter any rules you want for the office"
-              error={errors.rules?.message}
-              inputClassName="w-2/3"
-            />
-
-            <SelectField
-              id="officeType"
-              name="officeType"
-              label="Type of Office"
-              register={register}
-              options={[
-                { value: "CoworkingSpace", label: "Coworking Space" },
-                { value: "OpenPlanOffice", label: "Open Plan Office" },
-                { value: "PrivateOffice", label: "Private Office" },
-                { value: "ExecutiveOffice", label: "Executive Office" },
-                { value: "MeetingRoom", label: "Meeting Room" },
-              ]}
-              error={errors.officeType}
-            />
-
-            <div className="w-1/2">
-              <div className="grid grid-cols-3 gap-4">
-
-                <NumberInput
-                  id="numberOfFloors"
-                  name="numberOfFloors"
-                  label="Number Of Floors"
-                  register={register}
-                  placeholder="Enter the number of floors"
-                  error={errors.numberOfFloors?.message}
-                  inputClassName="w-full"
-                />
-
-                <NumberInput
-                  id="capacity"
-                  name="capacity"
-                  label="Capacity"
-                  register={register}
-                  placeholder="Enter the capacity of the office"
-                  error={errors.capacity?.message}
-                  inputClassName="w-full"
-                />
-
-                <NumberInput
-                  id="totalDesks"
-                  name="totalDesks"
-                  label="Total Number of Desks"
-                  register={register}
-                  placeholder="Enter the total number of desks in the office"
-                  error={errors.totalDesks?.message}
-                  inputClassName="w-full"
-                />
-              </div>
-            </div>
-
-            <Amenities
-              amenities={amenitiesList}
-              name="amenities"
-              register={register}
-              error={errors.amenities?.message}
             />
 
             <OpeningHours
@@ -220,4 +142,4 @@ const AddOfficeSpecificationsPage = () => {
   );
 };
 
-export default AddOfficeSpecificationsPage;
+export default AddBusinessSpecificationsPage;
