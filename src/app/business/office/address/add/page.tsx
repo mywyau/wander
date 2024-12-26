@@ -87,7 +87,7 @@ const AddOfficePage = () => {
   return (
     <div>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        <h1 className="text-xl font-bold">Add Address Details to Office</h1>
+        <h1 className="text-xl font-bold">Add Office Address Details</h1>
 
         {submitError && <p className="text-red-500">{submitError}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
@@ -101,16 +101,6 @@ const AddOfficePage = () => {
               placeholder="Enter the name of the building (if applicable)"
               register={register}
               error={errors?.buildingName?.message}
-              inputClassName="w-1/2"
-            />
-
-            <TextInput
-              id="street"
-              name="street"
-              label="Street"
-              placeholder="Enter the name of the street"
-              register={register}
-              error={errors?.street?.message}
               inputClassName="w-1/2"
             />
 

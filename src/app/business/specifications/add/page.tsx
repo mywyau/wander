@@ -1,74 +1,145 @@
 "use client";
 
-import React, { useState } from "react";
-import AddBusinessButton from "./components/AddBusinessButton";
-import AddressSearch from "./components/AddressSearch";
-import TextArea from "./components/TextArea";
-import TextInput from "./components/TextInput";
-import { createBusiness } from "./connectors/AddBusinessConnector";
-import { initializeBusinessForm } from "./service/FormFactory";
-import { handleNestedChange, validateBusinessForm } from "./service/FormUtils";
-import { BusinessListing } from "./types/BusinessListing";
+import OpeningHours from "@/components/business/OpeningHours";
+import TextArea from "@/components/business/TextArea";
+import TextInput from "@/components/business/TextInput";
+import AppConfig from "@/config/AppConfig";
+import { businessSpecificationsSchema } from "@/forms/business/BusinessSpecificationsFormSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-const AddBusinessPage = () => {
-    const [formData, setFormData] = useState<Partial<BusinessListing>>(initializeBusinessForm());
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target;
-        setFormData((prev) => handleNestedChange(prev, name, value));
+//  note to self sort out database time issues, scala backend data model using LocalTime and look into 
+//  npm install dayjs for frontend time handling
+
+const AddBusinessSpecificationsPage = () => {
+
+  type BusinessSpecifications = z.infer<typeof businessSpecificationsSchema>;
+
+  const defaultValues = {
+    businessName: "",
+    description: "",
+    availability: {
+      days: [],
+      startTime: "09:00",
+      endTime: "17:00",
+    },
+  };
+
+  // React Hook Form Methods
+  const methods = useForm<BusinessSpecifications>({
+    resolver: zodResolver(businessSpecificationsSchema),
+    defaultValues,
+    mode: "onSubmit",
+  });
+
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const onSubmit = async (data: BusinessSpecifications) => {
+
+    const pistachioUrl = AppConfig.basePistachioUrl(false);
+
+    console.log("onSubmit called");
+    console.log("Form Data:", data);
+    console.log(`http://${pistachioUrl}/pistachio/business/businesss/specifications/create`)
+
+    setSubmitError(null); // Reset error before submitting
+    setSuccessMessage(null); // Reset success message before submitting
+
+    const combinedData = {
+      ...data,
+      userId: "USER123456",
+      businessId: "BUS123456"
+
     };
 
-    const handleAddressSelect = (data: {
-        address: string;
-        location: { lat: number; lng: number };
-        components: { street: string; city: string; postcode: string };
-    }) => {
-        setFormData((prev) => ({
-            ...prev,
-            addressDetails: {
-                ...prev.addressDetails!,
-                street: data.components.street,
-                city: data.components.city,
-                postcode: data.components.postcode,
-                latitude: data.location.lat,
-                longitude: data.location.lng,
-            },
-        }));
-    };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    console.log(combinedData);
 
-        e.preventDefault();
-        const validationErrors = validateBusinessForm(formData);
-        setErrors(validationErrors);
-
-        if (Object.keys(validationErrors).length === 0) {
-            try {
-                const result = await createBusiness(formData);
-                console.log("Business created:", result);
-                setFormData(initializeBusinessForm());
-                setErrors({});
-            } catch (error) {
-                console.error("Error creating business:", error);
-            }
+    try {
+      const response = await fetch(
+        `http://${pistachioUrl}/pistachio/business/businesss/specifications/create`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(combinedData),
         }
-    };
+      );
 
-    return (
-        <div className="max-w-4xl mx-auto p-8">
-            <h1 className="text-2xl font-bold mb-6">Add a Business</h1>
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+      const responseData = await response.json();
+      console.log("Successfully submitted:", responseData);
+      setSuccessMessage("Form submitted successfully!");
+      methods.reset(); // Reset form fields after successful submission
+    } catch (error) {
+      console.error("Submission error:", error);
+      setSubmitError("Failed to submit the form. Please try again.");
+    }
+  };
 
+  const {
+    register,
+    formState: { errors },
+  } = methods;
 
+  const amenitiesList = ["Air Conditioning", "Coffee", "Food", "Printer", "Parking", "Quiet Zones", "WiFi"];
 
-                <AddBusinessButton label="Add Business" type="submit" className="w-full" />
-            </form>
+  return (
+    <div>
+      <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
+        <h1 className="text-xl font-bold">Add Business Specifications</h1>
+
+        {submitError && <p className="text-red-500">{submitError}</p>}
+        {successMessage && <p className="text-green-500">{successMessage}</p>}
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-6">
+
+            <TextInput
+              id="businessName"
+              name="businessName"
+              label="Business Name"
+              placeholder="Enter a name for the business"
+              register={register}
+              error={errors?.businessName?.message}
+              inputClassName="w-1/2"
+            />
+
+            <TextArea
+              id="description"
+              name="description"
+              label="Business Description"
+              register={register}
+              placeholder="Short description of the office"
+              error={errors.description?.message}
+              inputClassName="w-2/3"
+            />
+
+            <OpeningHours
+              days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+              namePrefix="availability"
+              register={register}
+              errors={errors.availability}
+            />
+          </div>
         </div>
-    );
+
+        <button
+          type="submit"
+          className="btn-primary w-1/3 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
+        >
+          Submit
+        </button>
+
+      </form>
+    </div>
+  );
 };
 
-export default AddBusinessPage;
+export default AddBusinessSpecificationsPage;
