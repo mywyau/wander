@@ -93,7 +93,7 @@ The stack is fairly functional (FP):
     - Trait aka algebra
     - Class - Impl (Implementation of the abstract trait)
     - Object to then use as a singleton concrete version.
-    - I can then create alternatives of the Trait/Algebra for testing. So we trade of for more boiler plate code but we do not use a mocking framework/library like "Mockito" or "Scalamock"
+    - I can then create alternatives of the Trait/Algebra for testing. So we trade off for more boiler plate code but we do not use a mocking framework/library like "Mockito" or "Scalamock" and can swap the "effect type".  
 
 - Scala Backend - for features like CRUD operations to create data in sql
 - Scala Backend - websockets servers/kafka pub sub messaging systems - have a few fairly basic examples. Like a publisher, and test consumer to allow sending messages between systems via kafka. But all it does is send a message
