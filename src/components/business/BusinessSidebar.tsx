@@ -145,6 +145,16 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link href="/business/office/view-all" className="hover:text-indigo-700">
+                                        View all offices
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
+                                        View office detailed view
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link href="/business/office/address/add" className="text-gray-900 hover:text-indigo-700">
                                         Add office address
                                     </Link>
