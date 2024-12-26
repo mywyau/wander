@@ -29,7 +29,7 @@ export const officeSpecificationsSchema = z
         z
           .preprocess(
             (value) => (value === "" || value === undefined ? undefined : Number(value)),
-            z.number().min(1, "Capacity at a minimum be 1.").max(10000, "Capacity cannot exceed 10000.")
+            z.number().min(1, "Capacity at a minimum must be 1.").max(10000, "Capacity cannot exceed 10000.")
           ),
       totalDesks:
         z
@@ -63,8 +63,6 @@ export const officeSpecificationsSchema = z
       rules:
         z
           .string()
-          .nonempty("Office rules cannot be empty.")
-          .min(5, "Rules must be at least 5 characters.")
           .max(200, "Rules cannot exceed 200 characters."),
     }
   );

@@ -79,8 +79,18 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             expandedSections.businesses && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">
                                     <li>
-                                        <Link href="/business/businesses/view" className="hover:text-indigo-700">
-                                            View your businesses
+                                        <Link href="/business/home" className="hover:text-indigo-700">
+                                            Business Dashboard
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/businesses/view-all" className="hover:text-indigo-700">
+                                            View all businesses
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/businesses/detailed-view" className="hover:text-indigo-700">
+                                            View business detailed view
                                         </Link>
                                     </li>
                                     <li>
@@ -124,6 +134,16 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
 
                         {expandedSections.offices && !isCollapsed && (
                             <ul className="pl-4 space-y-4">
+                                <li>
+                                    <Link href="/business/office/view-all" className="hover:text-indigo-700">
+                                        View all offices
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
+                                        View office detailed view
+                                    </Link>
+                                </li>
                                 <li>
                                     <Link href="/business/office/address/add" className="text-gray-900 hover:text-indigo-700">
                                         Add office address
