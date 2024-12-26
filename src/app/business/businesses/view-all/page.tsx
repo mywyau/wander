@@ -16,7 +16,7 @@ interface Business {
     websiteUrl: string;
 }
 
-const BusinessesPage = () => {
+const BusinessesViewAllPage = () => {
 
 
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -192,14 +192,14 @@ const BusinessesPage = () => {
 
                             <div className="mt-4 flex justify-between">
                                 <Link
-                                    href={`/business/businesses/office/view`}
-                                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                                    href={`/business/office/view-all`}
+                                    className="bg-blue-500 text-sm text-white py-2 px-4 rounded hover:bg-blue-600"
                                 >
                                     View Offices
                                 </Link>
                                 <Link
                                     href={`/business/businesses/office/edit`}
-                                    className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                                    className="bg-gray-500 text-sm  text-white py-2 px-4 rounded hover:bg-gray-600"
                                 >
                                     Edit
                                 </Link>
@@ -230,4 +230,4 @@ const BusinessesPage = () => {
     );
 };
 
-export default BusinessesPage;
+export default BusinessesViewAllPage;

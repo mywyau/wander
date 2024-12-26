@@ -86,7 +86,7 @@ const AddBusinessAddressPage = () => {
   } = methods;
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto p-8" >
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
         <h1 className="text-xl font-bold">Add Business Address Details</h1>
 
@@ -96,16 +96,6 @@ const AddBusinessAddressPage = () => {
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-6">
 
-          <TextInput
-              id="businessName"
-              name="businessName"
-              label="Business Name"
-              placeholder="Enter the name of the business"
-              register={register}
-              error={errors?.businessName?.message}
-              inputClassName="w-1/2"
-            />
-
             <TextInput
               id="buildingName"
               name="buildingName"
@@ -113,6 +103,16 @@ const AddBusinessAddressPage = () => {
               placeholder="Enter the name of the building (if applicable)"
               register={register}
               error={errors?.buildingName?.message}
+              inputClassName="w-1/2"
+            />
+
+            <TextInput
+              id="businessName"
+              name="businessName"
+              label="Business Name"
+              placeholder="Enter the name of the business"
+              register={register}
+              error={errors?.businessName?.message}
               inputClassName="w-1/2"
             />
 
