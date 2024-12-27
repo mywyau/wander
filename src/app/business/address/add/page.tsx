@@ -38,14 +38,14 @@ const AddBusinessAddressPage = () => {
 
     console.log("onSubmit called");
     console.log("Form Data:", data);
-    console.log(`http://${pistachioUrl}/pistachio/business/businesss/address/create`)
+    console.log(`http://${pistachioUrl}/pistachio/business/businesses/address/details/create`)
 
     setSubmitError(null); // Reset error before submitting
     setSuccessMessage(null); // Reset success message before submitting
 
     const combinedData = {
       ...data,
-      usersId: "USER123456",
+      userId: "USER123456",
       businessId: "BUS123456",
       floorNumber: "1",
       latitude: 999,
@@ -58,7 +58,7 @@ const AddBusinessAddressPage = () => {
 
     try {
       const response = await fetch(
-        `http://${pistachioUrl}/pistachio/business/businesss/address/create`,
+        `http://${pistachioUrl}/pistachio/business/businesses/address/details/create`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -76,7 +76,7 @@ const AddBusinessAddressPage = () => {
       methods.reset(); // Reset form fields after successful submission
     } catch (error) {
       console.error("Submission error:", error);
-      setSubmitError("Failed to submit the form. Please try again.");
+      setSubmitError("Failed to submit. Please try again.");
     }
   };
 
