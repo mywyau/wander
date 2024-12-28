@@ -175,30 +175,32 @@ const OfficesPage = () => {
                             </button>
                             {
                                 expandedSections.moreDetails && !isCollapsed && (
-                                    <ul className="space-y-1">
-                                        <div>
-                                            <p className="text-sm mt-2">
-                                                <strong>Number of Desks:</strong> {office.numberOfDesks}
-                                            </p>
-                                        </div>
-                                    </ul>
+                                    <div>
+                                        <ul className="space-y-1">
+                                            <div>
+                                                <p className="text-sm mt-2">
+                                                    <strong>Number of Desks:</strong> {office.numberOfDesks}
+                                                </p>
+                                            </div>
+                                        </ul>
+                                    </div>
                                 )
                             }
-
-                            <div className="mt-4 flex gap-4">
+                            <div className="mt-2 flex gap-6">
                                 <Link
-                                    href={`/office/offices/office/view`}
-                                    className="bg-blue-500 text-sm  text-white py-2 px-4 rounded hover:bg-blue-600"
+                                    href={`/business/office/detailed-view`}
+                                    className="text-base text-blue-600 rounded hover:text-blue-800 underline"
                                 >
-                                    View listings
+                                    View listing
                                 </Link>
-                                <Link
-                                    href={`/office/offices/office/edit`}
-                                    className="bg-gray-500 text-sm  text-white py-2 px-4 rounded hover:bg-gray-600"
+                                <button
+                                    className="text-base text-red-500 rounded hover:text-red-700 underline"
+                                    onClick={() => console.log("Delete Office")}
                                 >
-                                    Edit
-                                </Link>
+                                    Delete
+                                </button>
                             </div>
+
                         </div>
                     ))}
                 </div>
