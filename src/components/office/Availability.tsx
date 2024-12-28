@@ -1,14 +1,14 @@
 import React from "react";
 import { UseFormRegister } from "react-hook-form";
 
-interface OpeningHoursProps {
+interface AvailabilityProps {
   days: string[]; // List of days
   namePrefix: string; // Field prefix
   register: UseFormRegister<any>; // React Hook Form registration
   errors?: Record<string, any>; // Errors object for availability
 }
 
-const OpeningHours: React.FC<OpeningHoursProps> = ({
+const Availability: React.FC<AvailabilityProps> = ({
   days,
   namePrefix,
   register,
@@ -87,4 +87,4 @@ const OpeningHours: React.FC<OpeningHoursProps> = ({
   );
 };
 
-export default OpeningHours;
+export default Availability;

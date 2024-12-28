@@ -25,7 +25,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
     return (
         <aside
             id="sidebar-multi-level-sidebar"
-            className={`sticky top-0 left-0 z-40 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} h-screen ${isCollapsed ? "w-16" : "w-64"} bg-gray-50 text-black  border-r border-gray-300`}
+            className={`sticky top-0 left-0 z-40 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} h-screen ${isCollapsed ? "w-16" : "w-64"} bg-white text-black  border-r border-gray-300`}
             aria-label="Sidebar"
         >
             {/* Header and Hamburger Menu */}
@@ -61,21 +61,25 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
 
                     {/* Businesses Section */}
                     <li>
-                        <button
-                            onClick={() => toggleSection("businesses")}
-                            className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mb-4"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""}`}>Businesses</span>
-                            <svg
-                                className={`w-4 h-4 transform ${expandedSections.businesses ? "rotate-90" : ""}`}
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        {
+                            !isCollapsed && (
+                                <button
+                                    onClick={() => toggleSection("businesses")}
+                                    className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mb-4"
+                                >
+                                    <span className={`${isCollapsed ? "hidden" : ""}`}>Businesses</span>
+                                    <svg
+                                        className={`w-4 h-4 transform ${expandedSections.businesses ? "rotate-90" : ""}`}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            )
+                        }
                         {
                             expandedSections.businesses && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">
@@ -117,106 +121,119 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                     {/* Offices Section */}
                     <li>
 
-                        <button
-                            onClick={() => toggleSection("offices")}
-                            className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""}`}>Offices</span>
-                            <svg
-                                className={`w-4 h-4 transform ${expandedSections.offices ? "rotate-90" : ""}`}
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        {
+                            !isCollapsed && (
+                                <button
+                                    onClick={() => toggleSection("offices")}
+                                    className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
+                                >
+                                    <span className={`${isCollapsed ? "hidden" : ""}`}>Offices</span>
+                                    <svg
+                                        className={`w-4 h-4 transform ${expandedSections.offices ? "rotate-90" : ""}`}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            )
+                        }
 
-                        {expandedSections.offices && !isCollapsed && (
-                            <ul className="pl-4 space-y-4">
-                                <li>
-                                    <Link href="/business/office/view-all" className="hover:text-indigo-700">
-                                        View all offices
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
-                                        View office detailed view
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/office/view-all" className="hover:text-indigo-700">
-                                        View all offices
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
-                                        View office detailed view
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/office/address/add" className="text-gray-900 hover:text-indigo-700">
-                                        Add office address
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/office/contact-details/add" className="hover:text-indigo-700">
-                                        Add office contact details
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/office/specifications/add" className="hover:text-indigo-700">
-                                        Add office specifications
-                                    </Link>
-                                </li>
-                            </ul>
-                        )}
+                        {
+                            expandedSections.offices && !isCollapsed && (
+                                <ul className="pl-4 space-y-4">
+                                    <li>
+                                        <Link href="/business/office/view-all" className="hover:text-indigo-700">
+                                            View all offices
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
+                                            View office detailed view
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/office/view-all" className="hover:text-indigo-700">
+                                            View all offices
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
+                                            View office detailed view
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/office/address/add" className="text-gray-900 hover:text-indigo-700">
+                                            Add office address
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/office/contact-details/add" className="hover:text-indigo-700">
+                                            Add office contact details
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/office/specifications/add" className="hover:text-indigo-700">
+                                            Add office specifications
+                                        </Link>
+                                    </li>
+                                </ul>
+                            )
+                        }
                     </li>
 
                     {/* Desks Section */}
                     <li>
 
-                        <button
-                            onClick={() => toggleSection("desks")}
-                            className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
-                        >
-                            <span className={`${isCollapsed ? "hidden" : ""}`}>Desks</span>
-                            <svg
-                                className={`w-4 h-4 transform ${expandedSections.desks ? "rotate-90" : ""}`}
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        {
+                            !isCollapsed && (
+                                <button
+                                    onClick={() => toggleSection("desks")}
+                                    className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
+                                >
+                                    <span className={`${isCollapsed ? "hidden" : ""}`}>Desks</span>
+                                    <svg
+                                        className={`w-4 h-4 transform ${expandedSections.desks ? "rotate-90" : ""}`}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
 
-                        {expandedSections.desks && !isCollapsed && (
-                            <ul className="pl-4 space-y-4">
-                                <li>
-                                    <Link href="/business/desk/view-all" className="hover:text-indigo-700">
-                                        View all desks
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/desk/detailed-view" className="hover:text-indigo-700">
-                                        View desk detailed view
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/desk/add" className="text-gray-900 hover:text-indigo-700">
-                                        Add a desk listing
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/business/desk/edit" className="hover:text-indigo-700">
-                                        Edit a desk listing
-                                    </Link>
-                                </li>
-                            </ul>
-                        )}
+                            )
+                        }
+                        
+                        {
+                            expandedSections.desks && !isCollapsed && (
+                                <ul className="pl-4 space-y-4">
+                                    <li>
+                                        <Link href="/business/desk/view-all" className="hover:text-indigo-700">
+                                            View all desks
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/desk/detailed-view" className="hover:text-indigo-700">
+                                            View desk detailed view
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/desk/add" className="text-gray-900 hover:text-indigo-700">
+                                            Add a desk listing
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/business/desk/edit" className="hover:text-indigo-700">
+                                            Edit a desk listing
+                                        </Link>
+                                    </li>
+                                </ul>
+                            )
+                        }
                     </li>
 
                 </ul>

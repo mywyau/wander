@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const officeSpecificationsSchema = z
+export const officeSpecificationsFormSchema = z
   .object(
     {
       officeName:

@@ -10,10 +10,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-
-//  note to self sort out database time issues, scala backend data model using LocalTime and look into 
-//  npm install dayjs for frontend time handling
-
 const AddBusinessSpecificationsPage = () => {
 
   type BusinessSpecifications = z.infer<typeof businessSpecificationsSchema>;
