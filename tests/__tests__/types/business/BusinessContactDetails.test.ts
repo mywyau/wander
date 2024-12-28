@@ -1,7 +1,7 @@
-import { BusinessContactDetails } from "@/app/business/businesses/add/types/BusinessContactDetails";
+import { BusinessContactDetails } from "@/types/business/BusinessContactDetails";
 
 describe("BusinessContactDetails - JSON Serialization and Deserialization", () => {
-  
+
   it("should serialize a BusinessContactDetails object to JSON", () => {
     const businessContactDetails: BusinessContactDetails = {
       id: 1,

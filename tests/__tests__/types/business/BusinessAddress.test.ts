@@ -1,5 +1,4 @@
-
-import { BusinessAddressDetails } from "@/app/business/businesses/add/types/BusinessAddressDetails";
+import { BusinessAddressDetails } from "@/types/business/BusinessAddressDetails";
 
 describe("BusinessAddressDetails - JSON Serialization and Deserialization", () => {
 

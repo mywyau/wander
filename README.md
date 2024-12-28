@@ -138,3 +138,10 @@ Try this url for viewing some features and content, some is mocked
 ```
 http://localhost:3000/business/home 
 ```
+
+I have tried to make a docker container serivce runner of sorts works on my machine not sure if it works elsewhere tho. 
+
+Any data creation forms you try to submit (adding office address or adding business contact details etc.) needs to have the respecitve backend running either in a docker container running the scala backend app locally. Postgres will also need to have the table created beforehand. If you need help let me know it's not the most straightforward. 
+
+I have scripts to set up everything but not sure I've documented all the steps and again not the most obvious thing ever. Tried to make stuff single steps but found it was painful to maintain or improve so split stuff up. 
+

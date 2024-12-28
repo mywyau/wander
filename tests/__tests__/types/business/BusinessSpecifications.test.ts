@@ -1,11 +1,10 @@
+import { BusinessSpecifications } from "@/types/business/BusinessSpecifications";
 
-import { BusinessSpecs } from "@/app/business/businesses/add/types/BusinessSpecs";
+describe("BusinessSpecifications - JSON Serialization and Deserialization", () => {
 
-describe("BusinessSpecs - JSON Serialization and Deserialization", () => {
+  it("should serialize an BusinessSpecifications object to JSON", () => {
 
-  it("should serialize an BusinessSpecs object to JSON", () => {
-
-    const businessSpecs: BusinessSpecs = {
+    const businessSpecs: BusinessSpecifications = {
       id: 1,
       userId: "user_id_1",
       businessId: "business_id_1",
@@ -29,7 +28,7 @@ describe("BusinessSpecs - JSON Serialization and Deserialization", () => {
     expect(actualJson).toBe(expectedJson);
   });
 
-  it("should deserialize a JSON string to an BusinessSpecs object", () => {
+  it("should deserialize a JSON string to an BusinessSpecifications object", () => {
 
     const jsonString = `{
       "id": 1,
@@ -41,7 +40,7 @@ describe("BusinessSpecs - JSON Serialization and Deserialization", () => {
       "updatedAt": "2024-01-02T00:00:00Z"
     }`;
 
-    const expectedObject: BusinessSpecs = {
+    const expectedObject: BusinessSpecifications = {
       id: 1,
       userId: "user_id_1",
       businessId: "business_id_1",
@@ -51,7 +50,7 @@ describe("BusinessSpecs - JSON Serialization and Deserialization", () => {
       updatedAt: "2024-01-02T00:00:00Z"
     };
 
-    const actualObject = JSON.parse(jsonString) as BusinessSpecs;
+    const actualObject = JSON.parse(jsonString) as BusinessSpecifications;
     expect(actualObject).toEqual(expectedObject);
   });
 });
