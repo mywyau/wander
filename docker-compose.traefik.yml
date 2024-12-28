@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v2.10 # Use the latest version
+    container_name: traefik
+    command:
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--entrypoints.web.address=:80"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      - "80:80" # HTTP
+      - "8080:8080" # Traefik Dashboard
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock" # Access to Docker
+      - "./traefik.yml:/etc/traefik/traefik.yml" # Traefik config (optional)
+      
+  frontend1:
+    image: your-frontend-service-1:latest
+    container_name: frontend1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend1.rule=Host(`frontend1.localhost`)"
+      - "traefik.http.services.frontend1.loadbalancer.server.port=3000"
+
+  frontend2:
+    image: your-frontend-service-2:latest
+    container_name: frontend2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend2.rule=Host(`frontend2.localhost`)"
+      - "traefik.http.services.frontend2.loadbalancer.server.port=3001"
+
+networks:
+  shared-network:
+    external: true
