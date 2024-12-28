@@ -28,8 +28,7 @@ describe("OfficeContactDetails - JSON Serialization and Deserialization", () => 
       "primaryContactFirstName": "John",
       "primaryContactLastName": "Doe",
       "contactEmail": "john.doe@example.com",
-      "contactNumber": "123-456-7890",
-  
+      "contactNumber": "123-456-7890"
     }`;
 
     const expectedObject: OfficeContactDetails = {
