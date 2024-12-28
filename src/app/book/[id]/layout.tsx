@@ -3,7 +3,6 @@ import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
 import Navbar from "@/components/misc/NavBar";
-import Sidebar from "@/components/misc/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../../globals.css";
@@ -14,7 +13,7 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
-  
+
 const geistMono = localFont({
   src: "../../fonts/GeistVF.woff",
   variable: "--font-geist-mono",
@@ -41,22 +40,22 @@ interface BookNowLayoutProps {
 }
 
 const BookNowLayout: React.FC<BookNowLayoutProps> = ({ children }) => {
-    return (
-      <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
-        <AuthProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <div className="flex flex-1">
-              {/* <Sidebar isOpen={true} /> */}
-              <main className="flex-1 container mx-auto p-4 mt-4">
-                {children} {/* Page content */}
-              </main>
-            </div>
+  return (
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+      <AuthProvider>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <div className="flex flex-1">
+            {/* <Sidebar isOpen={true} /> */}
+            <main className="flex-1 container mx-auto p-4 mt-4">
+              {children} {/* Page content */}
+            </main>
           </div>
-        </AuthProvider>
-      </div>
-    );
-  };
-  
+        </div>
+      </AuthProvider>
+    </div>
+  );
+};
+
 
 export default BookNowLayout;

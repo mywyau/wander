@@ -29,12 +29,11 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
             aria-label="Sidebar"
         >
             {/* Header and Hamburger Menu */}
-            <div className="flex items-center justify-between p-4 bg-gray-100 border-b border-gray-300 h-15">
-                <span className={`${isCollapsed ? "hidden" : "text-lg font-bold"} text-gray-900`}>Dashboard</span>
+            <div className="flex justify-end p-4 bg-gray-100 border-b border-gray-300 h-15">
                 <button
                     onClick={toggleCollapse}
                     type="button"
-                    className="p-2 w-10 h-10 justify-center text-gray-500 rounded-lg"
+                    className="p-2 w-10 h-10 ml-auto text-gray-500 rounded-lg"
                     aria-controls="navbar-default"
                 >
                     <span className="sr-only">Toggle Sidebar</span>
@@ -207,7 +206,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
 
                             )
                         }
-                        
+
                         {
                             expandedSections.desks && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">

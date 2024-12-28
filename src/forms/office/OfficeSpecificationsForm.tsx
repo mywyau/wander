@@ -11,17 +11,17 @@ import Amenities from "@/components/office/Amenities";
 import Availability from "@/components/office/Availability";
 
 
-interface OfficeContactFormProps {
+interface OfficeSpecificationsFormProps {
     onSubmit: (data: OfficeSpecifications) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
 }
 
-const OfficeSpecificationsForm: React.FC<OfficeContactFormProps> = ({
+const OfficeSpecificationsForm: React.FC<OfficeSpecificationsFormProps> = ({
     onSubmit,
     submitError,
     successMessage,
-}) => {
+}) => { 
 
     const defaultValues = {
         officeName: "",
