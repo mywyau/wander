@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { officeSpecificationsFormSchema } from "./schemas/OfficeSpecificationsFormSchema";
 import Amenities from "@/components/office/Amenities";
-import Availability from "@/components/office/Availability";
+import Availability from "@/components/office/OfficeAvailability";
 
 
 interface OfficeSpecificationsFormProps {
@@ -158,7 +158,7 @@ const OfficeSpecificationsForm: React.FC<OfficeSpecificationsFormProps> = ({
 
                 <button
                     type="submit"
-                    className="btn-primary w-1/3 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
+                    className="btn-primary w-1/4 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
                 >
                     Submit
                 </button>
