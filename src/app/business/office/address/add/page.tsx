@@ -3,7 +3,7 @@
 "use client";
 
 import { useState } from "react";
-import OfficeAddressController from "@/controllers/office/OfficeAddressController";
+import OfficeAddressDetailsController from "@/controllers/office/OfficeAddressDetailsController";
 import { OfficeAddressDetails } from "@/types/office/OfficeAddressDetails";
 import OfficeAddressDetailsForm from "@/forms/office/OfficeAddressDetailsForm";
 
@@ -16,7 +16,7 @@ const AddOfficePage = () => {
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await OfficeAddressController.submitForm(data);
+    const result = await OfficeAddressDetailsController.submitForm(data);
 
     if (result.success) {
       setSuccessMessage(result.message);

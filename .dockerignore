@@ -1,0 +1,11 @@
+# Exclude test files
+/tests
+**/__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Node-related ignores
+node_modules
+npm-debug.log

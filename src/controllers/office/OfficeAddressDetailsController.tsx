@@ -2,18 +2,18 @@ import AppConfig from '@/config/AppConfig';
 import { OfficeAddressDetails } from '@/types/office/OfficeAddressDetails'; // Ensure to import the types
 
 // Interface for the result returned by the submitForm method
-interface OfficeAddressControllerResult {
+interface OfficeAddressDetailsControllerResult {
   success: boolean;
   message: string;
 }
 
-class OfficeAddressController {
-  async submitForm(data: OfficeAddressDetails): Promise<OfficeAddressControllerResult> {
+class OfficeAddressDetailsController {
+  async submitForm(data: OfficeAddressDetails): Promise<OfficeAddressDetailsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/address/create`
 
-    console.log("[OfficeAddressController] submitForm called");
+    console.log("[OfficeAddressDetailsController] submitForm called");
     console.log("Form Data:", data);
     console.log(apiUrl);
 
@@ -59,4 +59,4 @@ class OfficeAddressController {
   }
 }
 
-export default new OfficeAddressController();
+export default new OfficeAddressDetailsController();
