@@ -86,7 +86,7 @@ const OfficeContactDetailsForm: React.FC<OfficeContactFormProps> = ({
 
                 <button
                     type="submit"
-                    className="btn-primary w-1/3 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
+                    className="btn-primary w-1/4 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
                 >
                     Submit
                 </button>

@@ -2,7 +2,7 @@
 
 import TextInput from "@/components/business/TextInput";
 import AppConfig from "@/config/AppConfig";
-import { businessAddressDetailsFormSchema } from "@/forms/business/BusinessAddressFormSchema";
+import { businessAddressDetailsFormSchema } from "@/forms/business/schemas/BusinessAddressFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

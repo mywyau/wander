@@ -7,7 +7,7 @@ const OfficeDetailsView = () => {
   const officeData = {
     id: "123",
     name: "Phoenix",
-    description: "A \"leading\" consultancy firm who does not underpay their staff what so ever no siree.",
+    description: "A \"leading\" consultancy firm who does not underpay their staff whatsoever no siree.",
     street: "123 Desk Lane",
     city: "New York",
     postcode: "10001",
@@ -132,15 +132,6 @@ const OfficeDetailsView = () => {
               Edit Office Specifications
             </Link>
           </div>
-        </div>
-
-        <div>
-          <p>
-            <strong>Created At:</strong> {officeData.createdAt}
-          </p>
-          <p>
-            <strong>Updated At:</strong> {officeData.updatedAt}
-          </p>
         </div>
       </div>
     </div >

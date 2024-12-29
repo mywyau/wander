@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const businessContactDetailsSchema = z
+export const businessContactDetailsFormSchema = z
   .object(
     {
       businessName: z

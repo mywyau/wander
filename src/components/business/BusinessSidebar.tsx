@@ -29,7 +29,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
             aria-label="Sidebar"
         >
             {/* Header and Hamburger Menu */}
-            <div className="flex justify-end p-4 bg-gray-100 border-b border-gray-300 h-15">
+            <div className="flex justify-end p-2 bg-gray-100 border-b border-gray-300 h-15">
                 <button
                     onClick={toggleCollapse}
                     type="button"

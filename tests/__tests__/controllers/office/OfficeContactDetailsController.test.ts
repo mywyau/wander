@@ -54,6 +54,7 @@ describe("OfficeContactDetailsController", () => {
     });
 
     it("should return an error message if the submission fails", async () => {
+
         jest.spyOn(AppConfig, 'basePistachioUrl').mockReturnValue('mocked-pistachio-url');
 
         (fetch as jest.Mock).mockResolvedValueOnce({
@@ -68,7 +69,10 @@ describe("OfficeContactDetailsController", () => {
         });
     });
 
+    
+
     it("should handle exceptions during the submission process", async () => {
+
         jest.spyOn(AppConfig, 'basePistachioUrl').mockReturnValue('mocked-pistachio-url');
 
         (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
