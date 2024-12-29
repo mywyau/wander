@@ -5,8 +5,8 @@ export const officeAddressDetailsFormSchema =
     {
       buildingName: z
         .string()
-        // .nonempty("Building name is required.")
-        .max(50, "Building name cannot exceed 50 characters."),
+        .max(50, "Building name cannot exceed 50 characters.")
+        .optional(),
       street: z
         .string()
         .nonempty("Street name is required.")
@@ -24,7 +24,8 @@ export const officeAddressDetailsFormSchema =
         .max(50, "Country name cannot exceed 50 characters."),
       county: z
         .string()
-        .max(50, "County name cannot exceed 50 characters."),
+        .max(50, "County name cannot exceed 50 characters.")
+        .optional(),
       postcode: z
         .string()
         .nonempty("Postcode is required.")
