@@ -22,6 +22,7 @@ export const businessContactDetailsFormSchema = z
         .regex(/^[A-Za-z\s'-]+$/, "Last name can only contain letters, spaces, hyphens, or apostrophes."),
       contactEmail: z
         .string()
+        .nonempty("Email is required.")
         .email("Invalid email address.")
         .max(100, "Email address cannot exceed 100 characters."),
       contactNumber: z
@@ -36,5 +37,6 @@ export const businessContactDetailsFormSchema = z
       websiteUrl: z
         .string()
         .max(100, "First name cannot exceed 50 characters.")
+        .optional()
     }
   );

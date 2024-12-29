@@ -49,7 +49,7 @@ const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children 
           <div className="flex flex-1">
             <BusinessSidebar isOpen={true} />
             <main className="flex-1 container mx-auto p-4 mt-4">
-              {children} {/* Page content */}
+              {children} 
             </main>
           </div>
         </div>

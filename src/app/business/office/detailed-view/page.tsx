@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 const OfficeDetailsView = () => {
   // Mock Data
@@ -31,6 +32,8 @@ const OfficeDetailsView = () => {
 
   };
 
+  const [isEdit, setIsEdit] = useState(true);
+
   return (
     <div className="max-w-4xl mx-auto mt-8 bg-white p-6 shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">{officeData.name}</h1>
@@ -47,12 +50,25 @@ const OfficeDetailsView = () => {
             <p><strong>Postcode:</strong> {officeData.postcode}</p>
           </div>
           <div className="mt-4 flex gap-6">
-            <Link
-              href={`/business/office/address/edit`}
-              className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-            >
-              Edit Address Details
-            </Link>
+
+            {
+              !isEdit ? (
+                <Link
+                  href={`/business/office/address/edit`}
+                  className="text-base text-blue-600 rounded hover:text-blue-800 underline"
+                >
+                  Edit Address Details
+                </Link>
+              ) : (
+                <Link
+                  href={`/business/office/address/add`}
+                  className="text-base text-blue-600 rounded hover:text-blue-800 underline"
+                >
+                  Add Address Details
+                </Link>
+              )
+            }
+
           </div>
         </div>
 
@@ -86,12 +102,24 @@ const OfficeDetailsView = () => {
             </p>
           </div>
           <div className="mt-4 flex gap-6">
-            <Link
-              href={`/business/office/contact/details/edit`}
-              className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-            >
-              Edit Contact Details
-            </Link>
+
+            {
+              !isEdit ? (
+                <Link
+                  href={`/business/office/contact-details/edit`}
+                  className="text-base text-blue-600 rounded hover:text-blue-800 underline"
+                >
+                  Edit Contact Details
+                </Link>
+              ) : (
+                <Link
+                  href={`/business/office/contact-details/add`}
+                  className="text-base text-blue-600 rounded hover:text-blue-800 underline"
+                >
+                  Add Contact Details
+                </Link>
+              )
+            }
           </div>
         </div>
 
@@ -125,12 +153,24 @@ const OfficeDetailsView = () => {
             </p>
           </div>
           <div className="mt-4 flex gap-6">
-            <Link
-              href={`/business/office/specifications/edit`}
-              className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-            >
-              Edit Office Specifications
-            </Link>
+
+          {
+              !isEdit ? (
+                <Link
+                  href={`/business/office/specifications/edit`}
+                  className="text-base text-blue-600 rounded hover:text-blue-800 underline"
+                >
+                  Edit Specifications
+                </Link>
+              ) : (
+                <Link
+                  href={`/business/office/specifications/add`}
+                  className="text-base text-blue-600 rounded hover:text-blue-800 underline"
+                >
+                  Add Specifications
+                </Link>
+              )
+            }
           </div>
         </div>
       </div>
