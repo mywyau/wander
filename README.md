@@ -130,7 +130,7 @@ e.g.
   4. Exploring limits of chatgpt
   5. Styling and design aspects e.g., thinking about page design and user experience. How design changes and modularity helps ease development, code cleanliness and UX.
   6. Modularisation via creating more repos and breaking up codebases. The advantages and disadvantages, boilerplate code duplication, network issues, communication    etc. 
-  7. probs a ton other stuff but yeah can't remember or doesn't come to mind at time of writing but yeah a bucnh of stuff.
+  7. probs a ton other stuff but yeah can't remember or doesn't come to mind at time of writing but yeah a bunch of stuff.
 
 Let me know if there are any questions :) 
 
