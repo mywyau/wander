@@ -1,23 +1,13 @@
 "use client";
 
+import OfficeListingController from "@/controllers/office/OfficeListingController";
+import { InitiateOfficeListingRequest } from "@/types/office/InitiateOfficeListingRequest";
+import { OfficeListing } from "@/types/office/OfficeListing";
 import Link from "next/link";
 import { useState } from "react";
-
-interface Office {
-    id: string;
-    name: string;
-    description?: string;
-    address: string;
-    city: string;
-    postcode: string;
-    contactEmail: string;
-    contactPhone: string;
-    numberOfDesks: number;
-    websiteUrl: string;
-}
+import mockOfficeListings from "./mockOfficeListings";
 
 const OfficesPage = () => {
-
 
     const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -25,77 +15,102 @@ const OfficesPage = () => {
         moreDetails: false,
     });
 
-    // Toggle collapse state
-    const toggleCollapse = () => {
-        setIsCollapsed(!isCollapsed);
-    };
-
     const toggleSection = (section: string) => {
-        setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
+        setExpandedSections(
+            (prev) => ({
+                ...prev,
+                [section]: !prev[section]
+            })
+        );
     };
 
+    const [offices, setOffices] =
+        useState<OfficeListing[]>(mockOfficeListings);
 
-    // Hardcoded data for testing
-    const [offices, setOffices] = useState<Office[]>([
-        {
-            id: "123",
-            name: "Phoenix",
-            description: "A leading consultancy firm.",
-            address: "123 Desk Lane",
-            city: "New York",
-            postcode: "10001",
-            contactEmail: "capgemini@gmail.com",
-            contactPhone: "07402205071",
-            numberOfDesks: 10,
-            websiteUrl: "bobs_axes.com",
-        },
-        {
-            id: "office_456",
-            name: "Mikey Innovation Office",
-            description: "Tech co-working spaces.",
-            address: "456 Tech Drive",
-            city: "San Francisco",
-            postcode: "94107",
-            contactEmail: "info@techinnovators.com",
-            contactPhone: "07402205072",
-            numberOfDesks: 10,
-            websiteUrl: "bobs_axes.com",
-        },
-        {
-            id: "office_789",
-            name: "The Old Wise Man",
-            description: "Eco-friendly office solutions.",
-            address: "789 Green Blvd",
-            city: "Los Angeles",
-            postcode: "90001",
-            contactEmail: "info@greenstartups.com",
-            contactPhone: "07402205073",
-            numberOfDesks: 10,
-            websiteUrl: "bobs_axes.com",
-        },
-        {
-            id: "office_1337",
-            name: "ScapeRune",
-            description: "An out of this world office",
-            address: "Morytania",
-            city: "Canafis",
-            postcode: "90001",
-            contactEmail: "scaperune@gmail.com",
-            contactPhone: "07402205073",
-            numberOfDesks: 10,
-            websiteUrl: "scaperune.com",
-        },
-    ]);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+
+    const onAddNewOfficeSubmit = async (data: InitiateOfficeListingRequest) => {
+
+        setSubmitError(null);
+        setSuccessMessage(null);
+
+        try {
+            const newOffice = await OfficeListingController.submitForm(data);
+            setSuccessMessage("Office created successfully!");
+
+            // Wrap the new office data with placeholder details
+            const newOfficeWithDetails: OfficeListing = {
+                officeId: newOffice.officeId,
+                officeAddressDetails: {
+                    id: Date.now(), // Temporary unique ID
+                    businessId: newOffice.officeAddressDetails.businessId,
+                    officeId: newOffice.officeId,
+                    buildingName: "N/A",
+                    floorNumber: "N/A",
+                    street: "TBD",
+                    city: "TBD",
+                    country: "TBD",
+                    county: "TBD",
+                    postcode: "TBD",
+                    latitude: null,
+                    longitude: null,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                },
+                officeContactDetails: {
+                    id: Date.now(),
+                    businessId: newOffice.officeContactDetails.businessId,
+                    officeId: newOffice.officeId,
+                    primaryContactFirstName: "TBD",
+                    primaryContactLastName: "TBD",
+                    contactEmail: "TBD",
+                    contactNumber: "TBD",
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                },
+                officeSpecifications: {
+                    id: Date.now(),
+                    businessId: newOffice.officeSpecifications.businessId,
+                    officeId: newOffice.officeId,
+                    officeName: "New Office",
+                    description: "No description provided.",
+                    officeType: "TBD",
+                    numberOfFloors: 0,
+                    totalDesks: 0,
+                    capacity: 0,
+                    amenities: [],
+                    availability: {
+                        days: [],
+                        startTime: "00:00",
+                        endTime: "00:00",
+                    },
+                    rules: "TBD",
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                },
+            };
+
+
+            console.log(`newOffice: ${newOffice}`)
+            setOffices((prevOffices) => [...prevOffices, newOfficeWithDetails]);
+        } catch (error) {
+            setSubmitError("Failed to create the office. Please try again.");
+        }
+    };
 
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const officesPerPage = 3;
 
-    const filteredOffices = offices.filter(
-        (office) =>
-            office.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            office.city.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredOffices =
+        offices.filter(
+            (office) =>
+                office.officeAddressDetails.buildingName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                office.officeAddressDetails.city?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
 
     const indexOfLastOffice = currentPage * officesPerPage;
 
@@ -113,6 +128,9 @@ const OfficesPage = () => {
         <div className="max-w-6xl mx-auto p-8">
             <h1 className="text-2xl font-bold mb-6">Your Offices</h1>
 
+            {submitError && <p className="text-red-500">{submitError}</p>}
+            {successMessage && <p className="text-green-500">{successMessage}</p>}
+
             {/* Search and Add Office */}
             <div className="mb-6 flex justify-between items-center">
                 <input
@@ -124,7 +142,12 @@ const OfficesPage = () => {
                 />
                 <button
                     className="bg-green-500 text-white py-2 px-4 rounded ml-4 hover:bg-green-600"
-                    onClick={() => console.log("Navigate to Add Office Page")}
+                    onClick={() =>
+                        onAddNewOfficeSubmit({
+                            businessId: "BUS123",
+                            officeId: "New Office",
+                        })
+                    }
                 >
                     Add New Office
                 </button>
@@ -139,22 +162,22 @@ const OfficesPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {currentOffices.map((office) => (
                         <div
-                            key={office.id}
+                            key={office.officeId}
                             className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
                         >
                             <div>
-                                <h2 className="text-lg font-semibold">{office.name}</h2>
+                                <h2 className="text-lg font-semibold">{office.officeSpecifications.officeName}</h2>
                                 <p className="text-gray-600 text-sm">
-                                    {office.description || "No description provided."}
+                                    {office.officeSpecifications.description || "No description provided."}
                                 </p>
                                 <p className="text-sm mt-2">
-                                    <strong>Address:</strong> {office.address}, {office.city}, {office.postcode}
+                                    <strong>Address:</strong> {office.officeAddressDetails.street}  {office.officeAddressDetails.city}  {office.officeAddressDetails.postcode}
                                 </p>
                                 <p className="text-sm">
-                                    <strong>Email:</strong> {office.contactEmail}
+                                    <strong>Email:</strong> {office.officeContactDetails.contactEmail}
                                 </p>
                                 <p className="text-sm">
-                                    <strong>Phone:</strong> {office.contactPhone}
+                                    <strong>Phone:</strong> {office.officeContactDetails.contactNumber}
                                 </p>
                             </div>
 
@@ -179,7 +202,7 @@ const OfficesPage = () => {
                                         <ul className="space-y-1">
                                             <div>
                                                 <p className="text-sm mt-2">
-                                                    <strong>Number of Desks:</strong> {office.numberOfDesks}
+                                                    <strong>Number of Desks:</strong> {office.officeSpecifications.totalDesks}
                                                 </p>
                                             </div>
                                         </ul>

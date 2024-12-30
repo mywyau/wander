@@ -1,12 +1,12 @@
 import AppConfig from '@/config/AppConfig';
 import OfficeContactDetailsController from '@/controllers/office/OfficeContactDetailsController';
-import { OfficeContactDetails } from '@/types/office/OfficeContactDetails';
+import { CreateOfficeContactDetails } from '@/types/office/CreateOfficeContactDetails';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("OfficeContactDetailsController", () => {
 
-    const mockData: OfficeContactDetails = {
+    const mockData: CreateOfficeContactDetails = {
         primaryContactFirstName: "John",
         primaryContactLastName: "Doe",
         contactEmail: "john.doe@example.com",

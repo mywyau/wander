@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 import OfficeAddressDetailsController from "@/controllers/office/OfficeAddressDetailsController";
-import { OfficeAddressDetails } from "@/types/office/OfficeAddressDetails";
+import { CreateOfficeAddressDetails } from "@/types/office/CreateOfficeAddressDetails";
 import OfficeAddressDetailsForm from "@/forms/office/OfficeAddressDetailsForm";
 
 const AddOfficePage = () => {
@@ -12,7 +12,7 @@ const AddOfficePage = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: OfficeAddressDetails) => {
+  const onSubmit = async (data: CreateOfficeAddressDetails) => {
     setSubmitError(null);
     setSuccessMessage(null);
 

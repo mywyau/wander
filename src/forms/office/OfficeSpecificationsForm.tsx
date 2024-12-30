@@ -3,7 +3,7 @@ import NumberInput from "@/components/office/NumberInput";
 import SelectField from "@/components/office/SelectField";
 import TextArea from "@/components/office/TextArea";
 import TextInput from "@/components/office/TextInput";
-import { OfficeSpecifications } from "@/types/office/OfficeSpecifications";
+import { CreateOfficeSpecifications } from "@/types/office/CreateOfficeSpecifications";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { officeSpecificationsFormSchema } from "./schemas/OfficeSpecificationsFormSchema";
@@ -12,7 +12,7 @@ import Availability from "@/components/office/OfficeAvailability";
 
 
 interface OfficeSpecificationsFormProps {
-    onSubmit: (data: OfficeSpecifications) => Promise<void>;
+    onSubmit: (data: CreateOfficeSpecifications) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
 }
@@ -39,7 +39,7 @@ const OfficeSpecificationsForm: React.FC<OfficeSpecificationsFormProps> = ({
         rules: "",
     };
 
-    const methods = useForm<OfficeSpecifications>({
+    const methods = useForm<CreateOfficeSpecifications>({
         resolver: zodResolver(officeSpecificationsFormSchema),
         defaultValues,
         mode: "onSubmit",

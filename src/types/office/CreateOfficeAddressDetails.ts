@@ -1,5 +1,5 @@
 
-export interface OfficeAddressDetails {
+export interface CreateOfficeAddressDetails {
   buildingName?: string;  
   street: string;         
   city: string;           

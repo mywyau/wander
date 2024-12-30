@@ -1,11 +1,11 @@
 import AppConfig from '@/config/AppConfig';
 import OfficeSpecificationsController from '@/controllers/office/OfficeSpecificationsController';
-import { OfficeSpecifications } from '@/types/office/OfficeSpecifications';
+import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifications';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("OfficeSpecificationsController", () => {
-  const mockData: OfficeSpecifications = {
+  const mockData: CreateOfficeSpecifications = {
     officeName: "Downtown Office",
     description: "A modern office space with excellent facilities.",
     officeType: "Open Plan",

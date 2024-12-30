@@ -1,4 +1,4 @@
-import { OfficeAddressDetailsForm } from "@/types/office/OfficeAddressDetails";
+import { OfficeAddressDetailsForm } from "@/types/office/CreateOfficeAddressDetails";
 
 describe("OfficeAddressDetails - JSON Serialization and Deserialization", () => {
 

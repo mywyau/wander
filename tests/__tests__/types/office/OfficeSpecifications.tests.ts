@@ -1,10 +1,10 @@
-import { OfficeSpecifications } from "@/types/office/OfficeSpecifications";
+import { CreateOfficeSpecifications } from "@/types/office/CreateOfficeSpecifications";
 
 describe("OfficeSpecifications - JSON Serialization and Deserialization", () => {
 
   it("should serialize OfficeSpecifications object to JSON", () => {
 
-    const officeSpecifications: OfficeSpecifications = {
+    const officeSpecifications: CreateOfficeSpecifications = {
       officeName: "Downtown Office",
       description: "A modern office space in the heart of downtown.",
       officeType: "Open Plan",
@@ -58,7 +58,7 @@ describe("OfficeSpecifications - JSON Serialization and Deserialization", () => 
       "rules": "No smoking, No pets allowed."
     }`;
 
-    const expectedObject: OfficeSpecifications = {
+    const expectedObject: CreateOfficeSpecifications = {
       officeName: "Downtown Office",
       description: "A modern office space in the heart of downtown.",
       officeType: "Open Plan",
@@ -74,13 +74,13 @@ describe("OfficeSpecifications - JSON Serialization and Deserialization", () => 
       rules: "No smoking, No pets allowed."
     };
 
-    const actualObject = JSON.parse(jsonString) as OfficeSpecifications;
+    const actualObject = JSON.parse(jsonString) as CreateOfficeSpecifications;
     expect(actualObject).toEqual(expectedObject);
   });
 
   it("should handle an empty amenities array correctly", () => {
 
-    const officeSpecifications: OfficeSpecifications = {
+    const officeSpecifications: CreateOfficeSpecifications = {
       officeName: "Small Office",
       description: "A small office space.",
       officeType: "Private",
@@ -131,7 +131,7 @@ describe("OfficeSpecifications - JSON Serialization and Deserialization", () => 
       "rules": "Quiet hours after 2 PM."
     }`;
 
-    const expectedObject: OfficeSpecifications = {
+    const expectedObject: CreateOfficeSpecifications = {
       officeName: "Small Office",
       description: "A small office space.",
       officeType: "Private",
@@ -147,7 +147,7 @@ describe("OfficeSpecifications - JSON Serialization and Deserialization", () => 
       rules: "Quiet hours after 2 PM."
     };
 
-    const actualObject = JSON.parse(jsonString) as OfficeSpecifications;
+    const actualObject = JSON.parse(jsonString) as CreateOfficeSpecifications;
     expect(actualObject).toEqual(expectedObject);
   });
 });

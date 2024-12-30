@@ -3,10 +3,10 @@ import TextInput from "@/components/office/TextInput";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { officeAddressDetailsFormSchema } from "@/forms/office/schemas/OfficeAddressFormSchema";
-import { OfficeAddressDetails } from "@/types/office/OfficeAddressDetails";
+import { CreateOfficeAddressDetails } from "@/types/office/CreateOfficeAddressDetails";
 
 interface OfficeAddressFormProps {
-  onSubmit: (data: OfficeAddressDetails) => Promise<void>;
+  onSubmit: (data: CreateOfficeAddressDetails) => Promise<void>;
   submitError?: string | null;
   successMessage?: string | null;
 }
@@ -26,7 +26,7 @@ const OfficeAddressDetailsForm: React.FC<OfficeAddressFormProps> = ({
     postcode: "",
   };
 
-  const methods = useForm<OfficeAddressDetails>({
+  const methods = useForm<CreateOfficeAddressDetails>({
     resolver: zodResolver(officeAddressDetailsFormSchema),
     defaultValues,
     mode: "onSubmit",

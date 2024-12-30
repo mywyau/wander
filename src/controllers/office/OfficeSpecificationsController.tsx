@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import { OfficeSpecifications } from '@/types/office/OfficeSpecifications';
+import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifications';
 
 interface OfficeSpecificationsControllerResult {
   success: boolean;
@@ -7,7 +7,7 @@ interface OfficeSpecificationsControllerResult {
 }
 
 class OfficeSpecificationsController {
-  async submitForm(data: OfficeSpecifications): Promise<OfficeSpecificationsControllerResult> {
+  async submitForm(data: CreateOfficeSpecifications): Promise<OfficeSpecificationsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/specifications/create`

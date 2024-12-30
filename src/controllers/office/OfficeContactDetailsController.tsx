@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import { OfficeContactDetails } from '@/types/office/OfficeContactDetails'; // Ensure to import the types
+import { CreateOfficeContactDetails } from '@/types/office/CreateOfficeContactDetails'; // Ensure to import the types
 
 // Interface for the result returned by the submitForm method
 interface OfficeContactDetailsControllerResult {
@@ -8,7 +8,7 @@ interface OfficeContactDetailsControllerResult {
 }
 
 class OfficeContactDetailsController {
-  async submitForm(data: OfficeContactDetails): Promise<OfficeContactDetailsControllerResult> {
+  async submitForm(data: CreateOfficeContactDetails): Promise<OfficeContactDetailsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/contact/details/create`

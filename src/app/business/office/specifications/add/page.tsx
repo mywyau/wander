@@ -2,7 +2,7 @@
 
 import OfficeSpecificationsController from "@/controllers/office/OfficeSpecificationsController";
 import OfficeSpecificationsForm from "@/forms/office/OfficeSpecificationsForm";
-import { OfficeSpecifications } from "@/types/office/OfficeSpecifications";
+import { CreateOfficeSpecifications } from "@/types/office/CreateOfficeSpecifications";
 import { useState } from "react";
 
 
@@ -12,7 +12,7 @@ const AddOfficeSpecificationsPage = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: OfficeSpecifications) => {
+  const onSubmit = async (data: CreateOfficeSpecifications) => {
     setSubmitError(null);
     setSuccessMessage(null);
 

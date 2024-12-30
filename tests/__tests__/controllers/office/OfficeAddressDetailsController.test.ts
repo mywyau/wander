@@ -1,12 +1,12 @@
 import AppConfig from '@/config/AppConfig';
 import OfficeAddressDetailsController from '@/controllers/office/OfficeAddressDetailsController';
-import { OfficeAddressDetails } from '@/types/office/OfficeAddressDetails';
+import { CreateOfficeAddressDetails } from '@/types/office/CreateOfficeAddressDetails';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("OfficeAddressDetailsController", () => {
     
-    const mockData: OfficeAddressDetails = {
+    const mockData: CreateOfficeAddressDetails = {
         buildingName: "Building A",
         street: "123 Main Street",
         city: "Metropolis",

@@ -2,7 +2,7 @@
 
 import OfficeContactDetailsController from "@/controllers/office/OfficeContactDetailsController";
 import OfficeContactDetailsForm from "@/forms/office/OfficeContactDetailsForm";
-import { OfficeContactDetails } from "@/types/office/OfficeContactDetails";
+import { CreateOfficeContactDetails } from "@/types/office/CreateOfficeContactDetails";
 import { useState } from "react";
 
 const AddOfficeContactDetailsPage = () => {
@@ -10,7 +10,7 @@ const AddOfficeContactDetailsPage = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: OfficeContactDetails) => {
+  const onSubmit = async (data: CreateOfficeContactDetails) => {
     setSubmitError(null);
     setSuccessMessage(null);
 
