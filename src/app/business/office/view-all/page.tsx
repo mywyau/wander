@@ -4,13 +4,65 @@ import OfficeListingController from "@/controllers/office/OfficeListingControlle
 import { InitiateOfficeListingRequest } from "@/types/office/InitiateOfficeListingRequest";
 import { OfficeListing } from "@/types/office/OfficeListing";
 import Link from "next/link";
-import { useState } from "react";
-import mockOfficeListings from "./mockOfficeListings";
+import { useEffect, useState } from "react";
+
+const transformOfficeListing = (office: OfficeListing): OfficeListing => {
+    return {
+        officeId: office.officeId || "N/A",
+        officeAddressDetails: {
+            id: office.officeAddressDetails?.id || Date.now(),
+            businessId: office.officeAddressDetails?.businessId || "Unknown",
+            officeId: office.officeId || "N/A",
+            buildingName: office.officeAddressDetails?.buildingName || "N/A",
+            floorNumber: office.officeAddressDetails?.floorNumber || "N/A",
+            street: office.officeAddressDetails?.street || "TBD",
+            city: office.officeAddressDetails?.city || "TBD",
+            country: office.officeAddressDetails?.country || "TBD",
+            county: office.officeAddressDetails?.county || "TBD",
+            postcode: office.officeAddressDetails?.postcode || "TBD",
+            latitude: office.officeAddressDetails?.latitude || null,
+            longitude: office.officeAddressDetails?.longitude || null,
+            createdAt: office.officeAddressDetails?.createdAt || new Date().toISOString(),
+            updatedAt: office.officeAddressDetails?.updatedAt || new Date().toISOString(),
+        },
+        officeContactDetails: {
+            id: office.officeContactDetails?.id || Date.now(),
+            businessId: office.officeContactDetails?.businessId || "Unknown",
+            officeId: office.officeId || "N/A",
+            primaryContactFirstName: office.officeContactDetails?.primaryContactFirstName || "TBD",
+            primaryContactLastName: office.officeContactDetails?.primaryContactLastName || "TBD",
+            contactEmail: office.officeContactDetails?.contactEmail || "TBD",
+            contactNumber: office.officeContactDetails?.contactNumber || "TBD",
+            createdAt: office.officeContactDetails?.createdAt || new Date().toISOString(),
+            updatedAt: office.officeContactDetails?.updatedAt || new Date().toISOString(),
+        },
+        officeSpecifications: {
+            id: office.officeSpecifications?.id || Date.now(),
+            businessId: office.officeSpecifications?.businessId || "Unknown",
+            officeId: office.officeId || "N/A",
+            officeName: office.officeSpecifications?.officeName || "New Office",
+            description: office.officeSpecifications?.description || "No description provided.",
+            officeType: office.officeSpecifications?.officeType || "TBD",
+            numberOfFloors: office.officeSpecifications?.numberOfFloors || 0,
+            totalDesks: office.officeSpecifications?.totalDesks || 0,
+            capacity: office.officeSpecifications?.capacity || 0,
+            amenities: office.officeSpecifications?.amenities || [],
+            availability: office.officeSpecifications?.availability || {
+                days: [],
+                startTime: "00:00",
+                endTime: "00:00",
+            },
+            rules: office.officeSpecifications?.rules || "TBD",
+            createdAt: office.officeSpecifications?.createdAt || new Date().toISOString(),
+            updatedAt: office.officeSpecifications?.updatedAt || new Date().toISOString(),
+        },
+    };
+};
+
 
 const OfficesPage = () => {
 
     const [isCollapsed, setIsCollapsed] = useState(false);
-
     const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
         moreDetails: false,
     });
@@ -24,12 +76,28 @@ const OfficesPage = () => {
         );
     };
 
-    const [offices, setOffices] =
-        useState<OfficeListing[]>(mockOfficeListings);
+    const [offices, setOffices] = useState<OfficeListing[]>([]);
 
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+    // Fetch all offices on page load
+    useEffect(() => {
+        const fetchOffices = async () => {
+            try {
+                const fetchedOffices = await OfficeListingController.getAllOffices(); // Replace with your actual fetch API
+
+                // Transform each fetched office listing
+                const transformedOffices = fetchedOffices.map(transformOfficeListing);
+
+                setOffices(transformedOffices);
+            } catch (error) {
+                console.error("Failed to fetch offices:", error);
+            }
+        };
+
+        fetchOffices();
+    }, []);
 
     const onAddNewOfficeSubmit = async (data: InitiateOfficeListingRequest) => {
 
