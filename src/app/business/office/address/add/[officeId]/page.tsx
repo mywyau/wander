@@ -2,13 +2,22 @@
 // Refactored AddOfficePage
 "use client";
 
-import { useState } from "react";
 import OfficeAddressDetailsController from "@/controllers/office/OfficeAddressDetailsController";
-import { CreateOfficeAddressDetails } from "@/types/office/CreateOfficeAddressDetails";
 import OfficeAddressDetailsForm from "@/forms/office/OfficeAddressDetailsForm";
+import { CreateOfficeAddressDetails } from "@/types/office/CreateOfficeAddressDetails";
+import { useState } from "react";
 
-const AddOfficePage = () => {
-  
+
+interface AddOfficePageProps {
+  params: {
+    officeId: string
+  };
+}
+
+export default function AddOfficePage({ params }: AddOfficePageProps) {
+
+  const { officeId } = params;
+
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -16,7 +25,7 @@ const AddOfficePage = () => {
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await OfficeAddressDetailsController.submitForm(data);
+    const result = await OfficeAddressDetailsController.submitForm(data, officeId);
 
     if (result.success) {
       setSuccessMessage(result.message);
@@ -35,5 +44,3 @@ const AddOfficePage = () => {
     </div>
   );
 };
-
-export default AddOfficePage;

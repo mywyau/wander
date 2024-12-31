@@ -8,7 +8,7 @@ const OfficeViewAllPagination: React.FC<OfficeViewAllPaginationProps> = ({
     successMessage,
 }) => {
     return (
-        <div>
+        <div className="mb-4">
             {submitError && <p className="text-red-500">{submitError}</p>}
             {successMessage && <p className="text-green-500">{successMessage}</p>}
         </div>

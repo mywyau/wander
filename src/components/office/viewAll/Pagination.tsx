@@ -1,11 +1,11 @@
 
 
-import { OfficeListing } from "@/types/office/OfficeListing";
+import { OfficeListingCard } from "@/types/office/OfficeListing";
 import { SetStateAction } from "react";
 
 
 interface OfficeViewAllPagination {
-    filteredOffices: OfficeListing[];
+    filteredOffices: OfficeListingCard[];
     officesPerPage: number;
     totalPages: number;
     currentPage: number;

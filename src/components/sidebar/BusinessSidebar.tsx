@@ -13,7 +13,6 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
         desks: false,
     });
 
-    // Toggle collapse state
     const toggleCollapse = () => {
         setIsCollapsed(!isCollapsed);
     };
@@ -143,16 +142,6 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                         {
                             expandedSections.offices && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">
-                                    <li>
-                                        <Link href="/business/office/view-all" className="hover:text-indigo-700">
-                                            View all offices
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
-                                            View office detailed view
-                                        </Link>
-                                    </li>
                                     <li>
                                         <Link href="/business/office/view-all" className="hover:text-indigo-700">
                                             View all offices
