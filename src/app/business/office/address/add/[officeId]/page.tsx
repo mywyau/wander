@@ -14,7 +14,7 @@ interface AddOfficePageProps {
   };
 }
 
-export default function AddOfficePage({ params }: AddOfficePageProps) {
+export default function EditOfficeAddressPage({ params }: AddOfficePageProps) {
 
   const { officeId } = params;
 

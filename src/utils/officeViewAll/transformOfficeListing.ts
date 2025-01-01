@@ -1,4 +1,3 @@
-import { OfficeListing } from "@/types/office/OfficeListing";
 
 
 const transformOfficeListing = (office: OfficeListingCard): OfficeListingCard => {

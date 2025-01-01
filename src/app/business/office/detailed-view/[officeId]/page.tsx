@@ -5,8 +5,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface OfficeDetailedViewProps {
-  params: { 
-    officeId: string, 
+  params: {
+    officeId: string,
   };
 }
 
@@ -39,7 +39,7 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
             <p><strong>Postcode:</strong> {officeAddressDetails.postcode}</p>
             <p><strong>Country:</strong> {officeAddressDetails.country}</p>
             <p><strong>County:</strong> {officeAddressDetails.county}</p>
-            
+
             <div className="mt-4 flex gap-6">
               <Link href={`/business/office/address/add/${officeId}`} className="text-blue-600 underline">
                 Edit Address Details
@@ -50,6 +50,9 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
           {/* Contact Section */}
           <div>
             <h2 className="text-lg font-semibold mb-2 underline">Contact Information</h2>
+            <p>
+              <strong>Primary Contact Name:</strong>{` ${officeContactDetails.primaryContactFirstName} ${officeContactDetails.primaryContactLastName}`}
+            </p>
             <p>
               <strong>Email:</strong>{" "}
               <a href={`mailto:${officeContactDetails.contactEmail}`} className="text-blue-500 hover:underline">

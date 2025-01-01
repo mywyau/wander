@@ -34,9 +34,8 @@ const TextInput: React.FC<TextInputProps> = ({
         name={name}
         placeholder={placeholder}
         {...register(name)}
-        className={`mt-1 px-4 py-2 border rounded-md ${
-          error ? "border-red-500" : "border-gray-300"
-        } ${inputClassName}`}
+        className={`mt-1 px-4 py-2 border rounded-md ${error ? "border-red-500" : "border-gray-300"
+          } ${inputClassName}`}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
       />

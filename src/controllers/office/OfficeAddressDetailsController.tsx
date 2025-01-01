@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import { CreateOfficeAddressDetails, UpdateOfficeAddressDetails } from '@/types/office/CreateOfficeAddressDetails'; // Ensure to import the types
+import { UpdateOfficeAddressDetails } from '@/types/office/CreateOfficeAddressDetails'; // Ensure to import the types
 
 // Interface for the result returned by the submitForm method
 interface OfficeAddressDetailsControllerResult {
@@ -8,7 +8,7 @@ interface OfficeAddressDetailsControllerResult {
 }
 
 class OfficeAddressDetailsController {
-  async submitForm(data: UpdateOfficeAddressDetails, officeid:string): Promise<OfficeAddressDetailsControllerResult> {
+  async submitForm(data: UpdateOfficeAddressDetails, officeid: string): Promise<OfficeAddressDetailsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/address/${officeid}`
