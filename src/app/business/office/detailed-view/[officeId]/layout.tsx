@@ -2,11 +2,12 @@
 import React from 'react';
 
 import "@/app/globals.css";
-import BusinessSidebar from '@/components/business/BusinessSidebar';
 import AuthProvider from "@/components/misc/AuthProvider";
+import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 import Navbar from "@/components/misc/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
 
 // Load fonts
 const geistSans = localFont({

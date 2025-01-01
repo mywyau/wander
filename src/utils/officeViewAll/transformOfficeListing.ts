@@ -1,7 +1,7 @@
 import { OfficeListing } from "@/types/office/OfficeListing";
 
 
-const transformOfficeListing = (office: OfficeListing): OfficeListing => {
+const transformOfficeListing = (office: OfficeListingCard): OfficeListingCard => {
     return {
         officeId: office.officeId || "N/A",
         officeAddressDetails: {

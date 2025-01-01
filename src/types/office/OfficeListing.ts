@@ -1,10 +1,17 @@
 import { OfficeAvailability } from "./OfficeAvailability";
 
+export interface OfficeListingCard {
+  businessId: string,
+  officeId: string,
+  officeName: string,
+  description: string
+}
+
 export interface OfficeListing {
-  officeId: string;
-  officeAddressDetails: OfficeAddressDetails;
-  officeContactDetails: OfficeContactDetails;
-  officeSpecifications: OfficeSpecifications;
+  officeId: string,
+  officeAddressDetails: OfficeAddressDetails,
+  officeContactDetails: OfficeContactDetails,
+  officeSpecifications: OfficeSpecifications,
 }
 
 export interface OfficeAddressDetails {

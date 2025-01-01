@@ -7,13 +7,12 @@ import OfficeViewAllPagination from "@/components/office/viewAll/Pagination";
 import SearchAndFilterOffices from "@/components/office/viewAll/SearchAndFilterOffices";
 import OfficeListingController from "@/controllers/office/OfficeListingController";
 import { InitiateOfficeListingRequest } from "@/types/office/InitiateOfficeListingRequest";
-import { OfficeListing } from "@/types/office/OfficeListing";
-import transformOfficeListing from '@/utils/officeViewAll/transformOfficeListing';
+import { OfficeListingCard } from "@/types/office/OfficeListing";
 import { useEffect, useState } from "react";
 
 const OfficesPage = () => {
 
-    const [offices, setOffices] = useState<OfficeListing[]>([]);
+    const [offices, setOffices] = useState<OfficeListingCard[]>([]);
 
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -25,9 +24,8 @@ const OfficesPage = () => {
     const filteredOffices =
         offices.filter(
             (office) =>
-                office.officeSpecifications.officeName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                office.officeSpecifications.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                office.officeSpecifications.officeType?.toLowerCase().includes(searchQuery.toLowerCase())
+                office.officeName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                office.description?.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
     const indexOfLastOffice = currentPage * officesPerPage;
@@ -47,10 +45,10 @@ const OfficesPage = () => {
         const fetchOffices = async () => {
             try {
 
-                const fetchedOffices = await OfficeListingController.getAllOffices();
-                const transformedOffices: OfficeListing[] = fetchedOffices.map(transformOfficeListing);
+                const fetchedOffices = await OfficeListingController.getAllOfficeListingCards();
+                // const transformedOffices: OfficeListingCard[] = fetchedOffices.map(transformOfficeListing);
 
-                setOffices(transformedOffices);
+                setOffices(fetchedOffices);
             } catch (error) {
                 console.error("Failed to fetch offices:", error);
             }
@@ -68,55 +66,12 @@ const OfficesPage = () => {
             const newOffice = await OfficeListingController.addNewOffice(data);
             setSuccessMessage("Office created successfully!");
 
-            const newOfficeWithDetails: OfficeListing = {
-                officeId: newOffice.officeId,
-                officeAddressDetails: {
-                    id: Date.now(),
-                    businessId: newOffice.officeAddressDetails.businessId,
-                    officeId: newOffice.officeId,
-                    buildingName: "N/A",
-                    floorNumber: "N/A",
-                    street: "TBD",
-                    city: "TBD",
-                    country: "TBD",
-                    county: "TBD",
-                    postcode: "TBD",
-                    latitude: null,
-                    longitude: null,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                },
-                officeContactDetails: {
-                    id: Date.now(),
-                    businessId: newOffice.officeContactDetails.businessId,
-                    officeId: newOffice.officeId,
-                    primaryContactFirstName: "TBD",
-                    primaryContactLastName: "TBD",
-                    contactEmail: "TBD",
-                    contactNumber: "TBD",
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                },
-                officeSpecifications: {
-                    id: Date.now(),
-                    businessId: newOffice.officeSpecifications.businessId,
-                    officeId: newOffice.officeId,
-                    officeName: "New Office",
-                    description: "No description provided.",
-                    officeType: "TBD",
-                    numberOfFloors: 0,
-                    totalDesks: 0,
-                    capacity: 0,
-                    amenities: [],
-                    availability: {
-                        days: [],
-                        startTime: "00:00",
-                        endTime: "00:00",
-                    },
-                    rules: "TBD",
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
-                },
+            const newOfficeWithDetails: OfficeListingCard =
+            {
+                businessId: data.businessId,
+                officeId: data.officeId,
+                officeName: "New Office",
+                description: "Please add a description",
             };
 
             console.log(`newOffice: ${newOffice}`)
@@ -125,7 +80,7 @@ const OfficesPage = () => {
             setSubmitError("Failed to create the office. Please try again.");
         }
     };
-    
+
     const onDeleteOffice = async (officeId: string) => {
         setSubmitError(null);
         setSuccessMessage(null);
@@ -137,12 +92,12 @@ const OfficesPage = () => {
                 setOffices((prevOffices) =>
                     prevOffices.filter((office) => office.officeId !== officeId) // Remove the office with matching officeId
                 );
-                setSuccessMessage("Office DELETED successfully!");
+                setSuccessMessage("Office Deleted successfully!");
             } else {
-                setSubmitError("Failed to DELETE the office. Please try again.");
+                setSubmitError("Failed to delete the office. Please try again.");
             }
         } catch (error) {
-            setSubmitError("Failed to DELETE the office. Please try again.");
+            setSubmitError("Failed to delete the office. Please try again.");
         }
     };
 
@@ -152,17 +107,17 @@ const OfficesPage = () => {
 
             <h1 className="text-2xl font-bold mb-6">Your Offices</h1>
 
-            <OfficeViewAllErrorSummary
-                submitError={submitError}
-                successMessage={successMessage}
-            />
-
             <div className="mb-6 flex justify-between item-center">
 
                 <SearchAndFilterOffices searchQuery={searchQuery} setSearchQueryF={setSearchQuery} />
 
                 <AddNewOfficeButton onSubmit={onAddNewOfficeSubmit} />
             </div>
+
+            <OfficeViewAllErrorSummary
+                submitError={submitError}
+                successMessage={successMessage}
+            />
 
             <OfficeListCards
                 filteredOffices={filteredOffices}

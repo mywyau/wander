@@ -1,22 +1,22 @@
 // app/BusinessProfile/layout.tsx
 import React from 'react';
 
+import "@/app/globals.css";
+import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 import AuthProvider from "@/components/misc/AuthProvider";
-import BusinessSidebar from '@/components/business/BusinessSidebar';
 import Navbar from "@/components/misc/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "../../../globals.css";
 
 // Load fonts
 const geistSans = localFont({
-  src: "../../../fonts/GeistVF.woff",
+  src: "../../../../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 
 const geistMono = localFont({
-  src: "../../../fonts/GeistVF.woff",
+  src: "../../../../fonts/GeistVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });

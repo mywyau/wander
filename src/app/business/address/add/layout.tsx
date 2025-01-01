@@ -2,7 +2,7 @@
 import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
-import BusinessSidebar from '@/components/business/BusinessSidebar';
+import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 import Navbar from "@/components/misc/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
