@@ -5,9 +5,15 @@ import OfficeSpecificationsForm from "@/forms/office/OfficeSpecificationsForm";
 import { CreateOfficeSpecifications } from "@/types/office/CreateOfficeSpecifications";
 import { useState } from "react";
 
+interface EditOfficeSpecificationsPageProps {
+  params: {
+    officeId: string
+  };
+}
 
-const AddOfficeSpecificationsPage = () => {
+export default function EditOfficeSpecificationsPage({ params }: EditOfficeSpecificationsPageProps) {
 
+  const { officeId } = params;
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -16,7 +22,7 @@ const AddOfficeSpecificationsPage = () => {
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await OfficeSpecificationsController.submitForm(data);
+    const result = await OfficeSpecificationsController.submitForm(data, officeId);
 
     if (result.success) {
       setSuccessMessage(result.message);
@@ -35,5 +41,3 @@ const AddOfficeSpecificationsPage = () => {
     </div>
   );
 };
-
-export default AddOfficeSpecificationsPage;

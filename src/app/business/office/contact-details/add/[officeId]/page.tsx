@@ -5,7 +5,16 @@ import OfficeContactDetailsForm from "@/forms/office/OfficeContactDetailsForm";
 import { CreateOfficeContactDetails } from "@/types/office/CreateOfficeContactDetails";
 import { useState } from "react";
 
-const AddOfficeContactDetailsPage = () => {
+
+interface EditOfficeContactDetailsPageProps {
+  params: {
+    officeId: string
+  };
+}
+
+export default function EditOfficeContactDetailsPage({ params }: EditOfficeContactDetailsPageProps) {
+
+  const { officeId } = params;
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -14,7 +23,7 @@ const AddOfficeContactDetailsPage = () => {
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await OfficeContactDetailsController.submitForm(data);
+    const result = await OfficeContactDetailsController.submitUpdateForm(data, officeId);
 
     if (result.success) {
       setSuccessMessage(result.message);
@@ -33,5 +42,3 @@ const AddOfficeContactDetailsPage = () => {
     </div>
   );
 };
-
-export default AddOfficeContactDetailsPage;

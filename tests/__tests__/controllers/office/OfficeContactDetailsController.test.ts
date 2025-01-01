@@ -27,7 +27,7 @@ describe("OfficeContactDetailsController", () => {
             json: async () => ({ success: true, message: "Success" }),
         });
 
-        const result = await OfficeContactDetailsController.submitForm(mockData);
+        const result = await OfficeContactDetailsController.submitUpdateForm(mockData);
 
         expect(result).toEqual({
             success: true,
@@ -61,7 +61,7 @@ describe("OfficeContactDetailsController", () => {
             ok: false,
         });
 
-        const result = await OfficeContactDetailsController.submitForm(mockData);
+        const result = await OfficeContactDetailsController.submitUpdateForm(mockData);
 
         expect(result).toEqual({
             success: false,
@@ -77,7 +77,7 @@ describe("OfficeContactDetailsController", () => {
 
         (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-        const result = await OfficeContactDetailsController.submitForm(mockData);
+        const result = await OfficeContactDetailsController.submitUpdateForm(mockData);
 
         expect(result).toEqual({
             success: false,

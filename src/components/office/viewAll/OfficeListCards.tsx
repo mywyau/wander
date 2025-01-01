@@ -38,33 +38,36 @@ const OfficeListCards: React.FC<OfficeListingsCardsProp> = ({
         </div>
     ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentOffices.map((office) => (
-                <div
-                    key={office.officeId}
-                    className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
-                >
-                    <div>
-                        <h2 className="text-lg font-semibold">{office.officeName}</h2>
-                        <p className="text-gray-600 text-sm">
-                            {office.description || "No description provided."}
-                        </p>
+            {currentOffices.map(
+                (office) => (
+                    <div
+                        key={office.officeId}
+                        className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
+                    >
+                        <div>
+                            <h2 className="text-lg font-semibold">{office.officeName}</h2>
+                            <p className="text-gray-600 text-sm">
+                                {office.description || "No description provided."}
+                            </p>
+                        </div>
+                        <div className="mt-2 flex gap-6">
+                            <button
+                                className="text-base text-blue-600 rounded hover:text-blue-800 underline"
+                                onClick={() => handleViewDetails(office.officeId)}
+                            >
+                                View listing
+                            </button>
+                            <button
+                                className="text-base text-red-500 rounded hover:text-red-700 underline"
+                                onClick={() => onDeleteLinkSubmit(office.officeId)}
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                    <div className="mt-2 flex gap-6">
-                        <button
-                            className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-                            onClick={() => handleViewDetails(office.officeId)}
-                        >
-                            View listing
-                        </button>
-                        <button
-                            className="text-base text-red-500 rounded hover:text-red-700 underline"
-                            onClick={() => onDeleteLinkSubmit(office.officeId)}
-                        >
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            ))}
+                )
+            )
+            }
         </div>
     );
 };

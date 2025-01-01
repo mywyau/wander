@@ -8,10 +8,11 @@ interface OfficeContactDetailsControllerResult {
 }
 
 class OfficeContactDetailsController {
-  async submitForm(data: CreateOfficeContactDetails): Promise<OfficeContactDetailsControllerResult> {
+  
+  async submitUpdateForm(data: CreateOfficeContactDetails, officeid: string): Promise<OfficeContactDetailsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/contact/details/create`
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/contact/details/update/${officeid}`
 
     console.log("[OfficeContactDetailsController] submitForm called");
     console.log("Form Data:", data);
@@ -19,8 +20,7 @@ class OfficeContactDetailsController {
 
     const combinedData = {
       ...data,
-      businessId: "BUS123456",
-      officeId: "OFF123456",
+      updatedAt: new Date().toISOString().slice(0, 19)
     };
 
     console.log("Combined Data:", combinedData);
@@ -28,7 +28,7 @@ class OfficeContactDetailsController {
     try {
 
       const createRequest = {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(combinedData),
       };
