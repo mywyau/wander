@@ -1,4 +1,4 @@
-export interface BusinessContactDetails {
+export interface CreateBusinessContactDetails {
   businessName: string;
   primaryContactFirstName: string;
   primaryContactLastName: string;

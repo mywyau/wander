@@ -1,12 +1,12 @@
 // BusinessAddressForm Component
 import TextInput from "@/components/business/TextInput";
 import { businessAddressDetailsFormSchema } from "@/forms/business/schemas/BusinessAddressDetailsFormSchema";
-import { BusinessAddressDetails } from "@/types/business/BusinessAddressDetails";
+import { CreateBusinessAddressDetails } from "@/types/business/CreateBusinessAddressDetails";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
 interface BusinessAddressFormProps {
-  onSubmit: (data: BusinessAddressDetails) => Promise<void>;
+  onSubmit: (data: CreateBusinessAddressDetails) => Promise<void>;
   submitError?: string | null;
   successMessage?: string | null;
 }
@@ -27,7 +27,7 @@ const BusinessAddressDetailsForm: React.FC<BusinessAddressFormProps> = ({
     postcode: "",
   };
 
-  const methods = useForm<BusinessAddressDetails>({
+  const methods = useForm<CreateBusinessAddressDetails>({
     resolver: zodResolver(businessAddressDetailsFormSchema),
     defaultValues,
     mode: "onSubmit",
@@ -38,7 +38,7 @@ const BusinessAddressDetailsForm: React.FC<BusinessAddressFormProps> = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        <h1 className="text-xl font-bold">Add Business Address Details</h1>
+        <h1 className="text-xl font-bold">Edit Business Address Details</h1>
 
         {submitError && <p className="text-red-500">{submitError}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}

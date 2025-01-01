@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import { BusinessAddressDetails } from '@/types/business/BusinessAddressDetails'; // Ensure to import the types
+import { CreateBusinessAddressDetails } from '@/types/business/CreateBusinessAddressDetails'; // Ensure to import the types
 
 // Interface for the result returned by the submitForm method
 interface BusinessAddressDetailsControllerResult {
@@ -8,10 +8,10 @@ interface BusinessAddressDetailsControllerResult {
 }
 
 class BusinessAddressDetailsController {
-  async submitForm(data: BusinessAddressDetails): Promise<BusinessAddressDetailsControllerResult> {
+  async submitForm(data: CreateBusinessAddressDetails, businessId: string): Promise<BusinessAddressDetailsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/address/details/create`
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/address/details/update/${businessId}`
 
     console.log("[BusinessAddressDetailsController] submitForm called");
     console.log("Form Data:", data);
@@ -19,11 +19,11 @@ class BusinessAddressDetailsController {
 
     const combinedData = {
       ...data,
-      userId: "USER123456",
       businessId: "BUS123456",
       floorNumber: "1",
       latitude: 999,
       longitude: 999,
+      updatedAt: new Date().toISOString().slice(0, 19)
     };
 
 
@@ -32,7 +32,7 @@ class BusinessAddressDetailsController {
     try {
 
       const createRequest = {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(combinedData),
       };

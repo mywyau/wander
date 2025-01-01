@@ -1,7 +1,7 @@
 // BusinessContactForm Component
 import TextInput from "@/components/business/TextInput";
 import { businessContactDetailsFormSchema } from "@/forms/business/schemas/BusinessContactDetailsFormSchema";
-import { BusinessContactDetails } from "@/types/business/BusinessContactDetails";
+import { BusinessContactDetails } from "@/types/business/CreateBusinessContactDetails";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -35,7 +35,7 @@ const BusinessContactDetailsForm: React.FC<BusinessContactFormProps> = ({
     return (
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-                <h1 className="text-xl font-bold">Add Business Contact Details</h1>
+                <h1 className="text-xl font-bold">Edit Business Contact Details</h1>
 
                 {submitError && <p className="text-red-500">{submitError}</p>}
                 {successMessage && <p className="text-green-500">{successMessage}</p>}

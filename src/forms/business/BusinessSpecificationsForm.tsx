@@ -2,14 +2,14 @@
 import BusinessAvailability from "@/components/business/BusinessAvailability";
 import TextArea from "@/components/business/TextArea";
 import TextInput from "@/components/business/TextInput";
-import { BusinessSpecifications } from "@/types/business/BusinessSpecifications";
+import { CreateBusinessSpecifications } from "@/types/business/CreateBusinessSpecifications";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { businessSpecificationsFormSchema } from "./schemas/BusinessSpecificationsFormSchema";
 
 
 interface BusinessSpecificationsFormProps {
-    onSubmit: (data: BusinessSpecifications) => Promise<void>;
+    onSubmit: (data: CreateBusinessSpecifications) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
 }
@@ -30,7 +30,7 @@ const BusinessSpecificationsForm: React.FC<BusinessSpecificationsFormProps> = ({
         },
     };
 
-    const methods = useForm<BusinessSpecifications>({
+    const methods = useForm<CreateBusinessSpecifications>({
         resolver: zodResolver(businessSpecificationsFormSchema),
         defaultValues,
         mode: "onSubmit",
@@ -41,7 +41,7 @@ const BusinessSpecificationsForm: React.FC<BusinessSpecificationsFormProps> = ({
     return (
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-                <h1 className="text-xl font-bold">Add Business Specifications</h1>
+                <h1 className="text-xl font-bold">Edit Business Specifications</h1>
 
                 {submitError && <p className="text-red-500">{submitError}</p>}
                 {successMessage && <p className="text-green-500">{successMessage}</p>}

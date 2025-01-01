@@ -1,11 +1,11 @@
 import AppConfig from '@/config/AppConfig';
 import BusinessSpecificationsController from '@/controllers/business/BusinessSpecificationsController';
-import { BusinessSpecifications } from '@/types/business/BusinessSpecifications';
+import { CreateBusinessSpecifications } from '@/types/business/CreateBusinessSpecifications';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("BusinessSpecificationsController", () => {
-  const mockData: BusinessSpecifications = {
+  const mockData: CreateBusinessSpecifications = {
     businessName: "Tech Innovations",
     description: "Leading technology solutions provider.",
     availability: {

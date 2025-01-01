@@ -1,6 +1,6 @@
 import AppConfig from '@/config/AppConfig';
 import BusinessContactDetailsController from '@/controllers/business/BusinessContactDetailsController';
-import { BusinessContactDetails } from '@/types/business/BusinessContactDetails';
+import { BusinessContactDetails } from '@/types/business/CreateBusinessContactDetails';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
