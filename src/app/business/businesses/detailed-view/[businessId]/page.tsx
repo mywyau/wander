@@ -19,6 +19,7 @@ export default async function BusinessDetailedView({ params }: BusinessDetailedV
     const business: BusinessListing = await BusinessListingController.getBusinessListing(businessId);
     console.log("[BusinessDetailedView] Fetched business details:", business);
 
+
     const { addressDetails, businessContactDetails, businessSpecs } = business;
 
     return (
@@ -82,7 +83,7 @@ export default async function BusinessDetailedView({ params }: BusinessDetailedV
           {/* Corrected Button Logic */}
           <div>
             <Link
-              href={`/business/office/view-all/${businessId}?timestamp=${Date.now()}`}
+              href={`/business/office/view-all/${businessId}`}
               className="bg-green-500 text-white py-2 px-4 rounded ml-4 hover:bg-green-600"
             >
               View All Offices for this business
