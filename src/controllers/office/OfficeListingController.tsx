@@ -43,14 +43,13 @@ class OfficeListingController {
     }
   }
 
-  async getAllOfficeListingCards(): Promise<OfficeListingCard[]> {
+  async getAllOfficeListingCards(businessId:string): Promise<OfficeListingCard[]> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/cards/find/all`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/cards/find/all/${businessId}`;
 
     try {
  
-    
       console.log("[OfficeListingController][getAllOfficeListingCards] trying to get all office listing card details");
       console.log(apiUrl);
 

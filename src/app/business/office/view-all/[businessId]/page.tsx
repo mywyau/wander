@@ -11,7 +11,7 @@ export default async function OfficesViewAllPage({ params }: OfficesViewAllPageP
   const { businessId } = params;
 
   // Fetch offices data on the server
-  const offices = await OfficeListingController.getAllOfficeListingCards();
+  const offices = await OfficeListingController.getAllOfficeListingCards(businessId);
 
   return (
     <AddNewOfficePage businessId={businessId} initialOffices={offices} />

@@ -70,8 +70,9 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
           {/* Office Specifications Section */}
           <div>
             <h2 className="text-lg font-semibold mb-2 underline">Office Details</h2>
-            <p><strong>Number of Desks:</strong> {officeSpecifications.totalDesks}</p>
+            <p><strong>Rules:</strong> {officeSpecifications.rules}</p>
             <p><strong>Amenities:</strong> {amenities.length > 0 ? amenities.join(", ") : "No amenities available"}</p>
+            <p><strong>Number of Desks:</strong> {officeSpecifications.totalDesks}</p>
             <p><strong>Office Type:</strong> {officeSpecifications.officeType}</p>
             <p><strong>Total Capacity:</strong> {officeSpecifications.capacity}</p>
             <div className="mt-4 flex gap-6">
