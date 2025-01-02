@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import { BusinessSpecifications } from '@/types/business/BusinessSpecifications';
+import { CreateBusinessSpecifications } from '@/types/business/CreateBusinessSpecifications';
 
 interface BusinessSpecificationsControllerResult {
   success: boolean;
@@ -7,10 +7,10 @@ interface BusinessSpecificationsControllerResult {
 }
 
 class BusinessSpecificationsController {
-  async submitForm(data: BusinessSpecifications): Promise<BusinessSpecificationsControllerResult> {
+  async submitForm(data: CreateBusinessSpecifications, businessId: string): Promise<BusinessSpecificationsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/specifications/create`
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/specifications/update/${businessId}`
 
     console.log("[BusinessSpecificationsController] submitForm called");
     console.log("Form Data:", data);
@@ -18,8 +18,7 @@ class BusinessSpecificationsController {
 
     const combinedData = {
       ...data,
-      userId: "USER123456",
-      businessId: "BUS123456"
+      updatedAt: new Date().toISOString().slice(0, 19)
     };
 
     console.log("Combined Data:", combinedData);
@@ -27,7 +26,7 @@ class BusinessSpecificationsController {
     try {
 
       const createRequest = {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(combinedData),
       };

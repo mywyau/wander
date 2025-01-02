@@ -2,28 +2,30 @@ import { InitiateOfficeListingRequest } from "@/types/office/InitiateOfficeListi
 import { IdGenerator } from "@/utils/idGenerator";
 
 interface AddNewOfficeButtonProp {
-    onSubmit: (data: InitiateOfficeListingRequest) => Promise<void>;
+    businessId: string,
+    onSubmit: (data: InitiateOfficeListingRequest) => Promise<void>
 }
 
 const AddNewOfficeButton: React.FC<AddNewOfficeButtonProp> = (
     {
+        businessId,
         onSubmit
     }
 ) => {
 
-    const randomBusinessId = IdGenerator.generateBusinessId();
     const randomOfficeId = IdGenerator.generateOfficeId();
+
+    const request: InitiateOfficeListingRequest =
+    {
+        businessId: businessId,
+        officeId: randomOfficeId,
+    }
 
     return (
         <button
             className="bg-green-500 text-white py-2 px-4 rounded ml-4 hover:bg-green-600"
             onClick={
-                () => onSubmit(
-                    {
-                        businessId: randomBusinessId,
-                        officeId: randomOfficeId,
-                    }
-                )
+                () => onSubmit(request)
             }
         >
             Add New Office

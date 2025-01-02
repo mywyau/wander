@@ -1,6 +1,6 @@
 import { BusinessAvailability } from "./BusinessAvailability";
 
-export interface BusinessSpecifications {
+export interface CreateBusinessSpecifications {
   businessName: string;
   description: string;
   availability: BusinessAvailability;

@@ -91,26 +91,6 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                             View all businesses
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link href="/business/businesses/detailed-view" className="hover:text-indigo-700">
-                                            View business detailed view
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/address/add" className="hover:text-indigo-700">
-                                            Add business address
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/contact-details/add" className="hover:text-indigo-700">
-                                            Add business contact details
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/specifications/add" className="hover:text-indigo-700">
-                                            Add business specifications
-                                        </Link>
-                                    </li>
                                 </ul>
                             )
                         }
@@ -145,26 +125,6 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                     <li>
                                         <Link href="/business/office/view-all" className="hover:text-indigo-700">
                                             View all offices
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/office/detailed-view" className="hover:text-indigo-700">
-                                            View office detailed view
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/office/address/add" className="text-gray-900 hover:text-indigo-700">
-                                            Add office address
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/office/contact-details/add" className="hover:text-indigo-700">
-                                            Add office contact details
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/office/specifications/add" className="hover:text-indigo-700">
-                                            Add office specifications
                                         </Link>
                                     </li>
                                 </ul>

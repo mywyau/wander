@@ -2,19 +2,27 @@
 
 import BusinessAddressDetailsController from "@/controllers/business/BusinessAddressDetailsController";
 import BusinessAddressDetailsForm from "@/forms/business/BusinessAddressDetailsForm";
-import { BusinessAddressDetails } from "@/types/business/BusinessAddressDetails";
+import { CreateBusinessAddressDetails } from "@/types/business/CreateBusinessAddressDetails";
 import { useState } from "react";
 
-const AddBusinessAddressPage = () => {
+interface EditBusinessPageProps {
+  params: {
+    businessId: string
+  };
+}
+
+export default function EditBusinessAddressPage({ params }: EditBusinessPageProps) {
+
+  const { businessId } = params;
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: BusinessAddressDetails) => {
+  const onSubmit = async (data: CreateBusinessAddressDetails) => {
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await BusinessAddressDetailsController.submitForm(data);
+    const result = await BusinessAddressDetailsController.submitForm(data, businessId);
 
     if (result.success) {
       setSuccessMessage(result.message);
@@ -32,5 +40,3 @@ const AddBusinessAddressPage = () => {
     </div>
   );
 };
-
-export default AddBusinessAddressPage;

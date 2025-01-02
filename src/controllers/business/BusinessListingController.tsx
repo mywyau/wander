@@ -1,17 +1,18 @@
 import AppConfig from '@/config/AppConfig';
-import { InitiateOfficeListingRequest } from '@/types/office/InitiateOfficeListingRequest';
-import { OfficeListing, OfficeListingCard } from '@/types/office/OfficeListing';
+import { InitiateBusinessListingRequest } from '@/types/business/InitiateBusinessListingRequest';
+import { BusinessListing, BusinessListingCard } from '@/types/business/BusinessListing';
 
-class OfficeListingController {
-  async addNewOffice(data: InitiateOfficeListingRequest): Promise<OfficeListing> {
+class BusinessListingController {
+  async addNewBusiness(data: InitiateBusinessListingRequest): Promise<BusinessListingCard> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/initiate`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/initiate`;
 
 
     const combinedData = {
       ...data,
-      officeName: "New Office",
+      userId: "USER-1337",
+      businessName: "New Business",
       description: "Please add a description"
     };
 
@@ -24,7 +25,7 @@ class OfficeListingController {
         body: JSON.stringify(combinedData),
       };
 
-      console.log("[OfficeListingController][addNewOffice] trying to add a new office listing, with initial data");
+      console.log("[BusinessListingController][addNewBusiness] trying to add a new business listing, with initial data");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, createRequest);
@@ -33,7 +34,7 @@ class OfficeListingController {
         throw new Error("Failed to submit form");
       }
 
-      const responseData: OfficeListing = await response.json();
+      const responseData: BusinessListingCard = await response.json();
 
       console.log("Successfully submitted:", responseData);
       return responseData;
@@ -43,24 +44,26 @@ class OfficeListingController {
     }
   }
 
-  async getAllOfficeListingCards(): Promise<OfficeListingCard[]> {
+  async getAllBusinessListingCards(): Promise<BusinessListingCard[]> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/cards/find/all`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/cards/find/all`;
 
     try {
- 
-    
-      console.log("[OfficeListingController][getAllOfficeListingCards] trying to get all office listing card details");
+      const getRequest = {
+        method: "GET",
+      };
+
+      console.log("[BusinessListingController][getAllBusinessListingCards] trying to get all business listing card details");
       console.log(apiUrl);
 
-      const response = await fetch(apiUrl, { method: "GET", cache: "no-store" });
+      const response = await fetch(apiUrl, getRequest);
 
       if (!response.ok) {
         throw new Error("Failed to get card data");
       }
 
-      const responseData: OfficeListingCard[] = await response.json();
+      const responseData: BusinessListingCard[] = await response.json();
 
       console.log("Successfully retrieved card details:", responseData);
       return responseData;
@@ -70,13 +73,15 @@ class OfficeListingController {
     }
   }
 
-  async getOfficeListing(officeId:string): Promise<OfficeListing> {
+  async getBusinessListing(businessId:string): Promise<BusinessListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/find/${officeId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/find/${businessId}`;
 
     try {
-      console.log("[OfficeListingController][getOfficeListing] trying to find office listing details for a given id");
+  
+
+      console.log("[BusinessListingController][getBusinessListing] trying to find business listing details for a given id");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, { method: "GET", cache: "no-store" });
@@ -85,28 +90,28 @@ class OfficeListingController {
         throw new Error("Failed to get card data");
       }
 
-      const responseData: OfficeListing = await response.json();
+      const responseData: BusinessListing = await response.json();
 
-      console.log("Successfully retrieved office listing details:", responseData);
+      console.log("Successfully retrieved business listing details:", responseData);
       return responseData;
     } catch (error) {
       console.error("Retrieval error:", error);
-      throw new Error("Failed to retrieve office listing details. Please try again.");
+      throw new Error("Failed to retrieve business listing details. Please try again.");
     }
   }
 
 
-  async deleteOfficeListing(officeId: string): Promise<OfficeListing> {
+  async deleteBusinessListing(businessId: string): Promise<BusinessListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/delete/${officeId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/delete/${businessId}`;
 
     try {
       const deleteRequest = {
         method: "DELETE",
       };
 
-      console.log("[OfficeListingController][deleteOfficeListing] trying to delete office listing");
+      console.log("[BusinessListingController][deleteBusinessListing] trying to delete business listing");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, deleteRequest);
@@ -115,7 +120,7 @@ class OfficeListingController {
         throw new Error("Failed to submit form");
       }
 
-      const responseData: OfficeListing = await response.json();
+      const responseData: BusinessListing = await response.json();
 
       console.log("Successfully deleted:", responseData);
       return responseData;
@@ -129,4 +134,4 @@ class OfficeListingController {
 
 }
 
-export default new OfficeListingController();
+export default new BusinessListingController();
