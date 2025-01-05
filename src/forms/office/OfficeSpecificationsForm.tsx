@@ -12,6 +12,7 @@ import Availability from "@/components/office/OfficeAvailability";
 
 
 interface OfficeSpecificationsFormProps {
+    
     onSubmit: (data: CreateOfficeSpecifications) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
