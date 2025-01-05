@@ -19,7 +19,6 @@ class BusinessContactDetailsController {
 
     const combinedData = {
       ...data,
-      businessId: "OFF1234567",
       updatedAt: new Date().toISOString().slice(0, 19)
     };
 

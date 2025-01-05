@@ -9,12 +9,11 @@ export interface BusinessListingCard {
 export interface BusinessListing {
   businessId: string,
   addressDetails: BusinessAddressDetails,
-  businessContactDetails: BusinessContactDetails,
-  businessSpecs: BusinessSpecifications
+  contactDetails: BusinessContactDetails,
+  specifications: BusinessSpecifications
 }
 
 export interface BusinessAddressDetails {
-  id: number,
   businessId: string,
   buildingName?: string,
   floorNumber?: string,
@@ -24,29 +23,21 @@ export interface BusinessAddressDetails {
   county?: string,
   postcode?: string,
   latitude?: number,
-  longitude?: number,
-  createdAt: string,
-  updatedAt: string
+  longitude?: number
 }
 
 export interface BusinessContactDetails {
-  id: number,
   businessId: string,
   primaryContactFirstName?: string,
   primaryContactLastName?: string,
   contactEmail?: string,
-  contactNumber?: string,
-  createdAt: string,
-  updatedAt: string
+  contactNumber?: string
 }
 
 
 export interface BusinessSpecifications {
-  id: number,
   businessId: string,
   businessName: string,
   description: string,
-  availability?: BusinessAvailability,
-  createdAt: string,
-  updatedAt: string
+  availability?: BusinessAvailability
 }

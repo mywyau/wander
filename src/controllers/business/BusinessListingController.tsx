@@ -8,7 +8,6 @@ class BusinessListingController {
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/initiate`;
 
-
     const combinedData = {
       ...data,
       userId: "USER-1337",

@@ -32,7 +32,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                 <button
                     onClick={toggleCollapse}
                     type="button"
-                    className="p-2 w-10 h-10 ml-auto text-gray-500 rounded-lg"
+                    className="p-2 w-10 h-10 mr-auto text-gray-500 rounded-lg"
                     aria-controls="navbar-default"
                 >
                     <span className="sr-only">Toggle Sidebar</span>
@@ -122,11 +122,11 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                         {
                             expandedSections.offices && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">
-                                    <li>
+                                    {/* <li>
                                         <Link href="/business/office/view-all" className="hover:text-indigo-700">
                                             View all offices
                                         </Link>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             )
                         }

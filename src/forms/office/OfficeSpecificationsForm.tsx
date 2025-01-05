@@ -12,6 +12,7 @@ import Availability from "@/components/office/OfficeAvailability";
 
 
 interface OfficeSpecificationsFormProps {
+    
     onSubmit: (data: CreateOfficeSpecifications) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
@@ -36,7 +37,7 @@ const OfficeSpecificationsForm: React.FC<OfficeSpecificationsFormProps> = ({
             startTime: "09:00",
             endTime: "17:00",
         },
-        rules: "",
+        rules: ""
     };
 
     const methods = useForm<CreateOfficeSpecifications>({
@@ -97,10 +98,10 @@ const OfficeSpecificationsForm: React.FC<OfficeSpecificationsFormProps> = ({
                             register={register}
                             options={[
                                 { value: "CoworkingSpace", label: "Coworking Space" },
-                                { value: "OpenPlanOffice", label: "Open Plan Office" },
-                                { value: "PrivateOffice", label: "Private Office" },
                                 { value: "ExecutiveOffice", label: "Executive Office" },
                                 { value: "MeetingRoom", label: "Meeting Room" },
+                                { value: "OpenPlanOffice", label: "Open Plan Office" },
+                                { value: "PrivateOffice", label: "Private Office" }
                             ]}
                             error={errors.officeType}
                         />

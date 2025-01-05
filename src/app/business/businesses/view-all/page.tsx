@@ -6,7 +6,7 @@ import BusinessViewAllErrorSummary from "@/components/business/viewAll/BusinessV
 import BusinessViewAllPagination from "@/components/business/viewAll/Pagination";
 import SearchAndFilterBusinesses from "@/components/business/viewAll/SearchAndFilterBusinesses";
 import BusinessListingController from "@/controllers/business/BusinessListingController";
-import { BusinessListing, BusinessListingCard } from "@/types/business/BusinessListing";
+import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { InitiateBusinessListingRequest } from "@/types/business/InitiateBusinessListingRequest";
 import { useEffect, useState } from "react";
 
@@ -62,8 +62,8 @@ const BusinessesPage = () => {
         setSuccessMessage(null);
 
         try {
-            
-            const newBusiness:BusinessListingCard = await BusinessListingController.addNewBusiness(data);
+
+            const newBusiness: BusinessListingCard = await BusinessListingController.addNewBusiness(data);
             setSuccessMessage("Business created successfully!");
 
             const newBusinessWithDetails: BusinessListingCard =
@@ -89,7 +89,7 @@ const BusinessesPage = () => {
 
             if (deleteResult) {
                 setBusinesses((prevBusinesses) =>
-                    prevBusinesses.filter((business) => business.businessId !== businessId) 
+                    prevBusinesses.filter((business) => business.businessId !== businessId)
                 );
                 setSuccessMessage("Business Deleted successfully!");
             } else {

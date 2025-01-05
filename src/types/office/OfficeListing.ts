@@ -1,4 +1,4 @@
-import { OfficeAvailability } from "./OfficeAvailability";
+import { OfficeAvailability } from "./OfficeAvailability",
 
 export interface OfficeListingCard {
   businessId: string,
@@ -9,13 +9,12 @@ export interface OfficeListingCard {
 
 export interface OfficeListing {
   officeId: string,
-  officeAddressDetails: OfficeAddressDetails,
-  officeContactDetails: OfficeContactDetails,
-  officeSpecifications: OfficeSpecifications,
+  addressDetails: OfficeAddressDetails,
+  contactDetails: OfficeContactDetails,
+  specifications: OfficeSpecifications,
 }
 
 export interface OfficeAddressDetails {
-  id: number,
   businessId: string,
   officeId: string,
   buildingName?: string,
@@ -26,37 +25,29 @@ export interface OfficeAddressDetails {
   county?: string,
   postcode?: string,
   latitude?: number,
-  longitude?: number,
-  createdAt: string,
-  updatedAt: string
+  longitude?: number
 }
 
 export interface OfficeContactDetails {
-  id: number,
   businessId: string,
   officeId: string,
   primaryContactFirstName?: string,
   primaryContactLastName?: string,
   contactEmail?: string,
-  contactNumber?: string,
-  createdAt: string,
-  updatedAt: string
+  contactNumber?: string
 }
 
 
 export interface OfficeSpecifications {
-  id: number,
   businessId: string,
   officeId: string,
-  officeName: string;
-  description: string;
-  officeType: string;
-  numberOfFloors: number;
-  totalDesks: number;
-  capacity: number;
-  amenities: string[];
-  availability: OfficeAvailability;
-  rules: string;
-  createdAt: string,
-  updatedAt: string
+  officeName: string,
+  description: string,
+  officeType: string,
+  numberOfFloors: number,
+  totalDesks: number,
+  capacity: number,
+  amenities: string[],
+  availability: OfficeAvailability,
+  rules: string,
 }

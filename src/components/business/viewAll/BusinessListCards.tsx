@@ -35,7 +35,7 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
 
     return filteredBusinesses.length === 0 && showNoBusinesssMessage ? (
         <div className="text-center py-8">
-            <p className="text-gray-500 mb-4">No businesss found.</p>
+            <p className="text-gray-500 mb-4">No businesses found.</p>
         </div>
     ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
