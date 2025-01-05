@@ -2,10 +2,8 @@ name: CI - Unit Tests
 
 on:
   push:
-    branches:
+    branches-ignore:
       - main
-      - develop
-  pull_request:
 
 jobs:
   unit-tests:
