@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   traefik:
-    image: traefik:v2.10 # Use the latest version
+    image: traefik:v2.10
     container_name: traefik
     command:
       - "--api=true"
@@ -11,28 +11,40 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
     ports:
-      - "80:80" # HTTP
-      - "8080:8080" # Traefik Dashboard
+      - "80:80"       # HTTP (Traefik routes requests)
+      - "8080:8080"   # Traefik Dashboard
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock" # Access to Docker
-      - "./traefik.yml:/etc/traefik/traefik.yml" # Traefik config (optional)
-      
-  frontend1:
-    image: your-frontend-service-1:latest
-    container_name: frontend1
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend1.rule=Host(`frontend1.localhost`)"
-      - "traefik.http.services.frontend1.loadbalancer.server.port=3000"
+      - "/var/run/docker.sock:/var/run/docker.sock" # Allow Traefik to interact with Docker
+      - "./traefik.yml:/etc/traefik/traefik.yml"    # Optional Traefik config
+    networks:
+      - traefik-network
 
-  frontend2:
-    image: your-frontend-service-2:latest
-    container_name: frontend2
+  wander-dev:
+    build:
+      context: ./path-to-wander
+      dockerfile: Dockerfile.dev
+    image: wander-dev:latest
+    container_name: wander-dev
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend2.rule=Host(`frontend2.localhost`)"
-      - "traefik.http.services.frontend2.loadbalancer.server.port=3001"
+      - "traefik.http.routers.wander-dev.rule=Host(`wander.localhost`)"
+      - "traefik.http.services.wander-dev.loadbalancer.server.port=3000"
+    networks:
+      - traefik-network
+
+  reggie-dev:
+    build:
+      context: ./path-to-reggie
+      dockerfile: Dockerfile.dev
+    image: reggie-dev:latest
+    container_name: reggie-dev
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.reggie-dev.rule=Host(`reggie.localhost`)"
+      - "traefik.http.services.reggie-dev.loadbalancer.server.port=3000"
+    networks:
+      - traefik-network
 
 networks:
-  shared-network:
+  traefik-network:
     external: true

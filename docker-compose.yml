@@ -6,28 +6,36 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "3001:3000" # Map to a different external port
     volumes:
       - .:/app
       - /app/node_modules
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wander-dev.rule=Host(`dev-wander.localhost`)"
+      - "traefik.http.services.wander-dev.loadbalancer.server.port=3000"
     environment:
       NODE_ENV: development
     command: npm run dev
     networks:
-      - shared-network
+      - traefik-network
 
   nextjs-prod:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3002:3000" # Use a different port for production
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wander-prod.rule=Host(`prod-wander.localhost`)"
+      - "traefik.http.services.wander-prod.loadbalancer.server.port=3000"
     environment:
       NODE_ENV: production
     command: npm run start
     networks:
-      - shared-network
+      - traefik-network
 
 networks:
-  shared-network:
+  traefik-network:
     external: true
