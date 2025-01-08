@@ -124,6 +124,35 @@ class OfficeListingController {
     }
   }
 
+  async deleteAllOfficeListings(businessId: string): Promise<OfficeListing> {
+
+    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/delete/all/${businessId}`;
+
+    try {
+      const deleteRequest = {
+        method: "DELETE",
+      };
+
+      console.log("[OfficeListingController][deleteOfficeListing] trying to delete ALL office listings");
+      console.log(apiUrl);
+
+      const response = await fetch(apiUrl, deleteRequest);
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      const responseData: OfficeListing = await response.json();
+
+      console.log("Successfully deleted:", responseData);
+      return responseData;
+    } catch (error) {
+      console.error("Submission error:", error);
+      throw new Error("Failed to submit the form. Please try again.");
+    }
+  }
+
 
 
 }
