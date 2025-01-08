@@ -3,14 +3,20 @@
 import AddNewBusinessButton from "@/components/business/viewAll/AddNewBusinessButton";
 import BusinessListCards from "@/components/business/viewAll/BusinessListCards";
 import BusinessViewAllErrorSummary from "@/components/business/viewAll/BusinessViewAllErrorSummary";
+import DeleteAllBusinessListingsButton from "@/components/business/viewAll/DeleteAllBusinessListingsButton";
 import BusinessViewAllPagination from "@/components/business/viewAll/Pagination";
 import SearchAndFilterBusinesses from "@/components/business/viewAll/SearchAndFilterBusinesses";
 import BusinessListingController from "@/controllers/business/BusinessListingController";
 import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { InitiateBusinessListingRequest } from "@/types/business/InitiateBusinessListingRequest";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-const BusinessesPage = () => {
+const ViewAllBusinessListingsPage = () => {
+
+    const { data: session } = useSession(); // Retrieve session from NextAuth.js
+    const userId = session?.userId; // Access userId from session
+    console.log(`userId: ${userId}`);
 
     const [businesses, setBusinesses] = useState<BusinessListingCard[]>([]);
 
@@ -101,6 +107,31 @@ const BusinessesPage = () => {
     };
 
 
+    const onDeleteAllOfficesSubmit = async () => {
+
+        if (!userId) {
+            setSubmitError("User not authenticated");
+            return;
+        }
+
+        setSubmitError(null);
+        setSuccessMessage(null);
+
+        try {
+            const deleteResult = await BusinessListingController.deleteAllBusinessListings(userId);
+
+            if (deleteResult) {
+                setBusinesses((prevBusinesses) => []);
+                setSuccessMessage("All Business Listings Deleted successfully!");
+            } else {
+                setSubmitError("Failed to delete all business listings. Please try again.");
+            }
+        } catch (error) {
+            setSubmitError("Failed to delete all business listings. Please try again.");
+        }
+    };
+
+
     return (
         <div className="max-w-6xl mx-auto p-8">
 
@@ -132,8 +163,13 @@ const BusinessesPage = () => {
                 setCurrentPage={setCurrentPage}
 
             />
+
+            <div className="mt-4 mb-6">
+
+                <DeleteAllBusinessListingsButton userId={userId} onSubmit={onDeleteAllOfficesSubmit} />
+            </div>
         </div>
     );
 };
 
-export default BusinessesPage;
+export default ViewAllBusinessListingsPage;
