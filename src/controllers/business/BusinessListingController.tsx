@@ -46,7 +46,7 @@ class BusinessListingController {
   async getAllBusinessListingCards(): Promise<BusinessListingCard[]> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/cards/find/all`;
+    const apiUrl = `http://pistachio.localhost/pistachio/business/businesses/listing/cards/find/all`;
 
     try {
       const getRequest = {
