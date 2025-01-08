@@ -9,13 +9,13 @@ import SearchAndFilterBusinesses from "@/components/business/viewAll/SearchAndFi
 import BusinessListingController from "@/controllers/business/BusinessListingController";
 import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { InitiateBusinessListingRequest } from "@/types/business/InitiateBusinessListingRequest";
-import { useSession } from "next-auth/react";
+import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
+
 
 const ViewAllBusinessListingsPage = () => {
 
-    const { data: session } = useSession(); // Retrieve session from NextAuth.js
-    const userId = session?.userId; // Access userId from session
+    const userId = getCookie("userId");
     console.log(`userId: ${userId}`);
 
     const [businesses, setBusinesses] = useState<BusinessListingCard[]>([]);
@@ -109,10 +109,10 @@ const ViewAllBusinessListingsPage = () => {
 
     const onDeleteAllOfficesSubmit = async () => {
 
-        if (!userId) {
-            setSubmitError("User not authenticated");
-            return;
-        }
+        // if (!userId) {
+        //     setSubmitError("User not authenticated");
+        //     return;
+        // }
 
         setSubmitError(null);
         setSuccessMessage(null);
