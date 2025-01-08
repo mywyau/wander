@@ -1,6 +1,7 @@
 "use client";
 
 import AddNewOfficeButton from "@/components/office/viewAll/AddNewOfficeButton";
+import DeleteAllOfficeListingsButton from "@/components/office/viewAll/DeleteAllOfficeListingsButton";
 import OfficeListCards from "@/components/office/viewAll/OfficeListCards";
 import OfficeViewAllErrorSummary from "@/components/office/viewAll/OfficeViewAllErrorSummary";
 import OfficeViewAllPagination from "@/components/office/viewAll/Pagination";
@@ -10,8 +11,8 @@ import { InitiateOfficeListingRequest } from "@/types/office/InitiateOfficeListi
 import { OfficeListing, OfficeListingCard } from "@/types/office/OfficeListing";
 import { useState } from "react";
 
-export default function AddNewOfficePage({ businessId, initialOffices }: { businessId: string; initialOffices: OfficeListingCard[] }) {
-    
+export default function ViewAllOfficesPage({ businessId, initialOffices }: { businessId: string; initialOffices: OfficeListingCard[] }) {
+
     const [offices, setOffices] = useState<OfficeListingCard[]>(initialOffices);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -52,6 +53,7 @@ export default function AddNewOfficePage({ businessId, initialOffices }: { busin
     };
 
     const onDeleteOffice = async (officeId: string) => {
+
         setSubmitError(null);
         setSuccessMessage(null);
 
@@ -61,6 +63,25 @@ export default function AddNewOfficePage({ businessId, initialOffices }: { busin
             if (deleteResult) {
                 setOffices((prevOffices) => prevOffices.filter((office) => office.officeId !== officeId));
                 setSuccessMessage("Office Deleted successfully!");
+            } else {
+                setSubmitError("Failed to delete the office. Please try again.");
+            }
+        } catch (error) {
+            setSubmitError("Failed to delete the office. Please try again.");
+        }
+    };
+
+    const onDeleteAllOfficesSubmit = async (businessId: string) => {
+
+        setSubmitError(null);
+        setSuccessMessage(null);
+
+        try {
+            const deleteResult = await OfficeListingController.deleteAllOfficeListings(businessId);
+
+            if (deleteResult) {
+                setOffices((prevOffices) => []);
+                setSuccessMessage("All Offices Deleted successfully!");
             } else {
                 setSubmitError("Failed to delete the office. Please try again.");
             }
@@ -80,19 +101,27 @@ export default function AddNewOfficePage({ businessId, initialOffices }: { busin
 
             <OfficeViewAllErrorSummary submitError={submitError} successMessage={successMessage} />
 
-            <OfficeListCards
-                filteredOffices={filteredOffices}
-                currentOffices={currentOffices}
-                onDeleteLinkSubmit={onDeleteOffice}
-            />
+            <div className="mb-6">
 
-            <OfficeViewAllPagination
-                filteredOffices={filteredOffices}
-                officesPerPage={officesPerPage}
-                totalPages={totalPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
+                <OfficeListCards
+                    filteredOffices={filteredOffices}
+                    currentOffices={currentOffices}
+                    onDeleteLinkSubmit={onDeleteOffice}
+                />
+
+                <OfficeViewAllPagination
+                    filteredOffices={filteredOffices}
+                    officesPerPage={officesPerPage}
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
+            </div>
+
+            <div className="mt-4 mb-6">
+
+                <DeleteAllOfficeListingsButton businessId={businessId} onSubmit={onDeleteAllOfficesSubmit} />
+            </div>
         </div>
     );
 }

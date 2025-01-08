@@ -1,5 +1,5 @@
 import OfficeListingController from "@/controllers/office/OfficeListingController";
-import AddNewOfficePage from "./AddNewOffice";
+import ViewAllOfficesPage from "./ViewAllOfficesPage";
 
 interface OfficesViewAllPageProps {
   params: {
@@ -14,6 +14,6 @@ export default async function OfficesViewAllPage({ params }: OfficesViewAllPageP
   const offices = await OfficeListingController.getAllOfficeListingCards(businessId);
 
   return (
-    <AddNewOfficePage businessId={businessId} initialOffices={offices} />
+    <ViewAllOfficesPage businessId={businessId} initialOffices={offices} />
   );
 }
