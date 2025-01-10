@@ -1,10 +1,10 @@
 
-interface DeleteAllOfficeListingsButton {
+interface DeleteAllOfficeListingsButtonProp {
     businessId: string,
     onSubmit: (businessId: string) => Promise<void>
 }
 
-const AddNewOfficeButton: React.FC<DeleteAllOfficeListingsButton> = (
+const DeleteAllOfficeListingsButton: React.FC<DeleteAllOfficeListingsButtonProp> = (
     {
         businessId,
         onSubmit
@@ -22,4 +22,4 @@ const AddNewOfficeButton: React.FC<DeleteAllOfficeListingsButton> = (
     )
 }
 
-export default AddNewOfficeButton;
+export default DeleteAllOfficeListingsButton;

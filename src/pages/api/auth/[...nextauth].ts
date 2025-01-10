@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/wanderer/login",
+    signIn: "/",
   },
 };
 
