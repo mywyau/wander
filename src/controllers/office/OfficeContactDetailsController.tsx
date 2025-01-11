@@ -8,7 +8,7 @@ interface OfficeContactDetailsControllerResult {
 }
 
 class OfficeContactDetailsController {
-  
+
   async submitUpdateForm(data: CreateOfficeContactDetails, officeid: string): Promise<OfficeContactDetailsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
@@ -19,8 +19,7 @@ class OfficeContactDetailsController {
     console.log(apiUrl);
 
     const combinedData = {
-      ...data,
-      updatedAt: new Date().toISOString().slice(0, 19)
+      ...data
     };
 
     console.log("Combined Data:", combinedData);

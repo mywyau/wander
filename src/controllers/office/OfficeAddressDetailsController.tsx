@@ -11,7 +11,7 @@ class OfficeAddressDetailsController {
   async submitForm(data: UpdateOfficeAddressDetails, officeid: string): Promise<OfficeAddressDetailsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/address/${officeid}`
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/address/details/update/${officeid}`
 
     console.log("[OfficeAddressDetailsController][submitForm] Attempting to update office address details");
     console.log("Form Data:", data);
@@ -21,8 +21,7 @@ class OfficeAddressDetailsController {
       ...data,
       floorNumber: "3",
       latitude: 999,
-      longitude: 999,
-      updatedAt: new Date().toISOString().slice(0, 19)
+      longitude: 999
     };
 
     console.log("Combined Data:", combinedData);

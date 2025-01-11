@@ -5,6 +5,9 @@ import { CreateOfficeAddressDetails } from '@/types/office/CreateOfficeAddressDe
 global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("OfficeAddressDetailsController", () => {
+
+    const officeId = "OFFICE123";
+    const backendUrl = `http://mocked-pistachio-url/pistachio/business/offices/address/details/update/${officeId}`;
     
     const mockData: CreateOfficeAddressDetails = {
         buildingName: "Building A",
@@ -29,7 +32,7 @@ describe("OfficeAddressDetailsController", () => {
             json: async () => ({ success: true, message: "Success" }),
         });
 
-        const result = await OfficeAddressDetailsController.submitForm(mockData);
+        const result = await OfficeAddressDetailsController.submitForm(mockData, officeId);
 
         expect(result).toEqual({
             success: true,
@@ -37,15 +40,13 @@ describe("OfficeAddressDetailsController", () => {
         });
 
         expect(fetch).toHaveBeenCalledWith(
-            "http://mocked-pistachio-url/pistachio/business/offices/address/create",
+            backendUrl,
             expect.objectContaining({
-                method: "POST",
+                method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     ...mockData,
-                    businessId: "BUS123456",
-                    officeId: "OFF123456",
-                    floorNumber: "1",
+                    floorNumber: "3",
                     latitude: 999,
                     longitude: 999,
                 }),
@@ -60,7 +61,7 @@ describe("OfficeAddressDetailsController", () => {
             ok: false,
         });
 
-        const result = await OfficeAddressDetailsController.submitForm(mockData);
+        const result = await OfficeAddressDetailsController.submitForm(mockData, officeId);
 
         expect(result).toEqual({
             success: false,
@@ -73,7 +74,7 @@ describe("OfficeAddressDetailsController", () => {
 
         (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-        const result = await OfficeAddressDetailsController.submitForm(mockData);
+        const result = await OfficeAddressDetailsController.submitForm(mockData, officeId);
 
         expect(result).toEqual({
             success: false,

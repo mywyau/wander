@@ -17,8 +17,7 @@ class BusinessSpecificationsController {
     console.log(apiUrl);
 
     const combinedData = {
-      ...data,
-      updatedAt: new Date().toISOString().slice(0, 19)
+      ...data
     };
 
     console.log("Combined Data:", combinedData);

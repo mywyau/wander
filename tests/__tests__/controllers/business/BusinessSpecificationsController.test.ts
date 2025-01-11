@@ -5,6 +5,10 @@ import { CreateBusinessSpecifications } from '@/types/business/CreateBusinessSpe
 global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("BusinessSpecificationsController", () => {
+
+  const businessId = "BUS123"
+  const backendUrl = `http://mocked-pistachio-url/pistachio/business/businesses/specifications/update/${businessId}`
+
   const mockData: CreateBusinessSpecifications = {
     businessName: "Tech Innovations",
     description: "Leading technology solutions provider.",
@@ -27,7 +31,7 @@ describe("BusinessSpecificationsController", () => {
       json: async () => ({ success: true, message: "Form submitted successfully!" }),
     });
 
-    const result = await BusinessSpecificationsController.submitForm(mockData);
+    const result = await BusinessSpecificationsController.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: true,
@@ -35,14 +39,12 @@ describe("BusinessSpecificationsController", () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/businesses/specifications/create",
+      backendUrl,
       expect.objectContaining({
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...mockData,
-          userId: "USER123456",
-          businessId: "BUS123456",
+          ...mockData
         }),
       })
     );
@@ -55,7 +57,7 @@ describe("BusinessSpecificationsController", () => {
       ok: false,
     });
 
-    const result = await BusinessSpecificationsController.submitForm(mockData);
+    const result = await BusinessSpecificationsController.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,
@@ -63,7 +65,7 @@ describe("BusinessSpecificationsController", () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/businesses/specifications/create",
+      backendUrl,
       expect.any(Object)
     );
   });
@@ -73,7 +75,7 @@ describe("BusinessSpecificationsController", () => {
 
     (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await BusinessSpecificationsController.submitForm(mockData);
+    const result = await BusinessSpecificationsController.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,
@@ -81,7 +83,7 @@ describe("BusinessSpecificationsController", () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/businesses/specifications/create",
+      backendUrl,
       expect.any(Object)
     );
   });

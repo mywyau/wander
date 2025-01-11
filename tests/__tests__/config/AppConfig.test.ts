@@ -71,7 +71,7 @@ describe('AppConfig', () => {
     process.env.NEXT_PUBLIC_CONTAINER_PISITACHIO_PORT = "1010";
 
     expect(AppConfig.useDockerCashew).toBe(true);
-    expect(AppConfig.basePistachioUrl(true)).toBe("pistachio:1010");
+    expect(AppConfig.basePistachioUrl(true)).toBe("pistachio.localhost");
     expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1010");
   });
 

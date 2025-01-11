@@ -19,11 +19,9 @@ class BusinessAddressDetailsController {
 
     const combinedData = {
       ...data,
-      businessId: "BUS123456",
       floorNumber: "1",
       latitude: 999,
       longitude: 999,
-      updatedAt: new Date().toISOString().slice(0, 19)
     };
 
 
