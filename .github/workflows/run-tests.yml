@@ -19,13 +19,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16 # Specify the Node.js version compatible with your Next.js project
+          node-version: 16
 
       # Cache dependencies
       - name: Cache Node.js modules
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: |
+            node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
@@ -36,6 +37,8 @@ jobs:
 
       # Run Unit Tests
       - name: Run unit tests
+        env:
+          CI: true
         run: npm test
 
       # (Optional) Generate coverage report
