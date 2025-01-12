@@ -12,11 +12,11 @@ class AppConfig {
   }
 
   static get cashewContainerHost(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_HOST || "";
   }
 
   static get cashewContainerPort(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_CASHEW_PORT || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_PORT || "";
   }
 
   static get pistachioLocalHost(): string {
@@ -28,11 +28,11 @@ class AppConfig {
   }
 
   static get pistachioContainerHost(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_PISTACHIO_HOST || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_PISTACHIO_HOST || "";
   }
 
   static get pistachioContainerPort(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_PISTACHIO_PORT || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_PISTACHIO_PORT || "";
   }
 
   static get peanutLocalHost(): string {
@@ -44,11 +44,11 @@ class AppConfig {
   }
 
   static get peanutContainerHost(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_PEANUT_HOST || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_PEANUT_HOST || "";
   }
 
   static get peanutContainerPort(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_PEANUT_PORT || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_PEANUT_PORT || "";
   }
 
   static get reggieLocalHost(): string {
@@ -60,33 +60,33 @@ class AppConfig {
   }
 
   static get reggieContainerHost(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_REGGIE_HOST || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_REGGIE_HOST || "";
   }
 
   static get reggieContainerPort(): string {
-    return process.env.NEXT_PUBLIC_CONTAINER_REGGIE_PORT || "";
+    return process.env.NEXT_PUBLIC_TRAEFIK_REGGIE_PORT || "";
   }
 
-  static baseCashewUrl(isContainer: boolean): string {
-    return isContainer
+  static baseCashewUrl(isTraefik: boolean): string {
+    return isTraefik
       ? `${this.cashewContainerHost}${this.cashewContainerPort}`
       : `${this.cashewLocalHost}${this.cashewLocalPort}`;
   }
 
-  static basePistachioUrl(isContainer: boolean): string {
-    return isContainer
+  static basePistachioUrl(isTraefik: boolean): string {
+    return isTraefik
       ? `${this.pistachioContainerHost}${this.pistachioContainerPort}`
       : `${this.pistachioLocalHost}${this.pistachioLocalPort}`;
   }
 
-  static basePeanutUrl(isContainer: boolean): string {
-    return isContainer
+  static basePeanutUrl(isTraefik: boolean): string {
+    return isTraefik
       ? `${this.peanutContainerHost}${this.peanutContainerPort}`
       : `${this.peanutLocalHost}${this.peanutLocalPort}`;
   }
 
-  static getReggieUrl(isContainer: boolean): string {
-    return isContainer
+  static getReggieUrl(isTraefik: boolean): string {
+    return isTraefik
       ? `${this.reggieContainerHost}${this.reggieContainerPort}`
       : `${this.reggieLocalHost}${this.reggieLocalPort}`;
   }
