@@ -65,14 +65,14 @@ describe('AppConfig', () => {
   test('pistachio configs should be correct', () => {
 
     process.env.NEXT_PUBLIC_LOCAL_PISITACHIO_HOST = "localhost:";
-    process.env.NEXT_PUBLIC_LOCAL_PISITACHIO_PORT = "1010";
+    process.env.NEXT_PUBLIC_LOCAL_PISITACHIO_PORT = "1011";
 
     process.env.NEXT_PUBLIC_CONTAINER_PISITACHIO_HOST = "pistachio:";
-    process.env.NEXT_PUBLIC_CONTAINER_PISITACHIO_PORT = "1010";
+    process.env.NEXT_PUBLIC_CONTAINER_PISITACHIO_PORT = "1011";
 
     expect(AppConfig.useDockerCashew).toBe(true);
     expect(AppConfig.basePistachioUrl(true)).toBe("pistachio.localhost");
-    expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1010");
+    expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1011");
   });
 
 
