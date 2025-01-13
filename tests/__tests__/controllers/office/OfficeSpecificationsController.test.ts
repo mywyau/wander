@@ -5,6 +5,11 @@ import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifica
 global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("OfficeSpecificationsController", () => {
+
+  const fakeBusinessId = "BUS123"
+
+  const backendUrl = `http://mocked-pistachio-url/pistachio/business/offices/specifications/update/${fakeBusinessId}`
+
   const mockData: CreateOfficeSpecifications = {
     officeName: "Downtown Office",
     description: "A modern office space with excellent facilities.",
@@ -33,7 +38,7 @@ describe("OfficeSpecificationsController", () => {
       json: async () => ({ success: true, message: "Success" }),
     });
 
-    const result = await OfficeSpecificationsController.submitForm(mockData);
+    const result = await OfficeSpecificationsController.submitForm(mockData, fakeBusinessId);
 
     expect(result).toEqual({
       success: true,
@@ -41,14 +46,12 @@ describe("OfficeSpecificationsController", () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/offices/specifications/create",
+      backendUrl,
       expect.objectContaining({
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...mockData,
-          businessId: "BUS1337",
-          officeId: "OFF1337",
+          ...mockData
         }),
       })
     );
@@ -61,7 +64,7 @@ describe("OfficeSpecificationsController", () => {
       ok: false,
     });
 
-    const result = await OfficeSpecificationsController.submitForm(mockData);
+    const result = await OfficeSpecificationsController.submitForm(mockData, fakeBusinessId);
 
     expect(result).toEqual({
       success: false,
@@ -74,7 +77,7 @@ describe("OfficeSpecificationsController", () => {
 
     (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await OfficeSpecificationsController.submitForm(mockData);
+    const result = await OfficeSpecificationsController.submitForm(mockData, fakeBusinessId);
 
     expect(result).toEqual({
       success: false,

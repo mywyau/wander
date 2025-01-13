@@ -15,8 +15,8 @@ describe('AppConfig', () => {
 
   test('should use container URL when NEXT_PUBLIC_USE_DOCKER_URL is "true"', () => {
     process.env.NEXT_PUBLIC_USE_DOCKER_URL = "true";
-    process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST = "cashew:";
-    process.env.NEXT_PUBLIC_CONTAINER_CASHEW_PORT = "8080";
+    process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_HOST = "cashew:";
+    process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_PORT = "8080";
 
     expect(AppConfig.useDockerCashew).toBe(true);
     expect(AppConfig.baseCashewUrl(true)).toBe("cashew:8080");
@@ -36,8 +36,8 @@ describe('AppConfig', () => {
     delete process.env.NEXT_PUBLIC_USE_DOCKER_URL;
     delete process.env.NEXT_PUBLIC_LOCAL_CASHEW_HOST;
     delete process.env.NEXT_PUBLIC_LOCAL_CASHEW_PORT;
-    delete process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST;
-    delete process.env.NEXT_PUBLIC_CONTAINER_CASHEW_PORT;
+    delete process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_HOST;
+    delete process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_PORT;
 
     expect(AppConfig.useDockerCashew).toBe(false); 
     expect(AppConfig.baseCashewUrl(false)).toBe(""); 
@@ -50,8 +50,8 @@ describe('AppConfig', () => {
     process.env.NEXT_PUBLIC_LOCAL_CASHEW_HOST = "localhost:";
     process.env.NEXT_PUBLIC_LOCAL_CASHEW_PORT = "3000";
 
-    process.env.NEXT_PUBLIC_CONTAINER_CASHEW_HOST = "cashew:";
-    process.env.NEXT_PUBLIC_CONTAINER_CASHEW_PORT = "8080";
+    process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_HOST = "cashew:";
+    process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_PORT = "8080";
 
     expect(AppConfig.useDockerCashew).toBe(true);
     expect(AppConfig.baseCashewUrl(true)).toBe("cashew:8080");
@@ -65,27 +65,27 @@ describe('AppConfig', () => {
   test('pistachio configs should be correct', () => {
 
     process.env.NEXT_PUBLIC_LOCAL_PISITACHIO_HOST = "localhost:";
-    process.env.NEXT_PUBLIC_LOCAL_PISITACHIO_PORT = "1010";
+    process.env.NEXT_PUBLIC_LOCAL_PISITACHIO_PORT = "1011";
 
-    process.env.NEXT_PUBLIC_CONTAINER_PISITACHIO_HOST = "pistachio:";
-    process.env.NEXT_PUBLIC_CONTAINER_PISITACHIO_PORT = "1010";
+    process.env.NEXT_PUBLIC_TRAEFIK_PISITACHIO_HOST = "pistachio:";
+    process.env.NEXT_PUBLIC_TRAEFIK_PISITACHIO_PORT = "1011";
 
     expect(AppConfig.useDockerCashew).toBe(true);
-    expect(AppConfig.basePistachioUrl(true)).toBe("pistachio:1010");
-    expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1010");
+    expect(AppConfig.basePistachioUrl(true)).toBe("pistachio.localhost");
+    expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1011");
   });
 
 
   test('peanut configs should be correct', () => {
 
     process.env.NEXT_PUBLIC_LOCAL_PEANUT_HOST = "localhost:";
-    process.env.NEXT_PUBLIC_LOCAL_PEANUT_PORT = "1011";
+    process.env.NEXT_PUBLIC_LOCAL_PEANUT_PORT = "1012";
 
-    process.env.NEXT_PUBLIC_CONTAINER_PEANUT_HOST = "peanut:";
-    process.env.NEXT_PUBLIC_CONTAINER_PEANUT_PORT = "1011";
+    process.env.NEXT_PUBLIC_TRAEFIK_PEANUT_HOST = "peanut:";
+    process.env.NEXT_PUBLIC_TRAEFIK_PEANUT_PORT = "1012";
 
     expect(AppConfig.useDockerCashew).toBe(true);
-    expect(AppConfig.basePeanutUrl(true)).toBe("peanut:1011");
-    expect(AppConfig.basePeanutUrl(false)).toBe("localhost:1011");
+    expect(AppConfig.basePeanutUrl(true)).toBe("peanut:1012");
+    expect(AppConfig.basePeanutUrl(false)).toBe("localhost:1012");
   });
 });

@@ -27,11 +27,14 @@ export interface BusinessAddressDetails {
 }
 
 export interface BusinessContactDetails {
+  userId: string,
   businessId: string,
   primaryContactFirstName?: string,
   primaryContactLastName?: string,
   contactEmail?: string,
-  contactNumber?: string
+  contactNumber?: string,
+  websiteUrl?: string
+
 }
 
 

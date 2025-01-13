@@ -2,10 +2,12 @@ import AppConfig from "@/config/AppConfig";
 import BusinessAddressDetailsController from "@/controllers/business/BusinessAddressDetailsController";
 import { CreateBusinessAddressDetails } from "@/types/business/CreateBusinessAddressDetails";
 
-// Mock global `fetch` function
 global.fetch = jest.fn();
 
 describe("BusinessAddressDetailsController", () => {
+
+  const businessId = "BUS123"
+  const backendUrl = `http://mocked-pistachio-url/pistachio/business/businesses/address/details/update/${businessId}`
 
   const mockData: CreateBusinessAddressDetails = {
     buildingName: "Tech Tower",
@@ -29,7 +31,7 @@ describe("BusinessAddressDetailsController", () => {
       json: async () => ({ success: true, message: "Form submitted successfully!" }),
     });
 
-    const result = await BusinessAddressDetailsController.submitForm(mockData);
+    const result = await BusinessAddressDetailsController.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: true,
@@ -37,14 +39,12 @@ describe("BusinessAddressDetailsController", () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/businesses/address/details/create",
+      backendUrl,
       expect.objectContaining({
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...mockData,
-          userId: "USER123456",
-          businessId: "BUS123456",
           floorNumber: "1",
           latitude: 999,
           longitude: 999,
@@ -60,7 +60,7 @@ describe("BusinessAddressDetailsController", () => {
       ok: false,
     });
 
-    const result = await BusinessAddressDetailsController.submitForm(mockData);
+    const result = await BusinessAddressDetailsController.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,
@@ -68,9 +68,9 @@ describe("BusinessAddressDetailsController", () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/businesses/address/details/create",
+      backendUrl,
       expect.objectContaining({
-        method: "POST",
+        method: "PUT",
       })
     );
   });
@@ -80,7 +80,7 @@ describe("BusinessAddressDetailsController", () => {
 
     (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await BusinessAddressDetailsController.submitForm(mockData);
+    const result = await BusinessAddressDetailsController.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,
@@ -88,7 +88,7 @@ describe("BusinessAddressDetailsController", () => {
     });
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/businesses/address/details/create",
+      backendUrl,
       expect.any(Object)
     );
   });
@@ -101,15 +101,13 @@ describe("BusinessAddressDetailsController", () => {
       json: async () => ({ success: true, message: "Form submitted successfully!" }),
     });
 
-    await BusinessAddressDetailsController.submitForm(mockData);
+    await BusinessAddressDetailsController.submitForm(mockData, businessId);
 
     expect(fetch).toHaveBeenCalledWith(
-      "http://mocked-pistachio-url/pistachio/business/businesses/address/details/create",
+      backendUrl,
       expect.objectContaining({
         body: JSON.stringify({
           ...mockData,
-          userId: "USER123456",
-          businessId: "BUS123456",
           floorNumber: "1",
           latitude: 999,
           longitude: 999,

@@ -6,6 +6,9 @@ global.fetch = jest.fn(); // Mock the global fetch function
 
 describe("OfficeContactDetailsController", () => {
 
+    const fakeOfficeId = "OFF123456"
+    const backendUrl = `http://mocked-pistachio-url/pistachio/business/offices/contact/details/update/${fakeOfficeId}`
+
     const mockData: CreateOfficeContactDetails = {
         primaryContactFirstName: "John",
         primaryContactLastName: "Doe",
@@ -27,7 +30,7 @@ describe("OfficeContactDetailsController", () => {
             json: async () => ({ success: true, message: "Success" }),
         });
 
-        const result = await OfficeContactDetailsController.submitUpdateForm(mockData);
+        const result = await OfficeContactDetailsController.submitUpdateForm(mockData, fakeOfficeId);
 
         expect(result).toEqual({
             success: true,
@@ -36,16 +39,14 @@ describe("OfficeContactDetailsController", () => {
 
         const expectedJson = 
         JSON.stringify({
-            ...mockData,
-            businessId: "BUS123456",
-            officeId: "OFF123456"
+            ...mockData
         })
 
         expect(fetch).toHaveBeenCalledWith(
-            "http://mocked-pistachio-url/pistachio/business/offices/contact/details/create",
+            backendUrl,
             expect.objectContaining(
                 {
-                    method: "POST",
+                    method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: expectedJson
                 }
@@ -61,7 +62,7 @@ describe("OfficeContactDetailsController", () => {
             ok: false,
         });
 
-        const result = await OfficeContactDetailsController.submitUpdateForm(mockData);
+        const result = await OfficeContactDetailsController.submitUpdateForm(mockData, fakeOfficeId);
 
         expect(result).toEqual({
             success: false,
@@ -77,7 +78,7 @@ describe("OfficeContactDetailsController", () => {
 
         (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-        const result = await OfficeContactDetailsController.submitUpdateForm(mockData);
+        const result = await OfficeContactDetailsController.submitUpdateForm(mockData, fakeOfficeId);
 
         expect(result).toEqual({
             success: false,

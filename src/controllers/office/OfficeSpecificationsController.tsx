@@ -1,4 +1,3 @@
-import { updateUserData } from '@/app/user/account/profile/services/UserService';
 import AppConfig from '@/config/AppConfig';
 import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifications';
 
@@ -8,7 +7,7 @@ interface OfficeSpecificationsControllerResult {
 }
 
 class OfficeSpecificationsController {
-  async submitForm(data: CreateOfficeSpecifications, officeId:String): Promise<OfficeSpecificationsControllerResult> {
+  async submitForm(data: CreateOfficeSpecifications, officeId: String): Promise<OfficeSpecificationsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/specifications/update/${officeId}`
@@ -18,8 +17,7 @@ class OfficeSpecificationsController {
     console.log(apiUrl);
 
     const combinedData = {
-      ...data,
-      updatedAt: new Date().toISOString().slice(0, 19)
+      ...data
     };
 
     console.log("Combined Data:", combinedData);

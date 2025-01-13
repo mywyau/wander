@@ -1,5 +1,4 @@
 export interface CreateBusinessContactDetails {
-  businessName: string;
   primaryContactFirstName: string;
   primaryContactLastName: string;
   contactEmail: string;
