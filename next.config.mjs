@@ -3,7 +3,12 @@ dotenv.config({ path: '.env.custom' }); // Specify your custom environment file 
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Your Next.js config here
+  basePath: '/wander', // Set the base path for Traefik routing
+  env: {
+    // Include environment variables if needed
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
+  reactStrictMode: true,
 };
 
 export default nextConfig;
