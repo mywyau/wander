@@ -3,11 +3,10 @@ import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
 import Navbar from "@/components/misc/NavBar";
-import Sidebar from "@/components/misc/Sidebar";
+import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../../../globals.css";
-import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 
 // Load fonts
 const geistSans = localFont({
@@ -42,22 +41,22 @@ interface BusinessProfileLayoutProps {
 }
 
 const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children }) => {
-    return (
-      <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
-        <AuthProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <div className="flex flex-1">
-              <BusinessSidebar isOpen={true} />
-              <main className="flex-1 container mx-auto p-4 mt-4">
-                {children} {/* Page content */}
-              </main>
-            </div>
+  return (
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+      <AuthProvider>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <div className="flex flex-1">
+            <BusinessSidebar isOpen={true} />
+            <main className="flex-1 container mx-auto p-4 mt-4">
+              {children} {/* Page content */}
+            </main>
           </div>
-        </AuthProvider>
-      </div>
-    );
-  };
-  
+        </div>
+      </AuthProvider>
+    </div>
+  );
+};
+
 
 export default BusinessProfileLayout;
