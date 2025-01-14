@@ -1,14 +1,14 @@
 import React from "react";
 import { UseFormRegister } from "react-hook-form";
 
-interface AvailabilityProps {
-  days: string[]; // List of days
-  namePrefix: string; // Field prefix
-  register: UseFormRegister<any>; // React Hook Form registration
-  errors?: Record<string, any>; // Errors object for availability
+interface DeskAvailabilityProps {
+  days: string[];
+  namePrefix: string;
+  register: UseFormRegister<any>;
+  errors?: Record<string, any>;
 }
 
-const Availability: React.FC<AvailabilityProps> = ({
+const DeskAvailability: React.FC<DeskAvailabilityProps> = ({
   days,
   namePrefix,
   register,
@@ -87,4 +87,4 @@ const Availability: React.FC<AvailabilityProps> = ({
   );
 };
 
-export default Availability;
+export default DeskAvailability;

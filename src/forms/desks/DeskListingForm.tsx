@@ -1,11 +1,11 @@
 
-import Amenities from "@/components/desks/Amenities";
+import Amenities from "@/components/desks/DeskFeatures";
 import NumberInput from "@/components/desks/NumberInput";
 import SelectField from "@/components/desks/SelectField";
 import TextArea from "@/components/desks/TextArea";
 import TextInput from "@/components/desks/TextInput";
 import Availability from "@/components/office/OfficeAvailability";
-import { UpdateDeskListing } from "@/types/deskListing/UpdateDeskListing";
+import { UpdateDeskListing } from "@/types/desk/UpdateDeskListing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { deskListingFormSchema } from "./DeskListingFormSchema";
