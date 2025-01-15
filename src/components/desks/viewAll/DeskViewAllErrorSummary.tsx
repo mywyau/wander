@@ -1,9 +1,9 @@
-interface OfficeViewAllPaginationProps {
-    submitError: string| null;
-    successMessage: string| null;
+interface DeskViewAllPaginationProps {
+    submitError: string | null;
+    successMessage: string | null;
 }
 
-const OfficeViewAllPagination: React.FC<OfficeViewAllPaginationProps> = ({
+const DeskViewAllPagination: React.FC<DeskViewAllPaginationProps> = ({
     submitError,
     successMessage,
 }) => {
@@ -15,4 +15,4 @@ const OfficeViewAllPagination: React.FC<OfficeViewAllPaginationProps> = ({
     );
 };
 
-export default OfficeViewAllPagination;
+export default DeskViewAllPagination;

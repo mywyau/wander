@@ -1,12 +1,12 @@
 
-interface DeleteAllOfficeListingsButtonProp {
-    businessId: string,
-    onSubmit: (businessId: string) => Promise<void>
+interface DeleteAllDeskListingsButtonProp {
+    officeId: string,
+    onSubmit: (officeId: string) => Promise<void>
 }
 
-const DeleteAllOfficeListingsButton: React.FC<DeleteAllOfficeListingsButtonProp> = (
+const DeleteAllDeskListingsButton: React.FC<DeleteAllDeskListingsButtonProp> = (
     {
-        businessId,
+        officeId,
         onSubmit
     }
 ) => {
@@ -14,12 +14,12 @@ const DeleteAllOfficeListingsButton: React.FC<DeleteAllOfficeListingsButtonProp>
         <button
             className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
             onClick={
-                () => onSubmit(businessId)
+                () => onSubmit(officeId)
             }
         >
-            Delete All Offices
+            Delete All Desks
         </button>
     )
 }
 
-export default DeleteAllOfficeListingsButton;
+export default DeleteAllDeskListingsButton;

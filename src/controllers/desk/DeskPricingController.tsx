@@ -1,20 +1,18 @@
 import AppConfig from '@/config/AppConfig';
-import { CreateOfficeContactDetails } from '@/types/office/CreateOfficeContactDetails'; // Ensure to import the types
+import { UpdateDeskPricing } from '@/types/desk/UpdateDeskPricing';
 
-// Interface for the result returned by the submitForm method
-interface OfficeContactDetailsControllerResult {
+interface DeskPricingControllerResult {
   success: boolean;
   message: string;
 }
 
-class OfficeContactDetailsController {
-
-  async submitUpdateForm(data: CreateOfficeContactDetails, officeid: string): Promise<OfficeContactDetailsControllerResult> {
+class DeskPricingController {
+  async submitForm(data: UpdateDeskPricing, deskId: String): Promise<DeskPricingControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/contact/details/update/${officeid}`
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desks/pricing/update/${deskId}`
 
-    console.log("[OfficeContactDetailsController] submitForm called");
+    console.log("[DeskPricingController] submitForm called");
     console.log("Form Data:", data);
     console.log(apiUrl);
 
@@ -55,4 +53,4 @@ class OfficeContactDetailsController {
   }
 }
 
-export default new OfficeContactDetailsController();
+export default new DeskPricingController();

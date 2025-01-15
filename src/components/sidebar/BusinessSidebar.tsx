@@ -160,23 +160,18 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                             expandedSections.desks && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">
                                     <li>
-                                        <Link href="/business/desk/view-all" className="hover:text-indigo-700">
+                                        <Link href="/desk-listing/view-all" className="hover:text-indigo-700">
                                             View all desks
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/business/desk/detailed-view" className="hover:text-indigo-700">
+                                        <Link href="/desk-listing/detailed-view" className="hover:text-indigo-700">
                                             View desk detailed view
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/business/desk/add" className="text-gray-900 hover:text-indigo-700">
-                                            Add a desk listing
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/business/desk/edit" className="hover:text-indigo-700">
-                                            Edit a desk listing
+                                        <Link href="/desk-listing/pricing" className="text-gray-900 hover:text-indigo-700">
+                                            Update desk pricing
                                         </Link>
                                     </li>
                                 </ul>

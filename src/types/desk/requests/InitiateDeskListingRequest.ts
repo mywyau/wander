@@ -1,5 +1,5 @@
 
 export interface InitiateDeskListingRequest {
-  businessId: string,
+  officeId: string,
   deskId: string
 }

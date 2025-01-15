@@ -1,24 +1,24 @@
-import { InitiateOfficeListingRequest } from "@/types/office/InitiateOfficeListingRequest";
+import { InitiateDeskListingRequest } from "@/types/desk/requests/InitiateDeskListingRequest";
 import { IdGenerator } from "@/utils/idGenerator";
 
-interface AddNewOfficeButtonProp {
-    businessId: string,
-    onSubmit: (data: InitiateOfficeListingRequest) => Promise<void>
+interface AddNewDeskButtonProp {
+    officeId: string,
+    onSubmit: (data: InitiateDeskListingRequest) => Promise<void>
 }
 
-const AddNewOfficeButton: React.FC<AddNewOfficeButtonProp> = (
+const AddNewDeskButton: React.FC<AddNewDeskButtonProp> = (
     {
-        businessId,
+        officeId,
         onSubmit
     }
 ) => {
 
-    const randomOfficeId = IdGenerator.generateOfficeId();
+    const randomDeskId = IdGenerator.generateDeskId();
 
-    const request: InitiateOfficeListingRequest =
+    const request: InitiateDeskListingRequest =
     {
-        businessId: businessId,
-        officeId: randomOfficeId,
+        officeId: officeId,
+        deskId: randomDeskId,
     }
 
     return (
@@ -28,9 +28,9 @@ const AddNewOfficeButton: React.FC<AddNewOfficeButtonProp> = (
                 () => onSubmit(request)
             }
         >
-            Add New Office
+            Add New Desk
         </button>
     )
 }
 
-export default AddNewOfficeButton;
+export default AddNewDeskButton;

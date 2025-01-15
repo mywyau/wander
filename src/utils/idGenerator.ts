@@ -2,8 +2,9 @@ import { v4 as uuidv4 } from "uuid";
 
 export const IdGenerator = {
 
-    generateBusinessId: (): string => `BUS-${uuidv4()}`,
+    generateBusinessId: (): string => `business-${uuidv4()}`,
     
+    generateOfficeId: (): string => `office-${uuidv4()}`,
 
-    generateOfficeId: (): string => `OFF-${uuidv4()}`,
+    generateDeskId: (): string => `desk-${uuidv4()}`,
 };

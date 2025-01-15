@@ -1,65 +1,65 @@
-import { OfficeListingCard } from "@/types/office/OfficeListing";
+import { DeskListingCard } from "@/types/desk/DeskListingCard";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface OfficeListingsCardsProp {
-    filteredOffices: OfficeListingCard[];
-    currentOffices: OfficeListingCard[];
-    onDeleteLinkSubmit: (officeId: string) => Promise<void>;
+interface DeskListingsCardsProp {
+    filteredDesks: DeskListingCard[];
+    currentDesks: DeskListingCard[];
+    onDeleteLinkSubmit: (deskId: string) => Promise<void>;
 }
 
-const OfficeListCards: React.FC<OfficeListingsCardsProp> = ({
-    filteredOffices,
-    currentOffices,
+const DeskListCards: React.FC<DeskListingsCardsProp> = ({
+    filteredDesks,
+    currentDesks,
     onDeleteLinkSubmit,
 }) => {
-    const [showNoOfficesMessage, setShowNoOfficesMessage] = useState(false);
+    const [showNoDesksMessage, setShowNoDesksMessage] = useState(false);
     const router = useRouter(); // Get the router instance
 
     useEffect(() => {
-        if (filteredOffices.length === 0) {
+        if (filteredDesks.length === 0) {
             const timer = setTimeout(() => {
-                setShowNoOfficesMessage(true);
+                setShowNoDesksMessage(true);
             }, 1000); // Delay of 1 second
             return () => clearTimeout(timer); // Cleanup timer on component unmount
         } else {
-            setShowNoOfficesMessage(false);
+            setShowNoDesksMessage(false);
         }
-    }, [filteredOffices]);
+    }, [filteredDesks]);
 
     // Navigate programmatically to the detailed view page
-    const handleViewDetails = (officeId: string) => {
-        router.push(`/business/office/detailed-view/${officeId}?timestamp=${Date.now()}`);
+    const handleViewDetails = (deskId: string) => {
+        router.push(`/business/desk/detailed-view/${deskId}?timestamp=${Date.now()}`);
     };
 
-    return filteredOffices.length === 0 && showNoOfficesMessage ? (
+    return filteredDesks.length === 0 && showNoDesksMessage ? (
         <div className="text-center py-8">
-            <p className="text-gray-500 mb-4">No offices found.</p>
+            <p className="text-gray-500 mb-4">No desks found.</p>
         </div>
     ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentOffices.map(
-                (office) => (
+            {currentDesks.map(
+                (desk) => (
                     <div
-                        key={office.officeId}
+                        key={desk.deskId}
                         className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
                     >
                         <div>
-                            <h2 className="text-lg font-semibold">{office.officeName}</h2>
+                            <h2 className="text-lg font-semibold">{desk.deskName}</h2>
                             <p className="text-gray-600 text-sm">
-                                {office.description || "No description provided."}
+                                {desk.description || "No description provided."}
                             </p>
                         </div>
                         <div className="mt-2 flex gap-6">
                             <button
                                 className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-                                onClick={() => handleViewDetails(office.officeId)}
+                                onClick={() => handleViewDetails(desk.deskId)}
                             >
                                 View listing
                             </button>
                             <button
                                 className="text-base text-red-500 rounded hover:text-red-700 underline"
-                                onClick={() => onDeleteLinkSubmit(office.officeId)}
+                                onClick={() => onDeleteLinkSubmit(desk.deskId)}
                             >
                                 Delete
                             </button>
@@ -72,4 +72,4 @@ const OfficeListCards: React.FC<OfficeListingsCardsProp> = ({
     );
 };
 
-export default OfficeListCards;
+export default DeskListCards;

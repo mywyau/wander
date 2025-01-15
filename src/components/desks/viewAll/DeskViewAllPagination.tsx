@@ -1,28 +1,28 @@
 
 
-import { OfficeListingCard } from "@/types/office/OfficeListing";
+import { DeskListingCard } from "@/types/desk/DeskListingCard";
 import { SetStateAction } from "react";
 
 
-interface OfficeViewAllPagination {
-    filteredOffices: OfficeListingCard[];
-    officesPerPage: number;
+interface DeskViewAllPagination {
+    filteredDesks: DeskListingCard[];
+    desksPerPage: number;
     totalPages: number;
     currentPage: number;
     setCurrentPage: (value: SetStateAction<number>) => void;
 }
 
-const OfficeViewAllPagination: React.FC<OfficeViewAllPagination> = (
+const DeskViewAllPagination: React.FC<DeskViewAllPagination> = (
     {
-        filteredOffices,
-        officesPerPage,
+        filteredDesks,
+        desksPerPage,
         totalPages,
         currentPage,
         setCurrentPage
     }
 ) => {
     return (
-        filteredOffices.length > officesPerPage && (
+        filteredDesks.length > desksPerPage && (
             <div className="flex justify-left mt-6">
                 {
                     Array.from({ length: totalPages }, (_, i) => (
@@ -43,7 +43,7 @@ const OfficeViewAllPagination: React.FC<OfficeViewAllPagination> = (
     )
 }
 
-export default OfficeViewAllPagination;
+export default DeskViewAllPagination;
 
 
 

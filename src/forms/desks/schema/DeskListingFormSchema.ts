@@ -19,18 +19,6 @@ export const deskListingFormSchema = z
         z
           .string()
           .nonempty("Please select a type of desk."),
-      pricePerHour:
-        z
-          .preprocess(
-            (value) => (value === "" || value === undefined ? undefined : Number(value)),
-            z.number().min(0, "Price should be 0 or above").max(10000, "Capacity cannot exceed 10000.")
-          ),
-      pricePerDay:
-        z
-          .preprocess(
-            (value) => (value === "" || value === undefined ? undefined : Number(value)),
-            z.number().min(0, "Price should be 0 or above").max(10000, "Capacity cannot exceed 10000.")
-          ),
       features:
         z
           .array(z.string())

@@ -18,7 +18,6 @@ const PriceForm: React.FC<PriceFormProps> = ({ workspaceData, handleChange }) =>
           </label>
           <input
             type="number"
-            id={priceType}
             placeholder={`Price per ${priceType.replace("Price", "").toLowerCase()}`}
             value={workspaceData[priceType as keyof Workspace]}
             onChange={handleChange}

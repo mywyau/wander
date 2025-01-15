@@ -1,12 +1,12 @@
 import { SetStateAction } from "react";
 
 
-interface SearchAndFilterOfficesProps {
+interface SearchAndFilterDesksProps {
     searchQuery: string;
     setSearchQueryF: (value: SetStateAction<string>) => void;
 }
 
-const SearchAndFilterOffices: React.FC<SearchAndFilterOfficesProps> = (
+const SearchAndFilterDesks: React.FC<SearchAndFilterDesksProps> = (
     {
         searchQuery,
         setSearchQueryF
@@ -15,7 +15,7 @@ const SearchAndFilterOffices: React.FC<SearchAndFilterOfficesProps> = (
     return (
         <input
             type="text"
-            placeholder="Search offices..."
+            placeholder="Search desks..."
             value={searchQuery}
             onChange={(e) => setSearchQueryF(e.target.value)}
             className="border p-2 rounded w-full md:w-1/3"
@@ -23,4 +23,4 @@ const SearchAndFilterOffices: React.FC<SearchAndFilterOfficesProps> = (
     )
 }
 
-export default SearchAndFilterOffices;
+export default SearchAndFilterDesks;

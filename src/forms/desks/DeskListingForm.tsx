@@ -1,5 +1,5 @@
 
-import Amenities from "@/components/desks/DeskFeatures";
+import DeskFeatures from "@/components/desks/DeskFeatures";
 import NumberInput from "@/components/desks/NumberInput";
 import SelectField from "@/components/desks/SelectField";
 import TextArea from "@/components/desks/TextArea";
@@ -108,26 +108,6 @@ const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({
                             <div className="grid grid-cols-3 gap-4">
 
                                 <NumberInput
-                                    id="pricePerHour"
-                                    name="pricePerHour"
-                                    label="Price per hour"
-                                    register={register}
-                                    placeholder="Enter the price of the desk per hour"
-                                    error={errors.pricePerHour?.message}
-                                    inputClassName="w-full"
-                                />
-
-                                <NumberInput
-                                    id="pricePerDay"
-                                    name="pricePerDay"
-                                    label="Price per day"
-                                    register={register}
-                                    placeholder="Enter the price of the desk per day"
-                                    error={errors.pricePerDay?.message}
-                                    inputClassName="w-full"
-                                />
-
-                                <NumberInput
                                     id="quantityOfDesks"
                                     name="quantityOfDesks"
                                     label="Desk Quantity"
@@ -139,15 +119,15 @@ const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({
                             </div>
                         </div>
 
-                        <Amenities
-                            features={featuresList}
+                        <DeskFeatures
+                            deskFeatures={featuresList}
                             name="features"
                             register={register}
                             error={errors.features?.message}
                         />
 
                         <Availability
-                            days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]}
+                            days={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
                             namePrefix="availability"
                             register={register}
                             errors={errors.availability}
