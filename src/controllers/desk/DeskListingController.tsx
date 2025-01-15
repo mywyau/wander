@@ -1,18 +1,19 @@
 import AppConfig from '@/config/AppConfig';
-import { InitiateOfficeListingRequest } from '@/types/office/InitiateOfficeListingRequest';
-import { OfficeListing, OfficeListingCard } from '@/types/office/OfficeListing';
+import { DeskListing } from '@/types/desk/DeskListing';
+import { DeskListingCard } from '@/types/desk/DeskListingCard';
+import { InitiateDeskListingRequest } from '@/types/desk/requests/InitiateDeskListingRequest';
 
-class OfficeListingController {
-  async addNewOffice(data: InitiateOfficeListingRequest): Promise<OfficeListing> {
+class DeskListingController {
+  async addNewDesk(data: InitiateDeskListingRequest): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/initiate`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/initiate`;
 
 
     const combinedData = {
       ...data,
-      officeName: "New Office",
-      description: "Please add a description"
+      deskName: "New Desk",
+      description: "Please add some details"
     };
 
     console.log("Combined Data:", combinedData);
@@ -24,7 +25,7 @@ class OfficeListingController {
         body: JSON.stringify(combinedData),
       };
 
-      console.log("[OfficeListingController][addNewOffice] trying to add a new office listing, with initial data");
+      console.log("[DeskListingController][addNewDesk] trying to add a new desk listing, with initial data");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, createRequest);
@@ -33,7 +34,7 @@ class OfficeListingController {
         throw new Error("Failed to submit form");
       }
 
-      const responseData: OfficeListing = await response.json();
+      const responseData: DeskListing = await response.json();
 
       console.log("Successfully submitted:", responseData);
       return responseData;
@@ -43,14 +44,14 @@ class OfficeListingController {
     }
   }
 
-  async getAllOfficeListingCards(businessId:string): Promise<OfficeListingCard[]> {
+  async getAllDeskListingCards(officeId:string): Promise<DeskListingCard[]> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/cards/find/all/${businessId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/cards/find/all/${officeId}`;
 
     try {
  
-      console.log("[OfficeListingController][getAllOfficeListingCards] trying to get all office listing card details");
+      console.log("[DeskListingController][getAllDeskListingCards] trying to get all desk listing card details");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, { method: "GET", cache: "no-store" });
@@ -59,7 +60,7 @@ class OfficeListingController {
         throw new Error("Failed to get card data");
       }
 
-      const responseData: OfficeListingCard[] = await response.json();
+      const responseData: DeskListingCard[] = await response.json();
 
       console.log("Successfully retrieved card details:", responseData);
       return responseData;
@@ -69,13 +70,13 @@ class OfficeListingController {
     }
   }
 
-  async getOfficeListing(officeId:string): Promise<OfficeListing> {
+  async getDeskListing(deskId:string): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/find/${officeId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/find/${deskId}`;
 
     try {
-      console.log("[OfficeListingController][getOfficeListing] trying to find office listing details for a given id");
+      console.log("[DeskListingController][getDeskListing] trying to find desk listing details for a given id");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, { method: "GET", cache: "no-store" });
@@ -84,28 +85,28 @@ class OfficeListingController {
         throw new Error("Failed to get card data");
       }
 
-      const responseData: OfficeListing = await response.json();
+      const responseData: DeskListing = await response.json();
 
-      console.log("Successfully retrieved office listing details:", responseData);
+      console.log("Successfully retrieved desk listing details:", responseData);
       return responseData;
     } catch (error) {
       console.error("Retrieval error:", error);
-      throw new Error("Failed to retrieve office listing details. Please try again.");
+      throw new Error("Failed to retrieve desk listing details. Please try again.");
     }
   }
 
 
-  async deleteOfficeListing(officeId: string): Promise<OfficeListing> {
+  async deleteDeskListing(deskId: string): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/delete/${officeId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/delete/${deskId}`;
 
     try {
       const deleteRequest = {
         method: "DELETE",
       };
 
-      console.log("[OfficeListingController][deleteOfficeListing] trying to delete office listing");
+      console.log("[DeskListingController][deleteDeskListing] trying to delete desk listing");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, deleteRequest);
@@ -114,7 +115,7 @@ class OfficeListingController {
         throw new Error("Failed to submit form");
       }
 
-      const responseData: OfficeListing = await response.json();
+      const responseData: DeskListing = await response.json();
 
       console.log("Successfully deleted:", responseData);
       return responseData;
@@ -124,17 +125,17 @@ class OfficeListingController {
     }
   }
 
-  async deleteAllOfficeListings(businessId: string): Promise<OfficeListing> {
+  async deleteAllDeskListings(officeId: string): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/delete/all/${businessId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/delete/all/${officeId}`;
 
     try {
       const deleteRequest = {
         method: "DELETE",
       };
 
-      console.log("[OfficeListingController][deleteOfficeListing] trying to delete ALL office listings");
+      console.log("[DeskListingController][deleteDeskListing] trying to delete ALL desk listings");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, deleteRequest);
@@ -143,7 +144,7 @@ class OfficeListingController {
         throw new Error("Failed to submit form");
       }
 
-      const responseData: OfficeListing = await response.json();
+      const responseData: DeskListing = await response.json();
 
       console.log("Successfully deleted:", responseData);
       return responseData;
@@ -157,4 +158,4 @@ class OfficeListingController {
 
 }
 
-export default new OfficeListingController();
+export default new DeskListingController();

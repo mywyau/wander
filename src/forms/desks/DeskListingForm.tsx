@@ -8,7 +8,7 @@ import Availability from "@/components/office/OfficeAvailability";
 import { UpdateDeskListing } from "@/types/desk/UpdateDeskListing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import { deskListingFormSchema } from "./DeskListingFormSchema";
+import { deskListingFormSchema } from "./schema/DeskListingFormSchema";
 
 
 interface DeskSpecificationsFormProps {
@@ -28,9 +28,7 @@ const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({
         deskName: "",
         description: "",
         deskType: "",
-        numberOfFloors: 0,
-        totalDesks: 0,
-        capacity: 0,
+        quantityOfDesks: 0,
         features: [],
         availability: {
             days: [],
