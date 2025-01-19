@@ -11,8 +11,8 @@ if [ -n "$1" ]; then
   TEST_FILE="$1"
   echo "Running a single test: $TEST_FILE"
 else
-  TEST_FILE="./tests/__tests__"
-  echo "Running all tests in ./tests/__tests__..."
+  TEST_FILE="./tests"
+  echo "Running all tests in ./tests..."
 fi
 
 # Run Jest with the target file or directory and pass any additional arguments
