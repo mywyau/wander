@@ -6,7 +6,7 @@ import Navbar from "@/components/misc/NavBar";
 import Sidebar from "@/components/misc/Sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "../../../globals.css";
+import "../@/globals.css";
 import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 
 // Load fonts
