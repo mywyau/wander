@@ -30,7 +30,7 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
 
 
     const handleViewDetails = (businessId: string) => {
-        router.push(`/business/businesses/detailed-view/${businessId}?timestamp=${Date.now()}`);
+        router.push(`/business/detailed-view/${businessId}?timestamp=${Date.now()}`);
     };
 
     return filteredBusinesses.length === 0 && showNoBusinesssMessage ? (

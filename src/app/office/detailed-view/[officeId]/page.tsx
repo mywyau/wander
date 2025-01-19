@@ -21,7 +21,7 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
     const office: OfficeListing = await OfficeListingController.getOfficeListing(officeId);
     console.log("[OfficeDetailedView] Fetched office details:", office);
 
-    const {  addressDetails, contactDetails, specifications } = office;
+    const { addressDetails, contactDetails, specifications } = office;
     const amenities = specifications.amenities || [];
 
     return (
@@ -41,7 +41,7 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
             <p><strong>County:</strong> {addressDetails.county}</p>
 
             <div className="mt-4 flex gap-6">
-              <Link href={`/business/office/address/add/${officeId}`} className="text-blue-600 underline">
+              <Link href={`/office/address/add/${officeId}`} className="text-blue-600 underline">
                 Edit Address Details
               </Link>
             </div>
@@ -61,7 +61,7 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
             </p>
             <p><strong>Phone:</strong> {contactDetails.contactNumber}</p>
             <div className="mt-4 flex gap-6">
-              <Link href={`/business/office/contact-details/add/${officeId}`} className="text-blue-600 underline">
+              <Link href={`/office/contact-details/add/${officeId}`} className="text-blue-600 underline">
                 Edit Contact Details
               </Link>
             </div>
@@ -76,11 +76,22 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
             <p><strong>Office Type:</strong> {specifications.officeType}</p>
             <p><strong>Total Capacity:</strong> {specifications.capacity}</p>
             <div className="mt-4 flex gap-6">
-              <Link href={`/business/office/specifications/add/${officeId}`} className="text-blue-600 underline">
+              <Link href={`/office/specifications/add/${officeId}`} className="text-blue-600 underline">
                 Edit Specifications
               </Link>
             </div>
           </div>
+          {/* Corrected Button Logic */}
+          <div>
+            <Link
+              href={`/desk-listing/view-all/${officeId}`}
+              className="bg-green-500 text-white py-2 px-4 rounded ml-4 hover:bg-green-600"
+            >
+              View All Offices for this business
+            </Link>
+          </div>
+
+
         </div>
       </div>
     );
