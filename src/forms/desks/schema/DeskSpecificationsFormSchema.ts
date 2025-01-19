@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const deskListingFormSchema = z
+export const deskSpecificationsFormSchema = z
   .object(
     {
       deskName:

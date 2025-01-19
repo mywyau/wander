@@ -5,15 +5,15 @@ import SelectField from "@/components/desks/SelectField";
 import TextArea from "@/components/desks/TextArea";
 import TextInput from "@/components/desks/TextInput";
 import Availability from "@/components/office/OfficeAvailability";
-import { UpdateDeskListing } from "@/types/desk/UpdateDeskListing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import { deskListingFormSchema } from "./schema/DeskListingFormSchema";
+import { deskSpecificationsFormSchema } from "./schema/DeskSpecificationsFormSchema";
+import { UpdateDeskSpecifications } from "@/types/desk/UpdateDeskSpecifications";
 
 
 interface DeskSpecificationsFormProps {
 
-    onSubmit: (data: UpdateDeskListing) => Promise<void>;
+    onSubmit: (data: UpdateDeskSpecifications) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
 }
@@ -38,8 +38,8 @@ const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({
         rules: ""
     };
 
-    const methods = useForm<UpdateDeskListing>({
-        resolver: zodResolver(deskListingFormSchema),
+    const methods = useForm<UpdateDeskSpecifications>({
+        resolver: zodResolver(deskSpecificationsFormSchema),
         defaultValues,
         mode: "onSubmit",
     });
@@ -114,7 +114,7 @@ const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({
                                     register={register}
                                     placeholder="Enter the total number of desk spaces for rent"
                                     error={errors.quantityOfDesks?.message}
-                                    inputClassName="w-full"
+                                    inputClassName="w-1/3"
                                 />
                             </div>
                         </div>

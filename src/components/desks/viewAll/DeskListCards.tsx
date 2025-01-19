@@ -29,7 +29,7 @@ const DeskListCards: React.FC<DeskListingsCardsProp> = ({
 
     // Navigate programmatically to the detailed view page
     const handleViewDetails = (deskId: string) => {
-        router.push(`/business/desk/detailed-view/${deskId}?timestamp=${Date.now()}`);
+        router.push(`/desk/detailed-view/${deskId}?timestamp=${Date.now()}`);
     };
 
     return filteredDesks.length === 0 && showNoDesksMessage ? (

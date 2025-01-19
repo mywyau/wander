@@ -1,28 +1,28 @@
 "use client";
 
-import DeskListingController from "@/controllers/desk/DeskListingController";
-import DeskListingForm from "@/forms/desk/DeskListingForm";
-import { CreateDeskListing } from "@/types/desk/CreateDeskListing";
+import DeskSpecificationsController from "@/controllers/desk/DeskSpecificationsController";
+import DeskSpecificationsForm from "@/forms/desks/DeskSpecifcationsForm";
+import { UpdateDeskSpecifications } from "@/types/desk/UpdateDeskSpecifications";
 import { useState } from "react";
 
-interface EditDeskListingPageProps {
+interface EditDeskSpecificationsPageProps {
   params: {
     deskId: string
   };
 }
 
-export default function EditDeskListingPage({ params }: EditDeskListingPageProps) {
+export default function EditDeskSpecificationsPage({ params }: EditDeskSpecificationsPageProps) {
 
   const { deskId } = params;
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: CreateDeskListing) => {
+  const onSubmit = async (data: UpdateDeskSpecifications) => {
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await DeskListingController.submitForm(data, deskId);
+    const result = await DeskSpecificationsController.submitForm(data, deskId);
 
     if (result.success) {
       setSuccessMessage(result.message);
@@ -33,7 +33,7 @@ export default function EditDeskListingPage({ params }: EditDeskListingPageProps
 
   return (
     <div className="max-w-7xl mx-auto p-8" >
-      <DeskListingForm
+      <DeskSpecificationsForm
         onSubmit={onSubmit}
         submitError={submitError}
         successMessage={successMessage}

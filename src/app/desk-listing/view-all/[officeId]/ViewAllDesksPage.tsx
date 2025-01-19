@@ -42,8 +42,8 @@ export default function ViewAllDesksPage({ officeId, initialDesks }: { officeId:
             setSuccessMessage("Desk created successfully!");
 
             const newDeskWithDetails: DeskListingCard = {
-                officeId: data.officeId,
-                deskId: data.deskId,
+                // officeId: data.officeId,
+                // deskId: data.deskId,
                 deskName: "New Desk",
                 description: "Please add a description",
             };

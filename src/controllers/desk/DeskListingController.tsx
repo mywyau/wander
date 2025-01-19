@@ -9,7 +9,6 @@ class DeskListingController {
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/initiate`;
 
-
     const combinedData = {
       ...data,
       deskName: "New Desk",
@@ -66,7 +65,8 @@ class DeskListingController {
       return responseData;
     } catch (error) {
       console.error("Retrieval error:", error);
-      throw new Error("Failed to retrieve card details. Please try again.");
+      return []
+      // throw new Error("Failed to retrieve card details. Please try again.");
     }
   }
 

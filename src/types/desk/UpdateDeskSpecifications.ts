@@ -1,5 +1,5 @@
 
-export interface UpdateDeskListing {
+export interface UpdateDeskSpecifications {
   deskName: string;
   description?: string;
   deskType: string;
