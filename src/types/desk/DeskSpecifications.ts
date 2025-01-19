@@ -1,5 +1,5 @@
 
-interface DeskAvailability {
+export interface DeskSpecifications {
     deskType: string;
     quantity: number;
     features: string[];
