@@ -8,13 +8,13 @@ import { useState } from "react";
 
 interface EditDeskPricingPageProps {
   params: {
-    businessId: string
+    deskId: string
   };
 }
 
 export default function EditDeskPricingPage({ params }: EditDeskPricingPageProps) {
 
-  const { businessId } = params;
+  const { deskId } = params;
 
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -23,7 +23,7 @@ export default function EditDeskPricingPage({ params }: EditDeskPricingPageProps
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await DeskPricingController.submitForm(data, businessId);
+    const result = await DeskPricingController.submitForm(data, deskId);
 
     if (result.success) {
       setSuccessMessage(result.message);

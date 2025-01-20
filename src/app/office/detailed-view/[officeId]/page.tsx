@@ -87,7 +87,7 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
               href={`/desk-listing/view-all/${officeId}`}
               className="bg-green-500 text-white py-2 px-4 rounded ml-4 hover:bg-green-600"
             >
-              View All Offices for this business
+              View All Desks for this office
             </Link>
           </div>
 

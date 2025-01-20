@@ -1,12 +1,12 @@
 // app/BusinessProfile/layout.tsx
 import React from 'react';
 
-import "@/app/globals.css";
 import AuthProvider from "@/components/misc/AuthProvider";
 import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 import Navbar from "@/components/misc/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "@/globals.css";
 
 
 // Load fonts

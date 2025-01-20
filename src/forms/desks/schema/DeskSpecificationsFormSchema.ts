@@ -23,6 +23,12 @@ export const deskSpecificationsFormSchema = z
         z
           .array(z.string())
           .refine((arr) => arr.length > 0, "At least one amenity must be selected."),
+      quantity: z
+        .preprocess(
+          (value) => (value === "" || value === undefined ? undefined : Number(value)),
+          z.number().min(0, "Price should be 0 or above").max(100000, "Capacity cannot exceed 100000.")
+        )
+        .optional(),
       availability:
         z.object(
           {

@@ -1,7 +1,7 @@
 // app/BusinessProfile/layout.tsx
 import React from 'react';
 
-import "@/app/globals.css";
+import "@/globals.css";
 import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 import AuthProvider from "@/components/misc/AuthProvider";
 import Navbar from "@/components/misc/NavBar";

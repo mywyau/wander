@@ -3,7 +3,7 @@ export interface UpdateDeskSpecifications {
   deskName: string;
   description?: string;
   deskType: string;
-  quantityOfDesks: number;
+  quantity: number;
   features: string[];
   availability: DeskAvailability,
   rules?: string;

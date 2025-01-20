@@ -28,7 +28,7 @@ const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({
         deskName: "",
         description: "",
         deskType: "",
-        quantityOfDesks: 0,
+        quantity: 0,
         features: [],
         availability: {
             days: [],
@@ -113,7 +113,7 @@ const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({
                                     label="Desk Quantity"
                                     register={register}
                                     placeholder="Enter the total number of desk spaces for rent"
-                                    error={errors.quantityOfDesks?.message}
+                                    error={errors.quantity?.message}
                                     inputClassName="w-1/3"
                                 />
                             </div>

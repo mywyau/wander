@@ -43,7 +43,7 @@ export default function ViewAllDesksPage({ officeId, initialDesks }: { officeId:
 
             const newDeskWithDetails: DeskListingCard = {
                 // officeId: data.officeId,
-                // deskId: data.deskId,
+                deskId: data.deskId,
                 deskName: "New Desk",
                 description: "Please add a description",
             };

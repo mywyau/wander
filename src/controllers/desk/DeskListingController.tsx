@@ -73,7 +73,7 @@ class DeskListingController {
   async getDeskListing(deskId:string): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/find/${deskId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/details/find/${deskId}`;
 
     try {
       console.log("[DeskListingController][getDeskListing] trying to find desk listing details for a given id");
