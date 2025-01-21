@@ -87,7 +87,7 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/business/businesses/view-all" className="hover:text-indigo-700">
+                                        <Link href="/business/view-all" className="hover:text-indigo-700">
                                             View all businesses
                                         </Link>
                                     </li>

@@ -29,7 +29,7 @@ const OfficeListCards: React.FC<OfficeListingsCardsProp> = ({
 
     // Navigate programmatically to the detailed view page
     const handleViewDetails = (officeId: string) => {
-        router.push(`/business/office/detailed-view/${officeId}?timestamp=${Date.now()}`);
+        router.push(`/office/detailed-view/${officeId}?timestamp=${Date.now()}`);
     };
 
     return filteredOffices.length === 0 && showNoOfficesMessage ? (

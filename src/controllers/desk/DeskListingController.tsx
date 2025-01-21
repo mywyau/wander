@@ -9,7 +9,6 @@ class DeskListingController {
     const pistachioUrl = AppConfig.basePistachioUrl(false);
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/initiate`;
 
-
     const combinedData = {
       ...data,
       deskName: "New Desk",
@@ -66,14 +65,15 @@ class DeskListingController {
       return responseData;
     } catch (error) {
       console.error("Retrieval error:", error);
-      throw new Error("Failed to retrieve card details. Please try again.");
+      return []
+      // throw new Error("Failed to retrieve card details. Please try again.");
     }
   }
 
   async getDeskListing(deskId:string): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/find/${deskId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/details/find/${deskId}`;
 
     try {
       console.log("[DeskListingController][getDeskListing] trying to find desk listing details for a given id");
@@ -99,7 +99,7 @@ class DeskListingController {
   async deleteDeskListing(deskId: string): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/delete/${deskId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/details/delete/${deskId}`;
 
     try {
       const deleteRequest = {

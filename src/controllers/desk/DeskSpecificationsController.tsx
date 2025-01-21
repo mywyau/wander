@@ -1,18 +1,18 @@
 import AppConfig from '@/config/AppConfig';
-import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifications';
+import { UpdateDeskSpecifications } from '@/types/desk/UpdateDeskSpecifications';
 
-interface OfficeSpecificationsControllerResult {
+interface DeskSpecificationsControllerResult {
   success: boolean;
   message: string;
 }
 
-class OfficeSpecificationsController {
-  async submitForm(data: CreateOfficeSpecifications, officeId: String): Promise<OfficeSpecificationsControllerResult> {
+class DeskSpecificationsController {
+  async submitForm(data: UpdateDeskSpecifications, deskId: String): Promise<DeskSpecificationsControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/specifications/update/${officeId}`
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/specifications/details/update/${deskId}`
 
-    console.log("[OfficeSpecificationsController] submitForm called");
+    console.log("[DeskSpecificationsController] submitForm called");
     console.log("Form Data:", data);
     console.log(apiUrl);
 
@@ -53,4 +53,4 @@ class OfficeSpecificationsController {
   }
 }
 
-export default new OfficeSpecificationsController();
+export default new DeskSpecificationsController();

@@ -10,7 +10,7 @@ class DeskPricingController {
   async submitForm(data: UpdateDeskPricing, deskId: String): Promise<DeskPricingControllerResult> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/desks/pricing/update/${deskId}`
+    const apiUrl = `http://${pistachioUrl}/pistachio/desk/pricing/update/${deskId}`
 
     console.log("[DeskPricingController] submitForm called");
     console.log("Form Data:", data);

@@ -17,13 +17,13 @@ interface Desk {
 }
 
 const desks: Desk[] = [
-  { id: 1, name: "Office 1", price: 25, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.7128, lng: -74.006 }, imageUrl: "/images/pepe_house.jpg" },
-  { id: 2, name: "Office 2", price: 30, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.73061, lng: -73.935242 }, imageUrl: "/images/pepe_house.jpg" },
-  { id: 3, name: "Desk 3", price: 20, address: "1 Bob Street", city: "Los Angeles", country: "United States", postcode: null, coordinates: { lat: 34.0522, lng: -118.2437 }, imageUrl: "/images/pepe_house.jpg" },
-  { id: 4, name: "Desk 4", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "/images/pepe_house.jpg" },
-  { id: 5, name: "Desk 5", price: 100, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "/images/pepe_house.jpg" },
-  { id: 6, name: "Office 6", price: 20, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "/images/pepe_house.jpg" },
-  { id: 7, name: "Cafe House 7", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "/images/pepe_house.jpg" },
+  { id: 1, name: "Office 1", price: 25, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.7128, lng: -74.006 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 2, name: "Office 2", price: 30, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.73061, lng: -73.935242 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 3, name: "Desk 3", price: 20, address: "1 Bob Street", city: "Los Angeles", country: "United States", postcode: null, coordinates: { lat: 34.0522, lng: -118.2437 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 4, name: "Desk 4", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 5, name: "Desk 5", price: 100, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 6, name: "Office 6", price: 20, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 7, name: "Cafe House 7", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
 ];
 
 
