@@ -99,7 +99,7 @@ class DeskListingController {
   async deleteDeskListing(deskId: string): Promise<DeskListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl(false);
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/delete/${deskId}`;
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/details/delete/${deskId}`;
 
     try {
       const deleteRequest = {
