@@ -44,16 +44,6 @@ const BusinessContactDetailsForm: React.FC<BusinessContactFormProps> = ({
                     <div className="grid grid-cols-1 gap-6">
 
                         <TextInput
-                            id="businessName"
-                            name="businessName"
-                            label="Business Name"
-                            placeholder="Enter the name of the business"
-                            register={register}
-                            error={errors?.businessName?.message}
-                            inputClassName="w-1/2"
-                        />
-
-                        <TextInput
                             id="primaryContactFirstName"
                             name="primaryContactFirstName"
                             label="Primary Contact First Name"

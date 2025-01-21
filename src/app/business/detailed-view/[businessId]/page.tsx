@@ -46,26 +46,37 @@ export default async function BusinessDetailedView({ params }: BusinessDetailedV
               </Link>
             </div>
           </div>
-
+          
           {/* Contact Section */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2 underline">Contact Information</h2>
-            <p>
-              <strong>Primary Contact Name:</strong>{` ${contactDetails.primaryContactFirstName} ${contactDetails.primaryContactLastName}`}
-            </p>
-            <p>
-              <strong>Email:</strong>{" "}
-              <a href={`mailto:${contactDetails.contactEmail}`} className="text-blue-500 hover:underline">
-                {contactDetails.contactEmail}
-              </a>
-            </p>
-            <p><strong>Phone:</strong> {contactDetails.contactNumber}</p>
-            <div className="mt-4 flex gap-6">
-              <Link href={`/business/contact-details/add/${businessId}`} className="text-blue-600 underline">
-                Edit Contact Details
-              </Link>
+          {contactDetails && (
+            <div>
+              <h2 className="text-lg font-semibold mb-2 underline">Contact Information</h2>
+              {contactDetails.primaryContactFirstName && contactDetails.primaryContactLastName && (
+                <p>
+                  <strong>Primary Contact Name:</strong>{` ${contactDetails.primaryContactFirstName} ${contactDetails.primaryContactLastName}`}
+                </p>
+              )}
+              {contactDetails.contactEmail && (
+                <p>
+                  <strong>Email:</strong>{" "}
+                  <a href={`mailto:${contactDetails.contactEmail}`} className="text-blue-500 hover:underline">
+                    {contactDetails.contactEmail}
+                  </a>
+                </p>
+              )}
+              {contactDetails.contactNumber && (
+                <p>
+                  <strong>Phone:</strong> {contactDetails.contactNumber}
+                </p>
+              )}
+              <div className="mt-4 flex gap-6">
+                <Link href={`/business/contact-details/add/${businessId}`} className="text-blue-600 underline">
+                  Edit Contact Details
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
+
 
           {/* Business Specifications Section */}
           <div>
