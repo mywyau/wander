@@ -3,7 +3,6 @@ import { businessContactDetailsFormSchema } from "@/forms/business/schemas/Busin
 describe("businessContactDetailsFormSchema", () => {
     
     const validData = {
-        businessName: "Valid Business",
         primaryContactFirstName: "John",
         primaryContactLastName: "Doe",
         contactEmail: "john.doe@example.com",
@@ -13,18 +12,6 @@ describe("businessContactDetailsFormSchema", () => {
 
     it("validates correct data successfully", () => {
         expect(() => businessContactDetailsFormSchema.parse(validData)).not.toThrow();
-    });
-
-    it("throws an error if businessName is empty", () => {
-        const invalidData = { ...validData, businessName: "" };
-        expect(() => businessContactDetailsFormSchema.parse(invalidData)).toThrow("Business name is required.");
-    });
-
-    it("throws an error if businessName is too long", () => {
-        const invalidData = { ...validData, businessName: "A".repeat(51) };
-        expect(() => businessContactDetailsFormSchema.parse(invalidData)).toThrow(
-            "Business name cannot exceed 50 characters."
-        );
     });
 
     it("throws an error if primaryContactFirstName is invalid", () => {

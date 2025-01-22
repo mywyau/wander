@@ -2,12 +2,14 @@ import { InitiateDeskListingRequest } from "@/types/desk/requests/InitiateDeskLi
 import { IdGenerator } from "@/utils/idGenerator";
 
 interface AddNewDeskButtonProp {
+    businessId: string,
     officeId: string,
     onSubmit: (data: InitiateDeskListingRequest) => Promise<void>
 }
 
 const AddNewDeskButton: React.FC<AddNewDeskButtonProp> = (
     {
+        businessId,
         officeId,
         onSubmit
     }
@@ -17,8 +19,11 @@ const AddNewDeskButton: React.FC<AddNewDeskButtonProp> = (
 
     const request: InitiateDeskListingRequest =
     {
+        businessId: businessId,
         officeId: officeId,
         deskId: randomDeskId,
+        deskName: "New Desk",
+        description: "Please add a description",
     }
 
     return (

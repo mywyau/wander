@@ -1,13 +1,12 @@
 "use client";
 
-import AppConfig from "@/config/AppConfig";
-import { signOut, useSession } from "next-auth/react"; // Import useSession and signOut
+import { useSession } from "next-auth/react"; // Import useSession and signOut
 import Link from "next/link";
 import { useState } from "react";
 
 export default function NavbarSidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
-  const { data: session, status } = useSession(); // Get session data
+  // const { data: session, status } = useSession(); // Get session data
 
   // Toggle sidebar visibility
   const toggleSidebar = () => {
@@ -43,7 +42,7 @@ export default function NavbarSidebar() {
               </ul>
             </div>
 
-            
+
             {/* <div className="flex items-center space-x-4">
               {session ? (
                 <div className="flex items-center space-x-3">
@@ -58,7 +57,7 @@ export default function NavbarSidebar() {
                     {session.user?.name || session.user?.email}
                   </span>
                   {/* Logout button */}
-                  {/* <button
+            {/* <button
                     onClick={() => signOut()}
                     className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
                   >
