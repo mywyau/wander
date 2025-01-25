@@ -13,7 +13,7 @@ import { InitiateDeskListingRequest } from "@/types/desk/requests/InitiateDeskLi
 import { useState } from "react";
 
 
-export default function ViewAllDesksPage({ officeId, initialDesks }: { officeId: string; initialDesks: DeskListingCard[] }) {
+export default function ViewAllDesksPage({ officeId, businessId, initialDesks }: { officeId: string, businessId: string; initialDesks: DeskListingCard[] }) {
 
     const [desks, setDesks] = useState<DeskListingCard[]>(initialDesks);
     const [submitError, setSubmitError] = useState<string | null>(null);
@@ -22,11 +22,12 @@ export default function ViewAllDesksPage({ officeId, initialDesks }: { officeId:
     const [currentPage, setCurrentPage] = useState(1);
     const desksPerPage = 9;
 
-    const filteredDesks = desks.filter(
-        (desk) =>
-            desk.deskName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            desk.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredDesks =
+        desks.filter(
+            (desk) =>
+                desk.deskName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                desk.description?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
     const indexOfLastDesk = currentPage * desksPerPage;
     const indexOfFirstDesk = indexOfLastDesk - desksPerPage;
@@ -42,7 +43,6 @@ export default function ViewAllDesksPage({ officeId, initialDesks }: { officeId:
             setSuccessMessage("Desk created successfully!");
 
             const newDeskWithDetails: DeskListingCard = {
-                // officeId: data.officeId,
                 deskId: data.deskId,
                 deskName: "New Desk",
                 description: "Please add a description",
@@ -98,7 +98,7 @@ export default function ViewAllDesksPage({ officeId, initialDesks }: { officeId:
 
             <div className="mb-6 flex justify-between item-center">
                 <SearchAndFilterDesks searchQuery={searchQuery} setSearchQueryF={setSearchQuery} />
-                <AddNewDeskButton officeId={officeId} onSubmit={onAddNewDeskSubmit} />
+                <AddNewDeskButton businessId={businessId} officeId={officeId} onSubmit={onAddNewDeskSubmit} />
             </div>
 
             <DeskViewAllErrorSummary submitError={submitError} successMessage={successMessage} />

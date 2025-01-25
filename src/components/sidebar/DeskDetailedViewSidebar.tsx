@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
+export default function DeskDetailedViewSidebar({ isOpen, businessId, officeId }: { isOpen: boolean, businessId: string, officeId: string }) {
 
     const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -88,13 +88,85 @@ export default function BusinessSidebar({ isOpen }: { isOpen: boolean }) {
                                     </li>
                                     <li>
                                         <Link href="/business/view-all" className="hover:text-indigo-700">
-                                            View all of your businesses
+                                            View all businesses
                                         </Link>
                                     </li>
                                 </ul>
                             )
                         }
                     </li>
+
+                    {/* Offices Section */}
+                    <li>
+                        {
+                            !isCollapsed && (
+                                <button
+                                    onClick={() => toggleSection("offices")}
+                                    className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
+                                >
+                                    <span className={`${isCollapsed ? "hidden" : ""}`}>Offices</span>
+                                    <svg
+                                        className={`w-4 h-4 transform ${expandedSections.offices ? "rotate-90" : ""}`}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            )
+                        }
+
+                        {
+                            expandedSections.offices && !isCollapsed && (
+                                <ul className="pl-4 space-y-4">
+                                    <li>
+                                        <Link href={`/office/view-all/${businessId}`} className="hover:text-indigo-700">
+                                            View all offices
+                                        </Link>
+                                    </li>
+                                </ul>
+                            )
+                        }
+                    </li>
+
+                    {/* Desks Section */}
+                    <li>
+                        {
+                            !isCollapsed && (
+                                <button
+                                    onClick={() => toggleSection("desks")}
+                                    className="flex items-center justify-between p-2 w-full font-bold text-gray-900 rounded-lg group hover:text-indigo-700 mt-6 mb-4"
+                                >
+                                    <span className={`${isCollapsed ? "hidden" : ""}`}>Desks</span>
+                                    <svg
+                                        className={`w-4 h-4 transform ${expandedSections.desks ? "rotate-90" : ""}`}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+
+                            )
+                        }
+
+                        {
+                            expandedSections.desks && !isCollapsed && (
+                                <ul className="pl-4 space-y-4">
+                                    <li>
+                                        <Link href={`/desk-listing/view-all/${businessId}/${officeId}`} className="hover:text-indigo-700">
+                                            View all desks
+                                        </Link>
+                                    </li>
+                                </ul>
+                            )
+                        }
+                    </li>
+
                 </ul>
             </div>
         </aside>

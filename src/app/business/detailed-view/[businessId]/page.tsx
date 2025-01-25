@@ -92,14 +92,14 @@ export default async function BusinessDetailedView({ params }: BusinessDetailedV
           </div>
 
           {/* Corrected Button Logic */}
-          <div>
+          {/* <div>
             <Link
               href={`/office/view-all/${businessId}`}
               className="bg-green-500 text-white py-2 px-4 rounded ml-4 hover:bg-green-600"
             >
               View All Offices for this business
             </Link>
-          </div>
+          </div> */}
         </div>
 
 

@@ -28,8 +28,8 @@ const OfficeListCards: React.FC<OfficeListingsCardsProp> = ({
     }, [filteredOffices]);
 
     // Navigate programmatically to the detailed view page
-    const handleViewDetails = (officeId: string) => {
-        router.push(`/office/detailed-view/${officeId}?timestamp=${Date.now()}`);
+    const handleViewDetails = (businessId: string, officeId: string) => {
+        router.push(`/office/detailed-view/${businessId}/${officeId}?timestamp=${Date.now()}`);
     };
 
     return filteredOffices.length === 0 && showNoOfficesMessage ? (
@@ -53,7 +53,7 @@ const OfficeListCards: React.FC<OfficeListingsCardsProp> = ({
                         <div className="mt-2 flex gap-6">
                             <button
                                 className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-                                onClick={() => handleViewDetails(office.officeId)}
+                                onClick={() => handleViewDetails(office.businessId, office.officeId)}
                             >
                                 View listing
                             </button>
