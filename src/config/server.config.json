@@ -1,0 +1,70 @@
+{
+  "useTraefikUrl": true,
+  "services": {
+    "cashew": {
+      "local": {
+        "host": "localhost",
+        "port": 1010
+      },
+      "traefik": {
+        "host": "cashew.api"
+      },
+      "container": {
+        "host": "cashew-app",
+        "port": 1010
+      }
+    },
+    "pistachio": {
+      "local": {
+        "host": "localhost",
+        "port": 1011
+      },
+      "traefik": {
+        "host": "pistachio.api"
+      },
+      "container": {
+        "host": "pistachio-app",
+        "port": 1011
+      }
+    },
+    "peanut": {
+      "local": {
+        "host": "localhost",
+        "port": 1012
+      },
+      "traefik": {
+        "host": "peanut.api"
+      },
+      "container": {
+        "host": "peanut-app",
+        "port": 1012
+      }
+    },
+    "wander": {
+      "local": {
+        "host": "localhost",
+        "port": 3000
+      },
+      "traefik": {
+        "host": "www.wander.com"
+      },
+      "container": {
+        "host": "wander-app",
+        "port": 3000
+      }
+    },
+    "reggie": {
+      "local": {
+        "host": "localhost",
+        "port": 3001
+      },
+      "traefik": {
+        "host": "www.wander.com/reggie"
+      },
+      "container": {
+        "host": "reggie-app",
+        "port": 3001
+      }
+    }
+  }
+}

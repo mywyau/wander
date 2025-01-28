@@ -1,95 +1,107 @@
+import { z } from 'zod';
+import rawConfig from '../config/server.config.json'; // Adjust the path as needed
+import { AppConfigSchema } from './AppConfigSchema';
+
+export type AppConfigType = z.infer<typeof AppConfigSchema>;
+
+export const appConfig: AppConfigType = AppConfigSchema.parse(rawConfig);
+
+export enum Environment {
+  LOCAL = "LOCAL",
+  TRAEFIK = "TRAEFIK",
+  CONTAINER = "CONTAINER",
+}
+
+export enum Service {
+  CASHEW = "CASHEW",
+  PISTACHIO = "PISTACHIO",
+  PEANUT = "PEANUT",
+  WANDER = "WANDER",
+  REGGIE = "REGGIE",
+}
+
 class AppConfig {
-  static get useDockerCashew(): boolean {
-    return process.env.NEXT_PUBLIC_USE_DOCKER_URL === "true";
+
+  private static config = appConfig;
+
+  private static getHost(service: Service, environment: Environment): string {
+    const serviceKey = service.toLowerCase() as keyof typeof this.config.services;
+    const environmentKey = environment.toLowerCase() as keyof typeof this.config.services.cashew;
+
+    const serviceConfig = this.config.services[serviceKey][environmentKey];
+
+    if (!serviceConfig || !serviceConfig.host) {
+      throw new Error(
+        `Host is missing for service "${service}" in environment "${environment}". Check the configuration file.`
+      );
+    }
+
+    return serviceConfig.host;
   }
 
-  static get cashewLocalHost(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_CASHEW_HOST || "";
+  private static getPort(service: Service, environment: Environment): number | undefined {
+    if (environment === Environment.TRAEFIK) {
+      // Traefik does not have a port
+      return undefined;
+    }
+
+    const serviceKey = service.toLowerCase() as keyof typeof this.config.services;
+    const environmentKey = environment.toLowerCase() as keyof typeof this.config.services.cashew;
+
+    const serviceConfig = this.config.services[serviceKey][environmentKey];
+
+    if (!serviceConfig || serviceConfig.port === undefined) {
+      throw new Error(
+        `Port is missing for service "${service}" in environment "${environment}". Check the configuration file.`
+      );
+    }
+
+    return serviceConfig.port;
   }
 
-  static get cashewLocalPort(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_CASHEW_PORT || "";
+  private static getBaseUrl(service: Service, environment: Environment): string {
+    const host = this.getHost(service, environment);
+    const port = this.getPort(service, environment);
+
+    // Return host only for Traefik (no port)
+    return environment === Environment.TRAEFIK ? `${host}` : `${host}:${port}`;
   }
 
-  static get cashewContainerHost(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_HOST || "";
+  static localOrTraefikBaseUrl(service: Service): string {
+    const useTraefik = this.config.useTraefikUrl;
+    const environment = useTraefik ? Environment.TRAEFIK : Environment.LOCAL;
+
+    return this.getBaseUrl(service, environment);
   }
 
-  static get cashewContainerPort(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_CASHEW_PORT || "";
+  // Cashew URLs
+  static browserAccessCashewUrl(): string {
+    return this.localOrTraefikBaseUrl(Service.CASHEW);
   }
 
-  static get pistachioLocalHost(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_PISTACHIO_HOST || "";
+  static baseCashewUrl(environment: Environment): string {
+    return this.getBaseUrl(Service.CASHEW, environment);
   }
 
-  static get pistachioLocalPort(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_PISTACHIO_PORT || "";
+  // Pistachio URLs
+  static basePistachioUrl(environment: Environment): string {
+    return this.getBaseUrl(Service.PISTACHIO, environment);
   }
 
-  static get pistachioContainerHost(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_PISTACHIO_HOST || "";
+  // Peanut URLs
+  static basePeanutUrl(environment: Environment): string {
+    return this.getBaseUrl(Service.PEANUT, environment);
   }
 
-  static get pistachioContainerPort(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_PISTACHIO_PORT || "";
+  // Reggie URLs
+  static getReggieUrl(): string {
+    return this.localOrTraefikBaseUrl(Service.REGGIE);
   }
 
-  static get peanutLocalHost(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_PEANUT_HOST || "";
-  }
-
-  static get peanutLocalPort(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_PEANUT_PORT || "";
-  }
-
-  static get peanutContainerHost(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_PEANUT_HOST || "";
-  }
-
-  static get peanutContainerPort(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_PEANUT_PORT || "";
-  }
-
-  static get reggieLocalHost(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_REGGIE_HOST || "";
-  }
-
-  static get reggieLocalPort(): string {
-    return process.env.NEXT_PUBLIC_LOCAL_REGGIE_PORT || "";
-  }
-
-  static get reggieContainerHost(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_REGGIE_HOST || "";
-  }
-
-  static get reggieContainerPort(): string {
-    return process.env.NEXT_PUBLIC_TRAEFIK_REGGIE_PORT || "";
-  }
-
-  static baseCashewUrl(isTraefik: boolean): string {
-    return isTraefik
-      ? `${this.cashewContainerHost}${this.cashewContainerPort}`
-      : `${this.cashewLocalHost}${this.cashewLocalPort}`;
-  }
-
-  static basePistachioUrl(isTraefik: boolean): string {
-    return isTraefik
-      ? `${this.pistachioContainerHost}${this.pistachioContainerPort}`
-      : `${this.pistachioLocalHost}${this.pistachioLocalPort}`;
-  }
-
-  static basePeanutUrl(isTraefik: boolean): string {
-    return isTraefik
-      ? `${this.peanutContainerHost}${this.peanutContainerPort}`
-      : `${this.peanutLocalHost}${this.peanutLocalPort}`;
-  }
-
-  static getReggieUrl(isTraefik: boolean): string {
-    return isTraefik
-      ? `${this.reggieContainerHost}${this.reggieContainerPort}`
-      : `${this.reggieLocalHost}${this.reggieLocalPort}`;
+  // Wander URLs
+  static getWanderUrl(): string {
+    return this.localOrTraefikBaseUrl(Service.WANDER);
   }
 }
 
-export default AppConfig;
+export { AppConfig };

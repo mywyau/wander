@@ -3,7 +3,7 @@ import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
 import DevSidebar from '@/components/developer/DevSidebar';
-import Navbar from "@/components/misc/NavBar";
+import Navbar from "@/components/navbar/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/globals.css";
