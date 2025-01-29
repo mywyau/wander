@@ -1,6 +1,6 @@
 import DeskListingController from "@/controllers/desk/DeskListingController";
 import DeskDetailedViewSidebar from "@/components/sidebar/DeskDetailedViewSidebar";
-import Navbar from "@/components/misc/NavBar";
+import Navbar from "@/components/navbar/NavBar";
 import { DeskListingBusinessAndOffice } from "@/types/desk/DeskListingBusinessAndOffice";
 
 interface DeskViewAllLayoutProps {
