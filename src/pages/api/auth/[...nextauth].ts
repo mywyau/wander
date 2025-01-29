@@ -30,13 +30,14 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/", // Redirect to your custom sign-in page if needed
   },
+  providers: [], // Empty array to avoid the "not iterable" error
   cookies: {
     sessionToken: {
       name: `next-auth.session-token`, // Customize cookie name if needed
       options: {
         httpOnly: true, // Don't allow client-side access to the cookie
-        secure: process.env.NODE_ENV === "production", // Secure cookie only in production
-        sameSite: "None", // Allow cross-site cookie sharing
+        secure: process.env.NODE_ENV === "production" ? true : false, // False in non-production (dev)
+        sameSite: "lax", // Allow cross-site cookie sharing
         domain: "www.wander.com", // Ensure both apps share the same domain (use .wander.com for subdomains)
         path: "/", // Cookie is valid for the entire domain
       },
