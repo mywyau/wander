@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { Button } from '@/components/ui/button'
+
 
 interface Booking {
   id: number;
@@ -252,9 +253,8 @@ const DashboardPage = () => {
                       <p className="text-sm text-gray-600">Postcode: {booking.postcode}</p>
                     </div>
                     <p
-                      className={`text-sm font-bold mt-2 ${
-                        booking.status === "Cancelled" ? "text-red-500" : "text-green-500"
-                      }`}
+                      className={`text-sm font-bold mt-2 ${booking.status === "Cancelled" ? "text-red-500" : "text-green-500"
+                        }`}
                     >
                       {booking.status}
                     </p>

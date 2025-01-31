@@ -1,5 +1,6 @@
 {
   "useTraefikUrl": true,
+  "useContainerHostAndPort": true,
   "services": {
     "cashew": {
       "local": {

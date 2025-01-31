@@ -71,7 +71,7 @@ class OfficeListingController {
 
   async getOfficeListing(officeId:string): Promise<OfficeListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/find/${officeId}`;
 
     try {

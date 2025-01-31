@@ -12,7 +12,7 @@ import { updateUserDataField } from "./form/ProfileForm";
 import { fetchUserData, updateUserData } from "./services/UserService";
 
 
-export default function ProfilePage() {
+export default function UserAccountProfilePage() {
 
   const { data: session, status } = useSession();
   const [userData, setUserData] = useState<User | null>(null);
@@ -23,9 +23,9 @@ export default function ProfilePage() {
   // Fetch user profile data
   useEffect(() => {
     
-    if (status === "authenticated" && session?.user?.userId) {
+    if (status === "authenticated" && session?.user?.email) {
       setIsLoading(true);
-      fetchUserData(session.user.userId)
+      fetchUserData(session.user.email)
         .then((data) => {
           if (data) setUserData(data);
           else setMessage("Failed to fetch user data.");
@@ -44,8 +44,8 @@ export default function ProfilePage() {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!session?.user?.userId || !userData) {
-      setMessage("User ID or data is missing.");
+    if (!session?.user?.email || !userData) {
+      setMessage("User email or data is missing.");
       return;
     }
 
@@ -62,7 +62,7 @@ export default function ProfilePage() {
         )
       );
 
-    const updatedData = await updateUserData(session.user.userId, cleanRequest);
+    const updatedData = await updateUserData(session.user.email, cleanRequest);
 
     if (updatedData) {
       setUserData(updatedData);
