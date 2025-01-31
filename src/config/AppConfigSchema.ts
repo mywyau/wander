@@ -21,6 +21,7 @@ const ServiceSchema = z.object({
 // Define the schema for the entire app configuration
 export const AppConfigSchema = z.object({
   useTraefikUrl: z.boolean(),
+  useContainerHostAndPort: z.boolean(),
   services: z.object({
     cashew: ServiceSchema,
     pistachio: ServiceSchema,

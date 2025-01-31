@@ -74,23 +74,25 @@ class AppConfig {
     return this.getBaseUrl(service, environment);
   }
 
-  // Cashew URLs
-  static browserAccessCashewUrl(): string {
-    return this.localOrTraefikBaseUrl(Service.CASHEW);
+  static localOrContainerBaseUrl(service: Service): string {
+    const useContainerHostAndPort = this.config.useContainerHostAndPort;
+    const environment = useContainerHostAndPort ? Environment.CONTAINER : Environment.LOCAL;
+
+    return this.getBaseUrl(service, environment);
   }
 
-  static baseCashewUrl(environment: Environment): string {
-    return this.getBaseUrl(Service.CASHEW, environment);
+  static baseCashewUrl(): string {
+    return this.localOrContainerBaseUrl(Service.CASHEW);
   }
 
   // Pistachio URLs
-  static basePistachioUrl(environment: Environment): string {
-    return this.getBaseUrl(Service.PISTACHIO, environment);
+  static basePistachioUrl(): string {
+    return this.localOrContainerBaseUrl(Service.PISTACHIO);
   }
 
   // Peanut URLs
-  static basePeanutUrl(environment: Environment): string {
-    return this.getBaseUrl(Service.PEANUT, environment);
+  static basePeanutUrl(): string {
+    return this.localOrContainerBaseUrl(Service.PEANUT);
   }
 
   // Reggie URLs

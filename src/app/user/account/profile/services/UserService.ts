@@ -1,9 +1,10 @@
 // services/userService.ts
 import { UpdatedUserRequest, User } from "@/app/user/account/profile/types/User";
+import { AppConfig } from "@/config/AppConfig";
 
-export const fetchUserData = async (userId: string): Promise<User | null> => {
+export const fetchUserData = async (userEmail: string): Promise<User | null> => {
   try {
-    const res = await fetch(`http://localhost:8080/cashew/wanderer/user/profile/${userId}`);
+    const res = await fetch(`http://${AppConfig.baseCashewUrl()}/cashew/wanderer/user/profile/${userEmail}`);
     if (res.ok) {
       return await res.json();
     } else {
@@ -21,7 +22,7 @@ export const updateUserData = async (
   updatedUserRequest: UpdatedUserRequest
 ): Promise<User | null> => {
   try {
-    const res = await fetch(`http://localhost:8080/cashew/wanderer/user/profile/${userId}`, {
+    const res = await fetch(`http://${AppConfig.baseCashewUrl()}/cashew/wanderer/user/profile/${userId}`, {
       method: "PUT",
       body: JSON.stringify(updatedUserRequest),
       headers: { "Content-Type": "application/json" },
