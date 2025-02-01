@@ -4,9 +4,9 @@ import React from 'react';
 import AuthProvider from "@/components/misc/AuthProvider";
 import Navbar from "@/components/navbar/NavBar";
 import WandererSidebar from '@/components/user/UserSidebar';
+import "@/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "@/globals.css";
 
 // Load fonts
 const geistSans = localFont({
@@ -44,19 +44,13 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
       <AuthProvider>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <div className="flex flex-1">
-            <WandererSidebar isOpen={true} />
-            <main className="flex-1 container mx-auto p-4 mt-4">
-              {children} {/* Page content */}
-            </main>
-          </div>
-        </div>
+        {/* <Navbar /> */}
+          <main className="">
+            {children} {/* Page content */}
+          </main>
       </AuthProvider>
     </div>
   );
 };
-
 
 export default HomeLayout;

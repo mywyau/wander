@@ -6,70 +6,118 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import Link from "next/link";
+
+
 
 export default function UserAccountProfilePage() {
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="grid auto-rows-auto gap-6">
-        <form onSubmit={"handleSubmit"} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="min-h-screen">
 
-          <Card className="w-3/4">
-            <CardHeader>
-              <CardTitle>Address Details</CardTitle>
-              <CardDescription>Add your address details</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form>
-                <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Street</Label>
-                    <Input id="name" placeholder="Name of your project" />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">City</Label>
-                    <Input id="name" placeholder="Name of your project" />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="framework">Country</Label>
-                    <Select>
-                      <SelectTrigger
-                        className="bg-white text-black dark:bg-secondaryBlack dark:text-darkText"
-                        id="framework"
-                      >
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="nuxt">Africa</SelectItem>
-                        <SelectItem value="astro">China</SelectItem>
-                        <SelectItem value="next">United Kingdom</SelectItem>
-                        <SelectItem value="sveltekit">United States of America</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">County</Label>
-                    <Input id="name" placeholder="County" />
-                  </div>
+      <div className="">
+        <Sheet>
 
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Postcode</Label>
-                    <Input id="name" placeholder="Postcode" />
-                  </div>
-                </div>
-              </form>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="red" className="w-1/3">Cancel</Button>
-              <Button variant="green" className="w-1/3">Submit</Button>
-            </CardFooter>
-          </Card>
+          <SheetTrigger asChild>
+            <Button>Open</Button>
+          </SheetTrigger>
 
+          <SheetContent>
 
-        </form>
+            <SheetHeader>
+              <SheetTitle>Navigation</SheetTitle>
+              <SheetDescription>
+                {/* Make changes to your profile here. Click save when youre done. */}
+              </SheetDescription>
+            </SheetHeader>
 
+            <div className="mt-5">
+              <Link href={`/`} className="hover:text-blue-700">
+                Homepage Search
+              </Link>
+            </div>
+
+            <div className="mt-5">
+              <Link href="/business/view-all" className="hover:text-blue-700">
+                View all of your businesses
+              </Link>
+            </div>
+
+            <SheetFooter>
+              <SheetClose asChild>
+                {/* <Button type="submit">Save changes</Button> */}
+              </SheetClose>
+            </SheetFooter>
+
+          </SheetContent>
+        </Sheet>
       </div>
+      {/* Card */}
 
+      <div className="flex item-center justify-center px-4">
+        <Card className="max-w-2xl p-4 shadow-lg">
+
+          <CardHeader>
+            <CardTitle>Address Details</CardTitle>
+            <CardDescription>Add your address details</CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <form>
+              <div className="grid w-full items-center gap-4">
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="name">Street</Label>
+                  <Input id="name" className="w-full" placeholder="Street" />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="name">City</Label>
+                  <Input id="name" placeholder="City" />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="framework">Country</Label>
+                  <Select>
+                    <SelectTrigger
+                      className="bg-white text-black dark:bg-secondaryBlack dark:text-darkText"
+                      id="framework"
+                    >
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                      <SelectItem value="nuxt">Africa</SelectItem>
+                      <SelectItem value="astro">China</SelectItem>
+                      <SelectItem value="next">United Kingdom</SelectItem>
+                      <SelectItem value="sveltekit">United States of America</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="name">County</Label>
+                  <Input id="name" placeholder="County" />
+                </div>
+
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="name">Postcode</Label>
+                  <Input id="name" placeholder="Postcode" />
+                </div>
+              </div>
+            </form>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <Button variant="red" className="w-1/3">Cancel</Button>
+            <Button variant="green" className="w-1/3">Submit</Button>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 }

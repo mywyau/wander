@@ -2,6 +2,7 @@ import { AppConfig } from "@/config/AppConfig";
 import { signOut, useSession } from "next-auth/react";
 
 export default function UserMenu() {
+  
   // Grabbing session data using useSession hook (NextAuth will read the cookie automatically)
   const { data: session, status } = useSession();
 

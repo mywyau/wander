@@ -8,6 +8,7 @@ import HamburgerMenu from "./HamburgerMenu";
 import NavbarLinks from "./NavbarLinks";
 
 export default function Navbar() {
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
