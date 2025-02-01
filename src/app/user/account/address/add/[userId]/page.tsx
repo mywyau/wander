@@ -1,22 +1,12 @@
 "use client";
 
+import NavigationMenuDemo from "@/components/navigation-menu-demo-";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import Link from "next/link";
 
 
 
@@ -25,43 +15,11 @@ export default function UserAccountProfilePage() {
   return (
     <div className="min-h-screen">
 
-      <div className="">
-        <Sheet>
-
-          <SheetTrigger asChild>
-            <Button>Open</Button>
-          </SheetTrigger>
-
-          <SheetContent>
-
-            <SheetHeader>
-              <SheetTitle>Navigation</SheetTitle>
-              <SheetDescription>
-                {/* Make changes to your profile here. Click save when youre done. */}
-              </SheetDescription>
-            </SheetHeader>
-
-            <div className="mt-5">
-              <Link href={`/`} className="hover:text-blue-700">
-                Homepage Search
-              </Link>
-            </div>
-
-            <div className="mt-5">
-              <Link href="/business/view-all" className="hover:text-blue-700">
-                View all of your businesses
-              </Link>
-            </div>
-
-            <SheetFooter>
-              <SheetClose asChild>
-                {/* <Button type="submit">Save changes</Button> */}
-              </SheetClose>
-            </SheetFooter>
-
-          </SheetContent>
-        </Sheet>
+      <div>
+        {NavigationMenuDemo()}
       </div>
+
+
       {/* Card */}
 
       <div className="flex item-center justify-center px-4">
