@@ -12,6 +12,12 @@ const config: Config = {
 	  colors: {
 		main: '#88aaee',
 		overlay: 'rgba(0,0,0,0.8)',
+
+		hardRed: "#ff6b6b", // Custom hard red color
+		softRed: "#fcd7d7", // Custom soft red color
+
+		hardGreen: "#A3E636", // Custom hard green color
+		softGreen: "#E0E7F1", // Custom soft green color
   
 		bg: '#dfe5f2',
 		text: '#000',
