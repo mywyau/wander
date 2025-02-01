@@ -3,15 +3,9 @@ import { signOut, useSession } from "next-auth/react";
 
 export default function UserMenu() {
   
-  // Grabbing session data using useSession hook (NextAuth will read the cookie automatically)
   const { data: session, status } = useSession();
 
-  console.log('Session:', session); // Log session to check if it's being retrieved
-
-
-  // if (status === "loading") {
-  //   return <div>Loading...</div>; // Loading state, adjust as needed
-  // }
+  console.log('Session:', session);
 
   return (
     <div className="flex items-center space-x-4">

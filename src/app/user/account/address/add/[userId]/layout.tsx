@@ -3,7 +3,6 @@ import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
 import Navbar from "@/components/navbar/NavBar";
-import WandererSidebar from '@/components/user/UserSidebar';
 import "@/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -44,7 +43,7 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
       <AuthProvider>
-        {/* <Navbar /> */}
+        <Navbar />
           <main className="">
             {children} {/* Page content */}
           </main>
