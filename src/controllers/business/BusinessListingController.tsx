@@ -1,11 +1,11 @@
-import AppConfig from '@/config/AppConfig';
 import { InitiateBusinessListingRequest } from '@/types/business/InitiateBusinessListingRequest';
 import { BusinessListing, BusinessListingCard } from '@/types/business/BusinessListing';
+import { AppConfig } from '@/config/AppConfig';
 
 class BusinessListingController {
   async addNewBusiness(data: InitiateBusinessListingRequest): Promise<BusinessListingCard> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/initiate`;
 
     const combinedData = {

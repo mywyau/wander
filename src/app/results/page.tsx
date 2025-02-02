@@ -46,6 +46,7 @@ const desks: Desk[] = [
   { id: 7, name: "Brain labs", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/open_office.jpg" },
   { id: 7, name: "Kek HQ", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
   { id: 7, name: "Incredible", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/kill_me_office.webp" },
+  { id: 7, name: "Sit Enterprises", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/osrs_ge.png" },
 ];
 
 export default function ResultsPage() {
@@ -74,6 +75,7 @@ export default function ResultsPage() {
       }, 250); // 1-second delay
     }
   }, [locationQuery]);
+  
   return (
     <main className="min-h-screen p-6 grid neobrutalist-bg">
       {/* Show loading state while waiting */}

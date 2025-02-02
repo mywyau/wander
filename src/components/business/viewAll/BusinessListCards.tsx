@@ -3,6 +3,10 @@ import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+
 interface BusinessListingsCardsProp {
     filteredBusinesses: BusinessListingCard[];
     currentBusinesses: BusinessListingCard[];
@@ -33,44 +37,47 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
         router.push(`/business/detailed-view/${businessId}?timestamp=${Date.now()}`);
     };
 
-    return filteredBusinesses.length === 0 && showNoBusinesssMessage ? (
-        <div className="text-center py-8">
-            <p className="text-gray-500 mb-4">No businesses found.</p>
-        </div>
-    ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentBusinesses.map(
-                (business) => (
-                    <div
-                        key={business.businessId}
-                        className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
-                    >
-                        <div>
-                            <h2 className="text-lg font-semibold">{business.businessName}</h2>
-                            <p className="text-gray-600 text-sm">
-                                {business.description || "No description provided."}
-                            </p>
-                        </div>
-                        <div className="mt-2 flex gap-6">
-                            <button
-                                className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-                                onClick={() => handleViewDetails(business.businessId)}
-                            >
-                                View listing
-                            </button>
-                            <button
-                                className="text-base text-red-500 rounded hover:text-red-700 underline"
-                                onClick={() => onDeleteLinkSubmit(business.businessId)}
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </div>
+    return (
+        filteredBusinesses.length === 0 && showNoBusinesssMessage ? (
+            <div className="text-center py-8">
+                <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">No businesses available or were found</p>
+            </div>
+        ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {currentBusinesses.map(
+                    (business) => (
+
+                        <Card className="transition-all bg-hardPurple hover:bg-softPurple">
+                            <CardHeader>
+                                <CardTitle className="text-lg font-bold">{business.businessName}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-black text-sm">
+                                    {business.description || "No description provided."}
+                                </p>
+
+                                <div className="space-x-10">
+                                    <Button
+                                        variant="yellow"
+                                        className="mt-5 hover:bg-softYellow"
+                                        onClick={() => handleViewDetails(business.businessId)}
+                                    > View listing </Button>
+                                    <Button
+                                        variant="red"
+                                        className="mt-5 hover:bg-softRed"
+                                        onClick={() => {
+                                            onDeleteLinkSubmit(business.businessId); // Call the delete all action when the user confirms
+                                        }}
+                                    > Delete </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )
                 )
-            )
-            }
-        </div>
-    );
+                }
+            </div>
+        )
+    )
 };
 
 export default BusinessListCards;

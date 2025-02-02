@@ -7,7 +7,7 @@ import Navbar from "@/components/navbar/NavBar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/globals.css";
-import WandererSidebar from '@/components/user/UserProfileSidebar';
+import WandererSidebar from '@/components/sidebar/UserProfileSidebar';
 
 // Load fonts
 const geistSans = localFont({
