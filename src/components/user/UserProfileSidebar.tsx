@@ -9,9 +9,7 @@ export default function UserProfileSidebar({ isOpen }: { isOpen: boolean }) {
 
     const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
         collapseSidebar: false,
-        businesses: false,
-        offices: false,
-        desks: false,
+        user: false
     });
 
     const toggleCollapse = () => {
@@ -29,41 +27,14 @@ export default function UserProfileSidebar({ isOpen }: { isOpen: boolean }) {
             aria-label="Sidebar"
         >
             {/* Header and Hamburger Menu */}
-            {/* <div className="flex justify-end p-2 bg-hardRed h-15 border-b-4 border-black">
-                <button onClick={toggleCollapse} type="button">
-                    {isCollapsed ? (
-                        <svg
-                            className="w-6 h-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="black"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    ) : (
-                        <svg
-                            className="w-6 h-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="black"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    )}
-                </button>
-            </div> */}
-
-                {/* Header and Hamburger Menu */}
-                <div className="flex justify-end p-2 bg-hardRed h-15 border-b-4 border-black">
+            <div className="flex justify-end p-2 bg-hardRed h-15 border-b-4 border-black">
                 <button
                     onClick={toggleCollapse}
                     type="button"
                     className="p-2 w-10 h-10 mr-auto text-gray-500 rounded-lg"
                     aria-controls="navbar-default"
                 >
-                   {isCollapsed ? (
+                    {isCollapsed ? (
                         <svg
                             className="w-6 h-6"
                             xmlns="http://www.w3.org/2000/svg"
@@ -95,12 +66,12 @@ export default function UserProfileSidebar({ isOpen }: { isOpen: boolean }) {
                         {
                             !isCollapsed && (
                                 <button
-                                    onClick={() => toggleSection("businesses")}
+                                    onClick={() => toggleSection("user")}
                                     className="flex items-center justify-between p-2 w-full font-bold text-black rounded-lg group hover:text-hardRed mb-4"
                                 >
-                                    <span className={`${isCollapsed ? "hidden" : ""}`}>Businesses</span>
+                                    <span className={`${isCollapsed ? "hidden" : ""}`}>Useful Links</span>
                                     <svg
-                                        className={`w-4 h-4 transform ${expandedSections.businesses ? "rotate-90" : ""}`}
+                                        className={`w-4 h-4 transform ${expandedSections.user ? "rotate-90" : ""}`}
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -112,16 +83,26 @@ export default function UserProfileSidebar({ isOpen }: { isOpen: boolean }) {
                             )
                         }
                         {
-                            expandedSections.businesses && !isCollapsed && (
+                            expandedSections.user && !isCollapsed && (
                                 <ul className="pl-4 space-y-4">
                                     <li>
-                                        <Link href="/business/home" className="text-black hover:text-hardRed">
-                                            Business Dashboard
+                                        <Link href="/" className="text-black hover:text-hardRed">
+                                            Search for a desk
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/business/view-all" className="text-black hover:text-hardRed">
-                                            View all of your businesses
+                                        <Link href="/user/booking/123" className="text-black hover:text-hardRed">
+                                            Current Booking
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/user/dashboard" className="text-black hover:text-hardRed">
+                                            Dashboard
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/user/past-bookings" className="text-black hover:text-hardRed">
+                                            Past Bookings
                                         </Link>
                                     </li>
                                 </ul>
