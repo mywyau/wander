@@ -14,6 +14,14 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+
 // Define the Desk interface
 interface Desk {
   id: number;
@@ -104,18 +112,42 @@ export default function ResultsPage() {
           </div>
 
           {/* Grid Container for Listings */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {filteredDesks.map((desk) => (
-              <Card key={desk.id} className="p-1 bg-main border-4 border-black hover:bg-softBlue transition-all">
-                <CardHeader className="relative">
-                  <img
-                    src={desk.imageUrl}
-                    alt={desk.name}
-                    className="w-full h-70 object-cover rounded-lg border-2 border-black"
-                  />
-                  <h2 className="text-xl font-bold text-black mt-3">{desk.name}</h2>
+              <Card key={desk.id} className="p-3 bg-main border-4 border-black hover:bg-softBlue transition-all">
+                <CardHeader className="relative text-2xl font-bold text-black mt-3">
+                  {desk.name}
                 </CardHeader>
                 <CardContent className="text-black space-y-2">
+
+                  <Carousel className="w-full flex justify-center items-center relative">
+                    <CarouselContent>
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <CarouselItem key={index}>
+                          <div className="p-5">
+                            <Card className="shadow-none">
+                              <img
+                                src={desk.imageUrl}
+                                alt={desk.name}
+                                className="w-full h-80 object-cover rounded-lg border-2 border-black"
+                              />
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+
+                    {/* Position the buttons outside the image area */}
+                    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 ml-5 z-10">
+                      <CarouselPrevious className="bg-hardYellow" />
+                    </div>
+
+                    <div className="absolute top-1/2 right-0 transform -translate-y-1/2 mr-5 z-10">
+                      <CarouselNext className="bg-hardYellow"/>
+                    </div>
+                  </Carousel>
+
+
                   <p><span className="font-semibold">From £{desk.price}</span> per day</p>
                   <p className="text-black">{desk.address}</p>
                   <p className="text-black">{desk.postcode}</p>
