@@ -37,13 +37,13 @@ interface Desk {
 
 // Desk data
 const desks: Desk[] = [
-  { id: 1, name: "Office 1", price: 25, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.7128, lng: -74.006 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 2, name: "Office 2", price: 30, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.73061, lng: -73.935242 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 3, name: "Desk 3", price: 20, address: "1 Bob Street", city: "Los Angeles", country: "United States", postcode: null, coordinates: { lat: 34.0522, lng: -118.2437 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 4, name: "Desk 4", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 5, name: "Desk 5", price: 100, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 6, name: "Office 6", price: 20, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 7, name: "Cafe House 7", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 1, name: "Nexus Hub", price: 25, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.7128, lng: -74.006 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 2, name: "Urban Heights", price: 30, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.73061, lng: -73.935242 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 3, name: "Collab Corner", price: 20, address: "1 Bob Street", city: "Los Angeles", country: "United States", postcode: null, coordinates: { lat: 34.0522, lng: -118.2437 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 4, name: "Xchange", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 5, name: "Skyline Studios", price: 100, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 6, name: "Wizard's Mindbomb", price: 20, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 7, name: "Brain labs", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
 ];
 
 export default function ResultsPage() {
@@ -115,10 +115,10 @@ export default function ResultsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {filteredDesks.map((desk) => (
               <Card key={desk.id} className="p-3 bg-main border-4 border-black hover:bg-softBlue transition-all">
-                <CardHeader className="relative text-2xl font-bold text-black mt-3">
+                <CardHeader className="relative text-3xl font-bold text-black mt-3">
                   {desk.name}
                 </CardHeader>
-                <CardContent className="text-black space-y-2">
+                <CardContent className="text-black space-y-1">
 
                   <Carousel className="w-full flex justify-center items-center relative">
                     <CarouselContent>
@@ -148,7 +148,7 @@ export default function ResultsPage() {
                   </Carousel>
 
 
-                  <p><span className="font-semibold">From £{desk.price}</span> per day</p>
+                  <p><span className="text-xl font-semibold">From £{desk.price}</span> per day</p>
                   <p className="text-black">{desk.address}</p>
                   <p className="text-black">{desk.postcode}</p>
                   <p className="text-black">{desk.city}</p>

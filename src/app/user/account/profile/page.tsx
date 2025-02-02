@@ -12,6 +12,18 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+
 export default function UserProfilePage() {
 
   const [user, setUser] = useState({
@@ -67,35 +79,101 @@ export default function UserProfilePage() {
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Phone:</strong> {user.phone}</p>
             <p><strong>Address:</strong> {user.address}</p>
-            <Button variant="yellow" className="mt-3 hover:bg-softYellow">Edit Profile</Button>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="yellow" className="mt-3 hover:bg-softYellow" >Edit Profile</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Edit profile</DialogTitle>
+                  <DialogDescription>
+                    Make changes to your profile here. Click save when youre done.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right">
+                      Name
+                    </Label>
+                    <Input
+                      id="name"
+                      defaultValue="Pedro Duarte"
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="username" className="text-right">
+                      Username
+                    </Label>
+                    <Input
+                      id="username"
+                      defaultValue="@peduarte"
+                      className="col-span-3"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit">Save changes</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
           </CardContent>
         </Card>
 
         {/* Account Settings */}
         <Card className="shadow-md">
           <CardHeader>
-            <CardTitle>Account Settings</CardTitle>
+            <CardTitle>Payment Settings</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Manage your password and security settings.</p>
-            <Button variant="yellow" className="mt-2 hover:bg-softYellow">Change Password</Button>
+
+            <p><strong>Card:</strong> Card ending in XXXXXXXX7005</p>
+            <p><strong>Card Type:</strong> Visa</p>
+            <p><strong>Billing Address:</strong> {user.address}</p>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="yellow" className="mt-2 hover:bg-softYellow">Edit Payment Settings</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Edit profile</DialogTitle>
+                  <DialogDescription>
+                    Make changes to your profile here. Click save when youre done.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right">
+                      Name
+                    </Label>
+                    <Input
+                      id="name"
+                      defaultValue="Pedro Duarte"
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="username" className="text-right">
+                      Username
+                    </Label>
+                    <Input
+                      id="username"
+                      defaultValue="@peduarte"
+                      className="col-span-3"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit">Save changes</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
           </CardContent>
         </Card>
-
-        {/* Recent Activity */}
-        <Card className="shadow-md col-span-1 md:col-span-2">
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="list-disc list-inside">
-              {/* <li>Booked a desk at XYZ Workspace - 2 days ago</li>
-              <li>Updated account settings - 1 week ago</li>
-              <li>Joined the platform - 2 months ago</li> */}
-            </ul>
-          </CardContent>
-        </Card>
-
       </div>
     </div>
   );
