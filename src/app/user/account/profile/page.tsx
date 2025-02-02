@@ -1,107 +1,102 @@
 "use client";
 
-import { User } from "@/app/user/account/profile/types/User";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb';
 
-export default function UserAccountProfilePage() {
+export default function UserProfilePage() {
 
-  // const { data: session, status } = useSession();
-  const [userData, setUserData] = useState<User | null>(null);
-  const [message, setMessage] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Fetch user profile data
-  // useEffect(() => {
-
-  //   if (status === "authenticated" && session?.user?.email) {
-  //     setIsLoading(true);
-  //     fetchUserData(session.user.email)
-  //       .then((data) => {
-  //         if (data) setUserData(data);
-  //         else setMessage("Failed to fetch user data.");
-  //       })
-  //       .catch(() => setMessage("An error occurred while fetching user data."))
-  //       .finally(() => setIsLoading(false));
-  //   }
-  // }, [session, status]);
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { id, value } = e.target;
-  //   setUserData((prevData) => updateUserDataField(prevData, id, value));
-  // };
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-
-  //   const updatedData = await updateUserData(session.user.email, cleanRequest);
-
-  //   if (updatedData) {
-  //     setUserData(updatedData);
-  //     setMessage("Profile updated successfully.");
-  //     setIsEditing(false);
-  //   } else {
-  //     setMessage("Failed to update profile.");
-  //   }
-
-  //   setIsLoading(false);
-  // };
+  const [user, setUser] = useState({
+    name: "John Doe",
+    email: "john.doe@example.com",
+    phone: "+1 234 567 890",
+    address: "123 Main Street, New York, NY",
+    profilePic: "/images/profile-placeholder.png", // Placeholder image
+  });
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="flex-1 p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <form onSubmit={"handleSubmit"} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="min-h-screen flex flex-col items-center p-6">
 
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>Address Details</CardTitle>
-              <CardDescription>Deploy your new project in one-click.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form>
-                <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" placeholder="Name of your project" />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="framework">Framework</Label>
-                    <Select>
-                      <SelectTrigger
-                        className="bg-white text-black dark:bg-secondaryBlack dark:text-darkText"
-                        id="framework"
-                      >
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="next">Next.js</SelectItem>
-                        <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                        <SelectItem value="astro">Astro</SelectItem>
-                        <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </form>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="default" >Cancel</Button>
-              <Button variant="neutral">Deploy</Button>
-            </CardFooter>
-          </Card>
+      <div className="w-full max-w-4xl rounded-lg mb-5 p-1">
 
-
-        </form>
-
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/wander" className="hover:text-blue-800">
+                Home
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/wander/user/account/profile" className="hover:text-blue-800">
+                User Profile
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
 
+      {/* Profile Header */}
+      <div className="w-full max-w-4xl rounded-lg">
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle className="text-3xl font-bold">{user.name}</CardTitle>
+          </CardHeader>
+          <CardContent>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Main Content: Grid Layout */}
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+        {/* Personal Info */}
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle>Personal Information</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Phone:</strong> {user.phone}</p>
+            <p><strong>Address:</strong> {user.address}</p>
+            <Button variant="yellow" className="mt-3 hover:bg-softYellow">Edit Profile</Button>
+          </CardContent>
+        </Card>
+
+        {/* Account Settings */}
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle>Account Settings</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Manage your password and security settings.</p>
+            <Button variant="yellow" className="mt-2 hover:bg-softYellow">Change Password</Button>
+          </CardContent>
+        </Card>
+
+        {/* Recent Activity */}
+        <Card className="shadow-md col-span-1 md:col-span-2">
+          <CardHeader>
+            <CardTitle>Recent Activity</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="list-disc list-inside">
+              {/* <li>Booked a desk at XYZ Workspace - 2 days ago</li>
+              <li>Updated account settings - 1 week ago</li>
+              <li>Joined the platform - 2 months ago</li> */}
+            </ul>
+          </CardContent>
+        </Card>
+
+      </div>
     </div>
   );
 }

@@ -23,7 +23,7 @@ export default function UserMenu() {
           </span>
           <button
             onClick={() => signOut()}
-            className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
+            className="text-l text-black hover:text-gray-100 dark:text-gray-300 dark:hover:text-blue-500"
           >
             Logout
           </button>
@@ -31,11 +31,12 @@ export default function UserMenu() {
       ) : (
         <a
           href={`http://${AppConfig.getReggieUrl()}/login`}
-          className="text-l text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
+          className="text-l text-black hover:text-gray-100 dark:text-gray-300 dark:hover:text-blue-500"
           target="_self"
         >
           Login
         </a>
+        
       )}
     </div>
   );
