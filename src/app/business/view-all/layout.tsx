@@ -42,7 +42,7 @@ interface BusinessProfileLayoutProps {
 
 const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children }) => {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased neobrutalist-bg-line`}>
       <AuthProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar />

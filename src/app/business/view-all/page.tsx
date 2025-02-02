@@ -1,28 +1,45 @@
 "use client";
 
-import AddNewBusinessButton from "@/components/business/viewAll/AddNewBusinessButton";
 import BusinessListCards from "@/components/business/viewAll/BusinessListCards";
 import BusinessViewAllErrorSummary from "@/components/business/viewAll/BusinessViewAllErrorSummary";
-import DeleteAllBusinessListingsButton from "@/components/business/viewAll/DeleteAllBusinessListingsButton";
-import BusinessViewAllPagination from "@/components/business/viewAll/Pagination";
-import SearchAndFilterBusinesses from "@/components/business/viewAll/SearchAndFilterBusinesses";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import BusinessListingController from "@/controllers/business/BusinessListingController";
 import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { InitiateBusinessListingRequest } from "@/types/business/InitiateBusinessListingRequest";
 import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious
+} from '@/components/ui/pagination';
+import { IdGenerator } from "@/utils/idGenerator";
 
 const ViewAllBusinessListingsPage = () => {
-
     const userId = getCookie("userId");
     console.log(`userId: ${userId}`);
 
+    const [loading, setLoading] = useState(true); // Loading state
     const [businesses, setBusinesses] = useState<BusinessListingCard[]>([]);
-
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const businessesPerPage = 9;
@@ -35,27 +52,20 @@ const ViewAllBusinessListingsPage = () => {
         );
 
     const indexOfLastBusiness = currentPage * businessesPerPage;
-
     const indexOfFirstBusiness = indexOfLastBusiness - businessesPerPage;
-
-    const currentBusinesses =
-        filteredBusinesses
-            .slice(
-                indexOfFirstBusiness,
-                indexOfLastBusiness
-            );
-
+    const currentBusinesses = filteredBusinesses.slice(indexOfFirstBusiness, indexOfLastBusiness);
     const totalPages = Math.ceil(filteredBusinesses.length / businessesPerPage);
 
     useEffect(() => {
         const fetchBusinesses = async () => {
             try {
-
+                setLoading(true); // Start loading
                 const fetchedBusinesses = await BusinessListingController.getAllBusinessListingCards();
-
                 setBusinesses(fetchedBusinesses);
+                setLoading(false); // Stop loading once data is fetched
             } catch (error) {
                 console.error("Failed to fetch businesses:", error);
+                setLoading(false); // Stop loading in case of error
             }
         };
 
@@ -63,23 +73,20 @@ const ViewAllBusinessListingsPage = () => {
     }, []);
 
     const onAddNewBusinessSubmit = async (data: InitiateBusinessListingRequest) => {
-
         setSubmitError(null);
         setSuccessMessage(null);
 
         try {
-
             const newBusiness: BusinessListingCard = await BusinessListingController.addNewBusiness(data);
             setSuccessMessage("Business created successfully!");
 
-            const newBusinessWithDetails: BusinessListingCard =
-            {
+            const newBusinessWithDetails: BusinessListingCard = {
                 businessId: data.businessId,
                 businessName: "New Business",
                 description: "Please add a description",
             };
 
-            console.log(`newBusiness: ${newBusiness}`)
+            console.log(`newBusiness: ${newBusiness}`);
             setBusinesses((prevBusinesses) => [...prevBusinesses, newBusinessWithDetails]);
         } catch (error) {
             setSubmitError("Failed to create the business. Please try again.");
@@ -106,14 +113,7 @@ const ViewAllBusinessListingsPage = () => {
         }
     };
 
-
-    const onDeleteAllOfficesSubmit = async () => {
-
-        // if (!userId) {
-        //     setSubmitError("User not authenticated");
-        //     return;
-        // }
-
+    const deleteAllBusinessListings = async () => {
         setSubmitError(null);
         setSuccessMessage(null);
 
@@ -121,7 +121,7 @@ const ViewAllBusinessListingsPage = () => {
             const deleteResult = await BusinessListingController.deleteAllBusinessListings(userId);
 
             if (deleteResult) {
-                setBusinesses((prevBusinesses) => []);
+                setBusinesses([]);
                 setSuccessMessage("All Business Listings Deleted successfully!");
             } else {
                 setSubmitError("Failed to delete all business listings. Please try again.");
@@ -131,43 +131,122 @@ const ViewAllBusinessListingsPage = () => {
         }
     };
 
-
     return (
         <div className="max-w-6xl mx-auto p-8">
+            {/* Display Loading Message if there are no businesses */}
+            {loading ? (
+                <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">Loading results...</p>
+            ) : (
+                <>
+                    <div className="mb-6 flex justify-between item-center">
+                        <Input
+                            type="text"
+                            placeholder="Search businesses"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            variant="shadowNoBorder"
+                            className="w-1/3"
+                        />
+                        <Button
+                            variant="green"
+                            className="hover:bg-softGreen"
+                            onClick={() => {
+                                const randomBusinessId = IdGenerator.generateBusinessId();
+                                const newBusinessData: InitiateBusinessListingRequest = { businessId: randomBusinessId };
+                                onAddNewBusinessSubmit(newBusinessData);
+                            }}
+                        >
+                            Add a new business
+                        </Button>
+                    </div>
 
-            <h1 className="text-2xl font-bold mb-6">Your Businesses</h1>
+                    <BusinessViewAllErrorSummary submitError={submitError} successMessage={successMessage} />
 
-            <div className="mb-6 flex justify-between item-center">
+                    <BusinessListCards
+                        filteredBusinesses={filteredBusinesses}
+                        currentBusinesses={currentBusinesses}
+                        onDeleteLinkSubmit={onDeleteBusiness}
+                    />
 
-                <SearchAndFilterBusinesses searchQuery={searchQuery} setSearchQueryF={setSearchQuery} />
+                    <div className="mt-8">
+                        <Pagination className="mx-auto flex w-full justify-start mt-8">
+                            <PaginationContent>
+                                <PaginationItem>
+                                    <PaginationPrevious
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            if (currentPage > 1) setCurrentPage(currentPage - 1);
+                                        }}
+                                        disabled={currentPage === 1}
+                                        activeClassNames="bg-softPurple text-black"
+                                        className="bg-hardPurple text-black"
+                                    />
+                                </PaginationItem>
 
-                <AddNewBusinessButton onSubmit={onAddNewBusinessSubmit} />
-            </div>
+                                {/* Page Numbers */}
+                                {Array.from({ length: totalPages }).map((_, index) => {
+                                    const pageNumber = index + 1;
+                                    return (
+                                        <PaginationItem key={pageNumber}>
+                                            <PaginationLink
+                                                href="#"
+                                                isActive={currentPage === pageNumber}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setCurrentPage(pageNumber);
+                                                }}
+                                                activeClassNames="bg-softPurple text-black"
+                                                className="bg-hardPurple text-black"
+                                            >
+                                                {pageNumber}
+                                            </PaginationLink>
+                                        </PaginationItem>
+                                    );
+                                })}
 
-            <BusinessViewAllErrorSummary
-                submitError={submitError}
-                successMessage={successMessage}
-            />
+                                <PaginationItem>
+                                    <PaginationNext
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                                        }}
+                                        activeClassNames="bg-softPurple text-black"
+                                        className="bg-hardPurple text-black"
+                                    />
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+                    </div>
 
-            <BusinessListCards
-                filteredBusinesses={filteredBusinesses}
-                currentBusinesses={currentBusinesses}
-                onDeleteLinkSubmit={onDeleteBusiness}
-            />
-
-            <BusinessViewAllPagination
-                filteredBusinesses={filteredBusinesses}
-                businessesPerPage={businessesPerPage}
-                totalPages={totalPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-
-            />
-
-            <div className="mt-4 mb-6">
-
-                <DeleteAllBusinessListingsButton userId={userId} onSubmit={onDeleteAllOfficesSubmit} />
-            </div>
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button
+                                variant="red"
+                                className="mt-5 hover:bg-softRed"
+                                onClick={() => {
+                                    deleteAllBusinessListings();
+                                }}
+                            >
+                                Delete All
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="bg-softRed">
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete all of your businesses, offices, and desks.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction className="bg-hardRed">Continue</AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                </>
+            )}
         </div>
     );
 };

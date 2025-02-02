@@ -21,7 +21,6 @@ export default function Navbar() {
         <div className="flex items-center space-x-8">
           <NavbarLinks isSidebarOpen={isSidebarOpen} />
           <UserMenu />
-          {/* <HamburgerMenu isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> */}
         </div>
       </div>
     </nav>

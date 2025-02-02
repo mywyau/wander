@@ -3,7 +3,7 @@ import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
 import Navbar from "@/components/navbar/NavBar";
-import UserProfileSidebar from '@/components/user/UserProfileSidebar';
+import UserProfileSidebar from '@/components/sidebar/UserProfileSidebar';
 import "@/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
