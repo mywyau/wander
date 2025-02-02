@@ -37,13 +37,15 @@ interface Desk {
 
 // Desk data
 const desks: Desk[] = [
-  { id: 1, name: "Nexus Hub", price: 25, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.7128, lng: -74.006 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 2, name: "Urban Heights", price: 30, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.73061, lng: -73.935242 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 3, name: "Collab Corner", price: 20, address: "1 Bob Street", city: "Los Angeles", country: "United States", postcode: null, coordinates: { lat: 34.0522, lng: -118.2437 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 4, name: "Xchange", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 5, name: "Skyline Studios", price: 100, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 6, name: "Wizard's Mindbomb", price: 20, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
-  { id: 7, name: "Brain labs", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 1, name: "Nexus Hub", price: 25, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.7128, lng: -74.006 }, imageUrl: "./images/fun_office.jpg" },
+  { id: 2, name: "Urban Heights", price: 30, address: "1 Bob Street", city: "New York City", country: "United States", postcode: null, coordinates: { lat: 40.73061, lng: -73.935242 }, imageUrl: "./images/green_office_space.avif" },
+  { id: 3, name: "Patrick Bateman's Office", price: 20, address: "1 Bob Street", city: "Los Angeles", country: "United States", postcode: null, coordinates: { lat: 34.0522, lng: -118.2437 }, imageUrl: "./images/luxury_office.jpg" },
+  { id: 4, name: "Xchange", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/office_1.jpg" },
+  { id: 5, name: "Skyline Studios", price: 100, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/1984_office.jpg" },
+  { id: 6, name: "Wizard's Mindbomb", price: 20, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/factory_line.jpg" },
+  { id: 7, name: "Brain labs", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/open_office.jpg" },
+  { id: 7, name: "Kek HQ", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/pepe_house.jpg" },
+  { id: 7, name: "Incredible", price: 35, address: "1 Bob Street", city: "London", country: "United Kingdom", postcode: "CF3 3NJ", coordinates: { lat: 51.5074, lng: -0.1276 }, imageUrl: "./images/kill_me_office.webp" },
 ];
 
 export default function ResultsPage() {
