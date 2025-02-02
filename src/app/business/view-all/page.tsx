@@ -179,8 +179,8 @@ const ViewAllBusinessListingsPage = () => {
                                             if (currentPage > 1) setCurrentPage(currentPage - 1);
                                         }}
                                         disabled={currentPage === 1}
-                                        activeClassNames="bg-softPurple text-black"
-                                        className="bg-hardPurple text-black"
+                                        activeClassNames="bg-hardPurple text-black"
+                                        className="bg-softPurple text-black"
                                     />
                                 </PaginationItem>
 
@@ -196,8 +196,8 @@ const ViewAllBusinessListingsPage = () => {
                                                     e.preventDefault();
                                                     setCurrentPage(pageNumber);
                                                 }}
-                                                activeClassNames="bg-softPurple text-black"
-                                                className="bg-hardPurple text-black"
+                                                activeClassNames="bg-hardPurple text-black"
+                                                className="bg-softPurple text-black"
                                             >
                                                 {pageNumber}
                                             </PaginationLink>
@@ -212,8 +212,8 @@ const ViewAllBusinessListingsPage = () => {
                                             e.preventDefault();
                                             if (currentPage < totalPages) setCurrentPage(currentPage + 1);
                                         }}
-                                        activeClassNames="bg-softPurple text-black"
-                                        className="bg-hardPurple text-black"
+                                        activeClassNames="bg-hardPurple text-black"
+                                        className="bg-softPurple text-black"
                                     />
                                 </PaginationItem>
                             </PaginationContent>
@@ -225,9 +225,6 @@ const ViewAllBusinessListingsPage = () => {
                             <Button
                                 variant="red"
                                 className="mt-5 hover:bg-softRed"
-                                onClick={() => {
-                                    deleteAllBusinessListings();
-                                }}
                             >
                                 Delete All
                             </Button>
@@ -241,7 +238,11 @@ const ViewAllBusinessListingsPage = () => {
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction className="bg-hardRed">Continue</AlertDialogAction>
+                                <AlertDialogAction
+                                    className="bg-hardRed"
+                                    onClick={() => {
+                                        deleteAllBusinessListings();
+                                    }}>Continue</AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
