@@ -20,7 +20,7 @@ export default function SearchPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6">
+    <main className="min-h-screen p-6">
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Find your work location</h1>
         <form onSubmit={handleSubmit} className="mb-6 flex justify-center">
@@ -30,13 +30,14 @@ export default function SearchPage() {
             placeholder="Enter location"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            variant="shadowNoBorder"
             className="w-1/3" // Set width
           />
 
           <Button
             type="submit"
-            variant="noShadow"
-            className="ml-4"
+            variant="default"
+            className="ml-4 hover:bg-softBlue"
           >
             Search
           </Button>
