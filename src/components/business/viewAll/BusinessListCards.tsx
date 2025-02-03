@@ -22,22 +22,17 @@ interface BusinessListingsCardsProp {
     filteredBusinesses: BusinessListingCard[];
     currentBusinesses: BusinessListingCard[];
     onDeleteSubmit: (businessId: string) => Promise<void>;
-    successDeleteSingleMessage: string | null;
-    deleteSingleError: string | null;
 }
 
 const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
     filteredBusinesses,
     currentBusinesses,
     onDeleteSubmit,
-    successDeleteSingleMessage,
-    deleteSingleError
 }) => {
 
 
     const [showNoBusinessMessage, setShowNoBusinessMessage] = useState(false);
     const router = useRouter();
-
 
     useEffect(() => {
         if (filteredBusinesses.length === 0) {
@@ -49,6 +44,7 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
             setShowNoBusinessMessage(false);
         }
     }, [filteredBusinesses]);
+
 
     const handleViewDetails = (businessId: string) => {
         router.push(`/business/detailed-view/${businessId}?timestamp=${Date.now()}`);
@@ -92,26 +88,7 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
                         <ContextMenuItem
                             onClick={
                                 () => {
-
                                     onDeleteSubmit(business.businessId)
-
-                                    // Show success or error toast
-                                    if (deleteSingleError) {
-                                        toast(deleteSingleError, {
-                                            action: {
-                                                label: "Retry",
-                                                onClick: () => console.log("Retry clicked"),
-                                            },
-                                        });
-                                    } else if (successDeleteSingleMessage) {
-                                        toast(successDeleteSingleMessage, {
-                                            action: {
-                                                label: "Undo",
-                                                onClick: () => console.log("Undo clicked"),
-                                            },
-                                        });
-                                    }
-
                                 }
                             }>
                             <Trash2 className="mr-2 w-4 h-4 text-red-600" />
