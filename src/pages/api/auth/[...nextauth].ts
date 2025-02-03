@@ -39,10 +39,21 @@ export const authOptions: NextAuthOptions = {
         secure: process.env.NODE_ENV === "production" ? true : false, // False in non-production (dev)
         sameSite: "lax", // Allow cross-site cookie sharing
         domain: "www.wander.com", // Ensure both apps share the same domain (use .wander.com for subdomains)
+        // domain: process.env.COOKIE_DOMAIN || (process.env.NODE_ENV === 'production' ? 'www.wander.com' : '.localhost'), // Use localhost for dev and proper domain for prod
         path: "/", // Cookie is valid for the entire domain
       },
     },
+    callbackUrl: {
+      name: `__Secure-next-auth.callback-url`,
+      options: {
+        sameSite: 'lax',
+        path: '/',
+        secure: true
+      }
+    },
   },
+
+
 };
 
 export default NextAuth(authOptions);

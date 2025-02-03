@@ -1,5 +1,5 @@
 import { AppConfig } from "@/config/AppConfig";
-import { signOut, useSession } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 
 export default function UserMenu() {
   
@@ -11,13 +11,6 @@ export default function UserMenu() {
     <div className="flex items-center space-x-4">
       {session ? (
         <div className="flex items-center space-x-3">
-          {session.user?.image && (
-            <img
-              src={session.user.image}
-              alt="Profile"
-              className="w-8 h-8 rounded-full"
-            />
-          )}
           <span className="text-gray-700 dark:text-gray-300">
             {session.user?.name || session.user?.email}
           </span>
@@ -30,7 +23,7 @@ export default function UserMenu() {
         </div>
       ) : (
         <a
-          href={`http://${AppConfig.getReggieUrl()}/login`}
+          href={`http://${AppConfig.getReggieUrl()}/reggie/login`}
           className="text-l text-black hover:text-gray-100 dark:text-gray-300 dark:hover:text-blue-500"
           target="_self"
         >

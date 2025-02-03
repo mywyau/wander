@@ -41,7 +41,7 @@ interface HomeLayoutProps {
 
 const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased neobrutalist-bg-line`}>
       <AuthProvider>
         <Navbar />
           <main className="">
