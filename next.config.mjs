@@ -9,6 +9,7 @@ const nextConfig = {
   basePath: '/wander', // Set the base path for Traefik routing
   env: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3002/reggie/api/auth/',  // Adjust the base URL
+    // NEXTAUTH_URL: process.env.NEXTAUTH_URL || 'http://localhost:3000/wander/api/auth/',  // Adjust the base URL
   },
   reactStrictMode: true,
 };

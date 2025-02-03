@@ -1,6 +1,5 @@
 "use client";
 
-import NavigationMenuDemo from "@/components/navigation-menu-demo-";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,12 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export default function UserAccountProfilePage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-6">
-      
-      {/* Navigation Menu */}
-      {/* <div className="w-full max-w-6xl flex justify-center">
-        <NavigationMenuDemo />
-      </div> */}
+    <div className="min-h-screen flex flex-col items-center p-6">
+
 
       {/* Card Section */}
       <div className="mt-8 w-full flex justify-center">
@@ -71,7 +66,7 @@ export default function UserAccountProfilePage() {
           </CardContent>
 
           <CardFooter className="flex justify-between">
-            <Button variant="red" className="w-1/3">Cancel</Button>
+            {/* <Button variant="red" className="w-1/3">Cancel</Button> */}
             <Button variant="green" className="w-1/3">Submit</Button>
           </CardFooter>
         </Card>
