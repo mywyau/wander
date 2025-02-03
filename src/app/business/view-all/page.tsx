@@ -1,7 +1,6 @@
 "use client";
 
 import BusinessListCards from "@/components/business/viewAll/BusinessListCards";
-import BusinessViewAllErrorSummary from "@/components/business/viewAll/BusinessViewAllErrorSummary";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import BusinessListingController from "@/controllers/business/BusinessListingController";
@@ -31,15 +30,23 @@ import {
     PaginationPrevious
 } from '@/components/ui/pagination';
 import { IdGenerator } from "@/utils/idGenerator";
+import { toast } from "sonner";
+
 
 const ViewAllBusinessListingsPage = () => {
+
     const userId = getCookie("userId");
     console.log(`userId: ${userId}`);
 
     const [loading, setLoading] = useState(true); // Loading state
     const [businesses, setBusinesses] = useState<BusinessListingCard[]>([]);
+
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+    const [successDeleteSingleMessage, setSuccessDeleteSingleMessage] = useState<string | null>(null);
+    const [deleteSingleError, setDeleteSingleError] = useState<string | null>(null);
+
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const businessesPerPage = 9;
@@ -72,13 +79,23 @@ const ViewAllBusinessListingsPage = () => {
         fetchBusinesses();
     }, []);
 
+    const [showNoBusinesssMessage, setShowNoBusinesssMessage] = useState(false);
+
+    useEffect(() => {
+        if (filteredBusinesses.length === 0) {
+            setShowNoBusinesssMessage(true);
+        } else {
+            setShowNoBusinesssMessage(false);
+        }
+    }, [filteredBusinesses]);
+
     const onAddNewBusinessSubmit = async (data: InitiateBusinessListingRequest) => {
         setSubmitError(null);
         setSuccessMessage(null);
 
         try {
             const newBusiness: BusinessListingCard = await BusinessListingController.addNewBusiness(data);
-            setSuccessMessage("Business created successfully!");
+            setSuccessMessage("Business Created successfully!");
 
             const newBusinessWithDetails: BusinessListingCard = {
                 businessId: data.businessId,
@@ -94,8 +111,9 @@ const ViewAllBusinessListingsPage = () => {
     };
 
     const onDeleteBusiness = async (businessId: string) => {
-        setSubmitError(null);
-        setSuccessMessage(null);
+
+        setDeleteSingleError(null);
+        setSuccessDeleteSingleMessage(null);
 
         try {
             const deleteResult = await BusinessListingController.deleteBusinessListing(businessId);
@@ -104,12 +122,12 @@ const ViewAllBusinessListingsPage = () => {
                 setBusinesses((prevBusinesses) =>
                     prevBusinesses.filter((business) => business.businessId !== businessId)
                 );
-                setSuccessMessage("Business Deleted successfully!");
+                setSuccessDeleteSingleMessage("Business Deleted successfully!");
             } else {
-                setSubmitError("Failed to delete the business. Please try again.");
+                setDeleteSingleError("Failed to delete the business. Please try again.");
             }
         } catch (error) {
-            setSubmitError("Failed to delete the business. Please try again.");
+            setDeleteSingleError("Failed to delete the business. Please try again.");
         }
     };
 
@@ -147,108 +165,139 @@ const ViewAllBusinessListingsPage = () => {
                             variant="shadowNoBorder"
                             className="w-1/3"
                         />
+
                         <Button
                             variant="green"
                             className="hover:bg-softGreen"
                             onClick={() => {
                                 const randomBusinessId = IdGenerator.generateBusinessId();
                                 const newBusinessData: InitiateBusinessListingRequest = { businessId: randomBusinessId };
+
                                 onAddNewBusinessSubmit(newBusinessData);
+                                // Show success or error toast
+                                if (submitError) {
+                                    toast(submitError, {
+                                        action: {
+                                            label: "Retry",
+                                            onClick: () => console.log("Retry clicked"),
+                                        },
+                                    });
+                                } else if (successMessage) {
+                                    toast(successMessage, {
+                                        action: {
+                                            label: "Undo",
+                                            onClick: () => console.log("Undo clicked"),
+                                        },
+                                    });
+                                }
+
                             }}
                         >
                             Add a new business
                         </Button>
                     </div>
 
-                    <BusinessViewAllErrorSummary submitError={submitError} successMessage={successMessage} />
+                    {
+                        filteredBusinesses.length === 0 && showNoBusinesssMessage ? (
+                            <div className="text-center py-8">
+                                <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">No businesses available or were found</p>
+                            </div>
+                        ) : (
 
-                    <BusinessListCards
-                        filteredBusinesses={filteredBusinesses}
-                        currentBusinesses={currentBusinesses}
-                        onDeleteLinkSubmit={onDeleteBusiness}
-                    />
+                            <div className="">
 
-                    <div className="mt-8">
-                        <Pagination className="mx-auto flex w-full justify-start mt-8">
-                            <PaginationContent>
-                                <PaginationItem>
-                                    <PaginationPrevious
-                                        href="#"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            if (currentPage > 1) setCurrentPage(currentPage - 1);
-                                        }}
-                                        disabled={currentPage === 1}
-                                        activeClassNames="bg-hardPurple text-black"
-                                        className="bg-softPurple text-black"
-                                    />
-                                </PaginationItem>
+                                <BusinessListCards
+                                    filteredBusinesses={filteredBusinesses}
+                                    currentBusinesses={currentBusinesses}
+                                    onDeleteSubmit={onDeleteBusiness}
+                                    successDeleteSingleMessage={successDeleteSingleMessage}
+                                    deleteSingleError={deleteSingleError}
+                                />
 
-                                {/* Page Numbers */}
-                                {Array.from({ length: totalPages }).map((_, index) => {
-                                    const pageNumber = index + 1;
-                                    return (
-                                        <PaginationItem key={pageNumber}>
-                                            <PaginationLink
-                                                href="#"
-                                                isActive={currentPage === pageNumber}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setCurrentPage(pageNumber);
-                                                }}
-                                                activeClassNames="bg-hardPurple text-black"
-                                                className="bg-softPurple text-black"
-                                            >
-                                                {pageNumber}
-                                            </PaginationLink>
-                                        </PaginationItem>
-                                    );
-                                })}
+                                <div className="mt-8">
+                                    <Pagination className="mx-auto flex w-full justify-start mt-8">
+                                        <PaginationContent>
+                                            <PaginationItem>
+                                                <PaginationPrevious
+                                                    href="#"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        if (currentPage > 1) setCurrentPage(currentPage - 1);
+                                                    }}
+                                                    disabled={currentPage === 1}
+                                                    activeClassNames="bg-hardPurple text-black"
+                                                    className="bg-softPurple text-black"
+                                                />
+                                            </PaginationItem>
 
-                                <PaginationItem>
-                                    <PaginationNext
-                                        href="#"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-                                        }}
-                                        activeClassNames="bg-hardPurple text-black"
-                                        className="bg-softPurple text-black"
-                                    />
-                                </PaginationItem>
-                            </PaginationContent>
-                        </Pagination>
-                    </div>
+                                            {/* Page Numbers */}
+                                            {Array.from({ length: totalPages }).map((_, index) => {
+                                                const pageNumber = index + 1;
+                                                return (
+                                                    <PaginationItem key={pageNumber}>
+                                                        <PaginationLink
+                                                            href="#"
+                                                            isActive={currentPage === pageNumber}
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setCurrentPage(pageNumber);
+                                                            }}
+                                                            activeClassNames="bg-hardPurple text-black"
+                                                            className="bg-softPurple text-black"
+                                                        >
+                                                            {pageNumber}
+                                                        </PaginationLink>
+                                                    </PaginationItem>
+                                                );
+                                            })}
 
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button
-                                variant="red"
-                                className="mt-5 hover:bg-softRed"
-                            >
-                                Delete All
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent className="bg-softRed">
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone. This will permanently delete all of your businesses, offices, and desks.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    className="bg-hardRed"
-                                    onClick={() => {
-                                        deleteAllBusinessListings();
-                                    }}>Continue</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
+                                            <PaginationItem>
+                                                <PaginationNext
+                                                    href="#"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                                                    }}
+                                                    activeClassNames="bg-hardPurple text-black"
+                                                    className="bg-softPurple text-black"
+                                                />
+                                            </PaginationItem>
+                                        </PaginationContent>
+                                    </Pagination>
+                                </div>
+
+                                <AlertDialog>
+                                    <AlertDialogTrigger asChild>
+                                        <Button
+                                            variant="red"
+                                            className="mt-5 hover:bg-softRed"
+                                        >
+                                            Delete All
+                                        </Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent className="bg-softRed">
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                This action cannot be undone. This will permanently delete all of your businesses, offices, and desks.
+                                            </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction
+                                                className="bg-hardRed"
+                                                onClick={() => {
+                                                    deleteAllBusinessListings();
+                                                }}>Continue</AlertDialogAction>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                </AlertDialog>
+                            </div>
+                        )}
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 
