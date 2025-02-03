@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
-import HamburgerMenu from "./HamburgerMenu";
 import NavbarLinks from "./NavbarLinks";
 
 export default function Navbar() {

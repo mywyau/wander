@@ -58,7 +58,7 @@ export default function UserProfilePage() {
 
       {/* Profile Header */}
       <div className="w-full max-w-4xl rounded-lg">
-        <Card className="shadow-md">
+        <Card className="bg-softBlue">
           <CardHeader>
             <CardTitle className="text-3xl font-bold">{user.name}</CardTitle>
           </CardHeader>
@@ -71,7 +71,7 @@ export default function UserProfilePage() {
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
         {/* Personal Info */}
-        <Card className="shadow-md">
+        <Card className="bg-softBlue">
           <CardHeader>
             <CardTitle>Personal Information</CardTitle>
           </CardHeader>
@@ -123,7 +123,7 @@ export default function UserProfilePage() {
         </Card>
 
         {/* Account Settings */}
-        <Card className="shadow-md">
+        <Card className="bg-softBlue">
           <CardHeader>
             <CardTitle>Payment Settings</CardTitle>
           </CardHeader>
