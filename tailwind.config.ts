@@ -42,7 +42,8 @@ const config: Config = {
 			},
 			boxShadow: {
 				light: '6px 6px 0px 0px #000',
-				dark: '6px 6px 0px 0px #000'
+				dark: '6px 6px 0px 0px #000',
+				neo: "6px 6px 0px rgba(0, 0, 0, 1)" // Bold neobrutalist shadow
 			},
 			translate: {
 				boxShadowX: '6px',

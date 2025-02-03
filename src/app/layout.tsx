@@ -1,7 +1,8 @@
 
+import "@/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "@/globals.css";
+import { Toaster } from "sonner";
 
 // Load fonts
 const geistSans = localFont({
@@ -36,7 +37,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* You can include any meta tags or links that should apply globally */}
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Toaster 
+              position="bottom-right"
+              expand={true}
+              richColors
+              theme="dark" // You can change to "light" or "dark"
+              toastOptions={{
+                className: "bg-white text-black border-4 border-black shadow-neo p-4",
+              }}
+        // richColors position="bottom-right" 
+        />
+      </body>
     </html>
   );
 }

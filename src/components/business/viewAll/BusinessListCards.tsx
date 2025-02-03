@@ -1,53 +1,72 @@
-
 import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuSeparator,
+    ContextMenuTrigger
+} from "@/components/ui/context-menu";
 
+import {
+    Building,
+    List,
+    Trash2
+} from "lucide-react";
+import { toast } from "sonner";
 
 interface BusinessListingsCardsProp {
     filteredBusinesses: BusinessListingCard[];
     currentBusinesses: BusinessListingCard[];
-    onDeleteLinkSubmit: (businessId: string) => Promise<void>;
+    onDeleteSubmit: (businessId: string) => Promise<void>;
+    successDeleteSingleMessage: string | null;
+    deleteSingleError: string | null;
 }
 
 const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
     filteredBusinesses,
     currentBusinesses,
-    onDeleteLinkSubmit,
+    onDeleteSubmit,
+    successDeleteSingleMessage,
+    deleteSingleError
 }) => {
-    const [showNoBusinesssMessage, setShowNoBusinesssMessage] = useState(false);
-    const router = useRouter(); // Get the router instance
+
+
+    const [showNoBusinessMessage, setShowNoBusinessMessage] = useState(false);
+    const router = useRouter();
+
 
     useEffect(() => {
         if (filteredBusinesses.length === 0) {
             const timer = setTimeout(() => {
-                setShowNoBusinesssMessage(true);
-            }, 1000); // Delay of 1 second
-            return () => clearTimeout(timer); // Cleanup timer on component unmount
+                setShowNoBusinessMessage(true);
+            }, 1000);
+            return () => clearTimeout(timer);
         } else {
-            setShowNoBusinesssMessage(false);
+            setShowNoBusinessMessage(false);
         }
     }, [filteredBusinesses]);
-
 
     const handleViewDetails = (businessId: string) => {
         router.push(`/business/detailed-view/${businessId}?timestamp=${Date.now()}`);
     };
 
-    return (
-        filteredBusinesses.length === 0 && showNoBusinesssMessage ? (
-            <div className="text-center py-8">
-                <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">No businesses available or were found</p>
-            </div>
-        ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentBusinesses.map(
-                    (business) => (
-
-                        <Card className="transition-all bg-hardPurple hover:bg-softPurple">
+    return filteredBusinesses.length === 0 && showNoBusinessMessage ? (
+        <div className="text-center py-8">
+            <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">
+                No businesses available or found.
+            </p>
+        </div>
+    ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {currentBusinesses.map((business) => (
+                <ContextMenu key={business.businessId}>
+                    {/* The entire card acts as the trigger for right-click */}
+                    <ContextMenuTrigger asChild>
+                        <Card className="transition-all bg-hardPurple hover:bg-softPurple cursor-pointer">
                             <CardHeader>
                                 <CardTitle className="text-lg font-bold">{business.businessName}</CardTitle>
                             </CardHeader>
@@ -55,29 +74,54 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
                                 <p className="text-black text-sm">
                                     {business.description || "No description provided."}
                                 </p>
-
-                                <div className="space-x-10">
-                                    <Button
-                                        variant="yellow"
-                                        className="mt-5 hover:bg-softYellow"
-                                        onClick={() => handleViewDetails(business.businessId)}
-                                    > View listing </Button>
-                                    <Button
-                                        variant="red"
-                                        className="mt-5 hover:bg-softRed"
-                                        onClick={() => {
-                                            onDeleteLinkSubmit(business.businessId); // Call the delete all action when the user confirms
-                                        }}
-                                    > Delete </Button>
-                                </div>
                             </CardContent>
                         </Card>
-                    )
-                )
-                }
-            </div>
-        )
-    )
+                    </ContextMenuTrigger>
+
+                    {/* Context Menu Content (Appears where user right clicks) */}
+                    <ContextMenuContent className="w-56 bg-softPurple">
+                        <ContextMenuItem onClick={() => handleViewDetails(business.businessId)}>
+                            <List className="mr-2 w-4 h-4" />
+                            <span>View Listing Details</span>
+                        </ContextMenuItem>
+                        <ContextMenuItem>
+                            <Building className="mr-2 w-4 h-4" />
+                            <span>View Offices</span>
+                        </ContextMenuItem>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                            onClick={
+                                () => {
+
+                                    onDeleteSubmit(business.businessId)
+
+                                    // Show success or error toast
+                                    if (deleteSingleError) {
+                                        toast(deleteSingleError, {
+                                            action: {
+                                                label: "Retry",
+                                                onClick: () => console.log("Retry clicked"),
+                                            },
+                                        });
+                                    } else if (successDeleteSingleMessage) {
+                                        toast(successDeleteSingleMessage, {
+                                            action: {
+                                                label: "Undo",
+                                                onClick: () => console.log("Undo clicked"),
+                                            },
+                                        });
+                                    }
+
+                                }
+                            }>
+                            <Trash2 className="mr-2 w-4 h-4 text-red-600" />
+                            <span className="text-red-600">Delete Business</span>
+                        </ContextMenuItem>
+                    </ContextMenuContent>
+                </ContextMenu>
+            ))}
+        </div>
+    );
 };
 
 export default BusinessListCards;
