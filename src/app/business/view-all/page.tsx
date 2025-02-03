@@ -44,8 +44,8 @@ const ViewAllBusinessListingsPage = () => {
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const [successDeleteSingleMessage, setSuccessDeleteSingleMessage] = useState<string | null>(null);
     const [deleteSingleError, setDeleteSingleError] = useState<string | null>(null);
+    const [successDeleteSingleMessage, setSuccessDeleteSingleMessage] = useState<string | null>(null);
 
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -79,6 +79,40 @@ const ViewAllBusinessListingsPage = () => {
         fetchBusinesses();
     }, []);
 
+    // ✅ UseEffect to show toast when state updates
+    useEffect(() => {
+        if (submitError) {
+            toast(submitError, {
+                className: "bg-hardRed text-black border-4 border-black shadow-neo p-4",
+            });
+            setSubmitError(null);
+
+        }
+        if (successMessage) {
+            toast(successMessage, {
+                className: "bg-hardGreen text-black border-4 border-black shadow-neo p-4",
+            })
+            setSuccessMessage(null);
+        }
+    }, [submitError, successMessage]); // 👀 Watches state changes
+
+    // ✅ UseEffect to show toast when state updates
+    useEffect(() => {
+        if (deleteSingleError) {
+            toast(successMessage, {
+                className: "bg-hardRed text-black border-4 border-black shadow-neo p-4",
+            });
+            setDeleteSingleError(null);
+        }
+        if (successDeleteSingleMessage) {
+            toast(successDeleteSingleMessage, {
+                className: "bg-hardGreen text-black border-4 border-black shadow-neo p-4",
+            });
+            setSuccessDeleteSingleMessage(null);
+        }
+    }, [submitError, successDeleteSingleMessage]); // 👀 Watches state changes
+
+
     const [showNoBusinesssMessage, setShowNoBusinesssMessage] = useState(false);
 
     useEffect(() => {
@@ -90,8 +124,6 @@ const ViewAllBusinessListingsPage = () => {
     }, [filteredBusinesses]);
 
     const onAddNewBusinessSubmit = async (data: InitiateBusinessListingRequest) => {
-        setSubmitError(null);
-        setSuccessMessage(null);
 
         try {
             const newBusiness: BusinessListingCard = await BusinessListingController.addNewBusiness(data);
@@ -115,8 +147,10 @@ const ViewAllBusinessListingsPage = () => {
         setDeleteSingleError(null);
         setSuccessDeleteSingleMessage(null);
 
+
         try {
             const deleteResult = await BusinessListingController.deleteBusinessListing(businessId);
+            setSuccessDeleteSingleMessage("Business Deleted successfully!");
 
             if (deleteResult) {
                 setBusinesses((prevBusinesses) =>
@@ -132,8 +166,6 @@ const ViewAllBusinessListingsPage = () => {
     };
 
     const deleteAllBusinessListings = async () => {
-        setSubmitError(null);
-        setSuccessMessage(null);
 
         try {
             const deleteResult = await BusinessListingController.deleteAllBusinessListings(userId);
@@ -174,22 +206,6 @@ const ViewAllBusinessListingsPage = () => {
                                 const newBusinessData: InitiateBusinessListingRequest = { businessId: randomBusinessId };
 
                                 onAddNewBusinessSubmit(newBusinessData);
-                                // Show success or error toast
-                                if (submitError) {
-                                    toast(submitError, {
-                                        action: {
-                                            label: "Retry",
-                                            onClick: () => console.log("Retry clicked"),
-                                        },
-                                    });
-                                } else if (successMessage) {
-                                    toast(successMessage, {
-                                        action: {
-                                            label: "Undo",
-                                            onClick: () => console.log("Undo clicked"),
-                                        },
-                                    });
-                                }
 
                             }}
                         >
@@ -210,8 +226,6 @@ const ViewAllBusinessListingsPage = () => {
                                     filteredBusinesses={filteredBusinesses}
                                     currentBusinesses={currentBusinesses}
                                     onDeleteSubmit={onDeleteBusiness}
-                                    successDeleteSingleMessage={successDeleteSingleMessage}
-                                    deleteSingleError={deleteSingleError}
                                 />
 
                                 <div className="mt-8">

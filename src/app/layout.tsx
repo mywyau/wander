@@ -44,9 +44,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               expand={true}
               richColors
               theme="dark" // You can change to "light" or "dark"
-              toastOptions={{
-                className: "bg-white text-black border-4 border-black shadow-neo p-4",
+              className={{
+                toast: "border-4 border-black shadow-neo p-4 font-semibold", // Default style
+                success: "bg-green-500 text-white border-green-700 shadow-lg p-4",
+                error: "bg-red-500 text-white border-red-700 shadow-lg p-4",
+                warning: "bg-yellow-500 text-black border-yellow-700 shadow-lg p-4",
               }}
+    
+                // 🎨 Custom Styles for Success Toasts
+                // success: {
+                //   className: "bg-hardGreen text-black border-4 border-black shadow-neo p-4",
+                // },
+    
+                // // 🔥 Custom Styles for Error Toasts
+                // error: {
+                //   className: "bg-hardRed text-black border-4 border-black shadow-neo p-4",
+                // },
+    
+                // // ⚠️ Custom Styles for Warning Toasts
+                // warning: {
+                //   className: "bg-hardYellow text-black border-4 border-black shadow-neo p-4",
+                // },
+              
         // richColors position="bottom-right" 
         />
       </body>
