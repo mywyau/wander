@@ -2,7 +2,7 @@ import { InitiateBusinessListingRequest } from '@/types/business/InitiateBusines
 import { BusinessListing, BusinessListingCard } from '@/types/business/BusinessListing';
 import { AppConfig } from '@/config/AppConfig';
 
-class BusinessListingController {
+class BusinessListingConnector {
   async addNewBusiness(data: InitiateBusinessListingRequest): Promise<BusinessListingCard> {
 
     const pistachioUrl = AppConfig.basePistachioUrl();
@@ -164,4 +164,4 @@ class BusinessListingController {
 
 }
 
-export default new BusinessListingController();
+export default new BusinessListingConnector();
