@@ -18,7 +18,7 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
 
     return (
 
-        <Tabs defaultValue="address" className="w-full max-w-3xl">
+        <Tabs defaultValue="address" className="w-full max-w-7xl">
             <TabsList className="grid w-full grid-cols-3 h-18 shadow-light">
                 <TabsTrigger value="address" className="text-lg font-semibold data-[state=active]:bg-softBlue">Address</TabsTrigger>
                 <TabsTrigger value="contact-details" className="text-lg font-semibold data-[state=active]:bg-softBlue">Contact Details</TabsTrigger>
@@ -31,10 +31,62 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
                     </CardHeader>
                     <CardContent className="space-y-2">
 
-                        Some placeholder address details
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
 
                     </CardContent>
                     <CardFooter>
+
+                        <Sheet>
+                            <SheetTrigger asChild>
+                                <Button variant={"yellow"} className='w-1/3'>Edit</Button>
+                            </SheetTrigger>
+                            <SheetContent className="!w-full max-w-2xl">
+                                <SheetHeader>
+                                    <SheetTitle>Edit Contact Details</SheetTitle>
+                                    <SheetDescription>
+
+                                    </SheetDescription>
+                                </SheetHeader>
+                                <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="name" className="text-right">
+                                            Primary Contact First Name
+                                        </Label>
+                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="name" className="text-right">
+                                            Primary Contact Last Name
+                                        </Label>
+                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="username" className="text-right">
+                                            Email
+                                        </Label>
+                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="username" className="text-right">
+                                            Email
+                                        </Label>
+                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                    </div>
+                                </div>
+                                <SheetFooter>
+                                    <SheetClose asChild>
+                                        <Button type="submit">Save changes</Button>
+                                    </SheetClose>
+                                </SheetFooter>
+                            </SheetContent>
+                        </Sheet>
+
                     </CardFooter>
                 </Card>
             </TabsContent>
@@ -46,7 +98,13 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
 
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        Some placeholder contact details
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
 
                     </CardContent>
 
@@ -54,7 +112,7 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
 
                         <Sheet>
                             <SheetTrigger asChild>
-                                <Button>Open</Button>
+                                <Button variant={"yellow"} className='w-1/3'>Edit</Button>
                             </SheetTrigger>
                             <SheetContent className="!w-full max-w-2xl">
                                 <SheetHeader>
@@ -107,10 +165,60 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
                         <CardTitle></CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        Some placeholder specifications details
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
+                        <p>Some placeholder specifications details</p>
 
                     </CardContent>
                     <CardFooter>
+
+
+                        <Sheet>
+                            <SheetTrigger asChild>
+                                <Button variant={"yellow"} className='w-1/3'>Edit</Button>
+                            </SheetTrigger>
+                            <SheetContent className="!w-full max-w-2xl">
+                                <SheetHeader>
+                                    <SheetTitle>Edit Contact Details</SheetTitle>
+                                    <SheetDescription>
+
+                                    </SheetDescription>
+                                </SheetHeader>
+                                <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="name" className="text-right">
+                                            Primary Contact First Name
+                                        </Label>
+                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="name" className="text-right">
+                                            Primary Contact Last Name
+                                        </Label>
+                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="username" className="text-right">
+                                            Email
+                                        </Label>
+                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="username" className="text-right">
+                                            Email
+                                        </Label>
+                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                    </div>
+                                </div>
+                                <SheetFooter>
+                                    <SheetClose asChild>
+                                        <Button type="submit">Save changes</Button>
+                                    </SheetClose>
+                                </SheetFooter>
+                            </SheetContent>
+                        </Sheet>
+
 
                     </CardFooter>
                 </Card>
