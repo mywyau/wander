@@ -56,32 +56,44 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
                                 <div className="grid gap-4 py-4">
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="name" className="text-right">
-                                            Primary Contact First Name
+                                            Building Number
                                         </Label>
-                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                        <Input id="name" placeholder='Building Number' value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="name" className="text-right">
-                                            Primary Contact Last Name
+                                            Street
                                         </Label>
-                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                        <Input id="name" placeholder='Enter a street' value="" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="name" className="text-right">
+                                            City
+                                        </Label>
+                                        <Input id="name" placeholder='Enter a city' value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="username" className="text-right">
-                                            Email
+                                            Country
                                         </Label>
-                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                        <Input id="username" value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="username" className="text-right">
-                                            Email
+                                            County
                                         </Label>
-                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                        <Input id="username" placeholder='Enter the county for your business' value="" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="username" className="text-right">
+                                            Postcode
+                                        </Label>
+                                        <Input id="postcode" placeholder='Enter the post code for your business' value="" className="col-span-3" />
                                     </div>
                                 </div>
                                 <SheetFooter>
                                     <SheetClose asChild>
-                                        <Button type="submit">Save changes</Button>
+                                        <Button variant="green" type="submit" >Save changes</Button>
                                     </SheetClose>
                                 </SheetFooter>
                             </SheetContent>
@@ -124,32 +136,32 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
                                 <div className="grid gap-4 py-4">
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="name" className="text-right">
-                                            Primary Contact First Name
+                                            First Name
                                         </Label>
-                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                        <Input id="name" placeholder='Enter the first name of the primary contact' value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="name" className="text-right">
-                                            Primary Contact Last Name
+                                            Last Name
                                         </Label>
-                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                        <Input id="name" placeholder='Enter the last name of the primary contact' value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="username" className="text-right">
                                             Email
                                         </Label>
-                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                        <Input id="username" placeholder='Enter an email' value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="username" className="text-right">
-                                            Email
+                                            Phone number
                                         </Label>
-                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                        <Input id="username" placeholder='Enter a phone number for contact' value="" className="col-span-3" />
                                     </div>
                                 </div>
                                 <SheetFooter>
                                     <SheetClose asChild>
-                                        <Button type="submit">Save changes</Button>
+                                        <Button variant="green" type="submit">Save changes</Button>
                                     </SheetClose>
                                 </SheetFooter>
                             </SheetContent>
@@ -172,8 +184,6 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
 
                     </CardContent>
                     <CardFooter>
-
-
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant={"yellow"} className='w-1/3'>Edit</Button>
@@ -188,32 +198,32 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({
                                 <div className="grid gap-4 py-4">
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="name" className="text-right">
-                                            Primary Contact First Name
+                                            First Name
                                         </Label>
-                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                        <Input id="name" value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="name" className="text-right">
-                                            Primary Contact Last Name
+                                            Last Name
                                         </Label>
-                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                        <Input id="name" value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="username" className="text-right">
                                             Email
                                         </Label>
-                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                        <Input id="username" value="" className="col-span-3" />
                                     </div>
                                     <div className="grid grid-cols-4 items-center gap-4">
                                         <Label htmlFor="username" className="text-right">
                                             Email
                                         </Label>
-                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                        <Input id="username" value="" className="col-span-3" />
                                     </div>
                                 </div>
                                 <SheetFooter>
                                     <SheetClose asChild>
-                                        <Button type="submit">Save changes</Button>
+                                        <Button variant="green" type="submit">Save changes</Button>
                                     </SheetClose>
                                 </SheetFooter>
                             </SheetContent>
