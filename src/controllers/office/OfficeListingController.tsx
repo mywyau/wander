@@ -1,11 +1,11 @@
-import AppConfig from '@/config/AppConfig';
+import { AppConfig } from '@/config/AppConfig';
 import { InitiateOfficeListingRequest } from '@/types/office/InitiateOfficeListingRequest';
 import { OfficeListing, OfficeListingCard } from '@/types/office/OfficeListing';
 
 class OfficeListingController {
   async addNewOffice(data: InitiateOfficeListingRequest): Promise<OfficeListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/initiate`;
 
 
@@ -45,7 +45,7 @@ class OfficeListingController {
 
   async getAllOfficeListingCards(businessId:string): Promise<OfficeListingCard[]> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/cards/find/all/${businessId}`;
 
     try {
@@ -97,7 +97,7 @@ class OfficeListingController {
 
   async deleteOfficeListing(officeId: string): Promise<OfficeListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/delete/${officeId}`;
 
     try {
@@ -126,7 +126,7 @@ class OfficeListingController {
 
   async deleteAllOfficeListings(businessId: string): Promise<OfficeListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/delete/all/${businessId}`;
 
     try {

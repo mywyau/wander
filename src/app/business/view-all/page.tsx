@@ -168,7 +168,7 @@ const ViewAllBusinessListingsPage = () => {
     const deleteAllBusinessListings = async () => {
 
         try {
-            const deleteResult = await BusinessListingController.deleteAllBusinessListings(userId);
+            const deleteResult = await BusinessListingController.deleteAllBusinessListings("USER-1337");
 
             if (deleteResult) {
                 setBusinesses([]);

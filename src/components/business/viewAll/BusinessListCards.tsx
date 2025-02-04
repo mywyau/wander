@@ -50,6 +50,10 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
         router.push(`/business/detailed-view/${businessId}?timestamp=${Date.now()}`);
     };
 
+    const handleViewAllOffices = (businessId: string) => {
+        router.push(`/office/view-all/${businessId}?timestamp=${Date.now()}`);
+    };
+
     return filteredBusinesses.length === 0 && showNoBusinessMessage ? (
         <div className="text-center py-8">
             <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">
@@ -80,7 +84,7 @@ const BusinessListCards: React.FC<BusinessListingsCardsProp> = ({
                             <List className="mr-2 w-4 h-4" />
                             <span>View Listing Details</span>
                         </ContextMenuItem>
-                        <ContextMenuItem>
+                        <ContextMenuItem onClick={() => handleViewAllOffices(business.businessId)}>
                             <Building className="mr-2 w-4 h-4" />
                             <span>View Offices</span>
                         </ContextMenuItem>

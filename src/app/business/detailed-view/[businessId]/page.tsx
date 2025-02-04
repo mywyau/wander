@@ -1,7 +1,29 @@
-import BusinessListingController from "@/controllers/business/BusinessListingController";
-import { BusinessListing } from "@/types/business/BusinessListing";
-import Link from "next/link";
+
+// 'use client'
+
 import { notFound } from "next/navigation";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb';
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+
+
+
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface BusinessDetailedViewProps {
   params: {
@@ -9,101 +31,101 @@ interface BusinessDetailedViewProps {
   };
 }
 
-export default async function BusinessDetailedView({ params }: BusinessDetailedViewProps) {
-  console.log("BusinessDetailedView params:", params);
+export default async function BusinessDetailedView(
+  { params }: BusinessDetailedViewProps
+) {
+  // console.log("BusinessDetailedView params:", params);
 
   const { businessId } = params;
 
   try {
     // Fetch business details server-side
-    const business: BusinessListing = await BusinessListingController.getBusinessListing(businessId);
-    console.log("[BusinessDetailedView] Fetched business details:", business);
+    // const business: BusinessListing = await BusinessListingController.getBusinessListing(businessId);
+    // console.log("[BusinessDetailedView] Fetched business details:", business);
 
 
-    const { addressDetails, contactDetails, specifications } = business;
+    // const { addressDetails, contactDetails, specifications } = business;
 
     return (
-      <div className="max-w-4xl mx-auto mt-8 bg-white p-6 shadow-md rounded-lg">
+      <div>
 
-        <h1 className="text-2xl font-bold mb-4">{specifications.businessName}</h1>
-
-        <p className="text-gray-600 mb-6">{specifications.description}</p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Address Section */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2 underline">Address</h2>
-            <p><strong>Building Name:</strong> {addressDetails.buildingName}</p>
-            <p><strong>Street:</strong> {addressDetails.street}</p>
-            <p><strong>City:</strong> {addressDetails.city}</p>
-            <p><strong>Postcode:</strong> {addressDetails.postcode}</p>
-            <p><strong>Country:</strong> {addressDetails.country}</p>
-            <p><strong>County:</strong> {addressDetails.county}</p>
-
-            <div className="mt-4 flex gap-6">
-              <Link href={`/business/address/add/${businessId}`} className="text-blue-600 underline">
-                Edit Address Details
-              </Link>
-            </div>
-          </div>
-          
-          {/* Contact Section */}
-          {contactDetails && (
-            <div>
-              <h2 className="text-lg font-semibold mb-2 underline">Contact Information</h2>
-              {contactDetails.primaryContactFirstName && contactDetails.primaryContactLastName && (
-                <p>
-                  <strong>Primary Contact Name:</strong>{` ${contactDetails.primaryContactFirstName} ${contactDetails.primaryContactLastName}`}
-                </p>
-              )}
-              {contactDetails.contactEmail && (
-                <p>
-                  <strong>Email:</strong>{" "}
-                  <a href={`mailto:${contactDetails.contactEmail}`} className="text-blue-500 hover:underline">
-                    {contactDetails.contactEmail}
-                  </a>
-                </p>
-              )}
-              {contactDetails.contactNumber && (
-                <p>
-                  <strong>Phone:</strong> {contactDetails.contactNumber}
-                </p>
-              )}
-              <div className="mt-4 flex gap-6">
-                <Link href={`/business/contact-details/add/${businessId}`} className="text-blue-600 underline">
-                  Edit Contact Details
-                </Link>
-              </div>
-            </div>
-          )}
-
-
-          {/* Business Specifications Section */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2 underline">Business Details</h2>
-            <p><strong>Days Open:</strong> {specifications.availability?.days.map(day => `${day} `)}</p>
-            <p><strong>Start Time:</strong> {specifications.availability?.startTime}</p>
-            <p><strong>End Time:</strong> {specifications.availability?.endTime}</p>
-            <div className="mt-4 flex gap-6">
-              <Link href={`/business/specifications/add/${businessId}`} className="text-blue-600 underline">
-                Edit Specifications
-              </Link>
-            </div>
-          </div>
-
-          {/* Corrected Button Logic */}
-          {/* <div>
-            <Link
-              href={`/office/view-all/${businessId}`}
-              className="bg-green-500 text-white py-2 px-4 rounded ml-4 hover:bg-green-600"
-            >
-              View All Offices for this business
-            </Link>
-          </div> */}
+        <div className="">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/wander/business/view-all" className="hover:text-blue-800">
+                  View all businesses
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/wander/business/detailed-view/${businessId}?timestamp=${Date.now()}`} className="hover:text-blue-800">
+                  Business detailed view
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
 
+        <div className="w-full flex justify-center mt-20">
 
-      </div>
+          <Tabs defaultValue="address" className="w-full max-w-2xl">
+            <TabsList className="grid w-full grid-cols-3 h-18 shadow-light">
+              <TabsTrigger value="address" className="text-lg font-semibold data-[state=active]:bg-softBlue">Address</TabsTrigger>
+              <TabsTrigger value="contact-details" className="text-lg font-semibold data-[state=active]:bg-softBlue">Contact Details</TabsTrigger>
+              <TabsTrigger value="specifications" className="text-lg font-semibold data-[state=active]:bg-softBlue">Specifications</TabsTrigger>
+            </TabsList>
+            <TabsContent value="address" className="pt-3">
+              <Card className="pb-3 bg-softBlue">
+                <CardHeader>
+                  {/* <CardTitle>Address</CardTitle> */}
+                  {/* <CardDescription>
+                  Enter your email and password to login.
+                </CardDescription> */}
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  
+                </CardContent>
+                <CardFooter>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+            <TabsContent value="contact-details" className="pt-3">
+              <Card className="pb-3 bg-softBlue">
+                <CardHeader>
+                  <CardTitle></CardTitle>
+
+
+                </CardHeader>
+                <CardContent className="space-y-2">
+
+                </CardContent>
+
+                <CardFooter>
+                </CardFooter>
+
+              </Card>
+            </TabsContent>
+            <TabsContent value="specifications" className="pt-3">
+              <Card className="pb-3 bg-softBlue">
+                <CardHeader>
+                  <CardTitle></CardTitle>
+                  <CardDescription>
+
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2">
+
+
+                </CardContent>
+                <CardFooter>
+
+                </CardFooter>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div >
+      </div >
     );
   } catch (error) {
     console.error("[BusinessDetailedView] Error fetching business details:", error);
