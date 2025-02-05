@@ -36,12 +36,13 @@ export default function UserAccountProfilePage() {
 
                 {/* Country */}
                 <div className="flex flex-col space-y-1.5">
+
                   <Label htmlFor="country">Country</Label>
                   <Select>
                     <SelectTrigger className="bg-white text-black dark:bg-secondaryBlack dark:text-darkText w-full" id="country">
-                      <SelectValue placeholder="Select a country" />
+                      <SelectValue placeholder="Select a country"/>
                     </SelectTrigger>
-                    <SelectContent position="popper">
+                    <SelectContent position="popper" >
                       <SelectItem value="africa">Africa</SelectItem>
                       <SelectItem value="china">China</SelectItem>
                       <SelectItem value="uk">United Kingdom</SelectItem>

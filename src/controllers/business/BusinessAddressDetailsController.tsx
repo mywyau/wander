@@ -1,4 +1,4 @@
-import AppConfig from '@/config/AppConfig';
+import { AppConfig } from '@/config/AppConfig';
 import { CreateBusinessAddressDetails } from '@/types/business/CreateBusinessAddressDetails'; // Ensure to import the types
 
 // Interface for the result returned by the submitForm method
@@ -10,7 +10,7 @@ interface BusinessAddressDetailsControllerResult {
 class BusinessAddressDetailsController {
   async submitForm(data: CreateBusinessAddressDetails, businessId: string): Promise<BusinessAddressDetailsControllerResult> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl()
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/address/details/update/${businessId}`
 
     console.log("[BusinessAddressDetailsController] submitForm called");

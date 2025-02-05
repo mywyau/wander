@@ -45,7 +45,7 @@ class BusinessListingConnector {
 
   async getAllBusinessListingCards(): Promise<BusinessListingCard[]> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     // const apiUrl = `http://pistachio.localhost/pistachio/business/businesses/listing/cards/find/all`;
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/cards/find/all`;
 
@@ -75,7 +75,7 @@ class BusinessListingConnector {
 
   async getBusinessListing(businessId:string): Promise<BusinessListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/find/${businessId}`;
 
     try {
@@ -103,7 +103,7 @@ class BusinessListingConnector {
 
   async deleteBusinessListing(businessId: string): Promise<BusinessListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/delete/${businessId}`;
 
     try {
@@ -133,7 +133,7 @@ class BusinessListingConnector {
   
   async deleteAllBusinessListings(userId: string): Promise<BusinessListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/listing/delete/all/${userId}`;
 
     try {

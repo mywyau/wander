@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 
 import DeleteAllAlertDialog from "@/components/business/viewAll/DeleteAllAlertDialog";
+
 import { IdGenerator } from "@/utils/idGenerator";
 import { toast } from "sonner";
 
@@ -115,6 +116,7 @@ const BusinessViewAllPage = () => {
 
     return (
         <div className="max-w-6xl mx-auto p-8">
+
             {
                 loading ? (
                     <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">Loading results...</p>
@@ -170,7 +172,7 @@ const BusinessViewAllPage = () => {
                                         />
                                     </div>
 
-                                    < DeleteAllAlertDialog
+                                    <DeleteAllAlertDialog
                                         deleteAllBusinessListings={() =>
                                             deleteAllBusinessListings(setBusinessCard, setSuccessMessage, setSubmitError)
                                         }

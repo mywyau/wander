@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import BusinessAddressDetailsController from "@/controllers/business/BusinessAddressDetailsController";
 import BusinessAddressDetailsForm from "@/forms/business/BusinessAddressDetailsForm";
@@ -30,6 +30,8 @@ export default function EditBusinessAddressPage({ params }: EditBusinessPageProp
       setSubmitError(result.message);
     }
   };
+
+
   return (
     <div className="max-w-7xl mx-auto p-8" >
       <BusinessAddressDetailsForm

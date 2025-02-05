@@ -13,15 +13,11 @@ export default async function BusinessDetailedView(
   { params }: BusinessDetailedViewProps
 ) {
 
+  // if (!params?.businessId) {
+  //   return <p>Loading...</p>; // Placeholder while data loads
+  // }
+
   const { businessId } = params;
-
-  // try {
-  // Fetch business details server-side
-  // const business: BusinessListing = await BusinessListingController.getBusinessListing(businessId);
-  // console.log("[BusinessDetailedView] Fetched business details:", business);
-
-
-  // const { addressDetails, contactDetails, specifications } = business;
 
   return (
     <div>
@@ -45,9 +41,9 @@ export default async function BusinessDetailedView(
       </div>
 
       <div className="w-full flex justify-center mt-10">
-
-        <BusinessDetailsTabCard />
+        <BusinessDetailsTabCard businessId={businessId} />
       </div >
+      
     </div >
   );
 }
