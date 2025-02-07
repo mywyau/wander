@@ -1,5 +1,4 @@
 export interface CreateBusinessAddressDetails {
-  businessName: string;
   buildingName: string;
   street: string;
   city: string;

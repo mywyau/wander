@@ -2,13 +2,6 @@ import { z } from "zod";
 
 export const businessAddressDetailsFormSchema =
   z.object({
-    businessName: z
-      .string({
-        required_error: "Business name is required.",
-      })
-      .nonempty("Business name is required.")
-      .min(2, "Business name must be at least 2 characters.")
-      .max(50, "Business name cannot exceed 50 characters."),
     buildingName: z
       .string()
       .max(50, "Building name cannot exceed 50 characters.")
