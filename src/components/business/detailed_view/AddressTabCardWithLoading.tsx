@@ -8,7 +8,7 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 
 import { Button } from '@/components/ui/button';
 
-import BusinessAddressForm from '@/forms/business/new_forms/BusinessAddressForm';
+import BusinessAddressForm from '@/forms/business/BusinessAddressForm';
 import { BusinessAddressDetails, BusinessListing } from "@/types/business/BusinessListing";
 import { useEffect, useState } from 'react';
 

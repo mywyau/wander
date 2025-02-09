@@ -6,21 +6,21 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import OfficeContactDetailsConnector from "@/connectors/office/OfficeContactDetailsConnector";
-import { OfficeContactDetails } from "@/types/office/OfficeListing";
-import { UpdateOfficeContactDetails } from "@/types/office/UpdateOfficeContactDetails";
+import DeskSpecificationsConnector from "@/connectors/desk/DeskSpecificationsConnector";
+import { DeskSpecifications } from "@/types/desk/DeskListing";
+import { UpdateDeskSpecifications } from "@/types/desk/UpdateDeskSpecifications";
 import { Dispatch, SetStateAction } from "react";
 
-interface OfficeContactDetailsFormProps {
-    officeId: string,
-    setOfficeContactDetails: Dispatch<SetStateAction<OfficeContactDetails | null>>
+interface DeskSpecificationsFormProps {
+    deskId: string,
+    setDeskSpecifications: Dispatch<SetStateAction<DeskSpecifications | null>>
 }
 
-const OfficeContactDetailsForm: React.FC<OfficeContactDetailsFormProps> = ({ officeId, setOfficeContactDetails }) => {
+const DeskSpecificationsForm: React.FC<DeskSpecificationsFormProps> = ({ deskId, setDeskSpecifications }) => {
 
-    const form = useForm<UpdateOfficeContactDetails>(
+    const form = useForm<UpdateDeskSpecifications>(
         {
-            // resolver: zodResolver(officeContactDetailsFormSchema),
+            // resolver: zodResolver(deskContactDetailsFormSchema),
             defaultValues:
             {
                 primaryContactFirstName: "",
@@ -32,12 +32,12 @@ const OfficeContactDetailsForm: React.FC<OfficeContactDetailsFormProps> = ({ off
         }
     );
 
-    const onUpdateOfficeSubmit = async (data: UpdateOfficeContactDetails) => {
+    const onUpdateDeskSubmit = async (data: UpdateDeskSpecifications) => {
         try {
-            const result = await OfficeContactDetailsConnector.submitForm(data, officeId);
+            const result = await DeskSpecificationsConnector.submitForm(data, deskId);
             console.log("Form submission successful:", result);
 
-            setOfficeContactDetails(
+            setDeskSpecifications(
                 (prevDetails) => (
                     {
                         ...prevDetails!,
@@ -57,7 +57,7 @@ const OfficeContactDetailsForm: React.FC<OfficeContactDetailsFormProps> = ({ off
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onUpdateOfficeSubmit)} className="space-y-3">
+            <form onSubmit={form.handleSubmit(onUpdateDeskSubmit)} className="space-y-3">
 
 
                 <div className="flex justify-end">
@@ -115,7 +115,7 @@ const OfficeContactDetailsForm: React.FC<OfficeContactDetailsFormProps> = ({ off
                         <FormItem className="w-2/3">
                             <FormLabel>Website Address</FormLabel>
                             <FormControl>
-                                <Input variant="shadowNoBorder" placeholder="Enter the website url of the office" {...field} />
+                                <Input variant="shadowNoBorder" placeholder="Enter the website url of the desk" {...field} />
                             </FormControl>
                             <FormMessage className="text-red-500" />
                         </FormItem>
@@ -133,4 +133,4 @@ const OfficeContactDetailsForm: React.FC<OfficeContactDetailsFormProps> = ({ off
     );
 };
 
-export default OfficeContactDetailsForm;
+export default DeskSpecificationsForm;

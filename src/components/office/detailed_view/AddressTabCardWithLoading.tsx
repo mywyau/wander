@@ -9,7 +9,7 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 import { Button } from '@/components/ui/button';
 
 // import OfficeAddressForm from '@/forms/office/new_forms/OfficeAddressForm';
-import OfficeAddressForm from '@/forms/office/new_forms/OfficeAddressForm';
+import OfficeAddressForm from '@/forms/office/OfficeAddressForm';
 import { OfficeListing } from "@/types/office/OfficeListing";
 import { UpdateOfficeAddressDetails } from '@/types/office/UpdateOfficeAddressDetails';
 import { useEffect, useState } from 'react';

@@ -1,11 +1,12 @@
 // app/BusinessProfile/layout.tsx
-import React from "react";
+import React from 'react';
 
 import AuthProvider from "@/components/misc/AuthProvider";
+import BusinessSidebar from '@/components/sidebar/BusinessSidebar';
 import Navbar from "@/components/navbar/NavBar";
-import "@/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "@/globals.css";
 
 // Load fonts
 const geistSans = localFont({
@@ -28,27 +29,27 @@ export const metadata: Metadata = {
     description: "Easily book desks and workspaces with our intuitive platform.",
     url: "https://your-app-url.com",
     siteName: "Desk Booking App",
-    images: [
-      { url: "/images/og-image.png", width: 1200, height: 630, alt: "Desk Booking App" },
-    ],
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630, alt: "Desk Booking App" }],
     locale: "en_US",
     type: "website",
   },
 };
 
-interface BusinessDetailedViewLayoutProps {
+
+interface OfficeProfileLayoutProps {
   children: React.ReactNode;
 }
 
-const BusinessDetailedViewLayout: React.FC<BusinessDetailedViewLayoutProps> = ({ children }) => {
+const OfficeProfileLayout: React.FC<OfficeProfileLayoutProps> = ({ children }) => {
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased neobrutalist-bg-line`}>
       <AuthProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex flex-1">
+            <BusinessSidebar isOpen={true} />
             <main className="flex-1 container mx-auto p-4 mt-4">
-              {children}
+              {children} 
             </main>
           </div>
         </div>
@@ -57,4 +58,5 @@ const BusinessDetailedViewLayout: React.FC<BusinessDetailedViewLayoutProps> = ({
   );
 };
 
-export default BusinessDetailedViewLayout;
+
+export default OfficeProfileLayout;

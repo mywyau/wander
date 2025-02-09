@@ -21,7 +21,7 @@ import {
 interface OfficeCardWithContextMenuProp {
     officeCard: OfficeListingCard;
     handleViewDetails: (businessId: string, officeId: string) => void;
-    handleViewAllDesks: (officeId: string) => void;
+    handleViewAllDesks: (businessId: string, officeId: string) => void;
     onDeleteSubmit: (officeId: string) => Promise<void>;
 }
 
@@ -55,7 +55,7 @@ const OfficeCardWithContextMenu: React.FC<OfficeCardWithContextMenuProp> = ({
                     <List className="mr-2 w-4 h-4" />
                     <span>View Office Details</span>
                 </ContextMenuItem>
-                <ContextMenuItem onClick={() => handleViewAllDesks(officeCard.officeId)}>
+                <ContextMenuItem onClick={() => handleViewAllDesks(officeCard.businessId, officeCard.officeId)}>
                     <Building className="mr-2 w-4 h-4" />
                     <span>View Desks</span>
                 </ContextMenuItem>

@@ -1,97 +1,135 @@
-// OfficeContactForm Component
-import TextInput from "@/components/office/TextInput";
-import { UpdateOfficeContactDetails } from "@/types/office/UpdateOfficeContactDetails";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import { officeContactDetailsFormSchema } from "./schemas/OfficeContactDetailsFormSchema";
+"use client";
 
-interface OfficeContactFormProps {
-    onSubmit: (data: UpdateOfficeContactDetails) => Promise<void>;
-    submitError?: string | null;
-    successMessage?: string | null;
+import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+import OfficeContactDetailsConnector from "@/connectors/office/OfficeContactDetailsConnector";
+import { OfficeContactDetails } from "@/types/office/OfficeListing";
+import { UpdateOfficeContactDetails } from "@/types/office/UpdateOfficeContactDetails";
+import { Dispatch, SetStateAction } from "react";
+
+interface OfficeContactDetailsFormProps {
+    officeId: string,
+    setOfficeContactDetails: Dispatch<SetStateAction<OfficeContactDetails | null>>
 }
 
-const OfficeContactDetailsForm: React.FC<OfficeContactFormProps> = ({
-    onSubmit,
-    submitError,
-    successMessage,
-}) => {
+const OfficeContactDetailsForm: React.FC<OfficeContactDetailsFormProps> = ({ officeId, setOfficeContactDetails }) => {
 
-    const defaultValues = {
-        primaryContactFirstName: "",
-        primaryContactLastName: "",
-        contactEmail: "",
-        contactNumber: ""
+    const form = useForm<UpdateOfficeContactDetails>(
+        {
+            // resolver: zodResolver(officeContactDetailsFormSchema),
+            defaultValues:
+            {
+                primaryContactFirstName: "",
+                primaryContactLastName: "",
+                contactEmail: "",
+                contactNumber: "",
+                websiteUrl: ""
+            },
+        }
+    );
+
+    const onUpdateOfficeSubmit = async (data: UpdateOfficeContactDetails) => {
+        try {
+            const result = await OfficeContactDetailsConnector.submitForm(data, officeId);
+            console.log("Form submission successful:", result);
+
+            setOfficeContactDetails(
+                (prevDetails) => (
+                    {
+                        ...prevDetails!,
+                        primaryContactFirstName: data.primaryContactFirstName,
+                        primaryContactLastName: data.primaryContactLastName,
+                        contactEmail: data.contactEmail,
+                        contactNumber: data.contactNumber,
+                        websiteUrl: data.websiteUrl
+                    }
+                )
+            );
+
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        }
     };
 
-    const methods = useForm<UpdateOfficeContactDetails>({
-        resolver: zodResolver(officeContactDetailsFormSchema),
-        defaultValues,
-        mode: "onSubmit",
-    });
-
-    const { register, formState: { errors } } = methods;
-
     return (
-        <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-                <h1 className="text-xl font-bold">Add Office Contact Details</h1>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onUpdateOfficeSubmit)} className="space-y-3">
 
-                {submitError && <p className="text-red-500">{submitError}</p>}
-                {successMessage && <p className="text-green-500">{successMessage}</p>}
 
-                <div className="space-y-4">
-                    <div className="grid grid-cols-1 gap-6">
-                        <TextInput
-                            id="primaryContactFirstName"
-                            name="primaryContactFirstName"
-                            label="Primary Contact First Name"
-                            placeholder="Enter a first name"
-                            register={register}
-                            error={errors?.primaryContactFirstName?.message}
-                            inputClassName="w-1/2"
-                        />
-
-                        <TextInput
-                            id="primaryContactLastName"
-                            name="primaryContactLastName"
-                            label="Primary Contact Last Name"
-                            placeholder="Enter a last name"
-                            register={register}
-                            error={errors?.primaryContactLastName?.message}
-                            inputClassName="w-1/2"
-                        />
-
-                        <TextInput
-                            id="contactEmail"
-                            name="contactEmail"
-                            label="Email"
-                            placeholder="Enter an email"
-                            register={register}
-                            error={errors?.contactEmail?.message}
-                            inputClassName="w-1/2"
-                        />
-
-                        <TextInput
-                            id="contactNumber"
-                            name="contactNumber"
-                            label="Contact Number"
-                            placeholder="Enter a phone number"
-                            register={register}
-                            error={errors?.contactNumber?.message}
-                            inputClassName="w-1/2"
-                        />
-                    </div>
+                <div className="flex justify-end">
+                    <FormField control={form.control} name="primaryContactFirstName" render={({ field }) => (
+                        <FormItem className="w-2/3">
+                            <FormLabel>Primary Contact First Name</FormLabel>
+                            <FormControl>
+                                <Input variant="shadowNoBorder" placeholder="Enter a first name" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
                 </div>
 
-                <button
-                    type="submit"
-                    className="btn-primary w-1/4 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
-                >
-                    Submit
-                </button>
+
+                <div className="flex justify-end">
+                    <FormField control={form.control} name="primaryContactLastName" render={({ field }) => (
+                        <FormItem className="w-2/3">
+                            <FormLabel>Primary Contact Last Name</FormLabel>
+                            <FormControl>
+                                <Input variant="shadowNoBorder" placeholder="Enter a last name" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
+                </div>
+
+
+                <div className="flex justify-end">
+                    <FormField control={form.control} name="contactEmail" render={({ field }) => (
+                        <FormItem className="w-2/3">
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input variant="shadowNoBorder" placeholder="Enter an email" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
+                </div>
+
+                <div className="flex justify-end">
+                    <FormField control={form.control} name="contactNumber" render={({ field }) => (
+                        <FormItem className="w-2/3">
+                            <FormLabel>Contact Number</FormLabel>
+                            <FormControl>
+                                <Input variant="shadowNoBorder" placeholder="Enter a phone number" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
+                </div>
+
+                <div className="flex justify-end">
+                    <FormField control={form.control} name="websiteUrl" render={({ field }) => (
+                        <FormItem className="w-2/3">
+                            <FormLabel>Website Address</FormLabel>
+                            <FormControl>
+                                <Input variant="shadowNoBorder" placeholder="Enter the website url of the office" {...field} />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                        </FormItem>
+                    )} />
+                </div>
+
+                <div className="flex justify-end pt-4">
+                    <Button variant="green" type="submit" className="w-1/3 hover:bg-softGreen">
+                        Save Changes
+                    </Button>
+                </div>
+
             </form>
-        </FormProvider>
+        </Form>
     );
 };
 

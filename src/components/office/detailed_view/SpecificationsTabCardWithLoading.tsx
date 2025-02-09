@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 import { useEffect, useState } from 'react';
-import OfficeSpecificationsForm from '@/forms/office/new_forms/OfficeSpecificationsForm';
+import OfficeSpecificationsForm from '@/forms/office/OfficeSpecificationsForm';
 
 interface TabCardWithLoadingProps {
     businessId: string;
