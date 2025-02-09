@@ -1,10 +1,10 @@
-import { CreateBusinessAddressDetails } from "@/types/business/CreateBusinessAddressDetails";
+import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 
 describe("BusinessAddressDetails - JSON Serialization and Deserialization", () => {
 
   it("should serialize BusinessAddressDetails object to JSON", () => {
 
-    const businessSpecs: CreateBusinessAddressDetails = {
+    const businessSpecs: UpdateBusinessAddressDetails = {
       id: 1,
       userId: "user_id_1",
       businessId: "business_id_1",
@@ -66,7 +66,7 @@ describe("BusinessAddressDetails - JSON Serialization and Deserialization", () =
         "updatedAt": "2024-01-02T00:00:00Z"
       }`;
 
-    const expectedObject: CreateBusinessAddressDetails = {
+    const expectedObject: UpdateBusinessAddressDetails = {
       id: 1,
       userId: "user_id_1",
       businessId: "business_id_1",
@@ -85,7 +85,7 @@ describe("BusinessAddressDetails - JSON Serialization and Deserialization", () =
     }
 
 
-    const actualObject = JSON.parse(jsonString) as CreateBusinessAddressDetails;
+    const actualObject = JSON.parse(jsonString) as UpdateBusinessAddressDetails;
     expect(actualObject).toEqual(expectedObject);
   });
 });

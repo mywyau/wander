@@ -1,8 +1,8 @@
 // "use client";
 
-import BusinessAddressDetailsController from "@/controllers/business/BusinessAddressDetailsController";
+import BusinessAddressDetailsConnector from "@/connectors/BusinessAddressDetailsConnector";
 import BusinessAddressDetailsForm from "@/forms/business/BusinessAddressDetailsForm";
-import { CreateBusinessAddressDetails } from "@/types/business/CreateBusinessAddressDetails";
+import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 import { useState } from "react";
 
 interface EditBusinessPageProps {
@@ -18,11 +18,11 @@ export default function EditBusinessAddressPage({ params }: EditBusinessPageProp
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: CreateBusinessAddressDetails) => {
+  const onSubmit = async (data: UpdateBusinessAddressDetails) => {
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await BusinessAddressDetailsController.submitForm(data, businessId);
+    const result = await BusinessAddressDetailsConnector.submitForm(data, businessId);
 
     if (result.success) {
       setSuccessMessage(result.message);

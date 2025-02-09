@@ -1,9 +1,9 @@
-import { CreateBusinessSpecifications } from "@/types/business/CreateBusinessSpecifications";
+import { UpdateBusinessSpecifications } from "@/types/business/UpdateBusinessSpecifications";
 
 describe("BusinessSpecifications - JSON Serialization and Deserialization", () => {
 
   it("should serialize BusinessSpecifications object to JSON", () => {
-    const businessSpecifications: CreateBusinessSpecifications = {
+    const businessSpecifications: UpdateBusinessSpecifications = {
       businessName: "Tech Corp",
       description: "A leading technology company specializing in AI.",
       availability: {
@@ -38,7 +38,7 @@ describe("BusinessSpecifications - JSON Serialization and Deserialization", () =
       }
     }`;
 
-    const expectedObject: CreateBusinessSpecifications = {
+    const expectedObject: UpdateBusinessSpecifications = {
       businessName: "Tech Corp",
       description: "A leading technology company specializing in AI.",
       availability: {
@@ -48,12 +48,12 @@ describe("BusinessSpecifications - JSON Serialization and Deserialization", () =
       },
     };
 
-    const actualObject = JSON.parse(jsonString) as CreateBusinessSpecifications;
+    const actualObject = JSON.parse(jsonString) as UpdateBusinessSpecifications;
     expect(actualObject).toEqual(expectedObject);
   });
 
   it("should handle an empty days array in availability correctly", () => {
-    const businessSpecifications: CreateBusinessSpecifications = {
+    const businessSpecifications: UpdateBusinessSpecifications = {
       businessName: "Tech Corp",
       description: "A leading technology company specializing in AI.",
       availability: {
@@ -86,7 +86,7 @@ describe("BusinessSpecifications - JSON Serialization and Deserialization", () =
       }
     }`;
 
-    const expectedObject: CreateBusinessSpecifications = {
+    const expectedObject: UpdateBusinessSpecifications = {
       businessName: "Tech Corp",
       description: "A leading technology company specializing in AI.",
       availability: {
@@ -96,7 +96,7 @@ describe("BusinessSpecifications - JSON Serialization and Deserialization", () =
       }
     };
 
-    const actualObject = JSON.parse(jsonString) as CreateBusinessSpecifications;
+    const actualObject = JSON.parse(jsonString) as UpdateBusinessSpecifications;
     expect(actualObject).toEqual(expectedObject);
   });
 
@@ -112,7 +112,7 @@ describe("BusinessSpecifications - JSON Serialization and Deserialization", () =
     }`;
 
     expect(() => {
-      const parsedObject = JSON.parse(invalidJsonString) as Partial<CreateBusinessSpecifications>;
+      const parsedObject = JSON.parse(invalidJsonString) as Partial<UpdateBusinessSpecifications>;
 
       // Validate that all required keys exist
       if (
