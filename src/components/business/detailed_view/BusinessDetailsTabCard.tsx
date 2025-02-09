@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 
 import BusinessListingConnector from "@/connectors/BusinessListingConnector";
 import { BusinessListing } from "@/types/business/BusinessListing";
-import TabCardWithLoading from "./AddressTabCardWithLoading";
+import AddressTabCardWithLoading from "./AddressTabCardWithLoading";
 import ContactTabCardWithLoading from './ContactTabCardWithLoading';
+import SpecificationsTabCardWithLoading from './SpecificationsTabCardWithLoading';
 
 interface BusinessDetailsTabCardProps {
     businessId: string;
@@ -55,7 +56,7 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({ busines
             </TabsList>
 
             <TabsContent value="address" className="pt-4">
-                <TabCardWithLoading
+                <AddressTabCardWithLoading
                     businessId={businessId}
                     businessDetails={businessDetails}
                     loading={loading}
@@ -71,7 +72,7 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({ busines
             </TabsContent>
 
             <TabsContent value="specifications" className="pt-4">
-                <TabCardWithLoading
+                <SpecificationsTabCardWithLoading
                     businessId={businessId}
                     businessDetails={businessDetails}
                     loading={loading}

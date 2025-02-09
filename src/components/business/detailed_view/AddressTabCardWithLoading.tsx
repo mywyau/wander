@@ -18,7 +18,7 @@ interface TabCardWithLoadingProps {
     loading: boolean;
 }
 
-const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, businessDetails, loading }) => {
+const AddressTabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, businessDetails, loading }) => {
 
     const [businessAddress, setBusinessAddress] = useState<BusinessAddressDetails | null>(null);
 
@@ -89,4 +89,4 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, bus
     );
 };
 
-export default TabCardWithLoading;
+export default AddressTabCardWithLoading;
