@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import OfficeContactDetailsController from '@/controllers/office/OfficeContactDetailsController';
+import OfficeContactDetailsController from '@/connectors/office/OfficeContactDetailsConnector';
 import { CreateOfficeContactDetails } from '@/types/office/CreateOfficeContactDetails';
 
 global.fetch = jest.fn(); // Mock the global fetch function

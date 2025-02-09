@@ -2,7 +2,7 @@
 // Refactored AddOfficePage
 "use client";
 
-import OfficeAddressDetailsController from "@/controllers/office/OfficeAddressDetailsController";
+import OfficeAddressDetailsController from "@/connectors/office/OfficeAddressDetailsConnector";
 import OfficeAddressDetailsForm from "@/forms/office/OfficeAddressDetailsForm";
 import { CreateOfficeAddressDetails } from "@/types/office/CreateOfficeAddressDetails";
 import { useState } from "react";

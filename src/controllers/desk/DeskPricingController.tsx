@@ -9,7 +9,7 @@ interface DeskPricingControllerResult {
 class DeskPricingController {
   async submitForm(data: UpdateDeskPricing, deskId: String): Promise<DeskPricingControllerResult> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/desk/pricing/update/${deskId}`
 
     console.log("[DeskPricingController] submitForm called");

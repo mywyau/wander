@@ -72,7 +72,7 @@ describe('AppConfig', () => {
 
     expect(AppConfig.useDockerCashew).toBe(true);
     expect(AppConfig.basePistachioUrl(true)).toBe("pistachio.api");
-    expect(AppConfig.basePistachioUrl(false)).toBe("localhost:1011");
+    expect(AppConfig.basePistachioUrl()).toBe("localhost:1011");
   });
 
 

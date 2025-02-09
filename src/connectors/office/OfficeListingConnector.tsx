@@ -2,7 +2,7 @@ import { AppConfig } from '@/config/AppConfig';
 import { InitiateOfficeListingRequest } from '@/types/office/InitiateOfficeListingRequest';
 import { OfficeListing, OfficeListingCard } from '@/types/office/OfficeListing';
 
-class OfficeListingController {
+class OfficeListingConnector {
   async addNewOffice(data: InitiateOfficeListingRequest): Promise<OfficeListing> {
 
     const pistachioUrl = AppConfig.basePistachioUrl();
@@ -24,7 +24,7 @@ class OfficeListingController {
         body: JSON.stringify(combinedData),
       };
 
-      console.log("[OfficeListingController][addNewOffice] trying to add a new office listing, with initial data");
+      console.log("[OfficeListingConnector][addNewOffice] trying to add a new office listing, with initial data");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, createRequest);
@@ -50,7 +50,7 @@ class OfficeListingController {
 
     try {
  
-      console.log("[OfficeListingController][getAllOfficeListingCards] trying to get all office listing card details");
+      console.log("[OfficeListingConnector][getAllOfficeListingCards] trying to get all office listing card details");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, { method: "GET", cache: "no-store" });
@@ -75,7 +75,7 @@ class OfficeListingController {
     const apiUrl = `http://${pistachioUrl}/pistachio/business/office/listing/find/${officeId}`;
 
     try {
-      console.log("[OfficeListingController][getOfficeListing] trying to find office listing details for a given id");
+      console.log("[OfficeListingConnector][getOfficeListing] trying to find office listing details for a given id");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, { method: "GET", cache: "no-store" });
@@ -105,7 +105,7 @@ class OfficeListingController {
         method: "DELETE",
       };
 
-      console.log("[OfficeListingController][deleteOfficeListing] trying to delete office listing");
+      console.log("[OfficeListingConnector][deleteOfficeListing] trying to delete office listing");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, deleteRequest);
@@ -134,7 +134,7 @@ class OfficeListingController {
         method: "DELETE",
       };
 
-      console.log("[OfficeListingController][deleteOfficeListing] trying to delete ALL office listings");
+      console.log("[OfficeListingConnector][deleteOfficeListing] trying to delete ALL office listings");
       console.log(apiUrl);
 
       const response = await fetch(apiUrl, deleteRequest);
@@ -157,4 +157,4 @@ class OfficeListingController {
 
 }
 
-export default new OfficeListingController();
+export default new OfficeListingConnector();

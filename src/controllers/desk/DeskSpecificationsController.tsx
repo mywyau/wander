@@ -9,7 +9,7 @@ interface DeskSpecificationsControllerResult {
 class DeskSpecificationsController {
   async submitForm(data: UpdateDeskSpecifications, deskId: String): Promise<DeskSpecificationsControllerResult> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/specifications/details/update/${deskId}`
 
     console.log("[DeskSpecificationsController] submitForm called");

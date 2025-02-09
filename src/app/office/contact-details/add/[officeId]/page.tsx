@@ -1,6 +1,6 @@
 "use client";
 
-import OfficeContactDetailsController from "@/controllers/office/OfficeContactDetailsController";
+import OfficeContactDetailsController from "@/connectors/office/OfficeContactDetailsConnector";
 import OfficeContactDetailsForm from "@/forms/office/OfficeContactDetailsForm";
 import { CreateOfficeContactDetails } from "@/types/office/CreateOfficeContactDetails";
 import { useState } from "react";
