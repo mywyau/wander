@@ -1,4 +1,4 @@
-import AppConfig from '@/config/AppConfig';
+import { AppConfig } from '@/config/AppConfig';
 import { DeskListing } from '@/types/desk/DeskListing';
 import { DeskListingBusinessAndOffice } from '@/types/desk/DeskListingBusinessAndOffice';
 import { DeskListingCard } from '@/types/desk/DeskListingCard';
@@ -7,7 +7,7 @@ import { InitiateDeskListingRequest } from '@/types/desk/requests/InitiateDeskLi
 class DeskListingController {
   async addNewDesk(data: InitiateDeskListingRequest): Promise<DeskListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/initiate`;
 
     const combinedData = {
@@ -46,7 +46,7 @@ class DeskListingController {
 
   async getAllDeskListingCards(officeId:string): Promise<DeskListingCard[]> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/cards/find/all/${officeId}`;
 
     try {
@@ -73,7 +73,7 @@ class DeskListingController {
 
   async getBusinessAndOfficeId(deskId:string): Promise<DeskListingBusinessAndOffice> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/desk/listing/find/business-and-office/id/${deskId}`;
 
     try {
@@ -99,7 +99,7 @@ class DeskListingController {
 
   async streamAllDeskListingCards(officeId:string): Promise<DeskListingCard[]> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/cards/stream/${officeId}`;
 
     try {
@@ -126,7 +126,7 @@ class DeskListingController {
 
   async getDeskListing(deskId:string): Promise<DeskListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/details/find/${deskId}`;
 
     try {
@@ -152,7 +152,7 @@ class DeskListingController {
 
   async deleteDeskListing(deskId: string): Promise<DeskListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/details/delete/${deskId}`;
 
     try {
@@ -181,7 +181,7 @@ class DeskListingController {
 
   async deleteAllDeskListings(officeId: string): Promise<DeskListing> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/desk/listing/details/delete/all/${officeId}`;
 
     try {
