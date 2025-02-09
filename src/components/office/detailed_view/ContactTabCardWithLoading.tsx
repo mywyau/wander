@@ -8,9 +8,9 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 
 import { Button } from '@/components/ui/button';
 
+import OfficeContactDetailsForm from '@/forms/office/new_forms/OfficeContactDetailsForm';
 import { OfficeContactDetails, OfficeListing } from "@/types/office/OfficeListing";
 import { useEffect, useState } from 'react';
-import OfficeContactDetailsForm from '@/forms/office/new_forms/OfficeContactDetailsForm';
 
 interface TabCardWithLoadingProps {
     businessId: string;
@@ -41,7 +41,7 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, off
 
 
     return (
-        <Card className="pb-3 bg-softBlue">
+        <Card variant="red" className="pb-3 bg-softRed">
             {
                 loading ? (
                     <CardContent className="flex justify-center items-center h-auto">
@@ -67,7 +67,7 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, off
                                 <SheetTrigger asChild>
                                     <Button variant="yellow" className="w-1/4">Edit</Button>
                                 </SheetTrigger>
-                                <SheetContent className="!w-full max-w-2xl">
+                                <SheetContent variant="red" className="!w-full max-w-2xl bg-softRed">
                                     <SheetHeader>
                                         <SheetTitle className="flex mb-5">Update ContactDetails Details</SheetTitle>
                                         <SheetDescription></SheetDescription>

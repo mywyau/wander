@@ -41,7 +41,7 @@ const AddressTabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ officeId
 
 
     return (
-        <Card className="pb-3 bg-softBlue">
+        <Card variant="red" className="pb-3 bg-softRed">
             {
                 loading ? (
                     <CardContent className="flex justify-center items-center h-auto">
@@ -69,7 +69,7 @@ const AddressTabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ officeId
                                 <SheetTrigger asChild>
                                     <Button variant="yellow" className="w-1/4">Edit</Button>
                                 </SheetTrigger>
-                                <SheetContent className="!w-full max-w-2xl">
+                                <SheetContent variant="red" className="!w-full max-w-2xl bg-softRed">
                                     <SheetHeader>
                                         <SheetTitle className="flex mb-5">Update Address Details</SheetTitle>
                                         <SheetDescription></SheetDescription>

@@ -11,11 +11,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import OfficeAddressDetailsConnector from "@/connectors/office/OfficeAddressDetailsConnector";
 import { OfficeAddressDetails } from "@/types/office/OfficeListing";
 import { Dispatch, SetStateAction } from "react";
-import { UpdateOfficeAddressDetails } from "@/types/office/CreateOfficeAddressDetails";
+import { UpdateOfficeAddressDetails } from "@/types/office/UpdateOfficeAddressDetails";
 
 interface OfficeAddressFormProps {
   officeId: string,
-  setOfficeAddress: Dispatch<SetStateAction<OfficeAddressDetails | null>>
+  setOfficeAddress: Dispatch<SetStateAction<UpdateOfficeAddressDetails | null>>
 }
 
 const OfficeAddressForm: React.FC<OfficeAddressFormProps> = ({ officeId, setOfficeAddress }) => {

@@ -36,7 +36,7 @@ export default async function OfficeDetailedView({ params }: OfficeDetailedViewP
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink
-                  href={`/wander/office/detailed-view/${officeId}?timestamp=${Date.now()}`}
+                  href={`/wander/office/detailed-view/${businessId}/${officeId}?timestamp=${Date.now()}`}
                   className="hover:text-blue-800"
                 >
                   Office details

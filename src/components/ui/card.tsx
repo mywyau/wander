@@ -1,20 +1,38 @@
 import * as React from 'react'
-
 import { cn } from '@/lib/utils'
+import { cva, VariantProps } from 'class-variance-authority'
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      'rounded-base shadow-light dark:shadow-dark border-2 border-border dark:border-darkBorder bg-main text-text',
-      className,
-    )}
-    {...props}
-  />
-))
+const cardVariants = cva(
+  'rounded-base shadow-light dark:shadow-dark border-2 border-border dark:border-darkBorder text-text', // Base styles (same as original)
+  {
+    variants: {
+      variant: {
+        default: 'bg-main',
+        green: 'bg-hardGreen',
+        red: 'bg-hardRed',
+        yellow: 'bg-hardYellow',
+        purple: 'bg-hardPurple',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  }
+)
+
+export interface CardProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants> {}
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, variant, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(cardVariants({ variant }), className)} // Added variant support
+      {...props}
+    />
+  )
+)
 Card.displayName = 'Card'
 
 const CardHeader = React.forwardRef<
@@ -33,12 +51,9 @@ const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <div
+  <h3
     ref={ref}
-    className={cn(
-      'text-xl leading-none font-heading tracking-tight',
-      className,
-    )}
+    className={cn('text-xl leading-none font-heading tracking-tight', className)}
     {...props}
   />
 ))
@@ -48,7 +63,7 @@ const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <div
+  <p
     ref={ref}
     className={cn('text-sm text-text font-base !mt-3', className)}
     {...props}

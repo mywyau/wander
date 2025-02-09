@@ -50,10 +50,10 @@ const OfficeDetailsTabCard: React.FC<OfficeDetailsTabCardProps> = ({ businessId,
 
     return (
         <Tabs defaultValue="address" className="w-full max-w-7xl">
-            <TabsList className="grid w-full grid-cols-3 h-18 shadow-light">
-                <TabsTrigger value="address" className="text-lg font-semibold data-[state=active]:bg-softBlue">Address</TabsTrigger>
-                <TabsTrigger value="contact-details" className="text-lg font-semibold data-[state=active]:bg-softBlue">Contact Details</TabsTrigger>
-                <TabsTrigger value="specifications" className="text-lg font-semibold data-[state=active]:bg-softBlue">Specifications</TabsTrigger>
+            <TabsList variant="red" className="grid w-full grid-cols-3 h-18 shadow-light">
+                <TabsTrigger value="address" className="text-lg font-semibold data-[state=active]:bg-softRed">Address</TabsTrigger>
+                <TabsTrigger value="contact-details" className="text-lg font-semibold data-[state=active]:bg-softRed">Contact Details</TabsTrigger>
+                <TabsTrigger value="specifications" className="text-lg font-semibold data-[state=active]:bg-softRed">Specifications</TabsTrigger>
             </TabsList>
 
             <TabsContent value="address" className="pt-4">
@@ -66,7 +66,7 @@ const OfficeDetailsTabCard: React.FC<OfficeDetailsTabCardProps> = ({ businessId,
 
             <TabsContent value="contact-details" className="pt-4">
                 <ContactTabCardWithLoading
-                    officeId={officeId}
+                    businessId={businessId}
                     officeId={officeId}
                     officeDetails={officeDetails}
                     loading={loading}
@@ -75,6 +75,7 @@ const OfficeDetailsTabCard: React.FC<OfficeDetailsTabCardProps> = ({ businessId,
 
             <TabsContent value="specifications" className="pt-4">
                 <SpecificationsTabCardWithLoading
+                    businessId={businessId}
                     officeId={officeId}
                     officeDetails={officeDetails}
                     loading={loading}
