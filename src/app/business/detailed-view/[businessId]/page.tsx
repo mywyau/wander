@@ -1,13 +1,12 @@
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  BreadcrumbLink, 
-  BreadcrumbList, 
-  BreadcrumbSeparator 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 
 import BusinessDetailsTabCard from "@/components/business/detailed_view/BusinessDetailsTabCard";
-import { Checkbox } from '@/components/ui/checkbox';
 
 interface BusinessDetailedViewProps {
   params: {
@@ -20,10 +19,10 @@ export default async function BusinessDetailedView({ params }: BusinessDetailedV
 
   return (
     <div className="min-h-screen flex flex-col items-center p-6">
-      
+
       {/* Container for structured layout */}
-      <div className="w-full max-w-5xl"> 
-        
+      <div className="w-full max-w-5xl">
+
         {/* Breadcrumbs with spacing below */}
         <div className="w-full rounded-lg  mb-6">
           <Breadcrumb>
@@ -35,8 +34,8 @@ export default async function BusinessDetailedView({ params }: BusinessDetailedV
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink 
-                  href={`/wander/business/detailed-view/${businessId}?timestamp=${Date.now()}`} 
+                <BreadcrumbLink
+                  href={`/wander/business/detailed-view/${businessId}?timestamp=${Date.now()}`}
                   className="hover:text-blue-800"
                 >
                   Business details
@@ -52,7 +51,7 @@ export default async function BusinessDetailedView({ params }: BusinessDetailedV
         </div>
 
       </div>
-      
+
     </div>
   );
 }
