@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/breadcrumb';
 
 import BusinessDetailsTabCard from "@/components/business/detailed_view/BusinessDetailsTabCard";
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface BusinessDetailedViewProps {
   params: {

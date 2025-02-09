@@ -123,7 +123,7 @@ const BusinessContactDetailsForm: React.FC<BusinessContactDetailsFormProps> = ({
                 </div>
 
                 <div className="flex justify-end pt-4">
-                    <Button variant="green" type="submit" className="w-1/3">
+                    <Button variant="green" type="submit" className="w-1/3 hover:bg-softGreen">
                         Save Changes
                     </Button>
                 </div>
