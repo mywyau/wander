@@ -1,6 +1,6 @@
 import { OfficeAvailability } from "./OfficeAvailability";
 
-export interface CreateOfficeSpecifications {
+export interface UpdateOfficeSpecifications {
   officeName: string;
   description: string;
   officeType: string;

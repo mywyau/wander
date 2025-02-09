@@ -1,10 +1,10 @@
-import { CreateOfficeContactDetails } from "@/types/office/CreateOfficeContactDetails";
+import { UpdateOfficeContactDetails } from "@/types/office/UpdateOfficeContactDetails";
 
 describe("OfficeContactDetails - JSON Serialization and Deserialization", () => {
 
   it("should serialize OfficeContactDetails object to JSON", () => {
 
-    const officeContactDetails: CreateOfficeContactDetails = {
+    const officeContactDetails: UpdateOfficeContactDetails = {
       primaryContactFirstName: "John",
       primaryContactLastName: "Doe",
       contactEmail: "john.doe@example.com",
@@ -31,14 +31,14 @@ describe("OfficeContactDetails - JSON Serialization and Deserialization", () => 
       "contactNumber": "123-456-7890"
     }`;
 
-    const expectedObject: CreateOfficeContactDetails = {
+    const expectedObject: UpdateOfficeContactDetails = {
       primaryContactFirstName: "John",
       primaryContactLastName: "Doe",
       contactEmail: "john.doe@example.com",
       contactNumber: "123-456-7890"
     };
 
-    const actualObject = JSON.parse(jsonString) as CreateOfficeContactDetails;
+    const actualObject = JSON.parse(jsonString) as UpdateOfficeContactDetails;
     expect(actualObject).toEqual(expectedObject);
   });
 });

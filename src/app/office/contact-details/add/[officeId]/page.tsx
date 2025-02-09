@@ -2,7 +2,7 @@
 
 import OfficeContactDetailsController from "@/connectors/office/OfficeContactDetailsConnector";
 import OfficeContactDetailsForm from "@/forms/office/OfficeContactDetailsForm";
-import { CreateOfficeContactDetails } from "@/types/office/CreateOfficeContactDetails";
+import { UpdateOfficeContactDetails } from "@/types/office/UpdateOfficeContactDetails";
 import { useState } from "react";
 
 
@@ -19,7 +19,7 @@ export default function EditOfficeContactDetailsPage({ params }: EditOfficeConta
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const onSubmit = async (data: CreateOfficeContactDetails) => {
+  const onSubmit = async (data: UpdateOfficeContactDetails) => {
     setSubmitError(null);
     setSuccessMessage(null);
 

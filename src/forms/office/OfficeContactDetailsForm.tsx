@@ -1,12 +1,12 @@
 // OfficeContactForm Component
 import TextInput from "@/components/office/TextInput";
-import { CreateOfficeContactDetails } from "@/types/office/CreateOfficeContactDetails";
+import { UpdateOfficeContactDetails } from "@/types/office/UpdateOfficeContactDetails";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { officeContactDetailsFormSchema } from "./schemas/OfficeContactDetailsFormSchema";
 
 interface OfficeContactFormProps {
-    onSubmit: (data: CreateOfficeContactDetails) => Promise<void>;
+    onSubmit: (data: UpdateOfficeContactDetails) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
 }
@@ -24,7 +24,7 @@ const OfficeContactDetailsForm: React.FC<OfficeContactFormProps> = ({
         contactNumber: ""
     };
 
-    const methods = useForm<CreateOfficeContactDetails>({
+    const methods = useForm<UpdateOfficeContactDetails>({
         resolver: zodResolver(officeContactDetailsFormSchema),
         defaultValues,
         mode: "onSubmit",
