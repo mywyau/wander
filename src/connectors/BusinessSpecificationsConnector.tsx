@@ -9,7 +9,7 @@ interface BusinessSpecificationsConnectorResult {
 class BusinessSpecificationsConnector {
   async submitForm(data: UpdateBusinessSpecifications, businessId: string): Promise<BusinessSpecificationsConnectorResult> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/specifications/update/${businessId}`
 
     console.log("[BusinessSpecificationsConnector] submitForm called");

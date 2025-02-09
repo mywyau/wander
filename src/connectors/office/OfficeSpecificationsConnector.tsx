@@ -1,18 +1,18 @@
-import AppConfig from '@/config/AppConfig';
+import { AppConfig } from '@/config/AppConfig';
 import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifications';
 
-interface OfficeSpecificationsControllerResult {
+interface OfficeSpecificationsConnectorResult {
   success: boolean;
   message: string;
 }
 
-class OfficeSpecificationsController {
-  async submitForm(data: CreateOfficeSpecifications, officeId: String): Promise<OfficeSpecificationsControllerResult> {
+class OfficeSpecificationsConnector {
+  async submitForm(data: CreateOfficeSpecifications, officeId: String): Promise<OfficeSpecificationsConnectorResult> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/offices/specifications/update/${officeId}`
 
-    console.log("[OfficeSpecificationsController] submitForm called");
+    console.log("[OfficeSpecificationsConnector] submitForm called");
     console.log("Form Data:", data);
     console.log(apiUrl);
 
@@ -53,4 +53,4 @@ class OfficeSpecificationsController {
   }
 }
 
-export default new OfficeSpecificationsController();
+export default new OfficeSpecificationsConnector();

@@ -36,20 +36,20 @@ export const metadata: Metadata = {
 };
 
 
-interface BusinessProfileLayoutProps {
+interface OfficeProfileLayoutProps {
   children: React.ReactNode;
 }
 
-const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children }) => {
+const OfficeProfileLayout: React.FC<OfficeProfileLayoutProps> = ({ children }) => {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased neobrutalist-bg-line`}>
       <AuthProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex flex-1">
             <BusinessSidebar isOpen={true} />
             <main className="flex-1 container mx-auto p-4 mt-4">
-              {children} {/* Page content */}
+              {children} 
             </main>
           </div>
         </div>
@@ -59,4 +59,4 @@ const BusinessProfileLayout: React.FC<BusinessProfileLayoutProps> = ({ children 
 };
 
 
-export default BusinessProfileLayout;
+export default OfficeProfileLayout;

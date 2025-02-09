@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import OfficeSpecificationsController from '@/controllers/office/OfficeSpecificationsController';
+import OfficeSpecificationsController from '@/connectors/office/OfficeSpecificationsConnector';
 import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifications';
 
 global.fetch = jest.fn(); // Mock the global fetch function

@@ -1,5 +1,5 @@
 
-import OfficeListingController from "@/controllers/office/OfficeListingController";
+import OfficeListingController from "@/connectors/office/OfficeListingConnector";
 import { OfficeListing } from "@/types/office/OfficeListing";
 import Link from "next/link";
 import { notFound } from "next/navigation";

@@ -1,6 +1,6 @@
 "use client";
 
-import OfficeSpecificationsController from "@/controllers/office/OfficeSpecificationsController";
+import OfficeSpecificationsController from "@/connectors/office/OfficeSpecificationsConnector";
 import OfficeSpecificationsForm from "@/forms/office/OfficeSpecificationsForm";
 import { CreateOfficeSpecifications } from "@/types/office/CreateOfficeSpecifications";
 import { useState } from "react";
