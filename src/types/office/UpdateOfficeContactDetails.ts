@@ -1,5 +1,5 @@
 
-export interface CreateOfficeContactDetails {
+export interface UpdateOfficeContactDetails {
   primaryContactFirstName: string;
   primaryContactLastName: string;
   contactEmail: string;

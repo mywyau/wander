@@ -1,6 +1,6 @@
 import AppConfig from '@/config/AppConfig';
 import OfficeSpecificationsController from '@/connectors/office/OfficeSpecificationsConnector';
-import { CreateOfficeSpecifications } from '@/types/office/CreateOfficeSpecifications';
+import { UpdateOfficeContactDetails } from '@/types/office/UpdateOfficeContactDetails';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
@@ -10,7 +10,7 @@ describe("OfficeSpecificationsController", () => {
 
   const backendUrl = `http://mocked-pistachio-url/pistachio/business/offices/specifications/update/${fakeBusinessId}`
 
-  const mockData: CreateOfficeSpecifications = {
+  const mockData: UpdateOfficeContactDetails = {
     officeName: "Downtown Office",
     description: "A modern office space with excellent facilities.",
     officeType: "Open Plan",

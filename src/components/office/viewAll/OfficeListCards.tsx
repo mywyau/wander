@@ -43,7 +43,7 @@ const OfficeListCards: React.FC<OfficeListingsCardsProp> = ({
     return filteredOfficeCards.length === 0 && showNoOfficeMessage ? (
         <div className="text-center py-8">
             <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">
-                No officees available or found.
+                No offices available or found.
             </p>
         </div>
     ) : (

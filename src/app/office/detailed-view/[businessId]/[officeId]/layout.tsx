@@ -1,4 +1,4 @@
-// app/OfficeProfile/layout.tsx
+// app/BusinessProfile/layout.tsx
 import React from "react";
 
 import AuthProvider from "@/components/misc/AuthProvider";
@@ -6,7 +6,6 @@ import Navbar from "@/components/navbar/NavBar";
 import "@/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import OfficeDetailedViewSidebar from "@/components/sidebar/OfficeDetailedViewSidebar";
 
 // Load fonts
 const geistSans = localFont({
@@ -37,23 +36,17 @@ export const metadata: Metadata = {
   },
 };
 
-interface OfficeDetailedViewLayoutProps {
+interface BusinessDetailedViewLayoutProps {
   children: React.ReactNode;
-  params: { 
-    businessId: string, 
-    officeId: string 
-  };
 }
 
-const OfficeDetailedViewLayout: React.FC<OfficeDetailedViewLayoutProps> = ({ children, params }) => {
-  const { businessId, officeId } = params;
+const BusinessDetailedViewLayout: React.FC<BusinessDetailedViewLayoutProps> = ({ children }) => {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased neobrutalist-bg-line`}>
       <AuthProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex flex-1">
-            <OfficeDetailedViewSidebar isOpen={true} businessId={businessId} officeId={officeId} />
             <main className="flex-1 container mx-auto p-4 mt-4">
               {children}
             </main>
@@ -64,4 +57,4 @@ const OfficeDetailedViewLayout: React.FC<OfficeDetailedViewLayoutProps> = ({ chi
   );
 };
 
-export default OfficeDetailedViewLayout;
+export default BusinessDetailedViewLayout;

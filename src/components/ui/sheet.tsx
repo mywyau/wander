@@ -3,17 +3,12 @@
 import * as SheetPrimitive from '@radix-ui/react-dialog'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { X } from 'lucide-react'
-
 import * as React from 'react'
-
 import { cn } from '@/lib/utils'
 
 const Sheet = SheetPrimitive.Root
-
 const SheetTrigger = SheetPrimitive.Trigger
-
 const SheetClose = SheetPrimitive.Close
-
 const SheetPortal = SheetPrimitive.Portal
 
 const SheetOverlay = React.forwardRef<
@@ -21,18 +16,18 @@ const SheetOverlay = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
+    ref={ref}
     className={cn(
       'fixed inset-0 z-50 bg-overlay font-heading data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className,
     )}
     {...props}
-    ref={ref}
   />
 ))
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
 const sheetVariants = cva(
-  'fixed z-50 gap-4 bg-bg dark:bg-darkBg text-text dark:text-darkText p-6 transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
+  'fixed z-50 gap-4 p-6 transition ease-in-out text-text dark:text-darkText data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
   {
     variants: {
       side: {
@@ -42,26 +37,34 @@ const sheetVariants = cva(
         left: 'inset-y-0 left-0 h-full w-3/4 border-r-2 border-r-border data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm',
         right: 'inset-y-0 right-0 h-full w-[800px] sm:w-[1000px] max-w-[90vw] border-l-2 border-l-border data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right',
       },
+      variant: {
+        default: 'bg-bg dark:bg-darkBg',
+        green: 'bg-hardGreen dark:bg-darkGreen',
+        red: 'bg-hardRed dark:bg-darkRed',
+        yellow: 'bg-hardYellow dark:bg-darkYellow',
+        purple: 'bg-hardPurple dark:bg-darkPurple',
+      },
     },
     defaultVariants: {
       side: 'right',
+      variant: 'default',
     },
   },
 )
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-  VariantProps<typeof sheetVariants> { }
+    VariantProps<typeof sheetVariants> {}
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = 'right', className, children, ...props }, ref) => (
+>(({ side = 'right', variant = 'default', className, children, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content
       ref={ref}
-      className={cn(sheetVariants({ side }), className)}
+      className={cn(sheetVariants({ side, variant }), className)} // Allows both variants & class overrides
       {...props}
     >
       {children}
@@ -130,5 +133,14 @@ const SheetDescription = React.forwardRef<
 SheetDescription.displayName = SheetPrimitive.Description.displayName
 
 export {
-  Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle, SheetTrigger
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetOverlay,
+  SheetPortal,
+  SheetTitle,
+  SheetTrigger,
 }
