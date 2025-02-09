@@ -1,6 +1,6 @@
 "use client";
 
-import BusinessContactDetailsController from "@/controllers/business/BusinessContactDetailsController";
+import BusinessContactDetailsConnector from "@/connectors/BusinessContactDetailsConnector";
 import BusinessContactDetailsForm from "@/forms/business/BusinessContactDetailsForm";
 import { BusinessContactDetails } from "@/types/business/BusinessListing";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export default function EditBusinessContactDetailsPage({ params }: EditBusinessC
     setSubmitError(null);
     setSuccessMessage(null);
 
-    const result = await BusinessContactDetailsController.submitForm(data, businessId);
+    const result = await BusinessContactDetailsConnector.submitForm(data, businessId);
 
     if (result.success) {
       setSuccessMessage(result.message);

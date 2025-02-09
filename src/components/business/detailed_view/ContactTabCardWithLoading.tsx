@@ -1,13 +1,15 @@
 'use client'
 
 
+// perhaps update this to use websockets instead
+
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 import { Button } from '@/components/ui/button';
 
-import BusinessAddressForm from '@/forms/business/new_forms/BusinessAddressForm';
-import { BusinessAddressDetails, BusinessListing } from "@/types/business/BusinessListing";
+import BusinessContactDetailsForm from '@/forms/business/new_forms/BusinessContactDetailsForm';
+import { BusinessContactDetails, BusinessListing } from "@/types/business/BusinessListing";
 import { useEffect, useState } from 'react';
 
 interface TabCardWithLoadingProps {
@@ -18,20 +20,19 @@ interface TabCardWithLoadingProps {
 
 const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, businessDetails, loading }) => {
 
-    const [businessAddress, setBusinessAddress] = useState<BusinessAddressDetails | null>(null);
+    const [businessContactDetails, setBusinessContactDetails] = useState<BusinessContactDetails | null>(null);
 
     //  Use `useEffect` to update state only when `businessDetails` changes
     useEffect(() => {
-        if (businessDetails?.addressDetails) {
-            setBusinessAddress(
+        if (businessDetails?.contactDetails) {
+            setBusinessContactDetails(
                 {
                     businessId: businessId,
-                    buildingName: businessDetails.addressDetails.buildingName,
-                    street: businessDetails.addressDetails.street,
-                    city: businessDetails.addressDetails.city,
-                    country: businessDetails.addressDetails.country,
-                    county: businessDetails.addressDetails.county,
-                    postcode: businessDetails.addressDetails.postcode,
+                    primaryContactFirstName: businessDetails.contactDetails.primaryContactFirstName,
+                    primaryContactLastName: businessDetails.contactDetails.primaryContactLastName,
+                    contactEmail: businessDetails.contactDetails.contactEmail,
+                    contactNumber: businessDetails.contactDetails.contactNumber,
+                    websiteUrl: businessDetails.contactDetails.websiteUrl,
                 }
             );
         }
@@ -44,7 +45,7 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, bus
                 loading ? (
                     <CardContent className="flex justify-center items-center h-auto">
                         <p className="text-center text-gray-600 text-xl font-semibold pt-6">
-                            Loading your business address details...
+                            Loading your business contactDetails details...
                         </p>
                     </CardContent>
                 ) : (
@@ -53,12 +54,11 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, bus
                         <CardContent className="space-y-2">
 
                             <div className="p-4 space-y-3">
-                                <p><strong>Building Name:</strong> {businessAddress?.buildingName || ""}</p>
-                                <p><strong>Street:</strong> {businessAddress?.street || ""}</p>
-                                <p><strong>City:</strong> {businessAddress?.city || ""}</p>
-                                <p><strong>Country:</strong> {businessAddress?.country || ""}</p>
-                                <p><strong>County:</strong> {businessAddress?.county || ""}</p>
-                                <p><strong>Postcode:</strong> {businessAddress?.postcode || ""}</p>
+                                <p><strong>First Name:</strong> {businessContactDetails?.primaryContactFirstName || ""}</p>
+                                <p><strong>Last Name:</strong> {businessContactDetails?.primaryContactLastName || ""}</p>
+                                <p><strong>Email:</strong> {businessContactDetails?.contactEmail || ""}</p>
+                                <p><strong>Contact Number:</strong> {businessContactDetails?.contactNumber || ""}</p>
+                                <p><strong>WebsiteUrl:</strong> {businessContactDetails?.websiteUrl || ""}</p>
                             </div>
 
                         </CardContent>
@@ -69,11 +69,11 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, bus
                                 </SheetTrigger>
                                 <SheetContent className="!w-full max-w-2xl">
                                     <SheetHeader>
-                                        <SheetTitle className="flex mb-5">Update Address Details</SheetTitle>
+                                        <SheetTitle className="flex mb-5">Update ContactDetails Details</SheetTitle>
                                         <SheetDescription></SheetDescription>
                                     </SheetHeader>
 
-                                    <BusinessAddressForm businessId={businessId} setBusinessAddress={setBusinessAddress} />
+                                    <BusinessContactDetailsForm businessId={businessId} setBusinessContactDetails={setBusinessContactDetails} />
 
                                     <SheetFooter>
                                         <SheetClose asChild></SheetClose>

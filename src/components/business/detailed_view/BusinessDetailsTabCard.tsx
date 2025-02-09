@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 
 import BusinessListingConnector from "@/connectors/BusinessListingConnector";
 import { BusinessListing } from "@/types/business/BusinessListing";
-import TabCardWithLoading from "./TabCardWithLoading";
+import TabCardWithLoading from "./AddressTabCardWithLoading";
+import ContactTabCardWithLoading from './ContactTabCardWithLoading';
 
 interface BusinessDetailsTabCardProps {
     businessId: string;
 }
 
 const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({ businessId }) => {
+
     const [businessDetails, setBusinessDetails] = useState<BusinessListing | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -61,7 +63,7 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({ busines
             </TabsContent>
 
             <TabsContent value="contact-details" className="pt-4">
-                <TabCardWithLoading
+                <ContactTabCardWithLoading
                     businessId={businessId}
                     businessDetails={businessDetails}
                     loading={loading}

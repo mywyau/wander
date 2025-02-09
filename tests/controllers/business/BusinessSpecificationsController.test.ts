@@ -1,15 +1,15 @@
-import AppConfig from '@/config/AppConfig';
-import BusinessSpecificationsController from '@/controllers/business/BusinessSpecificationsController';
-import { CreateBusinessSpecifications } from '@/types/business/CreateBusinessSpecifications';
+import { AppConfig } from '@/config/AppConfig';
+import BusinessSpecificationsConnector from '@/connectors/BusinessSpecificationsConnector';
+import { UpdateBusinessSpecifications } from '@/types/business/UpdateBusinessSpecifications';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
-describe("BusinessSpecificationsController", () => {
+describe("BusinessSpecificationsConnector", () => {
 
   const businessId = "BUS123"
   const backendUrl = `http://mocked-pistachio-url/pistachio/business/businesses/specifications/update/${businessId}`
 
-  const mockData: CreateBusinessSpecifications = {
+  const mockData: UpdateBusinessSpecifications = {
     businessName: "Tech Innovations",
     description: "Leading technology solutions provider.",
     availability: {
@@ -31,7 +31,7 @@ describe("BusinessSpecificationsController", () => {
       json: async () => ({ success: true, message: "Form submitted successfully!" }),
     });
 
-    const result = await BusinessSpecificationsController.submitForm(mockData, businessId);
+    const result = await BusinessSpecificationsConnector.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: true,
@@ -57,7 +57,7 @@ describe("BusinessSpecificationsController", () => {
       ok: false,
     });
 
-    const result = await BusinessSpecificationsController.submitForm(mockData, businessId);
+    const result = await BusinessSpecificationsConnector.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,
@@ -75,7 +75,7 @@ describe("BusinessSpecificationsController", () => {
 
     (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await BusinessSpecificationsController.submitForm(mockData, businessId);
+    const result = await BusinessSpecificationsConnector.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,

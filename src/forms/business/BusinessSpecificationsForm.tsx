@@ -2,14 +2,14 @@
 import BusinessAvailability from "@/components/business/BusinessAvailability";
 import TextArea from "@/components/business/TextArea";
 import TextInput from "@/components/business/TextInput";
-import { CreateBusinessSpecifications } from "@/types/business/CreateBusinessSpecifications";
+import { UpdateBusinessSpecifications } from "@/types/business/UpdateBusinessSpecifications";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { businessSpecificationsFormSchema } from "./schemas/BusinessSpecificationsFormSchema";
 
 
 interface BusinessSpecificationsFormProps {
-    onSubmit: (data: CreateBusinessSpecifications) => Promise<void>;
+    onSubmit: (data: UpdateBusinessSpecifications) => Promise<void>;
     submitError?: string | null;
     successMessage?: string | null;
 }
@@ -30,7 +30,7 @@ const BusinessSpecificationsForm: React.FC<BusinessSpecificationsFormProps> = ({
         },
     };
 
-    const methods = useForm<CreateBusinessSpecifications>({
+    const methods = useForm<UpdateBusinessSpecifications>({
         resolver: zodResolver(businessSpecificationsFormSchema),
         defaultValues,
         mode: "onSubmit",

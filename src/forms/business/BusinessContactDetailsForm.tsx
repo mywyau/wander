@@ -1,7 +1,7 @@
 // BusinessContactForm Component
 import TextInput from "@/components/business/TextInput";
 import { businessContactDetailsFormSchema } from "@/forms/business/schemas/BusinessContactDetailsFormSchema";
-import { BusinessContactDetails } from "@/types/business/CreateBusinessContactDetails";
+import { BusinessContactDetails } from "@/types/business/UpdateBusinessContactDetails";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 

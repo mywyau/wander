@@ -39,18 +39,15 @@ export const metadata: Metadata = {
 
 interface BusinessDetailedViewLayoutProps {
   children: React.ReactNode;
-  params: { businessId: string };
 }
 
-const BusinessDetailedViewLayout: React.FC<BusinessDetailedViewLayoutProps> = ({ children, params }) => {
-  const { businessId } = params;
+const BusinessDetailedViewLayout: React.FC<BusinessDetailedViewLayoutProps> = ({ children }) => {
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased neobrutalist-bg-line`}>
       <AuthProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <div className="flex flex-1">
-            {/* <BusinessDetailedViewSidebar isOpen={true} businessId={businessId} /> */}
             <main className="flex-1 container mx-auto p-4 mt-4">
               {children}
             </main>

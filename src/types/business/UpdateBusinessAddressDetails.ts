@@ -1,4 +1,4 @@
-export interface CreateBusinessAddressDetails {
+export interface UpdateBusinessAddressDetails {
   buildingName: string;
   street: string;
   city: string;

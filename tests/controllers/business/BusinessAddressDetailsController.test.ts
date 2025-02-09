@@ -1,15 +1,15 @@
 import AppConfig from "@/config/AppConfig";
-import BusinessAddressDetailsController from "@/controllers/business/BusinessAddressDetailsController";
-import { CreateBusinessAddressDetails } from "@/types/business/CreateBusinessAddressDetails";
+import BusinessAddressDetailsConnector from "@/connectors/BusinessAddressDetailsConnector";
+import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 
 global.fetch = jest.fn();
 
-describe("BusinessAddressDetailsController", () => {
+describe("BusinessAddressDetailsConnector", () => {
 
   const businessId = "BUS123"
   const backendUrl = `http://mocked-pistachio-url/pistachio/business/businesses/address/details/update/${businessId}`
 
-  const mockData: CreateBusinessAddressDetails = {
+  const mockData: UpdateBusinessAddressDetails = {
     buildingName: "Tech Tower",
     businessName: "Tech Corp",
     street: "123 Main Street",
@@ -31,7 +31,7 @@ describe("BusinessAddressDetailsController", () => {
       json: async () => ({ success: true, message: "Form submitted successfully!" }),
     });
 
-    const result = await BusinessAddressDetailsController.submitForm(mockData, businessId);
+    const result = await BusinessAddressDetailsConnector.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: true,
@@ -60,7 +60,7 @@ describe("BusinessAddressDetailsController", () => {
       ok: false,
     });
 
-    const result = await BusinessAddressDetailsController.submitForm(mockData, businessId);
+    const result = await BusinessAddressDetailsConnector.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,
@@ -80,7 +80,7 @@ describe("BusinessAddressDetailsController", () => {
 
     (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await BusinessAddressDetailsController.submitForm(mockData, businessId);
+    const result = await BusinessAddressDetailsConnector.submitForm(mockData, businessId);
 
     expect(result).toEqual({
       success: false,
@@ -101,7 +101,7 @@ describe("BusinessAddressDetailsController", () => {
       json: async () => ({ success: true, message: "Form submitted successfully!" }),
     });
 
-    await BusinessAddressDetailsController.submitForm(mockData, businessId);
+    await BusinessAddressDetailsConnector.submitForm(mockData, businessId);
 
     expect(fetch).toHaveBeenCalledWith(
       backendUrl,

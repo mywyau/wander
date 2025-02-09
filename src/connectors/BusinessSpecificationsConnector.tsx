@@ -1,29 +1,24 @@
 import { AppConfig } from '@/config/AppConfig';
-import { CreateBusinessAddressDetails } from '@/types/business/CreateBusinessAddressDetails'; // Ensure to import the types
+import { UpdateBusinessSpecifications } from '@/types/business/UpdateBusinessSpecifications';
 
-// Interface for the result returned by the submitForm method
-interface BusinessAddressDetailsControllerResult {
+interface BusinessSpecificationsConnectorResult {
   success: boolean;
   message: string;
 }
 
-class BusinessAddressDetailsController {
-  async submitForm(data: CreateBusinessAddressDetails, businessId: string): Promise<BusinessAddressDetailsControllerResult> {
+class BusinessSpecificationsConnector {
+  async submitForm(data: UpdateBusinessSpecifications, businessId: string): Promise<BusinessSpecificationsConnectorResult> {
 
-    const pistachioUrl = AppConfig.basePistachioUrl()
-    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/address/details/update/${businessId}`
+    const pistachioUrl = AppConfig.basePistachioUrl(false);
+    const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/specifications/update/${businessId}`
 
-    console.log("[BusinessAddressDetailsController] submitForm called");
+    console.log("[BusinessSpecificationsConnector] submitForm called");
     console.log("Form Data:", data);
     console.log(apiUrl);
 
     const combinedData = {
-      ...data,
-      floorNumber: "1",
-      latitude: 999,
-      longitude: 999,
+      ...data
     };
-
 
     console.log("Combined Data:", combinedData);
 
@@ -58,4 +53,4 @@ class BusinessAddressDetailsController {
   }
 }
 
-export default new BusinessAddressDetailsController();
+export default new BusinessSpecificationsConnector();

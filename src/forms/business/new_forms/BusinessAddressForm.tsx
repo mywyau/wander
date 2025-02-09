@@ -1,6 +1,5 @@
 "use client";
 
-import { businessAddressDetailsFormSchema } from "@/forms/business/schemas/BusinessAddressDetailsFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -9,9 +8,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-import BusinessAddressDetailsController from "@/controllers/business/BusinessAddressDetailsController";
+import BusinessAddressDetailsConnector from "@/connectors/BusinessAddressDetailsConnector";
 import { BusinessAddressDetails } from "@/types/business/BusinessListing";
-import { CreateBusinessAddressDetails } from "@/types/business/CreateBusinessAddressDetails";
+import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 import { Dispatch, SetStateAction } from "react";
 
 interface BusinessAddressFormProps {
@@ -21,9 +20,9 @@ interface BusinessAddressFormProps {
 
 const BusinessAddressForm: React.FC<BusinessAddressFormProps> = ({ businessId, setBusinessAddress }) => {
 
-  const form = useForm<CreateBusinessAddressDetails>(
+  const form = useForm<UpdateBusinessAddressDetails>(
     {
-      resolver: zodResolver(businessAddressDetailsFormSchema),
+      // resolver: zodResolver(businessAddressDetailsFormSchema),
       defaultValues:
       {
         buildingName: "",
@@ -36,9 +35,9 @@ const BusinessAddressForm: React.FC<BusinessAddressFormProps> = ({ businessId, s
     }
   );
 
-  const onUpdateBusinessSubmit = async (data: CreateBusinessAddressDetails) => {
+  const onUpdateBusinessSubmit = async (data: UpdateBusinessAddressDetails) => {
     try {
-      const result = await BusinessAddressDetailsController.submitForm(data, businessId);
+      const result = await BusinessAddressDetailsConnector.submitForm(data, businessId);
       console.log("Form submission successful:", result);
 
       setBusinessAddress(

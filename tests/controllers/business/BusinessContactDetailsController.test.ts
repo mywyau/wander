@@ -1,11 +1,11 @@
 import AppConfig from '@/config/AppConfig';
-import BusinessContactDetailsController from '@/controllers/business/BusinessContactDetailsController';
+import BusinessContactDetailsConnector from '@/connectors/BusinessContactDetailsConnector';
 import { BusinessContactDetails } from '@/types/business/BusinessListing';
-import { CreateBusinessContactDetails } from '@/types/business/CreateBusinessContactDetails';
+import { UpdateBusinessContactDetails } from '@/types/business/UpdateBusinessContactDetails';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
-describe("BusinessContactDetailsController", () => {
+describe("BusinessContactDetailsConnector", () => {
 
   const fakeBusinessId = "BUS123"
   const backendUrl = `http://mocked-pistachio-url/pistachio/business/businesses/contact/details/update/${fakeBusinessId}`
@@ -20,7 +20,7 @@ describe("BusinessContactDetailsController", () => {
     websiteUrl: "https://example.com",
   };
 
-  const createBusinessContactDetails: CreateBusinessContactDetails = {
+  const createBusinessContactDetails: UpdateBusinessContactDetails = {
     primaryContactFirstName: "John",
     primaryContactLastName: "Doe",
     contactEmail: "john.doe@example.com",
@@ -40,7 +40,7 @@ describe("BusinessContactDetailsController", () => {
       json: async () => ({ success: true, message: "Form submitted successfully!" }),
     });
 
-    const result = await BusinessContactDetailsController.submitForm(createBusinessContactDetails, fakeBusinessId);
+    const result = await BusinessContactDetailsConnector.submitForm(createBusinessContactDetails, fakeBusinessId);
 
     expect(result).toEqual({
       success: true,
@@ -67,7 +67,7 @@ describe("BusinessContactDetailsController", () => {
       ok: false,
     });
 
-    const result = await BusinessContactDetailsController.submitForm(createBusinessContactDetails, fakeBusinessId);
+    const result = await BusinessContactDetailsConnector.submitForm(createBusinessContactDetails, fakeBusinessId);
 
     expect(result).toEqual({
       success: false,
@@ -85,7 +85,7 @@ describe("BusinessContactDetailsController", () => {
 
     (fetch as jest.Mock).mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await BusinessContactDetailsController.submitForm(createBusinessContactDetails, fakeBusinessId);
+    const result = await BusinessContactDetailsConnector.submitForm(createBusinessContactDetails, fakeBusinessId);
 
     expect(result).toEqual({
       success: false,
