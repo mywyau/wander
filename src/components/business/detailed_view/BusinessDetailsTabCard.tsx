@@ -49,10 +49,10 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({ busines
 
     return (
         <Tabs defaultValue="address" className="w-full max-w-7xl">
-            <TabsList className="grid w-full grid-cols-3 h-18 shadow-light">
-                <TabsTrigger value="address" className="text-lg font-semibold data-[state=active]:bg-softBlue">Address</TabsTrigger>
-                <TabsTrigger value="contact-details" className="text-lg font-semibold data-[state=active]:bg-softBlue">Contact Details</TabsTrigger>
-                <TabsTrigger value="specifications" className="text-lg font-semibold data-[state=active]:bg-softBlue">Specifications</TabsTrigger>
+            <TabsList variant="purple" className="grid w-full grid-cols-3 h-18 shadow-light">
+                <TabsTrigger value="address" className="text-lg font-semibold data-[state=active]:bg-softPurple">Address</TabsTrigger>
+                <TabsTrigger value="contact-details" className="text-lg font-semibold data-[state=active]:bg-softPurple">Contact Details</TabsTrigger>
+                <TabsTrigger value="specifications" className="text-lg font-semibold data-[state=active]:bg-softPurple">Specifications</TabsTrigger>
             </TabsList>
 
             <TabsContent value="address" className="pt-4">

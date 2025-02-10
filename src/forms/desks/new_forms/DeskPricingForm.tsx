@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -8,48 +7,46 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-import DeskPricingDetailsConnector from "@/connectors/desk/DeskPricingDetailsConnector";
-import { DeskPricingDetails } from "@/types/desk/DeskListing";
+import DeskPricingConnector from "@/connectors/desk/DeskPricingConnector";
+import { UpdateDeskPricing } from "@/types/desk/UpdateDeskPricing";
 import { Dispatch, SetStateAction } from "react";
-import { UpdateDeskPricingDetails } from "@/types/desk/UpdateDeskPricingDetails";
+
 
 interface DeskPricingFormProps {
   deskId: string,
-  setDeskPricing: Dispatch<SetStateAction<UpdateDeskPricingDetails | null>>
+  setDeskPricing: Dispatch<SetStateAction<UpdateDeskPricing | null>>
 }
 
 const DeskPricingForm: React.FC<DeskPricingFormProps> = ({ deskId, setDeskPricing }) => {
 
-  const form = useForm<UpdateDeskPricingDetails>(
+  const form = useForm<UpdateDeskPricing>(
     {
       // resolver: zodResolver(deskPricingDetailsFormSchema),
       defaultValues:
       {
-        buildingName: "",
-        street: "",
-        city: "",
-        country: "",
-        county: "",
-        postcode: "",
+        pricePerHour: 0,
+        pricePerDay: 0,
+        pricePerWeek: 0,
+        pricePerMonth: 0,
+        pricePerYear: 0
       },
     }
   );
 
-  const onUpdateDeskSubmit = async (data: UpdateDeskPricingDetails) => {
+  const onUpdateDeskSubmit = async (data: UpdateDeskPricing) => {
     try {
-      const result = await DeskPricingDetailsConnector.submitForm(data, deskId);
+      const result = await DeskPricingConnector.submitForm(data, deskId);
       console.log("Form submission successful:", result);
 
       setDeskPricing(
         (prevDetails) => (
           {
             ...prevDetails!,
-            buildingName: data.buildingName,
-            street: data.street,
-            city: data.city,
-            country: data.country,
-            county: data.county,
-            postcode: data.postcode,
+            pricePerHour: data.pricePerHour,
+            pricePerDay: data.pricePerDay,
+            pricePerWeek: data.pricePerWeek,
+            pricePerMonth: data.pricePerMonth,
+            pricePerYear: data.pricePerYear
           }
         )
       );
@@ -63,62 +60,12 @@ const DeskPricingForm: React.FC<DeskPricingFormProps> = ({ deskId, setDeskPricin
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onUpdateDeskSubmit)} className="space-y-3">
 
-        {/* Building Name */}
         <div className="flex justify-end">
-          <FormField control={form.control} name="buildingName" render={({ field }) => (
+          <FormField control={form.control} name="pricePerHour" render={({ field }) => (
             <FormItem className="w-2/3">
-              <FormLabel>Building Name</FormLabel>
+              <FormLabel>Price per hour</FormLabel>
               <FormControl>
-                <Input variant="shadowNoBorder" placeholder="Enter a building name" {...field} />
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )} />
-        </div>
-
-        {/* Street */}
-        <div className="flex justify-end">
-          <FormField control={form.control} name="street" render={({ field }) => (
-            <FormItem className="w-2/3">
-              <FormLabel>Street</FormLabel>
-              <FormControl>
-                <Input variant="shadowNoBorder" placeholder="Enter street" {...field} />
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )} />
-        </div>
-
-        {/* City */}
-        <div className="flex justify-end">
-          <FormField control={form.control} name="city" render={({ field }) => (
-            <FormItem className="w-2/3">
-              <FormLabel>City</FormLabel>
-              <FormControl>
-                <Input variant="shadowNoBorder" placeholder="Enter city" {...field} />
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )} />
-        </div>
-
-
-        {/* Country Select */}
-        <div className="flex justify-end">
-          <FormField control={form.control} name="country" render={({ field }) => (
-            <FormItem className="w-2/3  ">
-              <FormLabel>Country</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger className="bg-white text-black dark:bg-secondaryBlack dark:text-darkText">
-                    <SelectValue placeholder="Select a country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="United Kingdom">United Kingdom</SelectItem>
-                    <SelectItem value="United States">United States</SelectItem>
-                    <SelectItem value="China">China</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Input variant="shadowNoBorder" placeholder="Enter a price for per hour" {...field} />
               </FormControl>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -126,11 +73,11 @@ const DeskPricingForm: React.FC<DeskPricingFormProps> = ({ deskId, setDeskPricin
         </div>
 
         <div className="flex justify-end">
-          <FormField control={form.control} name="county" render={({ field }) => (
+          <FormField control={form.control} name="pricePerDay" render={({ field }) => (
             <FormItem className="w-2/3">
-              <FormLabel>County</FormLabel>
+              <FormLabel>Price per day</FormLabel>
               <FormControl>
-                <Input variant="shadowNoBorder" placeholder="Enter a county" {...field} />
+              <Input variant="shadowNoBorder" placeholder="Enter a price for per day" {...field} />
               </FormControl>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -138,11 +85,35 @@ const DeskPricingForm: React.FC<DeskPricingFormProps> = ({ deskId, setDeskPricin
         </div>
 
         <div className="flex justify-end">
-          <FormField control={form.control} name="postcode" render={({ field }) => (
+          <FormField control={form.control} name="pricePerWeek" render={({ field }) => (
             <FormItem className="w-2/3">
-              <FormLabel>Postcode</FormLabel>
+              <FormLabel>Price per week</FormLabel>
               <FormControl>
-                <Input variant="shadowNoBorder" placeholder="Enter the postcode of the desk" {...field} />
+              <Input variant="shadowNoBorder" placeholder="Enter a price for per week" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )} />
+        </div>
+
+        <div className="flex justify-end">
+          <FormField control={form.control} name="pricePerMonth" render={({ field }) => (
+            <FormItem className="w-2/3">
+              <FormLabel>Price per month</FormLabel>
+              <FormControl>
+              <Input variant="shadowNoBorder" placeholder="Enter a price for per month" {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )} />
+        </div>
+
+        <div className="flex justify-end">
+          <FormField control={form.control} name="pricePerYear" render={({ field }) => (
+            <FormItem className="w-2/3">
+              <FormLabel>Price per year</FormLabel>
+              <FormControl>
+              <Input variant="shadowNoBorder" placeholder="Enter a price for per year" {...field} />
               </FormControl>
               <FormMessage className="text-red-500" />
             </FormItem>

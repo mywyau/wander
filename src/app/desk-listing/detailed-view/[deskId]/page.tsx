@@ -1,134 +1,86 @@
-import DeskListingController from "@/controllers/desk/DeskListingController";
-import { DeskListing } from "@/types/desk/DeskListing";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+// import DeskDetailsTabCard from '@/components/desk/detailed_view/DeskDetailsTabCard';
+import DeskDetailsTabCard from '@/components/desks/detailed_view/DeskDetailsTabCard';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb';
 
 interface DeskDetailedViewProps {
   params: {
+    businessId: string;
+    officeId: string;
     deskId: string;
   };
 }
 
 export default async function DeskDetailedView({ params }: DeskDetailedViewProps) {
-  
-  console.log("DeskDetailedView params:", params);
 
-  const { deskId } = params;
+  const { businessId, officeId, deskId } = params;
 
-  try {
-    // Fetch desk details server-side
-    const deskListing: DeskListing = await DeskListingController.getDeskListing(deskId);
-    console.log("[DeskDetailedView] Fetched desk details:", deskListing);
+  return (
+    <div className="min-h-screen flex flex-col items-center p-6">
 
+      {/* Container for structured layout */}
+      <div className="w-full max-w-5xl">
 
-    const { specifications, pricing } = deskListing;
+        {/* Breadcrumbs with spacing below */}
+        <div className="w-full rounded-lg  mb-6">
+          <Breadcrumb>
+            <BreadcrumbList>
 
-    return (
-      <div className="max-w-4xl mx-auto mt-8 bg-white p-6 shadow-md rounded-lg">
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/wander/business/view-all`} className="hover:text-blue-800">
+                  View all business
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-        <h1 className="text-2xl font-bold mb-4">{specifications?.deskName}</h1>
+              <BreadcrumbSeparator />
 
-        <p className="text-gray-600 mb-6">{specifications?.description}</p>
+              <BreadcrumbItem>
+                <BreadcrumbLink
+                  href={`/wander/office/view-all/${businessId}?timestamp=${Date.now()}`}
+                  className="hover:text-blue-800"
+                >
+                  View all offices for business
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-        <p className="text-gray-600 mb-6">{specifications?.rules}</p>
+              <BreadcrumbSeparator />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <BreadcrumbItem>
+                <BreadcrumbLink
+                  href={`/wander/desk-listing/view-all/${businessId}/${officeId}?timestamp=${Date.now()}`}
+                  className="hover:text-blue-800"
+                >
+                  View all desks for office
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-          {/* Desk Specifications Section */}
-          {specifications && (
-            <div>
-              <h2 className="text-lg font-semibold mb-2 underline">Desk Details</h2>
+              <BreadcrumbSeparator />
 
-              {/* Desk Type */}
-              {specifications.deskType && (
-                <p>
-                  <strong>Type of Desk:</strong> {specifications.deskType}
-                </p>
-              )}
+              <BreadcrumbItem>
+                <BreadcrumbLink
+                  href={`/wander/desk-listing/detailed-view/${deskId}?timestamp=${Date.now()}`}
+                  className="hover:text-blue-800"
+                >
+                  Desk details
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-              {/* Desk Features */}
-              {specifications.features?.length > 0 ? (
-                <p>
-                  <strong>Desk Features:</strong>{" "}
-                  {specifications.features.map((feature, index) => (
-                    <span key={index}>
-                      {feature}
-                      {index < specifications.features.length - 1 ? ", " : ""}
-                    </span>
-                  ))}
-                </p>
-              ) : (
-                <p><strong>Desk Features:</strong> Not specified</p>
-              )}
-
-              {/* Quantity */}
-              {specifications.quantity && (
-                <p>
-                  <strong>Quantity:</strong> {specifications.quantity}
-                </p>
-              )}
-
-              {/* Availability Days */}
-              {specifications.availability?.days?.length > 0 ? (
-                <p>
-                  <strong>Days Open:</strong>{" "}
-                  {specifications.availability.days.map((day, index) => (
-                    <span key={index}>
-                      {day}
-                      {index < specifications.availability.days.length - 1 ? ", " : ""}
-                    </span>
-                  ))}
-                </p>
-              ) : (
-                <p><strong>Days Open:</strong> Not specified</p>
-              )}
-
-              {/* Start Time */}
-              {specifications.availability?.startTime && (
-                <p>
-                  <strong>Start Time:</strong> {specifications.availability.startTime}
-                </p>
-              )}
-
-              {/* End Time */}
-              {specifications.availability?.endTime && (
-                <p>
-                  <strong>End Time:</strong> {specifications.availability.endTime}
-                </p>
-              )}
-
-              {/* Edit Link */}
-              <div className="mt-4 flex gap-6">
-                <Link href={`/desk-listing/specifications/update/${deskId}`} className="text-blue-600 underline">
-                  Edit Specifications
-                </Link>
-              </div>
-            </div>
-          )}
-
-
-          {/* Desk Pricing Section */}
-          <div>
-            <h2 className="text-lg font-semibold mb-2 underline">Address</h2>
-            <p><strong>Price per hour:</strong> {pricing?.pricePerHour}</p>
-            <p><strong>Price per day:</strong> {pricing?.pricePerDay}</p>
-            <p><strong>Price per week:</strong> {pricing?.pricePerWeek}</p>
-            <p><strong>Price per month:</strong> {pricing?.pricePerMonth}</p>
-            <p><strong>Price per year:</strong> {pricing?.pricePerYear}</p>
-
-            <div className="mt-4 flex gap-6">
-              <Link href={`/desk-listing/pricing/update/${deskId}`} className="text-blue-600 underline">
-                Edit Pricing Details
-              </Link>
-            </div>
-          </div>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
 
+        {/* Desk Details Tab Card with spacing on top */}
+        <div className="w-full flex justify-center mt-6">
+          <DeskDetailsTabCard deskId={deskId} />
+        </div>
 
       </div>
-    );
-  } catch (error) {
-    console.error("[DeskDetailedView] Error fetching desk details:", error);
-    notFound();
-  }
+
+    </div>
+  );
 }

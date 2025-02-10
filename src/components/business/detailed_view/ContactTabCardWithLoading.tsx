@@ -40,7 +40,7 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, bus
 
 
     return (
-        <Card className="pb-3 bg-softBlue">
+        <Card variant="purple" className="pb-3 bg-softPurple">
             {
                 loading ? (
                     <CardContent className="flex justify-center items-center h-auto">
