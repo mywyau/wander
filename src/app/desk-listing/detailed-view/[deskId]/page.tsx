@@ -10,6 +10,7 @@ interface DeskDetailedViewProps {
 }
 
 export default async function DeskDetailedView({ params }: DeskDetailedViewProps) {
+  
   console.log("DeskDetailedView params:", params);
 
   const { deskId } = params;

@@ -1,5 +1,5 @@
 import AppConfig from "@/config/AppConfig";
-import BusinessAddressDetailsConnector from "@/connectors/BusinessAddressDetailsConnector";
+import BusinessAddressDetailsConnector from "@/connectors/business/BusinessAddressDetailsConnector";
 import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 
 global.fetch = jest.fn();

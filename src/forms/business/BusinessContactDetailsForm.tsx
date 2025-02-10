@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import BusinessContactDetailsConnector from "@/connectors/BusinessContactDetailsConnector";
+import BusinessContactDetailsConnector from "@/connectors/business/BusinessContactDetailsConnector";
 import { BusinessContactDetails } from "@/types/business/BusinessListing";
 import { UpdateBusinessContactDetails } from "@/types/business/UpdateBusinessContactDetails";
 import { Dispatch, SetStateAction } from "react";

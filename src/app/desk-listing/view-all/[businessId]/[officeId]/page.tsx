@@ -2,9 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import DeskListingConnector from "@/connectors/desk/DeskListingConnector";
-import { InitiateDeskListingRequest } from "@/types/desk/InitiateDeskListingRequest";
-import { DeskListingCard } from "@/types/desk/DeskListing";
+import { DeskListingCard } from "@/types/desk/DeskListingCard";
+
 import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 
@@ -19,25 +18,28 @@ import {
     BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 
-import DeleteAllAlertDialog from "@/components/desk/viewAll/DeleteAllAlertDialog";
-import DeskCardPagination from "@/components/desk/viewAll/DeskCardPagination";
-import DeskListCards from "@/components/desk/viewAll/DeskListCards";
+import DeleteAllAlertDialog from "@/components/desks/viewAll/DeleteAllAlertDialog";
+import DeskCardPagination from "@/components/desks/viewAll/DeskCardPagination";
+import DeskListCards from "@/components/desks/viewAll/DeskListCards";
+import DeskListingConnector from "@/connectors/desk/DeskListingConnector";
 import {
     deleteAllDeskListings,
     onAddNewDeskSubmit,
     onDeleteDesk
 } from "@/handlers/DeskViewAllHandlers";
+import { InitiateDeskListingRequest } from "@/types/desk/requests/InitiateDeskListingRequest";
 
 
 interface AddDeskPageProps {
     params: {
         businessId: string
+        officeId: string
     };
 }
 
 export default function DeskViewAllPage({ params }: AddDeskPageProps) {
 
-    const { businessId } = params; // ✅ Correct way to get path params
+    const { businessId, officeId } = params; // ✅ Correct way to get path params
 
     const userId = getCookie("userId");
     console.log(`userId: ${userId}`);
@@ -70,7 +72,7 @@ export default function DeskViewAllPage({ params }: AddDeskPageProps) {
         const fetchDesks = async () => {
             try {
                 setLoading(true);
-                const fetchedDesks = await DeskListingConnector.getAllDeskListingCards(businessId);
+                const fetchedDesks = await DeskListingConnector.getAllDeskListingCards(officeId);
                 setDeskCard(fetchedDesks);
             } catch (error) {
                 console.error("Failed to fetch desks:", error);
@@ -80,7 +82,7 @@ export default function DeskViewAllPage({ params }: AddDeskPageProps) {
         };
 
         fetchDesks();
-    }, [businessId]);
+    }, [officeId]);
 
     // ✅ Show toast notifications
     useEffect(() => {
@@ -138,11 +140,19 @@ export default function DeskViewAllPage({ params }: AddDeskPageProps) {
                                 <BreadcrumbSeparator />
 
                                 <BreadcrumbItem>
+                                    <BreadcrumbLink href={`/wander/office/view-all/${businessId}?timestamp=${Date.now()}`} className="hover:text-blue-800">
+                                        View all offices
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+
+                                <BreadcrumbSeparator />
+
+                                <BreadcrumbItem>
                                     <BreadcrumbLink
-                                        href={`/wander/desk/view-all/${businessId}?timestamp=${Date.now()}`}
+                                        href={`/wander/desk-listing/view-all/${businessId}/${officeId}`}
                                         className="hover:text-blue-800"
                                     >
-                                        View all desks for business 
+                                        View all desks for office
                                     </BreadcrumbLink>
                                 </BreadcrumbItem>
 
@@ -163,11 +173,20 @@ export default function DeskViewAllPage({ params }: AddDeskPageProps) {
                         <Button
                             variant="green"
                             className="hover:bg-softGreen"
-                            onClick={() => {
-                                const randomDeskId = IdGenerator.generateDeskId();
-                                const newDeskData: InitiateDeskListingRequest = { businessId, deskId: randomDeskId };
-                                onAddNewDeskSubmit(newDeskData, setDeskCard, setSuccessMessage, setSubmitError);
-                            }}
+                            onClick={
+                                () => {
+                                    const randomDeskId = IdGenerator.generateDeskId();
+                                    const newDeskData: InitiateDeskListingRequest =
+                                    {
+                                        businessId,
+                                        officeId,
+                                        deskId: randomDeskId,
+                                        deskName: "New Desk",
+                                        description: "Please add a description"
+                                    };
+                                    onAddNewDeskSubmit(newDeskData, setDeskCard, setSuccessMessage, setSubmitError);
+                                }
+                            }
                         >
                             Add a new desk
                         </Button>
@@ -185,7 +204,7 @@ export default function DeskViewAllPage({ params }: AddDeskPageProps) {
                                 }
                             />
                             <DeskCardPagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
-                            <DeleteAllAlertDialog deleteAllDeskListings={() => deleteAllDeskListings(businessId, setDeskCard, setSuccessMessage, setSubmitError)} />
+                            <DeleteAllAlertDialog deleteAllDeskListings={() => deleteAllDeskListings(officeId, setDeskCard, setSuccessMessage, setSubmitError)} />
                         </>
                     )}
                 </>

@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-import BusinessAddressDetailsConnector from "@/connectors/BusinessAddressDetailsConnector";
+import BusinessAddressDetailsConnector from "@/connectors/business/BusinessAddressDetailsConnector";
 import { BusinessAddressDetails } from "@/types/business/BusinessListing";
 import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 import { Dispatch, SetStateAction } from "react";

@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 
-import BusinessSpecificationsConnector from "@/connectors/BusinessSpecificationsConnector";
+import BusinessSpecificationsConnector from "@/connectors/business/BusinessSpecificationsConnector";
 import { BusinessSpecifications } from "@/types/business/BusinessListing";
 import { UpdateBusinessSpecifications } from "@/types/business/UpdateBusinessSpecifications";
 import { Dispatch, SetStateAction } from "react";

@@ -1,75 +1,62 @@
-import { DeskListingCard } from "@/types/desk/DeskListingCard";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+
+
+import DeskCardContextMenu from "./DeskCardContextMenu";
+import { DeskListingCard } from "@/types/desk/DeskListingCard";
 
 interface DeskListingsCardsProp {
-    filteredDesks: DeskListingCard[];
-    currentDesks: DeskListingCard[];
-    onDeleteLinkSubmit: (deskId: string) => Promise<void>;
+    filteredDeskCards: DeskListingCard[];
+    currentDeskCards: DeskListingCard[];
+    onDeleteSubmit: (deskId: string) => Promise<void>;
 }
 
 const DeskListCards: React.FC<DeskListingsCardsProp> = ({
-    filteredDesks,
-    currentDesks,
-    onDeleteLinkSubmit,
+    filteredDeskCards,
+    currentDeskCards,
+    onDeleteSubmit,
 }) => {
-    const [showNoDesksMessage, setShowNoDesksMessage] = useState(false);
-    const router = useRouter(); // Get the router instance
+
+    const [showNoDeskMessage, setShowNoDeskMessage] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
-        if (filteredDesks.length === 0) {
+        if (filteredDeskCards.length === 0) {
             const timer = setTimeout(() => {
-                setShowNoDesksMessage(true);
-            }, 1000); // Delay of 1 second
-            return () => clearTimeout(timer); // Cleanup timer on component unmount
+                setShowNoDeskMessage(true);
+            }, 1000);
+            return () => clearTimeout(timer);
         } else {
-            setShowNoDesksMessage(false);
+            setShowNoDeskMessage(false);
         }
-    }, [filteredDesks]);
+    }, [filteredDeskCards]);
 
-    // Navigate programmatically to the detailed view page
+
     const handleViewDetails = (deskId: string) => {
         router.push(`/desk-listing/detailed-view/${deskId}?timestamp=${Date.now()}`);
     };
 
-    return filteredDesks.length === 0 && showNoDesksMessage ? (
+    return filteredDeskCards.length === 0 && showNoDeskMessage ? (
         <div className="text-center py-8">
-            <p className="text-gray-500 mb-4">No desks found.</p>
+            <p className="text-center text-gray-600 col-span-full text-2xl font-semibold">
+                No desks available or found.
+            </p>
         </div>
     ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentDesks.map(
-                (desk) => (
-                    <div
-                        key={desk.deskId}
-                        className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
-                    >
-                        <div>
-                            <h2 className="text-lg font-semibold">{desk.deskName}</h2>
-                            <p className="text-gray-600 text-sm">
-                                {desk.description || "No description provided."}
-                            </p>
-                        </div>
-                        <div className="mt-2 flex gap-6">
-                            <button
-                                className="text-base text-blue-600 rounded hover:text-blue-800 underline"
-                                onClick={() => handleViewDetails(desk.deskId)}
-                            >
-                                View listing
-                            </button>
-                            <button
-                                className="text-base text-red-500 rounded hover:text-red-700 underline"
-                                onClick={() => onDeleteLinkSubmit(desk.deskId)}
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </div>
+            {
+                currentDeskCards.map(
+                    (card) => (
+                        <DeskCardContextMenu
+                            deskCard={card}
+                            handleViewDetails={handleViewDetails}
+                            onDeleteSubmit={onDeleteSubmit}
+                        />
+                    )
                 )
-            )
             }
         </div>
-    );
-};
+    )
+}
 
 export default DeskListCards;

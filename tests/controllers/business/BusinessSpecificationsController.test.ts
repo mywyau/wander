@@ -1,5 +1,5 @@
 import { AppConfig } from '@/config/AppConfig';
-import BusinessSpecificationsConnector from '@/connectors/BusinessSpecificationsConnector';
+import BusinessSpecificationsConnector from '@/connectors/business/BusinessSpecificationsConnector';
 import { UpdateBusinessSpecifications } from '@/types/business/UpdateBusinessSpecifications';
 
 global.fetch = jest.fn(); // Mock the global fetch function
