@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 
-import BusinessSpecificationsForm from '@/forms/business/new_forms/BusinessSpecificationsForm';
+import BusinessSpecificationsForm from '@/forms/business/BusinessSpecificationsForm';
 import { BusinessListing, BusinessSpecifications } from "@/types/business/BusinessListing";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';

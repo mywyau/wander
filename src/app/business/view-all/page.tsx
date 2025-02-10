@@ -4,7 +4,7 @@ import BusinessCardPagination from "@/components/business/viewAll/BusinessCardPa
 import BusinessListCards from "@/components/business/viewAll/BusinessListCards";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import BusinessListingConnector from "@/connectors/BusinessListingConnector";
+import BusinessListingConnector from "@/connectors/business/BusinessListingConnector";
 import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { InitiateBusinessListingRequest } from "@/types/business/InitiateBusinessListingRequest";
 import { getCookie } from "cookies-next";

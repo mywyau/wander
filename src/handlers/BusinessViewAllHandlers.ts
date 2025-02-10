@@ -1,4 +1,4 @@
-import BusinessListingConnector from "@/connectors/BusinessListingConnector";
+import BusinessListingConnector from "@/connectors/business/BusinessListingConnector";
 import { BusinessListingCard } from "@/types/business/BusinessListing";
 import { InitiateBusinessListingRequest } from "@/types/business/InitiateBusinessListingRequest";
 import { Dispatch, SetStateAction } from "react";

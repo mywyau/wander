@@ -1,5 +1,5 @@
 import AppConfig from '@/config/AppConfig';
-import BusinessContactDetailsConnector from '@/connectors/BusinessContactDetailsConnector';
+import BusinessContactDetailsConnector from '@/connectors/business/BusinessContactDetailsConnector';
 import { BusinessContactDetails } from '@/types/business/BusinessListing';
 import { UpdateBusinessContactDetails } from '@/types/business/UpdateBusinessContactDetails';
 

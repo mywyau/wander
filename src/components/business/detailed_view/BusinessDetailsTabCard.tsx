@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useState } from "react";
 
-import BusinessListingConnector from "@/connectors/BusinessListingConnector";
+import BusinessListingConnector from "@/connectors/business/BusinessListingConnector";
 import { BusinessListing } from "@/types/business/BusinessListing";
 import AddressTabCardWithLoading from "./AddressTabCardWithLoading";
 import ContactTabCardWithLoading from './ContactTabCardWithLoading';
