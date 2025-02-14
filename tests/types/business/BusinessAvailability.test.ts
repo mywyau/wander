@@ -1,4 +1,4 @@
-import { BusinessAvailability } from "@/types/business/BusinessAvailability";
+import { BusinessAvailability } from "@/types/OpeningHours";
 
 describe("BusinessAvailability - JSON Serialization and Deserialization", () => {
 

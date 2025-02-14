@@ -1,3 +1,4 @@
+import { OpeningHours } from "../OpeningHours";
 
 export interface UpdateDeskSpecifications {
   deskName: string;
@@ -5,6 +6,6 @@ export interface UpdateDeskSpecifications {
   deskType: string;
   quantity: number;
   features: string[];
-  availability: DeskAvailability,
+  openingHours: OpeningHours;
   rules?: string;
 }

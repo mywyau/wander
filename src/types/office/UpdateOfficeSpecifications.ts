@@ -1,4 +1,4 @@
-import { OfficeAvailability } from "./OfficeAvailability";
+import { OpeningHours } from "../OpeningHours";
 
 export interface UpdateOfficeSpecifications {
   officeName: string;
@@ -8,6 +8,6 @@ export interface UpdateOfficeSpecifications {
   totalDesks: number;
   capacity: number;
   amenities: string[];
-  availability: OfficeAvailability;
+  openingHours: OpeningHours;
   rules: string;
 }

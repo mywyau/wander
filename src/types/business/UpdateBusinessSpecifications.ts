@@ -1,8 +1,8 @@
-import { BusinessAvailability } from "./BusinessAvailability";
+import { OpeningHours } from "../OpeningHours";
 
 export interface UpdateBusinessSpecifications {
   businessName: string;
   description: string;
-  availability: BusinessAvailability;
+  openingHours: OpeningHours;
 }
 
