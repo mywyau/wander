@@ -1,4 +1,5 @@
-import AppConfig from '@/config/AppConfig';
+
+import { AppConfig } from '@/config/AppConfig';
 import BusinessContactDetailsConnector from '@/connectors/business/BusinessContactDetailsConnector';
 import { BusinessContactDetails } from '@/types/business/BusinessListing';
 import { UpdateBusinessContactDetails } from '@/types/business/UpdateBusinessContactDetails';
@@ -11,7 +12,6 @@ describe("BusinessContactDetailsConnector", () => {
   const backendUrl = `http://mocked-pistachio-url/pistachio/business/businesses/contact/details/update/${fakeBusinessId}`
 
   const mockData: BusinessContactDetails = {
-    userId: "USER123",
     businessId: fakeBusinessId,
     primaryContactFirstName: "John",
     primaryContactLastName: "Doe",
