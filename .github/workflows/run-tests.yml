@@ -13,18 +13,18 @@ jobs:
     steps:
       # Checkout code
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: "npm"
 
       # Cache npm dependencies
       - name: Cache npm dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
@@ -48,7 +48,7 @@ jobs:
       # Upload test coverage report
       - name: Upload test coverage report
         if: always()
-        uses: actions/upload-artifact@v3.1  # Updated version
+        uses: actions/upload-artifact@v4  # Updated version
         with:
           name: coverage-report
           path: coverage/
