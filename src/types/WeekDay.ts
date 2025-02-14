@@ -1,6 +1,6 @@
 
 // Define an enum for weekdays
-enum WeekDay {
+export enum WeekDay {
   Sunday = 'Sunday',
   Monday = 'Monday',
   Tuesday = 'Tuesday',

@@ -1,4 +1,5 @@
 import { deserializeOpeningHours, OpeningHours, serializeOpeningHours } from '@/types/OpeningHours';
+import { WeekDay } from '@/types/WeekDay';
 import { DateTime } from 'luxon';
 
 describe('OpeningHours serialization and deserialization', () => {
