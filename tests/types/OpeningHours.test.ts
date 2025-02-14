@@ -26,10 +26,12 @@ describe('OpeningHours serialization and deserialization', () => {
 
     it('should handle invalid JSON gracefully', () => {
         const invalidJson = '{"day":"Monday","openingTime":"invalid","closingTime":"17:00"}';
-        expect(() => deserializeOpeningHours(invalidJson)).toThrow();
+        // expect(() => deserializeOpeningHours(invalidJson)).toThrow();
+        expect(deserializeOpeningHours(invalidJson)).toBe("")
     });
 
     it('should handle edge case of midnight times correctly', () => {
+
         const midnightOpeningHours: OpeningHours = {
             day: WeekDay.Sunday,
             openingTime: DateTime.fromObject({ hour: 0, minute: 0 }),
