@@ -26,22 +26,31 @@ export interface OpeningHours {
   closingTime: LocalTime;  // LocalTime is DateTime
 }
 
-export function deserializeOpeningHours(json: string): OpeningHours | string {
+type DeserializationError = {
+  error: boolean;
+  message: string;
+};
+
+// TypeScript type guard to check if the result is a DeserializationError
+export function isDeserializationError(result: any): result is DeserializationError {
+  return result && result.error === true;
+}
+
+export function deserializeOpeningHours(json: string): OpeningHours | DeserializationError {
   try {
     const parsed = JSON.parse(json);
 
     // Zod runtime validation
     const result = OpeningHoursSchema.safeParse(parsed);
     if (!result.success) {
-      return ""; // Return an empty string if data is invalid
+      return { error: true, message: 'Invalid OpeningHours data' };
     }
 
     return result.data; // Return validated data if it's valid
   } catch (error) {
-    return ""; // Return an empty string if JSON is invalid or parsing fails
+    return { error: true, message: 'Invalid JSON format' }; // Return a detailed error message
   }
 }
-
 
 // Serialize OpeningHours to JSON with Zod validation
 export function serializeOpeningHours(openingHours: OpeningHours): string {
