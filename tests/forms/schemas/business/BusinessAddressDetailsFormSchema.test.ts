@@ -17,6 +17,16 @@ describe("businessAddressDetailsFormSchema", () => {
   });
 
   it("should fail if `street` is missing or invalid", () => {
+
+    const emptyStreet = {
+      buildingName: "Tech Tower",
+      street: "",
+      city: "Metropolis",
+      country: "Countryland",
+      county: "Countyshire",
+      postcode: "12345",
+    };
+
     const missingStreet = {
       buildingName: "Tech Tower",
       city: "Metropolis",
@@ -36,7 +46,7 @@ describe("businessAddressDetailsFormSchema", () => {
     };
 
     try {
-      businessAddressDetailsFormSchema.parse(missingStreet);
+      businessAddressDetailsFormSchema.parse(emptyStreet);
     } catch (err) {
       const zodError = err as ZodError;
       const errorMessage = zodError.errors[0].message;
