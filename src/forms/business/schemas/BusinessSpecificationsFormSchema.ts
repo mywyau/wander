@@ -18,7 +18,7 @@ export const businessSpecificationsFormSchema = z
       availability:
         z.object(
           {
-            days:
+            day:
               z
                 .array(z.string())
                 .refine((arr) => arr.length > 0, "At least one availability day must be selected."),

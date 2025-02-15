@@ -39,10 +39,10 @@ const sheetVariants = cva(
       },
       variant: {
         default: 'bg-bg dark:bg-darkBg',
-        green: 'bg-hardGreen dark:bg-darkGreen',
-        red: 'bg-hardRed dark:bg-darkRed',
-        yellow: 'bg-hardYellow dark:bg-darkYellow',
-        purple: 'bg-hardPurple dark:bg-darkPurple',
+        green: 'bg-softGreen dark:bg-softGreen',
+        red: 'bg-softRed dark:bg-softRed',
+        yellow: 'bg-softYellow dark:bg-softYellow',
+        purple: 'bg-softPurple dark:bg-softPurple',
       },
     },
     defaultVariants: {

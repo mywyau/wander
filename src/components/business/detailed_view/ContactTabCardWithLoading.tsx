@@ -67,7 +67,7 @@ const TabCardWithLoading: React.FC<TabCardWithLoadingProps> = ({ businessId, bus
                                 <SheetTrigger asChild>
                                     <Button variant="yellow" className="w-1/4">Edit</Button>
                                 </SheetTrigger>
-                                <SheetContent className="!w-full max-w-2xl">
+                                <SheetContent variant="purple" className="!w-full max-w-2xl">
                                     <SheetHeader>
                                         <SheetTitle className="flex mb-5">Update ContactDetails Details</SheetTitle>
                                         <SheetDescription></SheetDescription>

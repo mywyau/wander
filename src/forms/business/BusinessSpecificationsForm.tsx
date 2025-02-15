@@ -82,11 +82,10 @@ const BusinessSpecificationsForm: React.FC<BusinessSpecificationsFormProps> = ({
                     </div>
 
                     {/* Availability */}
-                    <div className="space-y-3">
+                    {/* <div className="space-y-3">
 
                         <FormLabel className="text-lg font-bold text-black">Availability</FormLabel>
 
-                        {/* Days of the Week */}
                         <div className="grid grid-cols-4 gap-3 pl-3">
                             {daysOfWeek.map((day) => (
                                 <FormField
@@ -113,7 +112,6 @@ const BusinessSpecificationsForm: React.FC<BusinessSpecificationsFormProps> = ({
                             ))}
                         </div>
 
-                        {/* Start Time */}
                         <div className="pt-3 pb-3">
                             <FormField
                                 control={form.control}
@@ -134,7 +132,6 @@ const BusinessSpecificationsForm: React.FC<BusinessSpecificationsFormProps> = ({
                             />
                         </div>
 
-                        {/* End Time */}
                         <div className="pt-3 pb-3">
                             <FormField
                                 control={form.control}
@@ -154,7 +151,7 @@ const BusinessSpecificationsForm: React.FC<BusinessSpecificationsFormProps> = ({
                                 )}
                             />
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Submit Button */}
                     <div className="flex justify-end pt-4">

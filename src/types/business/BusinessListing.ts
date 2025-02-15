@@ -1,4 +1,4 @@
-import { BusinessAvailability } from "../OpeningHours";
+import {OpeningHours } from "../OpeningHours";
 
 export interface BusinessListingCard {
   businessId: string,
@@ -40,5 +40,5 @@ export interface BusinessSpecifications {
   businessId: string,
   businessName: string,
   description: string,
-  openingHours?: BusinessAvailability
+  openingHours?: OpeningHours;
 }
