@@ -21,10 +21,14 @@ const OpeningHoursSchema = z.object({
 
 // Interface remains for static type checking
 export interface OpeningHours {
-  day: WeekDay;
   openingTime: LocalTime;  // LocalTime is DateTime
   closingTime: LocalTime;  // LocalTime is DateTime
 }
+
+// export interface OpeningHours {
+//   openingTime: string;  // LocalTime is DateTime
+//   closingTime: string;  // LocalTime is DateTime
+// }
 
 type DeserializationError = {
   error: boolean;
@@ -36,36 +40,36 @@ export function isDeserializationError(result: any): result is DeserializationEr
   return result && result.error === true;
 }
 
-export function deserializeOpeningHours(json: string): OpeningHours | DeserializationError {
-  try {
-    const parsed = JSON.parse(json);
+// export function deserializeOpeningHours(json: string): OpeningHours | DeserializationError {
+//   try {
+//     const parsed = JSON.parse(json);
 
-    // Zod runtime validation
-    const result = OpeningHoursSchema.safeParse(parsed);
-    if (!result.success) {
-      return { error: true, message: 'Invalid OpeningHours data' };
-    }
+//     // Zod runtime validation
+//     const result = OpeningHoursSchema.safeParse(parsed);
+//     if (!result.success) {
+//       return { error: true, message: 'Invalid OpeningHours data' };
+//     }
 
-    return result.data; // Return validated data if it's valid
-  } catch (error) {
-    return { error: true, message: 'Invalid JSON format' }; // Return a detailed error message
-  }
-}
+//     return result.data; // Return validated data if it's valid
+//   } catch (error) {
+//     return { error: true, message: 'Invalid JSON format' }; // Return a detailed error message
+//   }
+// }
 
 // Serialize OpeningHours to JSON with Zod validation
-export function serializeOpeningHours(openingHours: OpeningHours): string {
-  // Convert DateTime objects to strings (HH:mm format) for serialization
-  const serializedOpeningHours = {
-    ...openingHours,
-    openingTime: openingHours.openingTime.toFormat('HH:mm'),
-    closingTime: openingHours.closingTime.toFormat('HH:mm'),
-  };
+// export function serializeOpeningHours(openingHours: OpeningHours): string {
+//   // Convert DateTime objects to strings (HH:mm format) for serialization
+//   const serializedOpeningHours = {
+//     ...openingHours,
+//     openingTime: openingHours.openingTime.toFormat('HH:mm'),
+//     closingTime: openingHours.closingTime.toFormat('HH:mm'),
+//   };
 
-  // Zod runtime validation (optional)
-  const result = OpeningHoursSchema.safeParse(serializedOpeningHours);
-  if (!result.success) {
-    throw new Error('Invalid OpeningHours object');
-  }
+//   // Zod runtime validation (optional)
+//   const result = OpeningHoursSchema.safeParse(serializedOpeningHours);
+//   if (!result.success) {
+//     throw new Error('Invalid OpeningHours object');
+//   }
 
-  return JSON.stringify(serializedOpeningHours);
-}
+//   return JSON.stringify(serializedOpeningHours);
+// }
