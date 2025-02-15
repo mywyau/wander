@@ -12,6 +12,7 @@ import { Dispatch, SetStateAction } from "react";
 import { WeekDay } from "@/types/WeekDay";
 import { DateTime } from "luxon";
 
+
 interface BusinessOpeningHoursFormProps {
     businessId: string,
     setBusinessOpeningHours: Dispatch<SetStateAction<OpeningHours | null>>
@@ -34,7 +35,7 @@ const BusinessOpeningHoursForm: React.FC<BusinessOpeningHoursFormProps> = ({ bus
                 <form onSubmit={form.handleSubmit("")} className="space-y-4">
 
                     {/* Availability */}
-                    <div className="space-y-3">
+                    <div className="space-y-3 ">
 
                         <FormLabel className="text-lg font-bold text-black">Availability</FormLabel>
 
@@ -50,7 +51,7 @@ const BusinessOpeningHoursForm: React.FC<BusinessOpeningHoursFormProps> = ({ bus
                                             <Input
                                                 type="time"
                                                 {...field}
-                                                className="w-1/3 border-2 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] bg-softPurple px-3 py-2 text-lg font-bold"
+                                                className="w-1/4 border-2 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] bg-softPurple px-3 py-2 text-lg font-bold"
                                             />
                                         </FormControl>
                                         <FormMessage className="text-red-500" />
@@ -71,7 +72,7 @@ const BusinessOpeningHoursForm: React.FC<BusinessOpeningHoursFormProps> = ({ bus
                                             <Input
                                                 type="time"
                                                 {...field}
-                                                className="w-1/3 border-2 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] bg-softPurple px-3 py-2 text-lg font-bold"
+                                                className="w-1/4 border-2 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] bg-softPurple px-3 py-2 text-lg font-bold"
                                             />
                                         </FormControl>
                                         <FormMessage className="text-red-500" />
@@ -82,7 +83,7 @@ const BusinessOpeningHoursForm: React.FC<BusinessOpeningHoursFormProps> = ({ bus
                     </div>
 
                     {/* Submit Button */}
-                    <div className="flex justify-end pt-4">
+                    <div className="flex pt-4">
                         <Button variant='green' type="submit" className="w-1/3 hover:bg-softGreen">
                             Save Changes
                         </Button>
