@@ -5,6 +5,7 @@ import { toStringFormat } from '@/types/LocalTime';
 interface BusinessAvailabilityConnectorResult {
   success: boolean;
   message: string;
+  statusCode: number;  // Add status code field
 }
 
 class BusinessAvailabilityConnector {
@@ -18,7 +19,7 @@ class BusinessAvailabilityConnector {
     console.log(apiUrl);
 
     const combinedData = {
-      days: data
+      days: data,
     };
 
     console.log("Combined Data:", combinedData);
@@ -33,7 +34,7 @@ class BusinessAvailabilityConnector {
       const response = await fetch(apiUrl, createRequest);
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        throw new Error(`Failed to submit form, Status Code: ${response.status}`);
       }
 
       const responseData = await response.json();
@@ -42,16 +43,19 @@ class BusinessAvailabilityConnector {
       return {
         success: true,
         message: "Form submitted successfully!",
+        statusCode: response.status,  // Return the status code
       };
     } catch (error) {
       console.error("Submission error:", error);
       return {
         success: false,
         message: "Failed to submit the form. Please try again.",
+        statusCode: 500,  // General failure code
       };
     }
   }
 
+  // Submit time form
   async submitTimeForm(openingHours: OpeningHours, businessId: string): Promise<BusinessAvailabilityConnectorResult> {
     const pistachioUrl = AppConfig.basePistachioUrl();
     const apiUrl = `http://${pistachioUrl}/pistachio/business/businesses/availability/hours/update/${businessId}`;
@@ -78,7 +82,7 @@ class BusinessAvailabilityConnector {
       const response = await fetch(apiUrl, createRequest);
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        throw new Error(`Failed to submit form, Status Code: ${response.status}`);
       }
 
       const responseData = await response.json();
@@ -87,12 +91,14 @@ class BusinessAvailabilityConnector {
       return {
         success: true,
         message: "Form submitted successfully!",
+        statusCode: response.status,  // Return the status code
       };
     } catch (error) {
       console.error("Submission error:", error);
       return {
         success: false,
         message: "Failed to submit the form. Please try again.",
+        statusCode: 500,  // General failure code
       };
     }
   }
