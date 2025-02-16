@@ -4,12 +4,7 @@ describe("businessSpecificationsFormSchema", () => {
     it("should validate correct business specifications", () => {
         const validData = {
             businessName: "Tech Corp",
-            description: "A leading technology company specializing in AI.",
-            availability: {
-                days: ["Monday", "Tuesday", "Wednesday"],
-                startTime: "09:00",
-                endTime: "17:00",
-            },
+            description: "A leading technology company specializing in AI."
         };
 
         expect(() => businessSpecificationsFormSchema.parse(validData)).not.toThrow();
@@ -18,12 +13,7 @@ describe("businessSpecificationsFormSchema", () => {
     it("should throw an error for missing required fields", () => {
         const invalidData = {
             businessName: "",
-            description: "",
-            availability: {
-                days: [],
-                startTime: "",
-                endTime: "",
-            },
+            description: ""
         };
 
         expect(() => businessSpecificationsFormSchema.parse(invalidData)).toThrow();
@@ -32,12 +22,7 @@ describe("businessSpecificationsFormSchema", () => {
     it("should throw an error for invalid business name length", () => {
         const invalidData = {
             businessName: "AB",
-            description: "A leading technology company specializing in AI.",
-            availability: {
-                days: ["Monday", "Tuesday", "Wednesday"],
-                startTime: "09:00",
-                endTime: "17:00",
-            },
+            description: "A leading technology company specializing in AI."
         };
 
         expect(() => businessSpecificationsFormSchema.parse(invalidData)).toThrow(
@@ -45,47 +30,10 @@ describe("businessSpecificationsFormSchema", () => {
         );
     });
 
-    it("should throw an error for missing availability days", () => {
-        const invalidData = {
-            businessName: "Tech Corp",
-            description: "A leading technology company specializing in AI.",
-            availability: {
-                days: [],
-                startTime: "09:00",
-                endTime: "17:00",
-            },
-        };
-
-        expect(() => businessSpecificationsFormSchema.parse(invalidData)).toThrow(
-            "At least one availability day must be selected."
-        );
-    });
-
-    it("should throw an error for invalid availability time format", () => {
-        const invalidData = {
-            businessName: "Tech Corp",
-            description: "A leading technology company specializing in AI.",
-            availability: {
-                days: ["Monday", "Tuesday", "Wednesday"],
-                startTime: "invalid",
-                endTime: "invalid",
-            },
-        };
-
-        expect(() => businessSpecificationsFormSchema.parse(invalidData)).toThrow(
-            "Start time must be in HH:mm format."
-        );
-    });
-
     it("should throw an error if description is too short", () => {
         const invalidData = {
             businessName: "Tech Corp",
-            description: "Short",
-            availability: {
-                days: ["Monday", "Tuesday", "Wednesday"],
-                startTime: "09:00",
-                endTime: "17:00",
-            },
+            description: "Short"
         };
 
         expect(() => businessSpecificationsFormSchema.parse(invalidData)).toThrow(
@@ -96,12 +44,7 @@ describe("businessSpecificationsFormSchema", () => {
     it("should allow valid data with multiple availability days", () => {
         const validData = {
             businessName: "Tech Corp",
-            description: "A leading technology company specializing in AI.",
-            availability: {
-                days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                startTime: "09:00",
-                endTime: "17:00",
-            },
+            description: "A leading technology company specializing in AI."
         };
 
         expect(() => businessSpecificationsFormSchema.parse(validData)).not.toThrow();
