@@ -1,4 +1,4 @@
-import AppConfig from '@/config/AppConfig';
+import { AppConfig } from '@/config/AppConfig';
 import OfficeContactDetailsController from '@/connectors/office/OfficeContactDetailsConnector';
 import { UpdateOfficeContactDetails } from '@/types/office/UpdateOfficeContactDetails';
 

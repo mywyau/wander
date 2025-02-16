@@ -1,6 +1,9 @@
-import AppConfig from '@/config/AppConfig';
+
+import { AppConfig } from '@/config/AppConfig';
 import OfficeSpecificationsController from '@/connectors/office/OfficeSpecificationsConnector';
-import { UpdateOfficeContactDetails } from '@/types/office/UpdateOfficeContactDetails';
+import { UpdateOfficeSpecifications } from '@/types/office/UpdateOfficeSpecifications';
+import { WeekDay } from '@/types/WeekDay';
+import { DateTime } from 'luxon';
 
 global.fetch = jest.fn(); // Mock the global fetch function
 
@@ -10,7 +13,7 @@ describe("OfficeSpecificationsController", () => {
 
   const backendUrl = `http://mocked-pistachio-url/pistachio/business/offices/specifications/update/${fakeBusinessId}`
 
-  const mockData: UpdateOfficeContactDetails = {
+  const mockData: UpdateOfficeSpecifications = {
     officeName: "Downtown Office",
     description: "A modern office space with excellent facilities.",
     officeType: "Open Plan",
@@ -18,10 +21,10 @@ describe("OfficeSpecificationsController", () => {
     totalDesks: 50,
     capacity: 100,
     amenities: ["Wi-Fi", "Conference Room", "Cafeteria"],
-    availability: {
-      days: ["Monday", "Tuesday", "Wednesday"],
-      startTime: "09:00",
-      endTime: "17:00",
+    openingHours: {
+      day: WeekDay.Monday,
+      openingTime: DateTime.fromObject({ hour: 9, minute: 0 }).setZone('UTC'),
+      closingTime: DateTime.fromObject({ hour: 17, minute: 0 }).setZone('UTC')
     },
     rules: "No smoking indoors.",
   };

@@ -1,4 +1,4 @@
-import AppConfig from "@/config/AppConfig";
+import { AppConfig } from "@/config/AppConfig";
 import BusinessAddressDetailsConnector from "@/connectors/business/BusinessAddressDetailsConnector";
 import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 
@@ -11,7 +11,6 @@ describe("BusinessAddressDetailsConnector", () => {
 
   const mockData: UpdateBusinessAddressDetails = {
     buildingName: "Tech Tower",
-    businessName: "Tech Corp",
     street: "123 Main Street",
     city: "Metropolis",
     country: "Countryland",

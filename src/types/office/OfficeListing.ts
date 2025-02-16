@@ -1,3 +1,4 @@
+import { OpeningHours } from "../OpeningHours";
 import { OfficeAvailability } from "./OfficeAvailability",
 
 export interface OfficeListingCard {
@@ -48,6 +49,6 @@ export interface OfficeSpecifications {
   totalDesks: number,
   capacity: number,
   amenities: string[],
-  availability: OfficeAvailability,
+  openingHours?: OpeningHours;
   rules: string,
 }

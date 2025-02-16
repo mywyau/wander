@@ -12,6 +12,7 @@ import BusinessAddressDetailsConnector from "@/connectors/business/BusinessAddre
 import { BusinessAddressDetails } from "@/types/business/BusinessListing";
 import { UpdateBusinessAddressDetails } from "@/types/business/UpdateBusinessAddressDetails";
 import { Dispatch, SetStateAction } from "react";
+import { businessAddressDetailsFormSchema } from "./schemas/BusinessAddressFormSchema";
 
 interface BusinessAddressFormProps {
   businessId: string,
@@ -22,7 +23,7 @@ const BusinessAddressForm: React.FC<BusinessAddressFormProps> = ({ businessId, s
 
   const form = useForm<UpdateBusinessAddressDetails>(
     {
-      // resolver: zodResolver(businessAddressDetailsFormSchema),
+      resolver: zodResolver(businessAddressDetailsFormSchema),
       defaultValues:
       {
         buildingName: "",

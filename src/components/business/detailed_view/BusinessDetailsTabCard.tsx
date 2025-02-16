@@ -8,6 +8,7 @@ import { BusinessListing } from "@/types/business/BusinessListing";
 import AddressTabCardWithLoading from "./AddressTabCardWithLoading";
 import ContactTabCardWithLoading from './ContactTabCardWithLoading';
 import SpecificationsTabCardWithLoading from './SpecificationsTabCardWithLoading';
+import AvailabilityTabCardWithLoading from './AvailabilityTabCardWithLoading';
 
 interface BusinessDetailsTabCardProps {
     businessId: string;
@@ -49,10 +50,11 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({ busines
 
     return (
         <Tabs defaultValue="address" className="w-full max-w-7xl">
-            <TabsList variant="purple" className="grid w-full grid-cols-3 h-18 shadow-light">
+            <TabsList variant="purple" className="grid w-full grid-cols-4 h-18 shadow-light">
                 <TabsTrigger value="address" className="text-lg font-semibold data-[state=active]:bg-softPurple">Address</TabsTrigger>
                 <TabsTrigger value="contact-details" className="text-lg font-semibold data-[state=active]:bg-softPurple">Contact Details</TabsTrigger>
                 <TabsTrigger value="specifications" className="text-lg font-semibold data-[state=active]:bg-softPurple">Specifications</TabsTrigger>
+                <TabsTrigger value="availability" className="text-lg font-semibold data-[state=active]:bg-softPurple">Availability</TabsTrigger>
             </TabsList>
 
             <TabsContent value="address" className="pt-4">
@@ -73,6 +75,14 @@ const BusinessDetailsTabCard: React.FC<BusinessDetailsTabCardProps> = ({ busines
 
             <TabsContent value="specifications" className="pt-4">
                 <SpecificationsTabCardWithLoading
+                    businessId={businessId}
+                    businessDetails={businessDetails}
+                    loading={loading}
+                />
+            </TabsContent>
+
+            <TabsContent value="availability" className="pt-4">
+                <AvailabilityTabCardWithLoading
                     businessId={businessId}
                     businessDetails={businessDetails}
                     loading={loading}
